@@ -1,14 +1,17 @@
-import {E_ArticleType, T_Article, T_Org} from '../data/ArticleTypes.ts';
+import {T_Article, T_Org} from '../../../zap-types/ArticleTypes.ts';
 
 const EXAMPLE_ARTICLE1: T_Article = {
-	Guid: 0,
-	Headline: 'This is a headline',
-	Type: E_ArticleType.Oath,
+	guid: 0,
+	headline: 'This is a headline test',
+	createdAt: new Date(2023, 4, 5, 5, 55, 55),
+	
+	orgIdf: 'test_org',
+	themeTags: ['themeTag1', 'themeTag2'],
 };
 
 const EXAMPLE_ORG1: T_Org = {
-	Idf: 'test_org',
-	ProperName: 'Test Org',
+	idf: 'test_org',
+	properName: 'Test Org',
 };
 
 export function ScreenPage() {
@@ -40,7 +43,7 @@ function HeadlineExample(props: P_HeadlineExample) {
 			}}
 		>
 			<h2 className={'headline-name'}>
-				{Article.Headline}
+				{Article.headline}
 			</h2>
 		
 		</div>
