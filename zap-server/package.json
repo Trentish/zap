@@ -1,26 +1,26 @@
 {
   "name": "zap-server",
   "version": "0.0.1",
+  "type": "module",
   "description": "",
   "main": "server.js",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "dev": "npm run build && npm run start",
-    "start": "node server.js"
+    "dev": "ts-node ./server.ts",
+    "note" : "for now just use: npm run dev",
+    "6666build": "tsc --build tsconfig.json",
+    "6666start": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "TODO",
   "dependencies": {
-    "@fastify/postgres": "^5.2.0",
-    "@fastify/websocket": "^8.1.0",
-    "fastify": "^4.19.2",
-    "pg": "^8.11.1"
+    "pg": "^8.11.1",
+    "ts-node": "^10.9.1",
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.30.0"
   },
   "devDependencies": {
     "@tsconfig/node16": "^16.1.0",
     "@types/node": "^20.3.2",
-    "@types/ws": "^8.5.5",
     "typescript": "^5.1.6"
   }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import {RouteObject} from 'react-router/dist/lib/context';
 import {AdminPage} from './admin/AdminPage.tsx';
 import {PlayerPage} from './player/PlayerPage.tsx';
-import {ScreenPage} from './screen/ScreenPage.tsx';
+import {ProjectorPage} from './projector/ProjectorPage.tsx';
 
 export const routes: RouteObject[] = [
 	{
@@ -18,8 +18,8 @@ export const routes: RouteObject[] = [
 		element: <PlayerPage/>,
 	},
 	{
-		path: '/screen',
-		element: <ScreenPage/>,
+		path: '/projector',
+		element: <ProjectorPage/>,
 	},
 ];
 

@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ES2020",
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "rootDir": ".",
+    //    "outDir": "./sharedLib/",
+    "composite": true,
+
+
+    "allowImportingTsExtensions": true
+  }
+}

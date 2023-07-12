@@ -6,11 +6,11 @@
 	OnReceive: (packet: object) => void;
 }
 
-const PING = 'PING';
+const PING_MSG = 'PING'; // shouldn't need to handle incoming
 const PONG_MSG = 'PONG';
 
-export class JsonSocket {
-	ws: WebSocket;
+export class JsonSocketClient {
+	webSocket: WebSocket;
 	address: string;
 	callbacks: I_JsonSocketCallbacks;
 	pingIntervalMs: number;
@@ -35,11 +35,16 @@ export class JsonSocket {
 	};
 	
 	_Receive = (messageEvent: MessageEvent) => {
+		// if (messageEvent.data === PING_MSG) {
+		// 	// TODO: delete this
+		// 	this.webSocket.send(PONG_MSG);
+		// 	return;
+		// }
 		if (messageEvent.data === PONG_MSG) return; //>> received pong
 		
 		console.debug(`🔌socket: receive`, messageEvent.data);
-		const packet = JSON.parse(messageEvent.data);
-		this.callbacks.OnReceive(packet);
+		const msg = JSON.parse(messageEvent.data);
+		this.callbacks.OnReceive(msg);
 	};
 	
 	
@@ -53,17 +58,17 @@ export class JsonSocket {
 	) => {
 		console.debug(`Socket.Connect`, address);
 		
-		if (this.ws) throw new Error(`TODO: clean up last instance of WebSocket`); // TODO
+		if (this.webSocket) throw new Error(`TODO: clean up last instance of WebSocket`); // TODO
 		
 		if (!this.callbacks) throw new Error(`SetCallbacks first!`);
 		
 		this.address = address;
-		this.ws = new WebSocket(address);
+		this.webSocket = new WebSocket(address);
 		
-		this.ws.onopen = this._Open;
-		this.ws.onclose = this._Close;
-		this.ws.onerror = this._Error;
-		this.ws.onmessage = this._Receive;
+		this.webSocket.onopen = this._Open;
+		this.webSocket.onclose = this._Close;
+		this.webSocket.onerror = this._Error;
+		this.webSocket.onmessage = this._Receive;
 		
 		clearInterval(this.pingIntervalId);
 		this.pingIntervalMs = pingIntervalMs;
@@ -73,16 +78,16 @@ export class JsonSocket {
 	Send = (dataObj: object) => {
 		console.debug(`Socket.Send`, dataObj);
 		const json = JSON.stringify(dataObj);
-		this.ws.send(json);
+		this.webSocket.send(json);
 	};
 	
 	Ping = () => {
-		this.ws.send(PING);
+		this.webSocket.send(PING_MSG);
 	};
 	
 	Close = (code: number, reason: string) => {
 		console.debug(`Socket.Close`, code, reason);
 		clearInterval(this.pingIntervalId);
-		this.ws.close(code, reason);
+		this.webSocket.close(code, reason);
 	};
 }

@@ -1,17 +1,17 @@
-export type T_Article = {
+export type ArticleDat = {
 	guid: number,
-	createdAt: Date,
+	created_at: Date,
 	headline: string,
 	
-	orgIdf: string,
-	themeTags: string[],
+	org_idf: string,
+	theme_tags: string[],
 	// tickerVisible: boolean, // maybe?
 	// sound, etc.?
 }
 
-export type T_Org = {
+export type OrgDat = {
 	idf: string,
-	properName: string,
+	proper_name: string,
 	// logo, etc.?
 }
 

@@ -1,20 +1,20 @@
-import {T_Article, T_Org} from '../../../zap-types/ArticleTypes.ts';
+import {ArticleDat, OrgDat} from '../../../zap-shared/ArticleTypes.ts';
 
-const EXAMPLE_ARTICLE1: T_Article = {
+const EXAMPLE_ARTICLE1: ArticleDat = {
 	guid: 0,
 	headline: 'This is a headline test',
-	createdAt: new Date(2023, 4, 5, 5, 55, 55),
+	created_at: new Date(2023, 4, 5, 5, 55, 55),
 	
-	orgIdf: 'test_org',
-	themeTags: ['themeTag1', 'themeTag2'],
+	org_idf: 'test_org',
+	theme_tags: ['themeTag1', 'themeTag2'],
 };
 
-const EXAMPLE_ORG1: T_Org = {
+const EXAMPLE_ORG1: OrgDat = {
 	idf: 'test_org',
-	properName: 'Test Org',
+	proper_name: 'Test Org',
 };
 
-export function ScreenPage() {
+export function ProjectorPage() {
 	return (
 		<div>
 			<HeadlineExample
@@ -26,8 +26,8 @@ export function ScreenPage() {
 }
 
 type P_HeadlineExample = {
-	Article: T_Article,
-	Org: T_Org,
+	Article: ArticleDat,
+	Org: OrgDat,
 };
 
 function HeadlineExample(props: P_HeadlineExample) {
@@ -45,6 +45,7 @@ function HeadlineExample(props: P_HeadlineExample) {
 			<h2 className={'headline-name'}>
 				{Article.headline}
 			</h2>
+			<h3>{Article.created_at.toTimeString()}</h3>
 		
 		</div>
 	);
