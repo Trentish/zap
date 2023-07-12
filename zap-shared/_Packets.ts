@@ -1,20 +1,20 @@
 import {BasePacketDefs, E_Endpoint, I_PkSource, T_GameIdf} from './SystemTypes.ts';
-import {ArticleDat} from './ArticleTypes.ts';
+import {ArticleDat} from './_Dats.ts';
 
 export class ZapPacketDefs<TSrc extends I_PkSource> extends BasePacketDefs<TSrc> {
 	
-	Pk_Log = this.SERVER_to_CLIENT<string>();
+	Log = this.SERVER_to_CLIENT<string>();
 	
-	Pk_DemandRegister = this.SERVER_to_CLIENT<{
+	DemandRegister = this.SERVER_to_CLIENT<{
 		Games: T_GameIdf[],
 	}>();
 	
-	Pk_Register = this.CLIENT_to_SERVER<{
-		GameIdf: T_GameIdf;
+	Register = this.CLIENT_to_SERVER<{
 		Endpoint: E_Endpoint;
+		GameIdf: T_GameIdf;
 	}>();
 	
-	Pk_ArticleTest = this.SERVER_to_PROJECTOR<ArticleDat>();
+	ArticleTest = this.SERVER_to_PROJECTOR<ArticleDat>();
 	
 	
 	constructor() {

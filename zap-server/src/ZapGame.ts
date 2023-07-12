@@ -12,4 +12,6 @@ export class ZapGame {
 	admins = new Map<T_ClientId, ClientConn>();
 	players = new Map<T_ClientId, ClientConn>();
 	projectors = new Map<T_ClientId, ClientConn>();
+	
+	public toString(): string {return `game(${this.idf}, clients: ${this.allClients.size})`;}
 }

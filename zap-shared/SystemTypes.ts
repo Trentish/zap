@@ -1,12 +1,13 @@
 export type T_SocketMsg = {
 	id: T_MsgId,
-	packet: T_Packet,
+	ep: E_Endpoint,
+	pk: T_Packet,
 }
 
 export type T_MsgId = number;
 export type T_Packet = object | string;
 
-/** will be string if error, otherwise undefined */
+/** will be string if error, otherwise undefined/void */
 export type T_MaybeError = string | undefined | void;
 
 export type T_ClientId = number;
@@ -21,8 +22,28 @@ export enum E_Endpoint {
 	projector,
 }
 
+export function GetEndpoint(str: string): E_Endpoint {
+	switch (str ? str.toLowerCase() : '') {
+		default:
+		case 'unknown':
+			return E_Endpoint.unknown;
+		case 'server':
+			return E_Endpoint.server;
+		case 'client':
+			return E_Endpoint.client;
+		case 'admin':
+			return E_Endpoint.admin;
+		case 'player':
+			return E_Endpoint.player;
+		case 'projector':
+			return E_Endpoint.projector;
+	}
+}
+
 // TODO: maybe rename to Conn or something?
-export interface I_PkSource {}
+export interface I_PkSource {
+	endpoint: E_Endpoint;
+}
 
 
 export class BasePkHandler<TSrc extends I_PkSource> {
@@ -30,145 +51,154 @@ export class BasePkHandler<TSrc extends I_PkSource> {
 	name: string;
 	from: E_Endpoint;
 	to: E_Endpoint;
+	useClientCatchall: boolean;
 	
-	Handle(
+	_Receive(
 		msg: T_SocketMsg,
-		from: E_Endpoint,
-		to: E_Endpoint,
 		src: TSrc,
 	): T_MaybeError {}
 	
-	Send: (packet: T_Packet, address: string) => void;
+	_Publish: (address: string, packet: T_Packet) => void;
 	
-	public toString(): string {return `${this.name}(#${this.id}, ${this.from} --> ${this.to}`;}
+	public toString(): string {return `${this.name}(#${this.id}, ${this.from} --> ${this.to})`;}
 }
 
-export class PkHandler<TPk extends T_Packet, TSrc extends I_PkSource> extends BasePkHandler<TSrc> {
+export class ServerPkOutgoing<TPk extends T_Packet, TSrc extends I_PkSource> extends BasePkHandler<TSrc> {
+	Send = (address: string, pk: TPk) => this._Publish(address, pk);
+	
+	// this will be on the CLIENT
+	_Receive(
+		msg: T_SocketMsg,
+		src: TSrc,
+	): T_MaybeError {
+		const isUnexpected = !this.useClientCatchall && msg.ep !== this.to;
+		if (isUnexpected) return `unexpected endpoint (to) ${msg.ep}, ${this}`;
+		this.From_SERVER(msg.pk as TPk);
+	}
+	
 	protected From_SERVER: (pk: TPk) => void;
+}
+
+export class ClientPkOutgoing<TPk extends T_Packet, TSrc extends I_PkSource> extends BasePkHandler<TSrc> {
+	Send = (pk: TPk) => this._Publish('', pk);
+	
+	// this will be on the SERVER
+	_Receive(
+		msg: T_SocketMsg,
+		src: TSrc,
+	): T_MaybeError {
+		if (this.useClientCatchall) {
+			this.From_CLIENT(msg.pk as TPk, src);
+			return; //>> client catch all
+		}
+		
+		const from = src.endpoint;
+		if (from !== this.from) return `unexpected endpoint (from) ${from}, ${this}`;
+		
+		switch (from) {
+			case E_Endpoint.client:
+				this.From_CLIENT(msg.pk as TPk, src);
+				return;
+			case E_Endpoint.admin:
+				this.From_ADMIN(msg.pk as TPk, src);
+				return;
+			case E_Endpoint.player:
+				this.From_PLAYER(msg.pk as TPk, src);
+				return;
+			case E_Endpoint.projector:
+				this.From_PROJECTOR(msg.pk as TPk, src);
+				return;
+			
+		}
+		
+		return `${this} missing From_${E_Endpoint[from].toUpperCase()} handler`;
+	}
+	
 	protected From_CLIENT: (pk: TPk, src: TSrc) => void;
 	protected From_ADMIN: (pk: TPk, src: TSrc) => void;
 	protected From_PLAYER: (pk: TPk, src: TSrc) => void;
 	protected From_PROJECTOR: (pk: TPk, src: TSrc) => void;
-	
-	Handle(
-		msg: T_SocketMsg,
-		from: E_Endpoint,
-		to: E_Endpoint,
-		src: TSrc,
-	): T_MaybeError {
-		// if (from !== this.from) return `TODO: ${this}, from ${from} expected ${this.from}, ${msg}`;
-		// if (to !== this.to) return `TODO: ${this}, to ${to} expected ${this.to}, ${msg}`;
-		
-		
-		switch (from) {
-			case E_Endpoint.unknown:
-				return `bad message (from unknown) ${msg}`;
-			case E_Endpoint.server:
-				return this.From_SERVER
-					? this.From_SERVER(msg.packet as TPk)
-					: `${this} missing From_SERVER handler`;
-			case E_Endpoint.client:
-				return this.From_CLIENT
-					? this.From_CLIENT(msg.packet as TPk, src)
-					: `${this} missing From_CLIENT handler`;
-			case E_Endpoint.admin:
-				return this.From_ADMIN
-					? this.From_ADMIN(msg.packet as TPk, src)
-					: `${this} missing From_ADMIN handler`;
-			case E_Endpoint.player:
-				return this.From_PLAYER
-					? this.From_PLAYER(msg.packet as TPk, src)
-					: `${this} missing From_PLAYER handler`;
-			case E_Endpoint.projector:
-				return this.From_PROJECTOR
-					? this.From_PROJECTOR(msg.packet as TPk, src)
-					: `${this} missing From_PROJECTOR handler`;
-		}
-	}
-	
 }
 
-export class ServerPkOutgoing<TPk extends T_Packet, TSrc extends I_PkSource> extends PkHandler<TPk, TSrc> {
-	
-	To_Client: (src: TSrc, pk: TPk) => void;
-}
-
-export class SERVER_to_CLIENT<TPk extends T_Packet, TSrc extends I_PkSource> extends PkHandler<TPk, TSrc> {
-	From = E_Endpoint.server;
-	To = E_Endpoint.client;
-	From_SERVER: (pk: TPk) => void;
-	To_Client: (toPublishTopic: string, pk: TPk) => void;
-}
-
-export class SERVER_to_ADMIN<TPk extends T_Packet, TSrc extends I_PkSource> extends PkHandler<TPk, TSrc> {
-	From = E_Endpoint.server;
-	To = E_Endpoint.admin;
+/** to any type of client */
+export class SERVER_to_CLIENT<TPk extends T_Packet, TSrc extends I_PkSource> extends ServerPkOutgoing<TPk, TSrc> {
+	from = E_Endpoint.server;
+	to = E_Endpoint.client;
+	useClientCatchall = true;
 	From_SERVER: (pk: TPk) => void;
 }
 
-export class SERVER_to_PLAYER<TPk extends T_Packet, TSrc extends I_PkSource> extends PkHandler<TPk, TSrc> {
-	From = E_Endpoint.server;
-	To = E_Endpoint.player;
+export class SERVER_to_ADMIN<TPk extends T_Packet, TSrc extends I_PkSource> extends ServerPkOutgoing<TPk, TSrc> {
+	from = E_Endpoint.server;
+	to = E_Endpoint.admin;
 	From_SERVER: (pk: TPk) => void;
 }
 
-export class SERVER_to_PROJECTOR<TPk extends T_Packet, TSrc extends I_PkSource> extends PkHandler<TPk, TSrc> {
-	From = E_Endpoint.server;
-	To = E_Endpoint.projector;
+export class SERVER_to_PLAYER<TPk extends T_Packet, TSrc extends I_PkSource> extends ServerPkOutgoing<TPk, TSrc> {
+	from = E_Endpoint.server;
+	to = E_Endpoint.player;
 	From_SERVER: (pk: TPk) => void;
 }
 
-export class CLIENT_to_SERVER<TPk extends T_Packet, TSrc extends I_PkSource> extends PkHandler<TPk, TSrc> {
-	From = E_Endpoint.client;
-	To = E_Endpoint.server;
+export class SERVER_to_PROJECTOR<TPk extends T_Packet, TSrc extends I_PkSource> extends ServerPkOutgoing<TPk, TSrc> {
+	from = E_Endpoint.server;
+	to = E_Endpoint.projector;
+	From_SERVER: (pk: TPk) => void;
+}
+
+/** from any type of client */
+export class CLIENT_to_SERVER<TPk extends T_Packet, TSrc extends I_PkSource> extends ClientPkOutgoing<TPk, TSrc> {
+	from = E_Endpoint.client;
+	to = E_Endpoint.server;
+	useClientCatchall = true;
 	From_CLIENT: (pk: TPk, src: TSrc) => void;
 }
 
-export class ADMIN_to_SERVER<TPk extends T_Packet, TSrc extends I_PkSource> extends PkHandler<TPk, TSrc> {
-	From = E_Endpoint.admin;
-	To = E_Endpoint.server;
+export class ADMIN_to_SERVER<TPk extends T_Packet, TSrc extends I_PkSource> extends ClientPkOutgoing<TPk, TSrc> {
+	from = E_Endpoint.admin;
+	to = E_Endpoint.server;
 	From_ADMIN: (pk: TPk, src: TSrc) => void;
 }
 
-export class PLAYER_to_SERVER<TPk extends T_Packet, TSrc extends I_PkSource> extends PkHandler<TPk, TSrc> {
-	From = E_Endpoint.player;
-	To = E_Endpoint.server;
+export class PLAYER_to_SERVER<TPk extends T_Packet, TSrc extends I_PkSource> extends ClientPkOutgoing<TPk, TSrc> {
+	from = E_Endpoint.player;
+	to = E_Endpoint.server;
 	From_PLAYER: (pk: TPk, src: TSrc) => void;
 }
 
-export class PROJECTOR_to_SERVER<TPk extends T_Packet, TSrc extends I_PkSource> extends PkHandler<TPk, TSrc> {
-	From = E_Endpoint.projector;
-	To = E_Endpoint.server;
+export class PROJECTOR_to_SERVER<TPk extends T_Packet, TSrc extends I_PkSource> extends ClientPkOutgoing<TPk, TSrc> {
+	from = E_Endpoint.projector;
+	to = E_Endpoint.server;
 	From_PROJECTOR: (pk: TPk, src: TSrc) => void;
 }
 
 export class BasePacketDefs<TSrc extends I_PkSource> {
 	protected StartingPacketId: number = 1;
-	AllPkHandlers: BasePkHandler<TSrc>[] = [];
+	_ALL_PACKET_HANDLERS: BasePkHandler<TSrc>[] = [];
 	
-	AssignPacketIds() {
+	protected AssignPacketIds() {
 		let packetId = this.StartingPacketId;
 		
 		for (let [key, handler] of Object.entries(this)) {
 			if (handler instanceof BasePkHandler) {
 				handler.id = packetId;
 				handler.name = key;
-				this.AllPkHandlers.push(handler);
+				this._ALL_PACKET_HANDLERS.push(handler);
 				console.log(`++packet ${handler.id} ${handler.name}`);
 				packetId++;
 			}
 		}
 		
 		
-		console.log(`${this.constructor.name} found ${this.AllPkHandlers.length} packets`);
+		console.log(`${this.constructor.name} found ${this._ALL_PACKET_HANDLERS.length} packets`);
 	}
 	
-	SERVER_to_CLIENT = <TPk extends T_Packet>() => new SERVER_to_CLIENT<TPk, TSrc>();
-	SERVER_to_ADMIN = <TPk extends T_Packet>() => new SERVER_to_ADMIN<TPk, TSrc>();
-	SERVER_to_PLAYER = <TPk extends T_Packet>() => new SERVER_to_PLAYER<TPk, TSrc>();
-	SERVER_to_PROJECTOR = <TPk extends T_Packet>() => new SERVER_to_PROJECTOR<TPk, TSrc>();
-	CLIENT_to_SERVER = <TPk extends T_Packet>() => new CLIENT_to_SERVER<TPk, TSrc>();
-	ADMIN_to_SERVER = <TPk extends T_Packet>() => new ADMIN_to_SERVER<TPk, TSrc>();
-	PLAYER_to_SERVER = <TPk extends T_Packet>() => new PLAYER_to_SERVER<TPk, TSrc>();
-	PROJECTOR_to_SERVER = <TPk extends T_Packet>() => new PROJECTOR_to_SERVER<TPk, TSrc>();
+	protected SERVER_to_CLIENT = <TPk extends T_Packet>() => new SERVER_to_CLIENT<TPk, TSrc>();
+	protected SERVER_to_ADMIN = <TPk extends T_Packet>() => new SERVER_to_ADMIN<TPk, TSrc>();
+	protected SERVER_to_PLAYER = <TPk extends T_Packet>() => new SERVER_to_PLAYER<TPk, TSrc>();
+	protected SERVER_to_PROJECTOR = <TPk extends T_Packet>() => new SERVER_to_PROJECTOR<TPk, TSrc>();
+	protected CLIENT_to_SERVER = <TPk extends T_Packet>() => new CLIENT_to_SERVER<TPk, TSrc>();
+	protected ADMIN_to_SERVER = <TPk extends T_Packet>() => new ADMIN_to_SERVER<TPk, TSrc>();
+	protected PLAYER_to_SERVER = <TPk extends T_Packet>() => new PLAYER_to_SERVER<TPk, TSrc>();
+	protected PROJECTOR_to_SERVER = <TPk extends T_Packet>() => new PROJECTOR_to_SERVER<TPk, TSrc>();
 }

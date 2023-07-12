@@ -1,13 +1,13 @@
- export interface I_JsonSocketCallbacks {
+export interface I_JsonSocketCallbacks {
 	OnOpen: () => void;
 	OnError: (errorEvent: Event) => void;
 	OnClose: (code: number, reason: string) => void;
 	/** receives JSON, parses to object */
-	OnReceive: (packet: object) => void;
+	OnReceive: (msg: object) => void;
 }
 
-const PING_MSG = 'PING'; // shouldn't need to handle incoming
-const PONG_MSG = 'PONG';
+const PING_MSG = 'PING'; // shouldn't need, WebSocket already handles
+const PONG_MSG = 'PONG'; // for detecting disconnections
 
 export class JsonSocketClient {
 	webSocket: WebSocket;
@@ -35,11 +35,6 @@ export class JsonSocketClient {
 	};
 	
 	_Receive = (messageEvent: MessageEvent) => {
-		// if (messageEvent.data === PING_MSG) {
-		// 	// TODO: delete this
-		// 	this.webSocket.send(PONG_MSG);
-		// 	return;
-		// }
 		if (messageEvent.data === PONG_MSG) return; //>> received pong
 		
 		console.debug(`🔌socket: receive`, messageEvent.data);

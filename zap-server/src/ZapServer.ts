@@ -4,11 +4,14 @@ import {
 	E_Endpoint,
 	I_PkSource,
 	T_ClientId,
-	T_MsgId, T_Packet, T_SocketMsg,
+	T_GameIdf,
+	T_MsgId,
+	T_Packet,
+	T_SocketMsg,
 } from '../../zap-shared/SystemTypes.js';
 import {ZapGame} from './ZapGame.js';
-import {ZapPacketDefs} from '../../zap-shared/Packets.js';
 import {InitializePackets_SERVER} from './ServerPkHandlers.js';
+import {ZapPacketDefs} from '../../zap-shared/_Packets.js';
 
 const PING_MSG = 'PING';
 const PONG_MSG = 'PONG';
@@ -18,10 +21,10 @@ export class ClientConn implements I_PkSource {
 	id: T_ClientId;
 	socket: WebSocket<ClientConn>;
 	endpoint: E_Endpoint;
-	game: ZapGame;
+	game: ZapGame | null;
 	toSocket: string; // `client/id`
 	
-	public toString(): string {return `${this.endpoint} ${this.id} ${this.game}`;}
+	label: string; // debug only
 }
 
 export class ZapServer {
@@ -32,7 +35,10 @@ export class ZapServer {
 	clientIdInc: T_ClientId = 0;
 	clients = new Map<T_ClientId, ClientConn>();
 	
+	games = new Map<T_GameIdf, ZapGame>();
+	
 	constructor(wsHost: string, wsPort: number) {
+		//## init uWebSockets.js
 		this.wsApp = uWS
 			.App({})
 			.ws<ClientConn>('/*', {
@@ -73,11 +79,13 @@ export class ZapServer {
 			)
 		;
 		
+		//## init PACKETS
 		InitializePackets_SERVER(this.packets, this);
-		for (const pkHandler of this.packets.AllPkHandlers) {
+		for (const pkHandler of this.packets._ALL_PACKET_HANDLERS) {
 			this.packetMap.set(pkHandler.id, pkHandler);
 			
-			pkHandler.Send = (packet, address) => this.PublishPacket(packet, address, pkHandler);
+			pkHandler._Publish =
+				(address, packet) => this.PublishPacket(address, packet, pkHandler);
 		}
 	}
 	
@@ -87,18 +95,23 @@ export class ZapServer {
 		client.socket = socket;
 		client.endpoint = E_Endpoint.client;
 		client.toSocket = `client/${client.id}`;
+		UpdateLabel(client);
+		
 		socket.subscribe(client.toSocket);
 		this.clients.set(client.id, client);
-		console.log(`++conn ${client} connected`);
+		console.log(`++conn ${client.label} connected`);
 		
-		this.packets.Pk_Log.Send(`hello ${client}`, client.toSocket);
+		this.packets.Log.Send(client.toSocket, `hello ${client.label}`);
+		this.packets.DemandRegister.Send(client.toSocket, {
+			Games: [...this.games.keys()],
+		});
 	};
 	
 	OnConnectionClosed = (socket: WebSocket<ClientConn>, code: number, msgBuffer: ArrayBuffer) => {
 		const client = socket.getUserData();
 		client.isOpen = false;
 		this.clients.delete(client.id);
-		console.log(`--conn ${client} DISCONNECTED: ${code}`);
+		console.log(`--conn ${client.label} DISCONNECTED: ${code}`);
 	};
 	
 	OnTooMuchPressure = (socket: WebSocket<ClientConn>) => {
@@ -116,75 +129,102 @@ export class ZapServer {
 		const raw = Buffer.from(msgBuffer).toString();
 		
 		if (raw === PING_MSG) {
-			// TODO
-			return;
+			socket.send(PONG_MSG);
+			return; //>> send pong
 		}
-		
 		
 		console.log(`received json: ${raw}`);
 		const socketMsg = JSON.parse(raw) as T_SocketMsg;
 		
-		
 		const pkHandler = this.packetMap.get(socketMsg.id);
 		if (!pkHandler) {
 			console.error(`missing pk handler: ${socketMsg.id}`, raw);
-			return;
+			return; //>> missing pk handler
 		}
 		
-		const maybeError = pkHandler.Handle(
+		const maybeError = pkHandler._Receive(
 			socketMsg,
-			E_Endpoint.server, // TODO: useless
-			pkHandler.to, // TODO: useless
 			client,
 		);
 		
 		if (maybeError) throw new Error(maybeError);
 	};
 	
-	PublishPacket(packet: T_Packet, address: string, pkHandler: BasePkHandler<ClientConn>) {
+	PublishPacket(address: string, packet: T_Packet, pkHandler: BasePkHandler<ClientConn>) {
 		const json = JSON.stringify({
 			id: pkHandler.id,
-			packet: packet,
+			ep: pkHandler.to,
+			pk: packet,
 		});
-		console.log(`publish to ${address}, ${json}`, packet);
+		console.log(`publish to ${address}, ${json}`);
 		this.wsApp.publish(address, json);
 	}
 	
-	// OnNewConnection = (ws: WebSocket) => {
-	//
-	//
-	// 	ws.onopen = this.OnNewConnection;
-	// 	ws.onclose = this.OnConnectionClosed;
-	// 	ws.onerror = this.OnError;
-	// 	// ws.onmessage = this.OnMessageReceived;
-	//
-	// };
-	//
-	// Asdf = (openEvent: Event) => {
-	// 	console.debug(`🔌ws: new connection`, openEvent);
-	//
-	// 	const client = new ClientConnection();
-	// 	client.id = ++this.clientIdInc;
-	// 	client.socket = openEvent.target;
-	// 	client.clientType = E_ClientType.unregistered;
-	// };
-	//
-	// OnConnectionClosed = (closeEvent: CloseEvent) => {
-	// 	console.debug(`🔌ws: connection closed 💥💥💥💥💥💥💥💥💥💥`, closeEvent);
-	// };
-	//
-	// OnError = (errorEvent: Event) => {
-	// 	console.error(`🔌ws: error`, errorEvent);
-	// };
-	//
-	// OnMessageReceived = (messageEvent: MessageEvent) => {
-	// 	if (messageEvent.data === PING_MSG) {
-	// 		this.ws.send(PONG_MSG);
-	// 		return;
-	// 	}
-	//
-	// 	messageEvent.console.debug(`🔌ws: receive`, messageEvent.data);
-	// 	const packet = JSON.parse(messageEvent.data);
-	// 	this.callbacks.OnReceive(packet);
-	// };
+	
+	SetClientEndpoint(client: ClientConn, endpoint: E_Endpoint) {
+		console.log(`client(#${client.id}) endpoint change: ${E_Endpoint[client.endpoint]} -> ${E_Endpoint[endpoint]}`);
+		client.endpoint = endpoint;
+		UpdateLabel(client);
+	}
+	
+	MakeGame(idf: T_GameIdf) {
+		const game = new ZapGame();
+		game.idf = idf;
+		game.toAllClients = `${idf}/all`;
+		game.toAdmins = `${idf}/admins`;
+		game.toPlayers = `${idf}/players`;
+		game.toProjectors = `${idf}/projectors`;
+		this.games.set(idf, game);
+		console.log(`++game: ${game}`);
+		return game;
+	}
+	
+	AddClientToGame(game: ZapGame, client: ClientConn) {
+		this.RemoveClientFromGame(client);
+		
+		client.game = game;
+		UpdateLabel(client);
+		
+		game.allClients.set(client.id, client);
+		client.socket.subscribe(game.toAllClients);
+		
+		if (client.endpoint === E_Endpoint.admin) {
+			game.admins.set(client.id, client);
+			client.socket.subscribe(game.toAdmins);
+		}
+		else if (client.endpoint === E_Endpoint.player) {
+			game.players.set(client.id, client);
+			client.socket.subscribe(game.toPlayers);
+		}
+		else if (client.endpoint === E_Endpoint.projector) {
+			game.projectors.set(client.id, client);
+			client.socket.subscribe(game.toProjectors);
+		}
+		
+		console.log(`${game} added: ${client.label}`);
+	}
+	
+	RemoveClientFromGame(client: ClientConn) {
+		const game = client.game;
+		if (!game) return; //>> no game
+		
+		client.game = null;
+		UpdateLabel(client);
+		
+		game.allClients.delete(client.id);
+		game.admins.delete(client.id);
+		game.players.delete(client.id);
+		game.projectors.delete(client.id);
+		
+		client.socket.unsubscribe(game.toAllClients);
+		client.socket.unsubscribe(game.toAdmins);
+		client.socket.unsubscribe(game.toPlayers);
+		client.socket.unsubscribe(game.toProjectors);
+		
+		console.log(`${game} removed: ${client.label}`);
+	}
 }
+
+
+const UpdateLabel = (client: ClientConn) => client.label =
+	`client(${E_Endpoint[client.endpoint]} #${client.id}, ${client.game ? client.game.idf : '_'})`;

@@ -1,4 +1,4 @@
-import {ArticleDat, OrgDat} from '../../../zap-shared/ArticleTypes.ts';
+import {ArticleDat, OrgDat} from '../../../zap-shared/_Dats.ts';
 
 const EXAMPLE_ARTICLE1: ArticleDat = {
 	guid: 0,

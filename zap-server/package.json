@@ -5,8 +5,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "ts-node ./server.ts",
-    "note" : "for now just use: npm run dev",
+    "dev": "nodemon ./server.ts",
+    "dev66": "ts-node ./server.ts",
+    "note": "for now just use: npm run dev",
     "6666build": "tsc --build tsconfig.json",
     "6666start": "node server.js"
   },
@@ -21,6 +22,7 @@
   "devDependencies": {
     "@tsconfig/node16": "^16.1.0",
     "@types/node": "^20.3.2",
+    "nodemon": "^3.0.1",
     "typescript": "^5.1.6"
   }
 }
