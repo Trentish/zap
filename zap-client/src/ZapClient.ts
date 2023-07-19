@@ -1,9 +1,13 @@
 import {atom, getDefaultStore} from 'jotai';
 import {
 	BasePkHandler,
-	E_Endpoint, GetEndpoint,
-	I_PkSource, T_GameIdf,
-	T_MsgId, T_Packet,
+	E_ConnStatus,
+	E_Endpoint,
+	GetEndpoint,
+	I_PkSource,
+	T_GameIdf,
+	T_MsgId,
+	T_Packet,
 	T_SocketMsg,
 } from '../../zap-shared/SystemTypes.ts';
 import {ZapPacketDefs} from '../../zap-shared/_Packets.ts';
@@ -13,14 +17,17 @@ import {atomWithLocation} from 'jotai-location';
 import {GameDat} from '../../zap-shared/_Dats.ts';
 
 
-const WS_SERVER = 'ws://localhost:3007';
+const WS_SERVER = 'ws://localhost:3007'; // TODO: config
+const RECONNECT_INTERVAL_MS = 5000;
 
 export const store = getDefaultStore();
+export const connStatusAtom = atom(E_ConnStatus.unset);
+export const connErrorAtom = atom('');
 export const locationAtom = atomWithLocation();
 export const endpointAtom = atom(E_Endpoint.unknown);
 export const gameIdfAtom = atom<T_GameIdf>('');
-export const allGameIdfsAtom = atom<string[]>([])
-export const timerMsAtom = atom(30 * 60 * 1000)
+export const allGameIdfsAtom = atom<string[]>([]);
+export const timerMsAtom = atom(0);
 export const gameDatAtom = atom(new GameDat());
 
 export class ConnToServer implements I_PkSource {
@@ -42,6 +49,8 @@ export class ZapClient implements I_JsonSocketCallbacks {
 	constructor() {
 		console.log(`initialize Client`);
 		
+		store.set(connStatusAtom, E_ConnStatus.initializing);
+		
 		this.UpdateLocation();
 		store.sub(locationAtom, this.UpdateLocation);
 		
@@ -54,18 +63,47 @@ export class ZapClient implements I_JsonSocketCallbacks {
 		}
 		
 		this.socket.SetCallbacks(this);
-		this.socket.Connect(WS_SERVER);
+		this.Connect();
 		
-		setInterval(this.Tick, 1000);
+		setInterval(this.TryReconnect, RECONNECT_INTERVAL_MS);
+		// setInterval(this.Tick, 1000);
 	}
 	
-	OnOpen = () => console.log(`open`);
-	OnError = (errorEvent: Event) => console.error(`socket error`, errorEvent);
-	OnClose = (code: number, reason: string) => console.log(`closed ${code}, ${reason}`);
+	Connect = () => {
+		store.set(connErrorAtom, '');
+		store.set(connStatusAtom, E_ConnStatus.connecting);
+		this.socket.Connect(WS_SERVER);
+	};
+	
+	TryReconnect = () => {
+		// console.log(`check reconnect`);
+		const status = store.get(connStatusAtom);
+		if (status === E_ConnStatus.connected) return; //>> already connected
+		if (status === E_ConnStatus.connecting) return; //>> already reconnecting
+		console.log(`trying to reconnect to ${WS_SERVER}`);
+		this.Connect();
+	};
+	
+	OnOpen = () => {
+		console.log(`open`);
+		store.set(connStatusAtom, E_ConnStatus.connected);
+	};
+	
+	OnError = (errorEvent: Event) => {
+		console.error(`socket connection error`, errorEvent);
+		store.set(connErrorAtom, `socket connection error`);
+	};
+	
+	OnClose = (code: number, reason: string) => {
+		console.log(`closed ${code}, ${reason}`);
+		store.set(connErrorAtom, `socket closed: ${code} ${reason}`);
+		store.set(connStatusAtom, E_ConnStatus.disconnected);
+	};
 	
 	OnReceive(raw: object) {
 		const socketMsg = raw as T_SocketMsg;
-		console.log(`received`, socketMsg);
+		// console.log(`received`, socketMsg);
+		
 		const pkHandler = this.packetMap.get(socketMsg.id);
 		if (!pkHandler) {
 			console.error(`missing pk handler: ${socketMsg.id}`, raw);
@@ -91,15 +129,24 @@ export class ZapClient implements I_JsonSocketCallbacks {
 	UpdateLocation() {
 		const loc = store.get(locationAtom);
 		const pathArr = loc.pathname?.split('/').filter(s => s) || [];
-		store.set(endpointAtom, pathArr.length >= 1 ? GetEndpoint(pathArr[0]) : E_Endpoint.unknown);
-		store.set(gameIdfAtom, pathArr.length >= 2 ? pathArr[1].toLowerCase() : '');
+		const gameIdf = pathArr.length >= 2 ? pathArr[1].toLowerCase() : '';
+		const endpoint = pathArr.length >= 1 ? GetEndpoint(pathArr[0]) : E_Endpoint.unknown;
+		
+		store.set(endpointAtom, endpoint);
+		store.set(gameIdfAtom, gameIdf);
 		console.log(`UpdateLocation: ${loc.pathname}`, pathArr);
+		
+		document.title = `${E_Endpoint[endpoint]} of ${gameIdf || '?'} (ZAP)`;
 	}
 	
 	// TEMP
-	Tick() {
-		store.set(timerMsAtom, (current) => current - 1000);
-	}
+	// Tick() {
+	// 	store.set(timerMsAtom, (current) => {
+	// 		let next = current - 1000;
+	// 		if (next < 0) next = 0;
+	// 		return next;
+	// 	});
+	// }
 }
 
 

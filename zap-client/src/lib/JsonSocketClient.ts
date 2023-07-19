@@ -29,7 +29,7 @@ export class JsonSocketClient {
 	};
 	
 	_Error = (errorEvent: Event) => {
-		console.error(`🔌socket: error`, errorEvent);
+		console.debug(`🔌socket: error`, errorEvent);
 		clearInterval(this.pingIntervalId);
 		this.callbacks.OnError(errorEvent);
 	};
@@ -53,7 +53,7 @@ export class JsonSocketClient {
 	) => {
 		console.debug(`Socket.Connect`, address);
 		
-		if (this.webSocket) throw new Error(`TODO: clean up last instance of WebSocket`); // TODO
+		// if (this.webSocket) throw new Error(`TODO: clean up last instance of WebSocket`); // TODO
 		
 		if (!this.callbacks) throw new Error(`SetCallbacks first!`);
 		

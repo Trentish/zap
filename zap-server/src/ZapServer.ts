@@ -17,6 +17,8 @@ import {ZapDb} from './ZapDb.js';
 
 const PING_MSG = 'PING';
 const PONG_MSG = 'PONG';
+const TICK_RATE_MS = 1000;
+const STARTING_TIMER_MS = 30 * 60 * 1000;
 
 export class ClientConn implements I_PkSource {
 	isOpen: boolean;
@@ -161,7 +163,7 @@ export class ZapServer {
 			ep: pkHandler.to,
 			pk: packet,
 		});
-		console.log(`publish to ${address}, ${json}`);
+		// console.log(`publish to ${address}, ${json}`);
 		this.wsApp.publish(address, json);
 	}
 	
@@ -179,17 +181,23 @@ export class ZapServer {
 		game.toAdmins = `${idf}/admins`;
 		game.toPlayers = `${idf}/players`;
 		game.toProjectors = `${idf}/projectors`;
-		const dat: GameDat = {
+		
+		game.db = new ZapDb<GameDat>({
 			idf: idf,
 			articles: [],
-		};
-		game.db = new ZapDb<GameDat>(dat, {
+		}, {
 			folderPath: `${this.storagePath}/${idf}`,
-			ToJsonObj: GameDat.ToJsonObj,
-			FromJsonObj: GameDat.FromJsonObj,
-		})
-		this.games.set(idf, game);
+			Serials: GameDat.Serials,
+		});
+		game.db.onLoad = () => this.SendGameDat(game, game.toAllClients);
+		
+		game.timer = {
+			ms: STARTING_TIMER_MS,
+		};
+		game.tickInterval = setInterval(() => this.TickGame(game), TICK_RATE_MS);
+		
 		console.log(`++game: ${game}`);
+		this.games.set(idf, game);
 		return game;
 	}
 	
@@ -215,6 +223,8 @@ export class ZapServer {
 			client.socket.subscribe(game.toProjectors);
 		}
 		
+		this.SendGameDat(game, client.toSocket);
+		this.SendTimer(game, client.toSocket);
 		console.log(`${game} added: ${client.label}`);
 	}
 	
@@ -236,7 +246,22 @@ export class ZapServer {
 		client.socket.unsubscribe(game.toProjectors);
 		
 		console.log(`${game} removed: ${client.label}`);
+		
+		// TODO: check if game should still be alive
 	}
+	
+	TickGame(game: ZapGame) {
+		let next = game.timer.ms - 1000;
+		if (next < 0) next = 0;
+		game.timer.ms = next;
+		
+		// TODO: more resilient time syncing
+		
+		this.SendTimer(game, game.toAllClients);
+	}
+	
+	SendGameDat = (game: ZapGame, to: string) => this.packets.GameDat.Send(to, game.db.current);
+	SendTimer = (game: ZapGame, to: string) => this.packets.TimerTick.Send(to, game.timer);
 }
 
 

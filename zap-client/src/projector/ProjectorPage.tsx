@@ -68,7 +68,7 @@ function Headline(props: P_HeadlineExample) {
 			<h2 className={'headline-name'}>
 				{Article.headline}
 			</h2>
-			<h3>{Article.createdAt.toTimeString()}</h3>
+			{/*<h3>{Article.createdAt.toTimeString()}</h3>*/}
 		
 		</div>
 	);

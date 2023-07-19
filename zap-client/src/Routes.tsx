@@ -3,13 +3,22 @@ import {AdminPage} from './admin/AdminPage.tsx';
 import {PlayerPage} from './player/PlayerPage.tsx';
 import {ProjectorPage} from './projector/ProjectorPage.tsx';
 import {useAtom} from 'jotai';
-import {allGameIdfsAtom, endpointAtom, gameIdfAtom} from './ZapClient.ts';
-import {E_Endpoint, T_GameIdf} from '../../zap-shared/SystemTypes.ts';
+import {
+	allGameIdfsAtom,
+	connErrorAtom,
+	connStatusAtom,
+	endpointAtom,
+	gameIdfAtom,
+} from './ZapClient.ts';
+import {E_ConnStatus, E_Endpoint, T_GameIdf} from '../../zap-shared/SystemTypes.ts';
 
 
 export function Routing() {
 	const [endpoint] = useAtom(endpointAtom);
 	const [gameIdf] = useAtom(gameIdfAtom);
+	const [connStatus] = useAtom(connStatusAtom);
+	
+	if (connStatus !== E_ConnStatus.connected) return <NotConnected/>;
 	
 	const badRoute = endpoint === E_Endpoint.unknown || !gameIdf;
 	if (badRoute) return <BadRoute/>; //>> bad route
@@ -19,14 +28,12 @@ export function Routing() {
 	return <route.page/>;
 }
 
-// export type T_Route = {
-// 	page: () => JSX.Element,
-// }
+export type T_Route = {
+	page: () => React.ReactElement,
+}
 
 // using string as key
-const ROUTES: {
-	[p: string]: { page: () => JSX.Element }
-} = {
+const ROUTES: Record<string, T_Route> = {
 	[E_Endpoint[E_Endpoint.admin]]: {
 		page: AdminPage,
 	},
@@ -36,8 +43,19 @@ const ROUTES: {
 	[E_Endpoint[E_Endpoint.projector]]: {
 		page: ProjectorPage,
 	},
-}
+};
 
+function NotConnected() {
+	const [connError] = useAtom(connErrorAtom);
+	const [connStatus] = useAtom(connStatusAtom);
+	
+	return (
+		<div style={{
+			fontSize: 28,
+			// color: '#fff',
+		}}>{E_ConnStatus[connStatus]} {connError}</div>
+	);
+}
 
 function BadRoute() {
 	const [endpoint] = useAtom(endpointAtom);

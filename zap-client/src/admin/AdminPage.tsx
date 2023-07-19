@@ -1,6 +1,8 @@
 import {useClient} from '../ClientContext.ts';
 import React from 'react';
 import {atom, useAtom} from 'jotai';
+import {Timer} from '../Timer.tsx';
+import {timerMsAtom} from '../ZapClient.ts';
 
 
 const inputMinutes = atom('5');
@@ -14,6 +16,7 @@ export function AdminPage() {
 		<div>
 			<h3>admin TODO</h3>
 			
+			<TimerControls/>
 			
 			<button onClick={() => client.packets.DbTestLoad.Send('')}>Do Load Test</button>
 			<br/>
@@ -32,12 +35,14 @@ function TimerControls() {
 	const [seconds, setSeconds] = useAtom(inputSeconds);
 	
 	const submit = () => {
-		const ms = (parseInt(minutes) * 60) + parseInt(seconds) * 1000;
+		const ms = ((parseInt(minutes) * 60) + parseInt(seconds)) * 1000;
 		client.packets.SetTimer.Send({ms: ms});
+		console.log(`minutesStr: ${minutes}, secondsStr: ${seconds}, ms: ${ms}`);
 	}
 	
 	return (
 		<div>
+			<Timer atom={timerMsAtom}/>
 			
 			<label>
 				Minutes

@@ -1,6 +1,8 @@
 import {HeadlineInput} from '../Fields.tsx';
 import React from 'react';
 import {useClient} from '../ClientContext.ts';
+import {Timer} from '../Timer.tsx';
+import {timerMsAtom} from '../ZapClient.ts';
 
 export function PlayerPage() {
 	const client = useClient();
@@ -19,6 +21,8 @@ export function PlayerPage() {
 			<HeadlineInput/>
 			
 			<button onClick={postArticle}>Post Article Test</button>
+			
+			<Timer atom={timerMsAtom}/>
 		</>
 	);
 }

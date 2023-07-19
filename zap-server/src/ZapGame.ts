@@ -15,7 +15,12 @@ export class ZapGame {
 	players = new Map<T_ClientId, ClientConn>();
 	projectors = new Map<T_ClientId, ClientConn>();
 	
+	/** instance of ZapDb specific to this ZapGame */
 	db: ZapDb<GameDat>;
+	tickInterval: NodeJS.Timer;
+	timer = {
+		ms: 0,
+	};
 	
 	public toString(): string {return `game(${this.idf}, clients: ${this.allClients.size})`;}
 }

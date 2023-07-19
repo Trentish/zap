@@ -17,8 +17,6 @@ export function InitializePackets_SERVER(defs: ZapPacketDefs<ClientConn>, server
 		
 		server.SetClientEndpoint(src, pk.Endpoint);
 		server.AddClientToGame(game, src);
-		
-		defs.GameDat.Send(src.toSocket, game.db.current);
 	};
 	
 	defs.PostArticle.From_CLIENT = (pk, src) => {
@@ -41,8 +39,13 @@ export function InitializePackets_SERVER(defs: ZapPacketDefs<ClientConn>, server
 		defs.ArticleAdded.Send(game.toAllClients, article);
 	};
 	
-	defs.GameDat.Serials = GameDat.Serials;
-	defs.ArticleAdded.Serials = ArticleDat.Serials;
+	defs.SetTimer.From_ADMIN = (pk, src) => {
+		const game = src.game;
+		if (!game) throw new Error(`TODO: not in game`);
+		
+		game.timer = pk;
+		server.SendTimer(game, game.toAllClients);
+	};
 	
 	defs.DbTestLoad.From_ADMIN = (pk, src) => {
 		src.game?.db.Load();

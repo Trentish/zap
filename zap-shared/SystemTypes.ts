@@ -22,6 +22,21 @@ export enum E_Endpoint {
 	projector,
 }
 
+export enum E_ConnStatus {
+	unset,
+	initializing,
+	connecting,
+	connected,
+	disconnected,
+}
+
+export type T_SerialToJsonObj<T> = (val: T) => Partial<T> | object;
+export type T_SerialFromJsonObj<T> = (obj: Partial<T>) => T;
+/** [to, from] */
+export type T_Serials<T> = [T_SerialToJsonObj<T>, T_SerialFromJsonObj<T>];
+
+// Serials: [(obj: TPk) => TPk,(pk: TPk) => T_Packet] = [obj => obj as TPk, pk => pk];
+
 export function GetEndpoint(str: string): E_Endpoint {
 	switch (str ? str.toLowerCase() : '') {
 		default:
@@ -64,7 +79,7 @@ export class BasePkHandler<TSrc extends I_PkSource> {
 }
 
 export class ServerPkOutgoing<TPk extends T_Packet, TSrc extends I_PkSource> extends BasePkHandler<TSrc> {
-	Send = (address: string, pk: TPk) => this._Publish(address, this.Serials[1](pk));
+	Send = (address: string, pk: TPk) => this._Publish(address, this.SerializeTo(pk));
 	
 	// this will be on the CLIENT
 	_Receive(
@@ -74,26 +89,35 @@ export class ServerPkOutgoing<TPk extends T_Packet, TSrc extends I_PkSource> ext
 		const isUnexpected = !this.useClientCatchall && msg.ep !== this.to;
 		if (isUnexpected) return `unexpected endpoint (to) ${msg.ep}, ${this}`;
 		
-		const pk = this.Serials[0](msg.pk as TPk);
+		const pk = this.SerializeFrom(msg.pk as TPk);
 		
 		if (!this.From_SERVER) throw new Error(`missing PK handler ${this.name}`);
 		this.From_SERVER(pk);
 	}
 	
-	Serials: [(obj: TPk) => TPk, (pk: TPk) => T_Packet] = [obj => obj as TPk, pk => pk];
+	
+	/** [to, from] */
+	WithSerials(serials: T_Serials<TPk>) {
+		this.Serials = serials;
+		return this;
+	}
+	
+	protected Serials: T_Serials<TPk> = [pk => pk, obj => obj as TPk];
+	protected SerializeTo: T_SerialToJsonObj<TPk> = (pk) => this.Serials[0](pk);
+	protected SerializeFrom: T_SerialFromJsonObj<TPk> = (obj) => this.Serials[1](obj);
 	
 	protected From_SERVER: (pk: TPk) => void;
 }
 
 export class ClientPkOutgoing<TPk extends T_Packet, TSrc extends I_PkSource> extends BasePkHandler<TSrc> {
-	Send = (pk: TPk) => this._Publish('', this.Serials[1](pk));
+	Send = (pk: TPk) => this._Publish('', this.SerializeTo(pk));
 	
 	// this will be on the SERVER
 	_Receive(
 		msg: T_SocketMsg,
 		src: TSrc,
 	): T_MaybeError {
-		const pk = this.Serials[0](msg.pk as TPk);
+		const pk = this.SerializeFrom(msg.pk as TPk);
 		
 		if (this.useClientCatchall) {
 			this.From_CLIENT(pk, src);
@@ -122,7 +146,15 @@ export class ClientPkOutgoing<TPk extends T_Packet, TSrc extends I_PkSource> ext
 		return `${this} missing From_${E_Endpoint[from].toUpperCase()} handler`;
 	}
 	
-	Serials: [(obj: TPk) => TPk, (pk: TPk) => T_Packet] = [obj => obj as TPk, pk => pk];
+	/** [to, from] */
+	WithSerials(serials: T_Serials<TPk>) {
+		this.Serials = serials;
+		return this;
+	}
+	
+	protected Serials: T_Serials<TPk> = [pk => pk, obj => obj as TPk];
+	protected SerializeTo: T_SerialToJsonObj<TPk> = (pk) => this.Serials[0](pk);
+	protected SerializeFrom: T_SerialFromJsonObj<TPk> = (obj) => this.Serials[1](obj);
 	
 	protected From_CLIENT: (pk: TPk, src: TSrc) => void;
 	protected From_ADMIN: (pk: TPk, src: TSrc) => void;

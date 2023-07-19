@@ -1,5 +1,5 @@
 import {BasePacketDefs, E_Endpoint, I_PkSource, T_GameIdf} from './SystemTypes.ts';
-import {ArticleDat, GameDat} from './_Dats.ts';
+import {ArticleDat, GameDat, TimerDat} from './_Dats.ts';
 
 export class ZapPacketDefs<TSrc extends I_PkSource> extends BasePacketDefs<TSrc> {
 	
@@ -14,23 +14,15 @@ export class ZapPacketDefs<TSrc extends I_PkSource> extends BasePacketDefs<TSrc>
 		GameIdf: T_GameIdf;
 	}>();
 	
-	ArticleTest = this.SERVER_to_PROJECTOR<ArticleDat>();
-	
-	// PostArticle = this.CLIENT_to_SERVER<ArticleDat>();
 	PostArticle = this.CLIENT_to_SERVER<{
 		headline: string,
 	}>();
 	
-	SetTimer = this.ADMIN_to_SERVER<{
-		ms: number
-	}>();
+	SetTimer = this.ADMIN_to_SERVER<TimerDat>();
+	TimerTick = this.SERVER_to_CLIENT<TimerDat>();
 	
-	TimerTick = this.SERVER_to_CLIENT<{
-		ms: number
-	}>();
-	
-	GameDat = this.SERVER_to_CLIENT<GameDat>();
-	ArticleAdded = this.SERVER_to_CLIENT<ArticleDat>();
+	GameDat = this.SERVER_to_CLIENT<GameDat>().WithSerials(GameDat.Serials);
+	ArticleAdded = this.SERVER_to_CLIENT<ArticleDat>().WithSerials(ArticleDat.Serials);
 	
 	DbTestLoad = this.ADMIN_to_SERVER<string>();
 	DbTestSave = this.ADMIN_to_SERVER<string>();

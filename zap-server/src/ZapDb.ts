@@ -2,12 +2,12 @@
 import {access, mkdir, opendir, readFile, stat, writeFile} from 'fs/promises';
 import {vow} from '../lib/vow.js';
 import {constants, exists} from 'fs';
+import {T_SerialFromJsonObj, T_Serials, T_SerialToJsonObj} from '../../zap-shared/SystemTypes.js';
 
 type T_Options<T> = {
 	folderPath: string;
 	autoSave?: boolean;
-	ToJsonObj?: (v: T) => object;
-	FromJsonObj?: (v: object) => T;
+	Serials?: T_Serials<T>;
 }
 // const dateFolder = now.toJSON().split('T')[0];
 
@@ -18,11 +18,12 @@ export class ZapDb<T> {
 	folderPath: string;
 	filePath: string;
 	autoSave = true;
-	ToJsonObj: (v: T) => object;
-	FromJsonObj: (v: object) => T;
+	Serials: T_Serials<T> = [val => val, obj => obj as T];
 	
 	current: T;
 	lastSavedAt = new Date(0);
+	
+	onLoad: (db: ZapDb<T>) => void = _ => {};
 	
 	// private storage: Record<string, T> = {};
 	
@@ -47,7 +48,7 @@ export class ZapDb<T> {
 			console.log(`access: ${accessError}`);
 			
 			const [, makeError] = await vow(
-				mkdir(folder)
+				mkdir(folder),
 			);
 			if (makeError) throw new Error(`TODO: makeError ${makeError}`); // TODO
 		}
@@ -67,7 +68,7 @@ export class ZapDb<T> {
 	async Save() {
 		const path = `${this.folderPath}/data.json`;
 		
-		const jsonObj = this.ToJsonObj ? this.ToJsonObj(this.current) : this.current;
+		const jsonObj = this.SerializeTo(this.current);
 		const json = JSON.stringify(jsonObj, null, JSON_SPACE);
 		
 		const [, writeError] = await vow(
@@ -90,10 +91,16 @@ export class ZapDb<T> {
 		
 		const json = data.toString();
 		const jsonObj = JSON.parse(json);
-		this.current = this.FromJsonObj ? this.FromJsonObj(jsonObj) : jsonObj;
+		this.current = this.SerializeFrom(jsonObj);
 		
 		console.log(`📦 load: ${path}`, jsonObj);
+		
+		this.onLoad(this);
 	}
+	
+	
+	protected SerializeTo: T_SerialToJsonObj<T> = (val) => this.Serials[0](val);
+	protected SerializeFrom: T_SerialFromJsonObj<T> = (obj) => this.Serials[1](obj);
 }
 
 
