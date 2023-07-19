@@ -9,4 +9,5 @@
 - clientURL.com / admin / {gameIdf}
 - clientURL.com / player / {gameIdf}
 - clientURL.com / projector / {gameIdf}
+- e.g.  http://127.0.0.1:5173/projector/deephaven
 
