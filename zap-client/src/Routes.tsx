@@ -24,7 +24,9 @@ export function Routing() {
 // }
 
 // using string as key
-const ROUTES = {
+const ROUTES: {
+	[p: string]: { page: () => JSX.Element }
+} = {
 	[E_Endpoint[E_Endpoint.admin]]: {
 		page: AdminPage,
 	},

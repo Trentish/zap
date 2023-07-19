@@ -6,4 +6,5 @@ console.log(`_____________________________`);
 console.log(`--- START -------------------`);
 const wsHost = process.env.HOST || '0.0.0.0';
 const wsPort = process.env.PORT ? parseInt(process.env.PORT) : 3007;
-const zapServer = new ZapServer(wsHost, wsPort);
+const storagePath = process.env.STORAGE_PATH || 'C:/Zap';
+const zapServer = new ZapServer(wsHost, wsPort, storagePath);

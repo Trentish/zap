@@ -1,12 +1,17 @@
 import {ArticleDat, OrgDat} from '../../../zap-shared/_Dats.ts';
+import {Timer} from '../Timer.tsx';
+import {useClient} from '../ClientContext.ts';
+import {gameDatAtom, timerMsAtom} from '../ZapClient.ts';
+import {useAtom} from 'jotai';
+import './ProjectorPage.css';
 
 const EXAMPLE_ARTICLE1: ArticleDat = {
-	guid: 0,
+	guid: 'jskldjflksdjf',
 	headline: 'This is a headline test',
-	created_at: new Date(2023, 4, 5, 5, 55, 55),
+	createdAt: new Date(2023, 4, 5, 5, 55, 55),
 	
-	org_idf: 'test_org',
-	theme_tags: ['themeTag1', 'themeTag2'],
+	orgIdf: 'test_org',
+	themeTags: ['themeTag1', 'themeTag2'],
 };
 
 const EXAMPLE_ORG1: OrgDat = {
@@ -15,37 +20,55 @@ const EXAMPLE_ORG1: OrgDat = {
 };
 
 export function ProjectorPage() {
+	const client = useClient();
+	const [gameDat] = useAtom(gameDatAtom);
+	
 	return (
-		<div>
-			<HeadlineExample
-				Article={EXAMPLE_ARTICLE1}
-				Org={EXAMPLE_ORG1}
-			/>
+		<div className={'articleContainer'}>
+			<Timer atom={timerMsAtom}/>
+			
+			<Headlines/>
 		</div>
 	);
 }
 
+function Headlines() {
+	const [gameDat] = useAtom(gameDatAtom);
+	
+	return (
+		<div className={'articles'}>
+			{(gameDat.articles || []).map(article => (
+				<Headline
+					key={article.guid}
+					Article={article}
+				/>
+			))}
+		
+		</div>
+	)
+}
+
 type P_HeadlineExample = {
 	Article: ArticleDat,
-	Org: OrgDat,
+	// Org: OrgDat,
 };
 
-function HeadlineExample(props: P_HeadlineExample) {
+function Headline(props: P_HeadlineExample) {
 	const {
 		Article,
 	} = props;
 	
 	
 	return (
-		<div
-			style={{
-				backgroundColor: '#b74aff',
-			}}
+		<div className={'article'}
+			// style={{
+			// 	backgroundColor: '#b74aff',
+			// }}
 		>
 			<h2 className={'headline-name'}>
 				{Article.headline}
 			</h2>
-			<h3>{Article.created_at.toTimeString()}</h3>
+			<h3>{Article.createdAt.toTimeString()}</h3>
 		
 		</div>
 	);

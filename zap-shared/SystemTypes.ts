@@ -64,7 +64,7 @@ export class BasePkHandler<TSrc extends I_PkSource> {
 }
 
 export class ServerPkOutgoing<TPk extends T_Packet, TSrc extends I_PkSource> extends BasePkHandler<TSrc> {
-	Send = (address: string, pk: TPk) => this._Publish(address, pk);
+	Send = (address: string, pk: TPk) => this._Publish(address, this.Serials[1](pk));
 	
 	// this will be on the CLIENT
 	_Receive(
@@ -73,22 +73,30 @@ export class ServerPkOutgoing<TPk extends T_Packet, TSrc extends I_PkSource> ext
 	): T_MaybeError {
 		const isUnexpected = !this.useClientCatchall && msg.ep !== this.to;
 		if (isUnexpected) return `unexpected endpoint (to) ${msg.ep}, ${this}`;
-		this.From_SERVER(msg.pk as TPk);
+		
+		const pk = this.Serials[0](msg.pk as TPk);
+		
+		if (!this.From_SERVER) throw new Error(`missing PK handler ${this.name}`);
+		this.From_SERVER(pk);
 	}
+	
+	Serials: [(obj: TPk) => TPk, (pk: TPk) => T_Packet] = [obj => obj as TPk, pk => pk];
 	
 	protected From_SERVER: (pk: TPk) => void;
 }
 
 export class ClientPkOutgoing<TPk extends T_Packet, TSrc extends I_PkSource> extends BasePkHandler<TSrc> {
-	Send = (pk: TPk) => this._Publish('', pk);
+	Send = (pk: TPk) => this._Publish('', this.Serials[1](pk));
 	
 	// this will be on the SERVER
 	_Receive(
 		msg: T_SocketMsg,
 		src: TSrc,
 	): T_MaybeError {
+		const pk = this.Serials[0](msg.pk as TPk);
+		
 		if (this.useClientCatchall) {
-			this.From_CLIENT(msg.pk as TPk, src);
+			this.From_CLIENT(pk, src);
 			return; //>> client catch all
 		}
 		
@@ -97,22 +105,24 @@ export class ClientPkOutgoing<TPk extends T_Packet, TSrc extends I_PkSource> ext
 		
 		switch (from) {
 			case E_Endpoint.client:
-				this.From_CLIENT(msg.pk as TPk, src);
+				this.From_CLIENT(pk, src);
 				return;
 			case E_Endpoint.admin:
-				this.From_ADMIN(msg.pk as TPk, src);
+				this.From_ADMIN(pk, src);
 				return;
 			case E_Endpoint.player:
-				this.From_PLAYER(msg.pk as TPk, src);
+				this.From_PLAYER(pk, src);
 				return;
 			case E_Endpoint.projector:
-				this.From_PROJECTOR(msg.pk as TPk, src);
+				this.From_PROJECTOR(pk, src);
 				return;
 			
 		}
 		
 		return `${this} missing From_${E_Endpoint[from].toUpperCase()} handler`;
 	}
+	
+	Serials: [(obj: TPk) => TPk, (pk: TPk) => T_Packet] = [obj => obj as TPk, pk => pk];
 	
 	protected From_CLIENT: (pk: TPk, src: TSrc) => void;
 	protected From_ADMIN: (pk: TPk, src: TSrc) => void;

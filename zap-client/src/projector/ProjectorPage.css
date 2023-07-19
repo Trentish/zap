@@ -1,0 +1,25 @@
+.articleContainer {
+	background-color: #f60;
+	color: #fff;
+	padding: 1em;
+}
+
+.articleContainer h3 {
+	font-weight: bold;
+	display: grid;
+}
+
+.articles {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-gap: 1em;
+}
+
+.article {
+	padding: 1em;
+}
+
+.article:last-child {
+	background: #fc0;
+	color: #000;
+}

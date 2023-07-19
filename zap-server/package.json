@@ -15,6 +15,7 @@
   "author": "",
   "license": "TODO",
   "dependencies": {
+    "nanoid": "^4.0.2",
     "pg": "^8.11.1",
     "ts-node": "^10.9.1",
     "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.30.0"

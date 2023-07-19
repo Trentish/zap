@@ -12,6 +12,8 @@ import {
 import {ZapGame} from './ZapGame.js';
 import {InitializePackets_SERVER} from './ServerPkHandlers.js';
 import {ZapPacketDefs} from '../../zap-shared/_Packets.js';
+import {GameDat} from '../../zap-shared/_Dats.js';
+import {ZapDb} from './ZapDb.js';
 
 const PING_MSG = 'PING';
 const PONG_MSG = 'PONG';
@@ -29,6 +31,7 @@ export class ClientConn implements I_PkSource {
 
 export class ZapServer {
 	wsApp: TemplatedApp;
+	storagePath: string;
 	packets = new ZapPacketDefs<ClientConn>();
 	packetMap = new Map<T_MsgId, BasePkHandler<ClientConn>>();
 	
@@ -37,7 +40,9 @@ export class ZapServer {
 	
 	games = new Map<T_GameIdf, ZapGame>();
 	
-	constructor(wsHost: string, wsPort: number) {
+	constructor(wsHost: string, wsPort: number, storagePath: string) {
+		this.storagePath = storagePath;
+		
 		//## init uWebSockets.js
 		this.wsApp = uWS
 			.App({})
@@ -174,6 +179,15 @@ export class ZapServer {
 		game.toAdmins = `${idf}/admins`;
 		game.toPlayers = `${idf}/players`;
 		game.toProjectors = `${idf}/projectors`;
+		const dat: GameDat = {
+			idf: idf,
+			articles: [],
+		};
+		game.db = new ZapDb<GameDat>(dat, {
+			folderPath: `${this.storagePath}/${idf}`,
+			ToJsonObj: GameDat.ToJsonObj,
+			FromJsonObj: GameDat.FromJsonObj,
+		})
 		this.games.set(idf, game);
 		console.log(`++game: ${game}`);
 		return game;

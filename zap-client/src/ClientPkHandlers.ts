@@ -1,5 +1,13 @@
 import {ZapPacketDefs} from '../../zap-shared/_Packets.ts';
-import {allGameIdfsAtom, ConnToServer, store, ZapClient} from './ZapClient.ts';
+import {
+	allGameIdfsAtom,
+	ConnToServer,
+	gameDatAtom,
+	store,
+	timerMsAtom,
+	ZapClient,
+} from './ZapClient.ts';
+import {ArticleDat, GameDat} from '../../zap-shared/_Dats.ts';
 
 // TODO: break this up at some point
 export function InitializePackets_CLIENT(defs: ZapPacketDefs<ConnToServer>, client: ZapClient) {
@@ -16,5 +24,20 @@ export function InitializePackets_CLIENT(defs: ZapPacketDefs<ConnToServer>, clie
 		});
 	};
 	
+	defs.GameDat.Serials = GameDat.Serials;
+	defs.GameDat.From_SERVER = (pk ) => {
+		console.log(`gameDat received`, pk);
+		store.set(gameDatAtom, {...pk});
+	}
 	
+	defs.ArticleAdded.Serials = ArticleDat.Serials;
+	defs.ArticleAdded.From_SERVER = (pk) => {
+		const dat = store.get(gameDatAtom);
+		dat.articles.push(pk);
+		store.set(gameDatAtom, {...dat});
+	}
+	
+	defs.TimerTick.From_SERVER = (pk) => {
+		store.set(timerMsAtom, pk.ms);
+	}
 }

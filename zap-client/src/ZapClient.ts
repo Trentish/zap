@@ -10,6 +10,7 @@ import {ZapPacketDefs} from '../../zap-shared/_Packets.ts';
 import {I_JsonSocketCallbacks, JsonSocketClient} from './lib/JsonSocketClient.ts';
 import {InitializePackets_CLIENT} from './ClientPkHandlers.ts';
 import {atomWithLocation} from 'jotai-location';
+import {GameDat} from '../../zap-shared/_Dats.ts';
 
 
 const WS_SERVER = 'ws://localhost:3007';
@@ -19,6 +20,8 @@ export const locationAtom = atomWithLocation();
 export const endpointAtom = atom(E_Endpoint.unknown);
 export const gameIdfAtom = atom<T_GameIdf>('');
 export const allGameIdfsAtom = atom<string[]>([])
+export const timerMsAtom = atom(30 * 60 * 1000)
+export const gameDatAtom = atom(new GameDat());
 
 export class ConnToServer implements I_PkSource {
 	endpoint = E_Endpoint.server;
@@ -52,6 +55,8 @@ export class ZapClient implements I_JsonSocketCallbacks {
 		
 		this.socket.SetCallbacks(this);
 		this.socket.Connect(WS_SERVER);
+		
+		setInterval(this.Tick, 1000);
 	}
 	
 	OnOpen = () => console.log(`open`);
@@ -89,6 +94,11 @@ export class ZapClient implements I_JsonSocketCallbacks {
 		store.set(endpointAtom, pathArr.length >= 1 ? GetEndpoint(pathArr[0]) : E_Endpoint.unknown);
 		store.set(gameIdfAtom, pathArr.length >= 2 ? pathArr[1].toLowerCase() : '');
 		console.log(`UpdateLocation: ${loc.pathname}`, pathArr);
+	}
+	
+	// TEMP
+	Tick() {
+		store.set(timerMsAtom, (current) => current - 1000);
 	}
 }
 
