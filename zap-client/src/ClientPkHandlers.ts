@@ -1,10 +1,10 @@
 import {ZapPacketDefs} from '../../zap-shared/_Packets.ts';
 import {
-	allGameIdfsAtom,
+	$allGameIdfs,
 	ConnToServer,
-	gameDatAtom,
-	store,
-	timerMsAtom,
+	$gameDat,
+	$store,
+	$timerMs,
 	ZapClient,
 } from './ZapClient.ts';
 
@@ -15,7 +15,7 @@ export function InitializePackets_CLIENT(defs: ZapPacketDefs<ConnToServer>, clie
 	
 	defs.DemandRegister.From_SERVER = (pk) => {
 		console.log(`TODO: do client register, games: [${pk.Games.join()}]`);
-		store.set(allGameIdfsAtom, pk.Games);
+		$store.set($allGameIdfs, pk.Games);
 		
 		defs.Register.Send({
 			Endpoint: client.endpoint,
@@ -25,16 +25,16 @@ export function InitializePackets_CLIENT(defs: ZapPacketDefs<ConnToServer>, clie
 	
 	defs.GameDat.From_SERVER = (pk ) => {
 		console.log(`gameDat received`, pk);
-		store.set(gameDatAtom, {...pk});
+		$store.set($gameDat, {...pk});
 	}
 	
 	defs.ArticleAdded.From_SERVER = (pk) => {
-		const dat = store.get(gameDatAtom);
+		const dat = $store.get($gameDat);
 		dat.articles.push(pk);
-		store.set(gameDatAtom, {...dat});
+		$store.set($gameDat, {...dat});
 	}
 	
 	defs.TimerTick.From_SERVER = (pk) => {
-		store.set(timerMsAtom, pk.ms);
+		$store.set($timerMs, pk.ms);
 	}
 }

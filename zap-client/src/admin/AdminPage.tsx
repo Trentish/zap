@@ -1,12 +1,14 @@
 import {useClient} from '../ClientContext.ts';
 import React from 'react';
-import {atom, useAtom} from 'jotai';
-import {Timer} from '../Timer.tsx';
-import {timerMsAtom} from '../ZapClient.ts';
+import {atom} from 'jotai';
+import {Timer} from '../displays/Timer.tsx';
+import {$store, $timerMs} from '../ZapClient.ts';
+import {NumberInput} from '../components/InputComponents.tsx';
+import {Button} from '../components/ButtonComponents.tsx';
 
 
-const inputMinutes = atom('5');
-const inputSeconds = atom('0');
+const $minutes = atom(5);
+const $seconds = atom(0);
 
 export function AdminPage() {
 	const client = useClient();
@@ -14,55 +16,68 @@ export function AdminPage() {
 	
 	return (
 		<div>
-			<h3>admin TODO</h3>
+			<h1>Administrator ONLY!</h1>
 			
 			<TimerControls/>
 			
-			<button onClick={() => client.packets.DbTestLoad.Send('')}>Do Load Test</button>
+			<Button
+				label={'Do Load Test'}
+				onClick={() => client.packets.DbTestLoad.Send('')}
+			/>
 			<br/>
-			<button onClick={() => client.packets.DbTestSave.Send('')}>Do Save Test</button>
 			<br/>
-			<button onClick={() => client.packets.ClearAllArticles.Send('')}>Clear All Articles</button>
+			<Button
+				label={'Do Save Test'}
+				onClick={() => client.packets.DbTestSave.Send('')}
+			/>
+			<br/>
+			<br/>
+			<Button
+				label={'Clear All Articles'}
+				onClick={() => client.packets.ClearAllArticles.Send('')}
+			/>
 		
 		</div>
 	);
 }
 
+const toMilliseconds = (minutes: number, seconds: number) => (
+	(
+		minutes * 60
+	) + seconds
+) * 1000;
+
 function TimerControls() {
 	const client = useClient();
 	
-	const [minutes, setMinutes] = useAtom(inputMinutes);
-	const [seconds, setSeconds] = useAtom(inputSeconds);
-	
 	const submit = () => {
-		const ms = ((parseInt(minutes) * 60) + parseInt(seconds)) * 1000;
+		const minutes = $store.get($minutes);
+		const seconds = $store.get($seconds);
+		
+		const ms = toMilliseconds(minutes, seconds);
 		client.packets.SetTimer.Send({ms: ms});
 		console.log(`minutesStr: ${minutes}, secondsStr: ${seconds}, ms: ${ms}`);
-	}
+	};
 	
 	return (
-		<div>
-			<Timer atom={timerMsAtom}/>
+		<div
+			style={{
+				margin: 24,
+			}}
+		>
+			<Timer atom={$timerMs}/>
 			
-			<label>
-				Minutes
-				<input
-					value={minutes}
-					onChange={(evt) => setMinutes(evt.target.value)}
-					type={'number'}
-				/>
-			</label>
+			<NumberInput
+				label={'Minutes'}
+				valueAtom={$minutes}
+			/>
 			
-			<label>
-				Seconds
-				<input
-					value={seconds}
-					onChange={(evt) => setSeconds(evt.target.value)}
-					type={'number'}
-				/>
-			</label>
+			<NumberInput
+				label={'Seconds'}
+				valueAtom={$seconds}
+			/>
 			
 			<button onClick={submit}>Set Timer</button>
 		</div>
-	)
+	);
 }

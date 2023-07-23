@@ -1,7 +1,8 @@
 import {PrimitiveAtom} from 'jotai/vanilla/atom';
 import {useAtom} from 'jotai';
+import {clsx} from 'clsx';
 
-// TODO: real timer
+/* atom is number (milliseconds) */
 export function Timer({atom}: { atom: PrimitiveAtom<number> }) {
 	const [timer] = useAtom(atom);
 	
@@ -12,7 +13,14 @@ export function Timer({atom}: { atom: PrimitiveAtom<number> }) {
 	const minutesText = minutes < 10 ? `0${minutes}` : `${minutes}`;
 	const secondsText = seconds < 10 ? `0${seconds}` : `${seconds}`;
 	
+	const classNames = clsx(
+		'timer', {
+			'timer-complete': timer <= 0,
+		});
+	
 	return (
-		<p className={'timer'}>{minutesText}:{secondsText}</p>
+		<p
+			className={classNames}
+		>{minutesText}:{secondsText}</p>
 	);
 }

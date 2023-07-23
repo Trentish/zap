@@ -5,9 +5,19 @@
 - client terminal will tell you where to go, should be something like `http://127.0.0.1:5173/`
 - `STORAGE_PATH` environment variable determines where files are stored to, e.g. `C:/Zap`
 
+
 ## Routing
 - clientURL.com / admin / {gameIdf}
 - clientURL.com / player / {gameIdf}
 - clientURL.com / projector / {gameIdf}
 - e.g.  http://127.0.0.1:5173/projector/deephaven
 
+
+## Naming Convention
+- atom: `$nameOfAtom`
+
+
+## Libraries
+- jotai: reference-based state management, `atom`, `useAtom` https://jotai.org/ 
+- clsx: constructs className string conditionally https://github.com/lukeed/clsx
+- 

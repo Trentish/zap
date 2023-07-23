@@ -20,15 +20,15 @@ import {GameDat} from '../../zap-shared/_Dats.ts';
 const WS_SERVER = 'ws://localhost:3007'; // TODO: config
 const RECONNECT_INTERVAL_MS = 5000;
 
-export const store = getDefaultStore();
-export const connStatusAtom = atom(E_ConnStatus.unset);
-export const connErrorAtom = atom('');
-export const locationAtom = atomWithLocation();
-export const endpointAtom = atom(E_Endpoint.unknown);
-export const gameIdfAtom = atom<T_GameIdf>('');
-export const allGameIdfsAtom = atom<string[]>([]);
-export const timerMsAtom = atom(0);
-export const gameDatAtom = atom(new GameDat());
+export const $store = getDefaultStore();
+export const $connStatus = atom(E_ConnStatus.unset);
+export const $connError = atom('');
+export const $location = atomWithLocation();
+export const $endpoint = atom(E_Endpoint.unknown);
+export const $gameIdf = atom<T_GameIdf>('');
+export const $allGameIdfs = atom<string[]>([]);
+export const $timerMs = atom(0);
+export const $gameDat = atom(new GameDat());
 
 export class ConnToServer implements I_PkSource {
 	endpoint = E_Endpoint.server;
@@ -42,17 +42,17 @@ export class ZapClient implements I_JsonSocketCallbacks {
 	packets = new ZapPacketDefs<ConnToServer>();
 	packetMap = new Map<T_MsgId, BasePkHandler<ConnToServer>>();
 	
-	get endpoint() {return store.get(endpointAtom);}
+	get endpoint() {return $store.get($endpoint);}
 	
-	get gameIdf() {return store.get(gameIdfAtom);}
+	get gameIdf() {return $store.get($gameIdf);}
 	
 	constructor() {
 		console.log(`initialize Client`);
 		
-		store.set(connStatusAtom, E_ConnStatus.initializing);
+		$store.set($connStatus, E_ConnStatus.initializing);
 		
 		this.UpdateLocation();
-		store.sub(locationAtom, this.UpdateLocation);
+		$store.sub($location, this.UpdateLocation);
 		
 		//## init PACKETS
 		InitializePackets_CLIENT(this.packets, this);
@@ -70,14 +70,14 @@ export class ZapClient implements I_JsonSocketCallbacks {
 	}
 	
 	Connect = () => {
-		store.set(connErrorAtom, '');
-		store.set(connStatusAtom, E_ConnStatus.connecting);
+		$store.set($connError, '');
+		$store.set($connStatus, E_ConnStatus.connecting);
 		this.socket.Connect(WS_SERVER);
 	};
 	
 	TryReconnect = () => {
 		// console.log(`check reconnect`);
-		const status = store.get(connStatusAtom);
+		const status = $store.get($connStatus);
 		if (status === E_ConnStatus.connected) return; //>> already connected
 		if (status === E_ConnStatus.connecting) return; //>> already reconnecting
 		console.log(`trying to reconnect to ${WS_SERVER}`);
@@ -86,18 +86,18 @@ export class ZapClient implements I_JsonSocketCallbacks {
 	
 	OnOpen = () => {
 		console.log(`open`);
-		store.set(connStatusAtom, E_ConnStatus.connected);
+		$store.set($connStatus, E_ConnStatus.connected);
 	};
 	
 	OnError = (errorEvent: Event) => {
 		console.error(`socket connection error`, errorEvent);
-		store.set(connErrorAtom, `socket connection error`);
+		$store.set($connError, `socket connection error`);
 	};
 	
 	OnClose = (code: number, reason: string) => {
 		console.log(`closed ${code}, ${reason}`);
-		store.set(connErrorAtom, `socket closed: ${code} ${reason}`);
-		store.set(connStatusAtom, E_ConnStatus.disconnected);
+		$store.set($connError, `socket closed: ${code} ${reason}`);
+		$store.set($connStatus, E_ConnStatus.disconnected);
 	};
 	
 	OnReceive(raw: object) {
@@ -127,13 +127,13 @@ export class ZapClient implements I_JsonSocketCallbacks {
 	}
 	
 	UpdateLocation() {
-		const loc = store.get(locationAtom);
+		const loc = $store.get($location);
 		const pathArr = loc.pathname?.split('/').filter(s => s) || [];
 		const gameIdf = pathArr.length >= 2 ? pathArr[1].toLowerCase() : '';
 		const endpoint = pathArr.length >= 1 ? GetEndpoint(pathArr[0]) : E_Endpoint.unknown;
 		
-		store.set(endpointAtom, endpoint);
-		store.set(gameIdfAtom, gameIdf);
+		$store.set($endpoint, endpoint);
+		$store.set($gameIdf, gameIdf);
 		console.log(`UpdateLocation: ${loc.pathname}`, pathArr);
 		
 		document.title = `${E_Endpoint[endpoint]} of ${gameIdf || '?'} (ZAP)`;

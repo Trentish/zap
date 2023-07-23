@@ -4,19 +4,19 @@ import {PlayerPage} from './player/PlayerPage.tsx';
 import {ProjectorPage} from './projector/ProjectorPage.tsx';
 import {useAtom} from 'jotai';
 import {
-	allGameIdfsAtom,
-	connErrorAtom,
-	connStatusAtom,
-	endpointAtom,
-	gameIdfAtom,
+	$allGameIdfs,
+	$connError,
+	$connStatus,
+	$endpoint,
+	$gameIdf,
 } from './ZapClient.ts';
 import {E_ConnStatus, E_Endpoint, T_GameIdf} from '../../zap-shared/SystemTypes.ts';
 
 
 export function Routing() {
-	const [endpoint] = useAtom(endpointAtom);
-	const [gameIdf] = useAtom(gameIdfAtom);
-	const [connStatus] = useAtom(connStatusAtom);
+	const [endpoint] = useAtom($endpoint);
+	const [gameIdf] = useAtom($gameIdf);
+	const [connStatus] = useAtom($connStatus);
 	
 	if (connStatus !== E_ConnStatus.connected) return <NotConnected/>;
 	
@@ -46,8 +46,8 @@ const ROUTES: Record<string, T_Route> = {
 };
 
 function NotConnected() {
-	const [connError] = useAtom(connErrorAtom);
-	const [connStatus] = useAtom(connStatusAtom);
+	const [connError] = useAtom($connError);
+	const [connStatus] = useAtom($connStatus);
 	
 	return (
 		<div style={{
@@ -58,9 +58,9 @@ function NotConnected() {
 }
 
 function BadRoute() {
-	const [endpoint] = useAtom(endpointAtom);
-	const [gameIdf] = useAtom(gameIdfAtom);
-	const [allGameIdfs] = useAtom(allGameIdfsAtom);
+	const [endpoint] = useAtom($endpoint);
+	const [gameIdf] = useAtom($gameIdf);
+	const [allGameIdfs] = useAtom($allGameIdfs);
 	
 	//## force reloading the page (for now)
 	const doNav = (ep: E_Endpoint, idf: T_GameIdf) => {

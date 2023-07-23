@@ -16,6 +16,7 @@ export class ZapPacketDefs<TSrc extends I_PkSource> extends BasePacketDefs<TSrc>
 	
 	PostArticle = this.CLIENT_to_SERVER<{
 		headline: string,
+		orgIdf: string, // TODO
 	}>();
 	
 	SetTimer = this.ADMIN_to_SERVER<TimerDat>();

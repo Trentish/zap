@@ -1,7 +1,7 @@
 import {ArticleDat, OrgDat} from '../../../zap-shared/_Dats.ts';
-import {Timer} from '../Timer.tsx';
+import {Timer} from '../displays/Timer.tsx';
 import {useClient} from '../ClientContext.ts';
-import {gameDatAtom, timerMsAtom} from '../ZapClient.ts';
+import {$gameDat, $timerMs} from '../ZapClient.ts';
 import {useAtom} from 'jotai';
 import './ProjectorPage.css';
 
@@ -21,11 +21,11 @@ const EXAMPLE_ORG1: OrgDat = {
 
 export function ProjectorPage() {
 	const client = useClient();
-	const [gameDat] = useAtom(gameDatAtom);
+	const [gameDat] = useAtom($gameDat);
 	
 	return (
 		<div className={'articleContainer'}>
-			<Timer atom={timerMsAtom}/>
+			<Timer atom={$timerMs}/>
 			
 			<Headlines/>
 		</div>
@@ -33,7 +33,7 @@ export function ProjectorPage() {
 }
 
 function Headlines() {
-	const [gameDat] = useAtom(gameDatAtom);
+	const [gameDat] = useAtom($gameDat);
 	
 	return (
 		<div className={'articles'}>
