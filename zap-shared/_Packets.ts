@@ -16,6 +16,7 @@ export class ZapPacketDefs<TSrc extends I_PkSource> extends BasePacketDefs<TSrc>
 	
 	PostArticle = this.CLIENT_to_SERVER<{
 		headline: string,
+		author: string,
 		orgIdf: string, // TODO
 	}>();
 	

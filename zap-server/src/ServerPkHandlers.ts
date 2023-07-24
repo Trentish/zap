@@ -1,6 +1,6 @@
 import {ZapPacketDefs} from '../../zap-shared/_Packets.js';
 import {ClientConn, ZapServer} from './ZapServer.js';
-import {ArticleDat, GameDat} from '../../zap-shared/_Dats.js';
+import {ArticleDat, GameDat, TimerDat} from '../../zap-shared/_Dats.js';
 import {nanoid} from 'nanoid';
 
 
@@ -28,6 +28,7 @@ export function InitializePackets_SERVER(defs: ZapPacketDefs<ClientConn>, server
 		article.guid = nanoid(16);
 		article.createdAt = new Date();
 		article.headline = pk.headline;
+		article.author = pk.author;
 		article.orgIdf = 'TODO'; // TODO
 		article.themeTags = ['TODO']; // TODO
 		
@@ -43,7 +44,8 @@ export function InitializePackets_SERVER(defs: ZapPacketDefs<ClientConn>, server
 		const game = src.game;
 		if (!game) throw new Error(`TODO: not in game`);
 		
-		game.timer = pk;
+		game.timer.label = pk.label;
+		if (pk.ms >= 0) game.timer.ms = pk.ms;
 		server.SendTimer(game, game.toAllClients);
 	};
 	

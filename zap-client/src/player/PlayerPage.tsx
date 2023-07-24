@@ -1,7 +1,8 @@
 import React from 'react';
 import {Timer} from '../displays/Timer.tsx';
-import {$timerMs} from '../ZapClient.ts';
+import {$timerLabel, $timerMs} from '../ZapClient.ts';
 import {HeadlineControls} from '../controls/HeadlineControls.tsx';
+import {ArticleSummary} from '../displays/ArticleSummary.tsx';
 
 export function PlayerPage() {
 	return (
@@ -10,7 +11,12 @@ export function PlayerPage() {
 			
 			<HeadlineControls/>
 			
-			<Timer atom={$timerMs}/>
+			<Timer
+				$label={$timerLabel}
+				$ms={$timerMs}
+			/>
+			
+			<ArticleSummary/>
 		</div>
 	);
 }

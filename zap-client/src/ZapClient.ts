@@ -15,6 +15,7 @@ import {I_JsonSocketCallbacks, JsonSocketClient} from './lib/JsonSocketClient.ts
 import {InitializePackets_CLIENT} from './ClientPkHandlers.ts';
 import {atomWithLocation} from 'jotai-location';
 import {GameDat} from '../../zap-shared/_Dats.ts';
+import {ApplyLoadedClientPrefs, ClientPrefs} from './ClientPrefs.ts';
 
 
 const WS_SERVER = 'ws://localhost:3007'; // TODO: config
@@ -27,8 +28,13 @@ export const $location = atomWithLocation();
 export const $endpoint = atom(E_Endpoint.unknown);
 export const $gameIdf = atom<T_GameIdf>('');
 export const $allGameIdfs = atom<string[]>([]);
+
+export const $timerLabel = atom('');
 export const $timerMs = atom(0);
 export const $gameDat = atom(new GameDat());
+
+// export const $prefs = atom(new ClientPrefs());
+export const $author = atom('');
 
 export class ConnToServer implements I_PkSource {
 	endpoint = E_Endpoint.server;
@@ -41,6 +47,7 @@ export class ZapClient implements I_JsonSocketCallbacks {
 	socket = new JsonSocketClient();
 	packets = new ZapPacketDefs<ConnToServer>();
 	packetMap = new Map<T_MsgId, BasePkHandler<ConnToServer>>();
+	clientPrefs = new ClientPrefs();
 	
 	get endpoint() {return $store.get($endpoint);}
 	
@@ -48,6 +55,8 @@ export class ZapClient implements I_JsonSocketCallbacks {
 	
 	constructor() {
 		console.log(`initialize Client`);
+		
+		this.LoadClientPrefs();
 		
 		$store.set($connStatus, E_ConnStatus.initializing);
 		
@@ -147,8 +156,26 @@ export class ZapClient implements I_JsonSocketCallbacks {
 	// 		return next;
 	// 	});
 	// }
+	
+	LoadClientPrefs() {
+		const prefs = new ClientPrefs();
+		
+		const loadedJson = localStorage.getItem(ClientPrefs.PREFS_KEY);
+		if (loadedJson) {
+			Object.assign(prefs, JSON.parse(loadedJson));
+		}
+		
+		// $store.set($prefs, prefs);
+		this.clientPrefs = prefs;
+		ApplyLoadedClientPrefs(prefs);
+	}
+	
+	SaveClientPrefs() {
+		// const prefs = $store.get($prefs);
+		const json = JSON.stringify(this.clientPrefs);
+		localStorage.setItem(ClientPrefs.PREFS_KEY, json);
+	}
 }
-
 
 // export const at1 = atom(555);
 // const testy = atom({blah: 55});

@@ -1,7 +1,7 @@
 import {T_ClientId, T_GameIdf} from '../../zap-shared/SystemTypes.js';
 import {ClientConn} from './ZapServer.js';
 import {ZapDb} from './ZapDb.js';
-import {ArticleDat, GameDat} from '../../zap-shared/_Dats.js';
+import {ArticleDat, GameDat, TimerDat} from '../../zap-shared/_Dats.js';
 
 export class ZapGame {
 	idf: T_GameIdf;
@@ -18,7 +18,8 @@ export class ZapGame {
 	/** instance of ZapDb specific to this ZapGame */
 	db: ZapDb<GameDat>;
 	tickInterval: NodeJS.Timer;
-	timer = {
+	timer: TimerDat = {
+		label: '',
 		ms: 0,
 	};
 	

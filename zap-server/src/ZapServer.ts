@@ -19,6 +19,7 @@ const PING_MSG = 'PING';
 const PONG_MSG = 'PONG';
 const TICK_RATE_MS = 1000;
 const STARTING_TIMER_MS = 30 * 60 * 1000;
+const DB_BACKUP_MS = 1 * 60 * 1000;
 
 export class ClientConn implements I_PkSource {
 	isOpen: boolean;
@@ -187,11 +188,13 @@ export class ZapServer {
 			articles: [],
 		}, {
 			folderPath: `${this.storagePath}/${idf}`,
+			backupIntervalMs: DB_BACKUP_MS,
 			Serials: GameDat.Serials,
 		});
 		game.db.onLoad = () => this.SendGameDat(game, game.toAllClients);
 		
 		game.timer = {
+			label: '',
 			ms: STARTING_TIMER_MS,
 		};
 		game.tickInterval = setInterval(() => this.TickGame(game), TICK_RATE_MS);

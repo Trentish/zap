@@ -36,6 +36,11 @@ button:hover {
 	background-color: #a7e36a;
 }
 
+button:focus {
+	outline: 4px solid #dc143c;
+	/*border-radius: 5px;*/
+}
+
 button:disabled {
 	background-color: #adadad;
 	color: #797979;
@@ -47,6 +52,12 @@ input {
 	background-color: #f3f3f3;
 	padding: 6px;
 	margin: 4px 0 4px 0;
+}
+
+input::placeholder {
+	color: #6c6c6c;
+	font-size: .5em;
+	font-style: italic;
 }
 
 label {
@@ -70,15 +81,18 @@ label {
 	}
 }
 
-
-.input-headline {
-
+.headlineControls {
+	margin: 24px;
 }
 
-.input-headline label {
+.headlineControls label {
 	font-size: 2em;
 }
 
-.input-headline input {
+.headlineControls input {
 	font-size: 1em;
+}
+
+.headlineControls input::placeholder {
+	font-size: .7em;
 }

@@ -1,15 +1,17 @@
 import {ArticleDat, OrgDat} from '../../../zap-shared/_Dats.ts';
 import {Timer} from '../displays/Timer.tsx';
 import {useClient} from '../ClientContext.ts';
-import {$gameDat, $timerMs} from '../ZapClient.ts';
+import {$gameDat, $timerLabel, $timerMs} from '../ZapClient.ts';
 import {useAtom} from 'jotai';
 import './ProjectorPage.css';
+import React from 'react';
 
 const EXAMPLE_ARTICLE1: ArticleDat = {
 	guid: 'jskldjflksdjf',
 	headline: 'This is a headline test',
 	createdAt: new Date(2023, 4, 5, 5, 55, 55),
 	
+	author: '',
 	orgIdf: 'test_org',
 	themeTags: ['themeTag1', 'themeTag2'],
 };
@@ -25,7 +27,10 @@ export function ProjectorPage() {
 	
 	return (
 		<div className={'articleContainer'}>
-			<Timer atom={$timerMs}/>
+			<Timer
+				$label={$timerLabel}
+				$ms={$timerMs}
+			/>
 			
 			<Headlines/>
 		</div>

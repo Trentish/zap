@@ -9,6 +9,8 @@ export type T_Input<TVal> = {
 	description?: string,
 	
 	type?: React.HTMLInputTypeAttribute,
+	placeholder?: string,
+	
 	class?: string,
 	
 	labelClass?: string,
@@ -48,6 +50,7 @@ export function Input<TVal>(props: T_Input<TVal>) {
 					value={props.valueToString ? props.valueToString(value) : `${value}`}
 					onChange={onChange}
 					type={props.type}
+					placeholder={props.placeholder}
 					
 					className={props.inputClass}
 					style={props.inputStyle}
@@ -61,5 +64,5 @@ export function Input<TVal>(props: T_Input<TVal>) {
 }
 
 export const NumberInput = (props: T_Input<number>) =>
-	<Input stringToValue={str => parseInt(str)} {...props}/>;
+	<Input stringToValue={str => parseInt(str) || 0} {...props}/>;
 

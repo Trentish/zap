@@ -24,3 +24,9 @@
 	background: #fc0;
 	color: #000;
 }
+
+.articleSummary {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	margin: 24px;
+}

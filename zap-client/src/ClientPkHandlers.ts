@@ -5,7 +5,7 @@ import {
 	$gameDat,
 	$store,
 	$timerMs,
-	ZapClient,
+	ZapClient, $timerLabel,
 } from './ZapClient.ts';
 
 // TODO: break this up at some point
@@ -35,6 +35,7 @@ export function InitializePackets_CLIENT(defs: ZapPacketDefs<ConnToServer>, clie
 	}
 	
 	defs.TimerTick.From_SERVER = (pk) => {
+		$store.set($timerLabel, pk.label);
 		$store.set($timerMs, pk.ms);
 	}
 }

@@ -5,6 +5,7 @@ export class ArticleDat {
 	guid: string;
 	createdAt: Date;
 	headline: string;
+	author: string;
 	orgIdf: string;
 	themeTags: string[];
 	// tickerVisible: boolean; // maybe?
@@ -17,6 +18,7 @@ export class ArticleDat {
 				guid: article.guid,
 				createdAt: article.createdAt.toJSON(),
 				headline: article.headline,
+				author: article.author,
 				orgIdf: article.orgIdf,
 				themeTags: article.themeTags,
 			}
@@ -26,6 +28,7 @@ export class ArticleDat {
 				guid: obj.guid,
 				createdAt: new Date(obj.createdAt ?? 0),
 				headline: obj.headline,
+				author: obj.author,
 				orgIdf: obj.orgIdf,
 				themeTags: obj.themeTags,
 			} as ArticleDat
@@ -61,9 +64,11 @@ export type OrgDat = {
 	// logo, etc.?
 }
 
+// TODO: 'tick' messages could be optimized later
 export type TimerDat = {
+	label: string,
+	/** set to -1 to ignore this field (i.e. change label only) */
 	ms: number,
-	// TODO: label?
 }
 
 //  Oath, Grudge, Triumph, Calamity, Discovery, Gossip, Doom

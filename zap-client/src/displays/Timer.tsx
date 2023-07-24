@@ -3,8 +3,12 @@ import {useAtom} from 'jotai';
 import {clsx} from 'clsx';
 
 /* atom is number (milliseconds) */
-export function Timer({atom}: { atom: PrimitiveAtom<number> }) {
-	const [timer] = useAtom(atom);
+export function Timer({$label, $ms}: {
+	$label: PrimitiveAtom<string>,
+	$ms: PrimitiveAtom<number>
+}) {
+	const [label] = useAtom($label);
+	const [timer] = useAtom($ms);
 	
 	const fullSeconds = Math.floor(timer / 1000);
 	const minutes = Math.floor(fullSeconds / 60);
@@ -21,6 +25,6 @@ export function Timer({atom}: { atom: PrimitiveAtom<number> }) {
 	return (
 		<p
 			className={classNames}
-		>{minutesText}:{secondsText}</p>
+		>{minutesText}:{secondsText} {label}</p>
 	);
 }
