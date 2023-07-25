@@ -19,7 +19,8 @@ const PING_MSG = 'PING';
 const PONG_MSG = 'PONG';
 const TICK_RATE_MS = 1000;
 const STARTING_TIMER_MS = 30 * 60 * 1000;
-const DB_BACKUP_MS = 1 * 60 * 1000;
+const DB_BACKUP_MS = 5 * 60 * 1000;
+const ARTICLE_COUNT_INITIAL_SEND = 10; // TODO: config/elsewhere
 
 export class ClientConn implements I_PkSource {
 	isOpen: boolean;
@@ -183,16 +184,18 @@ export class ZapServer {
 		game.toPlayers = `${idf}/players`;
 		game.toProjectors = `${idf}/projectors`;
 		
-		game.db = new ZapDb<GameDat>({
-			idf: idf,
-			articles: [],
-		}, {
-			folderPath: `${this.storagePath}/${idf}`,
-			backupIntervalMs: DB_BACKUP_MS,
-			Serials: GameDat.Serials,
-		});
-		game.db.onLoad = () => this.SendGameDat(game, game.toAllClients);
-		
+		game.db = new ZapDb<GameDat>(
+			{
+				idf: idf,
+				lastId: 0,
+				articles: [],
+			}
+			, {
+				folderPath: `${this.storagePath}/${idf}`,
+				backupIntervalMs: DB_BACKUP_MS,
+				// Serials: GameDat.Serials,
+			});
+		game.db.onLoad = () => this.SendInitialArticles(game, game.toAllClients);
 		game.timer = {
 			label: '',
 			ms: STARTING_TIMER_MS,
@@ -226,8 +229,8 @@ export class ZapServer {
 			client.socket.subscribe(game.toProjectors);
 		}
 		
-		this.SendGameDat(game, client.toSocket);
 		this.SendTimer(game, client.toSocket);
+		this.SendInitialArticles(game, client.toSocket);
 		console.log(`${game} added: ${client.label}`);
 	}
 	
@@ -263,7 +266,35 @@ export class ZapServer {
 		this.SendTimer(game, game.toAllClients);
 	}
 	
-	SendGameDat = (game: ZapGame, to: string) => this.packets.GameDat.Send(to, game.db.current);
+	SendInitialArticles(game: ZapGame, to: string) {
+		this.packets.ArticleList.Send(to, {
+			articles: game.db.current.articles.slice(-ARTICLE_COUNT_INITIAL_SEND),
+		});
+	}
+	
+	// SendGameInfo(game: ZapGame, to: string) {
+	// 	this.packets.GameInfo.Send(to, {
+	// 		idf: game.idf,
+	// 		articleCount: game.db.current.articles.length,
+	// 	});
+	// }
+	
+	async ResetGame(game: ZapGame) {
+		console.log(`RESETTING game ${game.idf}`);
+		
+		await game.db.Backup();
+		
+		game.db.current = {
+			idf: game.idf,
+			lastId: 0,
+			articles: [],
+		};
+		
+		this.SendInitialArticles(game, game.toAllClients);
+		
+		return game.db.Save();
+	}
+	
 	SendTimer = (game: ZapGame, to: string) => this.packets.TimerTick.Send(to, game.timer);
 }
 

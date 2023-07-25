@@ -4,7 +4,7 @@
 - run client: /zap-client `npm run dev`
 - client terminal will tell you where to go, should be something like `http://127.0.0.1:5173/`
 - `STORAGE_PATH` environment variable determines where files are stored to, e.g. `C:/Zap`
-
+- note: changes in zap-shared may not be auto-detected
 
 ## Routing
 - clientURL.com / admin / {gameIdf}

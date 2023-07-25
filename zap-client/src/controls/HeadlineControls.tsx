@@ -1,9 +1,9 @@
 import {useClient} from '../ClientContext.ts';
-import {$author, $store} from '../ZapClient.ts';
 import {Input} from '../components/InputComponents.tsx';
 import React from 'react';
 import {atom} from 'jotai';
 import {Button} from '../components/ButtonComponents.tsx';
+import {$author, $store} from '../ClientState.ts';
 
 const $headline = atom('');
 const $org = atom('orgTODO'); // TODO: actual org support
@@ -36,8 +36,6 @@ export function HeadlineControls() {
 			orgIdf: org, // TODO
 		});
 		
-		client.clientPrefs.author = author;
-		client.SaveClientPrefs();
 		$store.set($headline, '');
 	};
 	
@@ -45,18 +43,18 @@ export function HeadlineControls() {
 		<div className={'headlineControls'}>
 			<Input
 				label={'Headline'}
-				valueAtom={$headline}
+				$value={$headline}
 				description={`don't post stupid shit (TODO)`}
 				placeholder={`X adjectively verbed Y!`}
 			/>
 			<Input
 				label={'Author'}
-				valueAtom={$author}
+				$value={$author}
 				placeholder={'Jed McJedfry'}
 			/>
 			<Input
 				label={'Org something'}
-				valueAtom={$org}
+				$value={$org}
 				description={`TODO: actual org support`}
 			/>
 			

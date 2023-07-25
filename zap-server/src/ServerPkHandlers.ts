@@ -4,8 +4,10 @@ import {ArticleDat, GameDat, TimerDat} from '../../zap-shared/_Dats.js';
 import {nanoid} from 'nanoid';
 
 
-// TODO: break this up at some point
+// TODO: break this up at some point?
 export function InitializePackets_SERVER(defs: ZapPacketDefs<ClientConn>, server: ZapServer) {
+	
+	//## SYSTEM
 	defs.Register.From_CLIENT = (pk, src) => {
 		if (!pk.GameIdf) {
 			// skipping everything for now (client will reload with proper data)
@@ -19,59 +21,85 @@ export function InitializePackets_SERVER(defs: ZapPacketDefs<ClientConn>, server
 		server.AddClientToGame(game, src);
 	};
 	
+	
+	//## ARTICLES
+	
 	defs.PostArticle.From_CLIENT = (pk, src) => {
 		console.log(`PostArticle receive from ${src.label}`, pk);
 		const game = src.game;
 		if (!game) throw new Error(`TODO: PostArticle but not in game`);
 		
-		const article = new ArticleDat();
-		article.guid = nanoid(16);
-		article.createdAt = new Date();
-		article.headline = pk.headline;
-		article.author = pk.author;
-		article.orgIdf = 'TODO'; // TODO
-		article.themeTags = ['TODO']; // TODO
+		const gameDat: GameDat = game.db.current;
+		const id = gameDat.lastId + 1;
+		const now = new Date();
 		
-		console.log(`created Article: ${article.guid} ${article.headline}`);
+		const article: ArticleDat = {
+			id: id,
+			guid: nanoid(16),
+			createdAt: now.toJSON(),
+			headline: pk.headline,
+			author: pk.author,
+			orgIdf: pk.orgIdf,
+			themeTags: ['TODO'], // TODO
+		};
 		
-		game.db.current.articles.push(article);
+		console.log(`created Article: ${article.id} ${article.headline}`);
+		
+		gameDat.lastId = id;
+		gameDat.articles.push(article);
 		game.db.Save();
 		
 		defs.ArticleAdded.Send(game.toAllClients, article);
 	};
 	
+	defs.RequestAllArticles.From_CLIENT = (pk, src) => {
+		const game = src.game;
+		if (!game) throw new Error(`TODO: RequestAllArticles but not in game`);
+		
+		console.log(`request for all articles, count: ${game.db.current.articles.length}`);
+		defs.ArticleList.Send(src.toSocket, {
+			articles: game.db.current.articles,
+		});
+	};
+	
+	defs.ResetGame.From_ADMIN = (pk, src) => {
+		const game = src.game;
+		if (!game) throw new Error(`TODO: ResetGame but not in game`);
+		
+		return server.ResetGame(game);
+	};
+	
+	// defs.RequestArticles.From_CLIENT = (pk, src) => {
+	// 	const game = src.game;
+	// 	if (!game) throw new Error(`TODO: RequestArticles but not in game`);
+	//
+	// 	const gameDat: GameDat = game.db.current;
+	//
+	// 	const articles = gameDat.articles.slice(pk.min, pk.max);
+	//
+	// 	defs.ArticleList.Send(src.toSocket, {
+	// 		clearExisting: false,
+	// 		articles: articles,
+	// 	});
+	// };
+	
+	
+	//## TIMER
+	
 	defs.SetTimer.From_ADMIN = (pk, src) => {
 		const game = src.game;
-		if (!game) throw new Error(`TODO: not in game`);
+		if (!game) throw new Error(`TODO: SetTimer but not in game`);
 		
 		game.timer.label = pk.label;
 		if (pk.ms >= 0) game.timer.ms = pk.ms;
 		server.SendTimer(game, game.toAllClients);
 	};
 	
-	defs.DbTestLoad.From_ADMIN = (pk, src) => {
-		src.game?.db.Load();
-	};
 	
-	defs.DbTestSave.From_ADMIN = (pk, src) => {
-		src.game?.db.Save();
-	};
+	//## MISC
 	
-	defs.ClearAllArticles.From_ADMIN = (pk, src) => {
-		const game = src.game;
-		if (!game) return;
-		
-		const gameDat = game.db.current;
-		if (!gameDat) return;
-		
-		console.log(`CLEARING all articles for ${game.idf}`);
-		
-		gameDat.articles = [];
-		game.db.Save();
-		
-		
-		defs.GameDat.Send(game.toAllClients, gameDat);
-	};
-	
+	defs.DbForceLoad.From_ADMIN = (pk, src) => src.game?.db.Load();
+	defs.DbForceSave.From_ADMIN = (pk, src) => src.game?.db.Save();
+	defs.DbForceBackup.From_ADMIN = (pk, src) => src.game?.db.Backup();
 	
 }

@@ -46,6 +46,14 @@ button:disabled {
 	color: #797979;
 }
 
+.dangerButton {
+	background-color: #ff4b4b;
+}
+
+.dangerButton:focus {
+	outline: 4px solid #6e0016;
+}
+
 
 /* TODO: actual input styles */
 input {
@@ -64,6 +72,30 @@ label {
 	display: flex;
 	flex-direction: column;
 	margin: 4px 0 4px 0;
+}
+
+.radios {
+	display: flex;
+	flex-direction: row;
+	cursor: default;
+}
+
+.radios label {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	/*background-color: #f60;*/
+	margin: 0 8px;
+}
+
+.radios input {
+	width: 16px;
+	height: 16px;
+	margin-right: 8px;
+}
+
+.radios input:checked{
+	background-color: #000;
 }
 
 .timer {

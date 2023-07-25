@@ -1,36 +1,15 @@
-import {ArticleDat, OrgDat} from '../../../zap-shared/_Dats.ts';
+import {ArticleDat} from '../../../zap-shared/_Dats.ts';
 import {Timer} from '../displays/Timer.tsx';
-import {useClient} from '../ClientContext.ts';
-import {$gameDat, $timerLabel, $timerMs} from '../ZapClient.ts';
 import {useAtom} from 'jotai';
 import './ProjectorPage.css';
 import React from 'react';
-
-const EXAMPLE_ARTICLE1: ArticleDat = {
-	guid: 'jskldjflksdjf',
-	headline: 'This is a headline test',
-	createdAt: new Date(2023, 4, 5, 5, 55, 55),
-	
-	author: '',
-	orgIdf: 'test_org',
-	themeTags: ['themeTag1', 'themeTag2'],
-};
-
-const EXAMPLE_ORG1: OrgDat = {
-	idf: 'test_org',
-	proper_name: 'Test Org',
-};
+import {$splitArticles, $timer} from '../ClientState.ts';
+import {Atom} from 'jotai/vanilla/atom';
 
 export function ProjectorPage() {
-	const client = useClient();
-	const [gameDat] = useAtom($gameDat);
-	
 	return (
 		<div className={'articleContainer'}>
-			<Timer
-				$label={$timerLabel}
-				$ms={$timerMs}
-			/>
+			<Timer $timer={$timer}/>
 			
 			<Headlines/>
 		</div>
@@ -38,40 +17,32 @@ export function ProjectorPage() {
 }
 
 function Headlines() {
-	const [gameDat] = useAtom($gameDat);
+	const [articles] = useAtom($splitArticles);
 	
 	return (
 		<div className={'articles'}>
-			{(gameDat.articles || []).map(article => (
+			{articles.map($article => (
 				<Headline
-					key={article.guid}
-					Article={article}
+					key={`${$article}`}
+					$article={$article}
 				/>
 			))}
-		
 		</div>
-	)
+	);
 }
 
-type P_HeadlineExample = {
-	Article: ArticleDat,
-	// Org: OrgDat,
-};
-
-function Headline(props: P_HeadlineExample) {
-	const {
-		Article,
-	} = props;
-	
+function Headline({$article}: { $article: Atom<ArticleDat> }) {
+	const [article] = useAtom($article);
 	
 	return (
-		<div className={'article'}
+		<div
+			className={'article'}
 			// style={{
 			// 	backgroundColor: '#b74aff',
 			// }}
 		>
 			<h2 className={'headline-name'}>
-				{Article.headline}
+				{article.headline}
 			</h2>
 			{/*<h3>{Article.createdAt.toTimeString()}</h3>*/}
 		

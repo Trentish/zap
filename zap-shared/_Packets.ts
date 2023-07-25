@@ -1,35 +1,41 @@
 import {BasePacketDefs, E_Endpoint, I_PkSource, T_GameIdf} from './SystemTypes.ts';
-import {ArticleDat, GameDat, TimerDat} from './_Dats.ts';
+import {ArticleDat, ArticleListDat, PostArticleDat, TimerDat} from './_Dats.ts';
+
+type none = string; // no packet
 
 export class ZapPacketDefs<TSrc extends I_PkSource> extends BasePacketDefs<TSrc> {
 	
+	//## SYSTEM
 	Log = this.SERVER_to_CLIENT<string>();
-	
 	DemandRegister = this.SERVER_to_CLIENT<{
 		Games: T_GameIdf[],
 	}>();
-	
 	Register = this.CLIENT_to_SERVER<{
 		Endpoint: E_Endpoint;
 		GameIdf: T_GameIdf;
 	}>();
 	
-	PostArticle = this.CLIENT_to_SERVER<{
-		headline: string,
-		author: string,
-		orgIdf: string, // TODO
-	}>();
 	
+	//## ARTICLES
+	PostArticle = this.CLIENT_to_SERVER<PostArticleDat>();
+	// RequestArticles = this.CLIENT_to_SERVER<{ min: number, max: number }>();
+	RequestAllArticles = this.CLIENT_to_SERVER<none>();
+	ResetGame = this.ADMIN_to_SERVER<none>();
+	
+	ArticleAdded = this.SERVER_to_CLIENT<ArticleDat>(); // .WithSerials(ArticleDat.Serials);
+	ArticleList = this.SERVER_to_CLIENT<ArticleListDat>(); // .WithSerials(ArticleListDat.Serials);
+	
+	
+	//## TIMER
 	SetTimer = this.ADMIN_to_SERVER<TimerDat>();
 	TimerTick = this.SERVER_to_CLIENT<TimerDat>();
 	
-	GameDat = this.SERVER_to_CLIENT<GameDat>().WithSerials(GameDat.Serials);
-	ArticleAdded = this.SERVER_to_CLIENT<ArticleDat>().WithSerials(ArticleDat.Serials);
 	
-	DbTestLoad = this.ADMIN_to_SERVER<string>();
-	DbTestSave = this.ADMIN_to_SERVER<string>();
+	//## MISC
+	DbForceLoad = this.ADMIN_to_SERVER<none>();
+	DbForceSave = this.ADMIN_to_SERVER<none>();
+	DbForceBackup = this.ADMIN_to_SERVER<none>();
 	
-	ClearAllArticles = this.ADMIN_to_SERVER<string>();
 	
 	constructor() {
 		super();

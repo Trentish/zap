@@ -105,8 +105,11 @@ export class ZapDb<T> {
 		const nextBackup = this.lastBackup.getTime() + this.backupIntervalMs;
 		if (nextBackup > Date.now()) return; //>> skip (backup cooldown timer)
 		
+		return this.Backup();
+	}
+	
+	async Backup() {
 		const dataPath = `${this.folderPath}/data.json`;
-		// const dtString = new Date().toJSON().replace('T', '_');
 		const dtString = getDateTimeFileString(new Date());
 		const backupPath = `${this.folderPath}/data_backup_${dtString}.json`;
 		
@@ -114,7 +117,7 @@ export class ZapDb<T> {
 		console.debug(`📦 backup -> ${backupPath}`);
 		
 		const [, renameError] = await vow(
-			rename(dataPath, backupPath)
+			rename(dataPath, backupPath),
 		);
 		if (renameError) return console.error(`TODO: backup/renameError ${renameError}`); // TODO
 		

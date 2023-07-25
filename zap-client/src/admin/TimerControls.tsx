@@ -1,10 +1,10 @@
 import {useClient} from '../ClientContext.ts';
-import {$store, $timerLabel, $timerMs} from '../ZapClient.ts';
 import {Timer} from '../displays/Timer.tsx';
 import {Input, NumberInput} from '../components/InputComponents.tsx';
 import React from 'react';
 import {atom} from 'jotai';
 import {Button} from '../components/ButtonComponents.tsx';
+import {$store, $timer} from '../ClientState.ts';
 
 const $label = atom('');
 const $minutes = atom(5);
@@ -40,8 +40,7 @@ export function TimerControls() {
 			}}
 		>
 			<Timer
-				$label={$timerLabel}
-				$ms={$timerMs}
+				$timer={$timer}
 			/>
 			
 			<div
@@ -52,7 +51,7 @@ export function TimerControls() {
 			>
 				<Input
 					label={'Timer Label'}
-					valueAtom={$label}
+					$value={$label}
 				/>
 				
 				<div style={{width: 16}}/>
@@ -73,14 +72,14 @@ export function TimerControls() {
 			>
 				<NumberInput
 					label={'Minutes'}
-					valueAtom={$minutes}
+					$value={$minutes}
 				/>
 				
 				<div style={{width: 16}}/>
 				
 				<NumberInput
 					label={'Seconds'}
-					valueAtom={$seconds}
+					$value={$seconds}
 				/>
 			</div>
 			

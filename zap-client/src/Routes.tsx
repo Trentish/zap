@@ -3,14 +3,8 @@ import {AdminPage} from './admin/AdminPage.tsx';
 import {PlayerPage} from './player/PlayerPage.tsx';
 import {ProjectorPage} from './projector/ProjectorPage.tsx';
 import {useAtom} from 'jotai';
-import {
-	$allGameIdfs,
-	$connError,
-	$connStatus,
-	$endpoint,
-	$gameIdf,
-} from './ZapClient.ts';
 import {E_ConnStatus, E_Endpoint, T_GameIdf} from '../../zap-shared/SystemTypes.ts';
+import {$allGameIdfs, $connError, $connStatus, $endpoint, $gameIdf} from './ClientState.ts';
 
 
 export function Routing() {

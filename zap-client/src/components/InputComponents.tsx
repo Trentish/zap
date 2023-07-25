@@ -5,13 +5,13 @@ import {useAtom} from 'jotai';
 
 export type T_Input<TVal> = {
 	label: string,
-	valueAtom: PrimitiveAtom<TVal>,
+	$value: PrimitiveAtom<TVal>,
 	description?: string,
 	
 	type?: React.HTMLInputTypeAttribute,
 	placeholder?: string,
 	
-	class?: string,
+	className?: string,
 	
 	labelClass?: string,
 	labelStyle?: React.CSSProperties,
@@ -28,7 +28,7 @@ export type T_Input<TVal> = {
 }
 
 export function Input<TVal>(props: T_Input<TVal>) {
-	const [value, setValue] = useAtom(props.valueAtom);
+	const [value, setValue] = useAtom(props.$value);
 	
 	const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
 		const newValue = props.stringToValue
@@ -38,7 +38,7 @@ export function Input<TVal>(props: T_Input<TVal>) {
 	};
 	
 	return (
-		<div className={props.class}>
+		<div className={props.className}>
 			<label
 				className={props.labelClass}
 				style={props.labelStyle}

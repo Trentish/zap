@@ -1,15 +1,11 @@
 import {ZapPacketDefs} from '../../zap-shared/_Packets.ts';
-import {
-	$allGameIdfs,
-	ConnToServer,
-	$gameDat,
-	$store,
-	$timerMs,
-	ZapClient, $timerLabel,
-} from './ZapClient.ts';
+import {ConnToServer, ZapClient} from './ZapClient.ts';
+import {$allArticles, $allGameIdfs,  $store, $timer} from './ClientState.ts';
 
-// TODO: break this up at some point
+// TODO: break this up at some point?
 export function InitializePackets_CLIENT(defs: ZapPacketDefs<ConnToServer>, client: ZapClient) {
+	
+	//## SYSTEM
 	
 	defs.Log.From_SERVER = (pk) => console.log(`%c${pk}`, `font-weight: bold;`);
 	
@@ -23,19 +19,49 @@ export function InitializePackets_CLIENT(defs: ZapPacketDefs<ConnToServer>, clie
 		});
 	};
 	
-	defs.GameDat.From_SERVER = (pk ) => {
-		console.log(`gameDat received`, pk);
-		$store.set($gameDat, {...pk});
-	}
+	
+	//## ARTICLES
 	
 	defs.ArticleAdded.From_SERVER = (pk) => {
-		const dat = $store.get($gameDat);
-		dat.articles.push(pk);
-		$store.set($gameDat, {...dat});
-	}
+		// const article = $articleLup(pk.id);
+		// $store.set(article, pk);
+		// const holder = $store.get($articleHolder);
+		// $store.set($articleHolder, {
+		// 	count: holder.articles.length + 1,
+		// 	highestId: -1, // TODO: delete
+		// 	articles: [...holder.articles, pk],
+		// });
+		// const split = $store.get($splitArticles);
+		$store.set($allArticles, (current) => [...current, pk]);
+		console.log(`add article: ${pk.id}`);
+	};
+	defs.ArticleList.From_SERVER = (pk) => {
+		$store.set($allArticles, pk.articles);
+		// $store.set($articleHolder, {
+		// 	count: pk.articles.length,
+		// 	highestId: -1, // TODO: delete
+		// 	articles: pk.articles,
+		// });
+		// for (const dat of pk.articles) {
+		// 	const article = $articleLup(dat.id);
+		// 	$store.set(article, dat);
+		// 	console.log(`set articleLup: ${dat.id}`);
+		// }
+	};
+	
+	
+	//## TIMER
 	
 	defs.TimerTick.From_SERVER = (pk) => {
-		$store.set($timerLabel, pk.label);
-		$store.set($timerMs, pk.ms);
-	}
+		$store.set($timer, pk);
+	};
+	
+	
+	//## MISC
+	
+	// defs.GameInfo.From_SERVER = (pk) => {
+	// 	$store.set($gameInfo, pk);
+	// };
+	
+	
 }

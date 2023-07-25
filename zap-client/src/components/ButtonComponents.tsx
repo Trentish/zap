@@ -1,13 +1,13 @@
 import React from 'react';
-import {Atom} from 'jotai/vanilla/atom';
-import {atom, useAtomValue} from 'jotai';
+import {Atom, PrimitiveAtom} from 'jotai/vanilla/atom';
+import {atom, useAtom, useAtomValue} from 'jotai';
 import {clsx} from 'clsx';
 
 export type T_Button = {
 	label: string,
 	onClick: React.MouseEventHandler<HTMLButtonElement>,
 	
-	class?: string,
+	className?: string,
 	buttonClass?: string,
 	buttonStyle?: React.CSSProperties,
 	buttonProps?: object,
@@ -26,7 +26,7 @@ export function Button(props: T_Button) {
 			onClick={props.onClick}
 			disabled={!enabled}
 			
-			className={clsx(props.class, props.buttonClass)}
+			className={clsx(props.className, props.buttonClass)}
 			style={props.buttonStyle}
 			{...props.buttonProps}
 		>
@@ -34,4 +34,58 @@ export function Button(props: T_Button) {
 		</button>
 	);
 	
+}
+
+
+export type T_Radios = {
+	/** index/id of options */
+	$value: PrimitiveAtom<number>,
+	title: string, // legend?
+	options: T_RadioOption[],
+	
+	containerClass?: string,
+}
+
+export type T_RadioOption = {
+	label: string,
+	key?: string, // or use label
+	data?: string | number | object,
+}
+
+export function Radios(props: T_Radios) {
+	return (
+		<fieldset className={clsx('radios', props.containerClass)}>
+			<legend>{props.title}</legend>
+			
+			{props.options.map((
+				(option, index) => (
+					<RadioOption
+						key={`${index}`}
+						id={index}
+						$value={props.$value}
+						{...option}
+					/>
+				)
+			))}
+		</fieldset>
+	);
+}
+
+function RadioOption(props: T_RadioOption & {
+	id: number,
+	$value: PrimitiveAtom<number>
+}) {
+	const [value, setValue] = useAtom(props.$value);
+	
+	return (
+		<label>
+			<input
+				type={'radio'}
+				name={props.label}
+				checked={props.id === value}
+				onChange={() => setValue(props.id)}
+			/>
+			{props.label}
+		</label>
+	);
 }

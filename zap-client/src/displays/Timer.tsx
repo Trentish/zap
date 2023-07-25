@@ -1,16 +1,23 @@
 import {PrimitiveAtom} from 'jotai/vanilla/atom';
 import {useAtom} from 'jotai';
 import {clsx} from 'clsx';
+import {TimerDat} from '../../../zap-shared/_Dats.ts';
 
-/* atom is number (milliseconds) */
-export function Timer({$label, $ms}: {
-	$label: PrimitiveAtom<string>,
-	$ms: PrimitiveAtom<number>
+// export function Timer({$label, $ms}: {
+// 	$label: PrimitiveAtom<string>,
+// 	$ms: PrimitiveAtom<number>
+// }) {
+export function Timer({$timer}: {
+	$timer: PrimitiveAtom<TimerDat>,
 }) {
-	const [label] = useAtom($label);
-	const [timer] = useAtom($ms);
+	// const [label] = useAtom($label);
+	// const [timer] = useAtom($ms);
+	const [timer] = useAtom($timer);
 	
-	const fullSeconds = Math.floor(timer / 1000);
+	const label = timer.label;
+	const ms = timer.ms;
+	
+	const fullSeconds = Math.floor(ms / 1000);
 	const minutes = Math.floor(fullSeconds / 60);
 	const seconds = fullSeconds % 60;
 	
@@ -19,8 +26,10 @@ export function Timer({$label, $ms}: {
 	
 	const classNames = clsx(
 		'timer', {
-			'timer-complete': timer <= 0,
+			'timer-complete': ms <= 0,
 		});
+	
+	// TODO: better label
 	
 	return (
 		<p
