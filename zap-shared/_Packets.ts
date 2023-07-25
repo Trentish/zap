@@ -18,7 +18,6 @@ export class ZapPacketDefs<TSrc extends I_PkSource> extends BasePacketDefs<TSrc>
 	
 	//## ARTICLES
 	PostArticle = this.CLIENT_to_SERVER<PostArticleDat>();
-	// RequestArticles = this.CLIENT_to_SERVER<{ min: number, max: number }>();
 	RequestAllArticles = this.CLIENT_to_SERVER<none>();
 	ResetGame = this.ADMIN_to_SERVER<none>();
 	

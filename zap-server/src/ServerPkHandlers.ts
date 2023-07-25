@@ -1,7 +1,6 @@
 import {ZapPacketDefs} from '../../zap-shared/_Packets.js';
 import {ClientConn, ZapServer} from './ZapServer.js';
-import {ArticleDat, GameDat, TimerDat} from '../../zap-shared/_Dats.js';
-import {nanoid} from 'nanoid';
+import {ArticleDat, GameDat} from '../../zap-shared/_Dats.js';
 
 
 // TODO: break this up at some point?
@@ -35,7 +34,7 @@ export function InitializePackets_SERVER(defs: ZapPacketDefs<ClientConn>, server
 		
 		const article: ArticleDat = {
 			id: id,
-			guid: nanoid(16),
+			// guid: nanoid(16),
 			createdAt: now.toJSON(),
 			headline: pk.headline,
 			author: pk.author,
@@ -68,20 +67,6 @@ export function InitializePackets_SERVER(defs: ZapPacketDefs<ClientConn>, server
 		
 		return server.ResetGame(game);
 	};
-	
-	// defs.RequestArticles.From_CLIENT = (pk, src) => {
-	// 	const game = src.game;
-	// 	if (!game) throw new Error(`TODO: RequestArticles but not in game`);
-	//
-	// 	const gameDat: GameDat = game.db.current;
-	//
-	// 	const articles = gameDat.articles.slice(pk.min, pk.max);
-	//
-	// 	defs.ArticleList.Send(src.toSocket, {
-	// 		clearExisting: false,
-	// 		articles: articles,
-	// 	});
-	// };
 	
 	
 	//## TIMER

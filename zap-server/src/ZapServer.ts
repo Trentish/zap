@@ -18,6 +18,7 @@ import {ZapDb} from './ZapDb.js';
 const PING_MSG = 'PING';
 const PONG_MSG = 'PONG';
 const TICK_RATE_MS = 1000;
+const STARTING_TIMER_LABEL = 'Game Turn';
 const STARTING_TIMER_MS = 30 * 60 * 1000;
 const DB_BACKUP_MS = 5 * 60 * 1000;
 const ARTICLE_COUNT_INITIAL_SEND = 10; // TODO: config/elsewhere
@@ -197,7 +198,7 @@ export class ZapServer {
 			});
 		game.db.onLoad = () => this.SendInitialArticles(game, game.toAllClients);
 		game.timer = {
-			label: '',
+			label: STARTING_TIMER_LABEL,
 			ms: STARTING_TIMER_MS,
 		};
 		game.tickInterval = setInterval(() => this.TickGame(game), TICK_RATE_MS);
@@ -271,13 +272,6 @@ export class ZapServer {
 			articles: game.db.current.articles.slice(-ARTICLE_COUNT_INITIAL_SEND),
 		});
 	}
-	
-	// SendGameInfo(game: ZapGame, to: string) {
-	// 	this.packets.GameInfo.Send(to, {
-	// 		idf: game.idf,
-	// 		articleCount: game.db.current.articles.length,
-	// 	});
-	// }
 	
 	async ResetGame(game: ZapGame) {
 		console.log(`RESETTING game ${game.idf}`);

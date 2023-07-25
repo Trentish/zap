@@ -1,7 +1,7 @@
 import {T_ClientId, T_GameIdf} from '../../zap-shared/SystemTypes.js';
 import {ClientConn} from './ZapServer.js';
 import {ZapDb} from './ZapDb.js';
-import {ArticleDat, GameDat, TimerDat} from '../../zap-shared/_Dats.js';
+import {GameDat, TimerDat} from '../../zap-shared/_Dats.js';
 
 export class ZapGame {
 	idf: T_GameIdf;

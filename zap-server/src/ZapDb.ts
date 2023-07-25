@@ -1,4 +1,3 @@
-// import * as fs from 'fs';
 import {access, mkdir, opendir, readFile, rename, stat, writeFile} from 'fs/promises';
 import {vow} from '../lib/vow.js';
 import {constants} from 'fs';
@@ -11,9 +10,6 @@ type T_Options<T> = {
 	backupIntervalMs?: number;
 	Serials?: T_Serials<T>;
 }
-// const dateFolder = now.toJSON().split('T')[0];
-
-// TODO: occasional backup
 
 const JSON_SPACE = 4;
 

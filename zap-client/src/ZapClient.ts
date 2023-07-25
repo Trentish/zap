@@ -11,21 +11,14 @@ import {
 import {ZapPacketDefs} from '../../zap-shared/_Packets.ts';
 import {I_JsonSocketCallbacks, JsonSocketClient} from './lib/JsonSocketClient.ts';
 import {InitializePackets_CLIENT} from './ClientPkHandlers.ts';
-import {
-	$articleRequestCount,
-	$connError,
-	$connStatus,
-	$endpoint,
-	$gameIdf,
-	$location,
-	$store,
-} from './ClientState.ts';
+import {$connError, $connStatus, $endpoint, $gameIdf, $location, $store} from './ClientState.ts';
 
 
 const WS_SERVER = 'ws://localhost:3007'; // TODO: config
 const RECONNECT_INTERVAL_MS = 5000;
 
 export class ConnToServer implements I_PkSource {endpoint = E_Endpoint.server;}
+
 const Conn = new ConnToServer(); // placeholder
 
 
@@ -130,28 +123,4 @@ export class ZapClient implements I_JsonSocketCallbacks {
 		
 		document.title = `${E_Endpoint[endpoint]} of ${gameIdf || '?'} (ZAP)`;
 	}
-	
-	currentArticleRequestCount = 0;
-	
-	UpdateArticleRequest() {
-		// const count = $store.get($articleRequestCount);
-		// if (this.currentArticleRequestCount)
-	}
-	
-	// TEMP
-	// Tick() {
-	// 	store.set(timerMsAtom, (current) => {
-	// 		let next = current - 1000;
-	// 		if (next < 0) next = 0;
-	// 		return next;
-	// 	});
-	// }
 }
-
-// export const at1 = atom(555);
-// const testy = atom({blah: 55});
-// const val = store.get(at1);
-// store.set(at1, 12345);
-// const unsub = store.sub(at1, () => {
-// 	const value = store.get(at1);
-// });

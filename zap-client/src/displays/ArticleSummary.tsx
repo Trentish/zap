@@ -6,7 +6,6 @@ import {$splitArticles} from '../ClientState.ts';
 import {Button} from '../components/ButtonComponents.tsx';
 import {useClient} from '../ClientContext.ts';
 
-
 const DEFAULT_SHOW_COUNT = 10;
 
 export function ArticleSummary() {
@@ -49,11 +48,6 @@ export function ArticleSummary() {
 		</div>
 	);
 }
-
-// type P_HeadlineExample = {
-// 	Article: ArticleDat,
-// 	// Org: OrgDat,
-// };
 
 function SummaryHeadline({$article}: { $article: Atom<ArticleDat> }) {
 	const [article] = useAtom($article);

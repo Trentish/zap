@@ -3,15 +3,9 @@ import {useAtom} from 'jotai';
 import {clsx} from 'clsx';
 import {TimerDat} from '../../../zap-shared/_Dats.ts';
 
-// export function Timer({$label, $ms}: {
-// 	$label: PrimitiveAtom<string>,
-// 	$ms: PrimitiveAtom<number>
-// }) {
 export function Timer({$timer}: {
 	$timer: PrimitiveAtom<TimerDat>,
 }) {
-	// const [label] = useAtom($label);
-	// const [timer] = useAtom($ms);
 	const [timer] = useAtom($timer);
 	
 	const label = timer.label;
