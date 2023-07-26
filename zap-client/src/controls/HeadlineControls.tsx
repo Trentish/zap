@@ -4,13 +4,14 @@ import React from 'react';
 import {atom} from 'jotai';
 import {Button} from '../components/ButtonComponents.tsx';
 import {$author, $store} from '../ClientState.ts';
+import {HEADLINE_MAX_SIZE, HEADLINE_MIN_SIZE} from '../../../zap-shared/_Dats.ts';
 
 const $headline = atom('');
 const $org = atom('orgTODO'); // TODO: actual org support
 
 const $canSubmit = atom((get) => {
 	const headline = get($headline);
-	if (!headline || headline.length <= 0) return false; //>> missing headline
+	if (!headline || headline.length <= HEADLINE_MIN_SIZE) return false; //>> below min size
 	
 	const author = get($author);
 	if (!author || author.length <= 0) return false; //>> missing author
@@ -39,6 +40,12 @@ export function HeadlineControls() {
 		$store.set($headline, '');
 	};
 	
+	const checkKeyDown = (evt: React.KeyboardEvent<HTMLInputElement>) => {
+		if (evt.key === 'Enter' && evt.ctrlKey) {
+			postArticle();
+		}
+	};
+	
 	return (
 		<div className={'headlineControls'}>
 			<Input
@@ -46,6 +53,8 @@ export function HeadlineControls() {
 				$value={$headline}
 				description={`don't post stupid shit (TODO)`}
 				placeholder={`X adjectively verbed Y!`}
+				maxLength={HEADLINE_MAX_SIZE}
+				inputProps={{onKeyDown: checkKeyDown}}
 			/>
 			<Input
 				label={'Author'}

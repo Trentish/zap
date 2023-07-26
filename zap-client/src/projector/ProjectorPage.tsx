@@ -3,8 +3,13 @@ import {Timer} from '../displays/Timer.tsx';
 import {useAtom} from 'jotai';
 import './ProjectorPage.css';
 import React from 'react';
-import {$splitArticles, $timer} from '../ClientState.ts';
+import {$splitArticles, $spotlight, $timer} from '../ClientState.ts';
 import {Atom} from 'jotai/vanilla/atom';
+import {clsx} from 'clsx';
+
+
+const SHOW_LAST_COUNT = 7;
+
 
 export function ProjectorPage() {
 	return (
@@ -21,7 +26,7 @@ function Headlines() {
 	
 	return (
 		<div className={'articles'}>
-			{articles.map($article => (
+			{articles.slice(-SHOW_LAST_COUNT).reverse().map($article => (
 				<Headline
 					key={`${$article}`}
 					$article={$article}
@@ -33,19 +38,17 @@ function Headlines() {
 
 function Headline({$article}: { $article: Atom<ArticleDat> }) {
 	const [article] = useAtom($article);
+	const [spotlight] = useAtom($spotlight);
+	
+	const className = clsx(
+		'article',
+		{'spotlight': spotlight.spotlightId === article.id},
+		{'pending': article.id > spotlight.pendingAboveId},
+	);
 	
 	return (
-		<div
-			className={'article'}
-			// style={{
-			// 	backgroundColor: '#b74aff',
-			// }}
-		>
-			<h2 className={'headline-name'}>
-				{article.headline}
-			</h2>
-			{/*<h3>{Article.createdAt.toTimeString()}</h3>*/}
-		
+		<div className={className}>
+			<h2>{article.headline}</h2>
 		</div>
 	);
 }

@@ -1,7 +1,7 @@
 import {T_ClientId, T_GameIdf} from '../../zap-shared/SystemTypes.js';
 import {ClientConn} from './ZapServer.js';
 import {ZapDb} from './ZapDb.js';
-import {GameDat, TimerDat} from '../../zap-shared/_Dats.js';
+import {ArticleDat, SpotlightDat, TimerDat} from '../../zap-shared/_Dats.js';
 
 export class ZapGame {
 	idf: T_GameIdf;
@@ -16,12 +16,33 @@ export class ZapGame {
 	projectors = new Map<T_ClientId, ClientConn>();
 	
 	/** instance of ZapDb specific to this ZapGame */
-	db: ZapDb<GameDat>;
-	tickInterval: NodeJS.Timer;
+	db: ZapDb<GamePersist>;
+	lastTick: number;
 	timer: TimerDat = {
 		label: '',
 		ms: 0,
 	};
+	tickInterval: NodeJS.Timer;
+	
+	spotlight: SpotlightDat = {
+		spotlightId: -1,
+		pendingAboveId: -1,
+	};
+	spotlightIndex: number = -1;
+	spotlightTime: number = 0;
+	spotlightPhase: SpotlightPhase = SpotlightPhase.NONE;
 	
 	public toString(): string {return `game(${this.idf}, clients: ${this.allClients.size})`;}
+}
+
+export class GamePersist {
+	idf: T_GameIdf;
+	lastId: number;
+	articles: ArticleDat[];
+}
+
+export enum SpotlightPhase {
+	NONE,
+	SPOTLIGHT,
+	COOLDOWN,
 }

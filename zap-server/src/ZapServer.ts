@@ -9,11 +9,11 @@ import {
 	T_Packet,
 	T_SocketMsg,
 } from '../../zap-shared/SystemTypes.js';
-import {ZapGame} from './ZapGame.js';
+import {GamePersist, ZapGame} from './ZapGame.js';
 import {InitializePackets_SERVER} from './ServerPkHandlers.js';
 import {ZapPacketDefs} from '../../zap-shared/_Packets.js';
-import {GameDat} from '../../zap-shared/_Dats.js';
-import {ZapDb} from './ZapDb.js';
+import {ArticleDat, PostArticleDat} from '../../zap-shared/_Dats.js';
+import {AddClientToGame, MakeGame} from './GameLogic.js';
 
 const PING_MSG = 'PING';
 const PONG_MSG = 'PONG';
@@ -105,7 +105,7 @@ export class ZapServer {
 		client.socket = socket;
 		client.endpoint = E_Endpoint.client;
 		client.toSocket = `client/${client.id}`;
-		UpdateLabel(client);
+		this.UpdateLabel(client);
 		
 		socket.subscribe(client.toSocket);
 		this.clients.set(client.id, client);
@@ -166,132 +166,25 @@ export class ZapServer {
 			ep: pkHandler.to,
 			pk: packet,
 		});
-		// console.log(`publish to ${address}, ${json}`);
 		this.wsApp.publish(address, json);
 	}
 	
-	
-	SetClientEndpoint(client: ClientConn, endpoint: E_Endpoint) {
+	RegisterClient(client: ClientConn, gameIdf: T_GameIdf, endpoint: E_Endpoint) {
+		let game = this.games.get(gameIdf);
+		
+		if (!game) {
+			game = MakeGame(gameIdf, this);
+			this.games.set(gameIdf, game);
+			console.log(`++game: ${game}`);
+		}
+		
 		console.log(`client(#${client.id}) endpoint change: ${E_Endpoint[client.endpoint]} -> ${E_Endpoint[endpoint]}`);
 		client.endpoint = endpoint;
-		UpdateLabel(client);
+		this.UpdateLabel(client);
+		
+		AddClientToGame(game, client, this);
 	}
 	
-	MakeGame(idf: T_GameIdf) {
-		const game = new ZapGame();
-		game.idf = idf;
-		game.toAllClients = `${idf}/all`;
-		game.toAdmins = `${idf}/admins`;
-		game.toPlayers = `${idf}/players`;
-		game.toProjectors = `${idf}/projectors`;
-		
-		game.db = new ZapDb<GameDat>(
-			{
-				idf: idf,
-				lastId: 0,
-				articles: [],
-			}
-			, {
-				folderPath: `${this.storagePath}/${idf}`,
-				backupIntervalMs: DB_BACKUP_MS,
-				// Serials: GameDat.Serials,
-			});
-		game.db.onLoad = () => this.SendInitialArticles(game, game.toAllClients);
-		game.timer = {
-			label: STARTING_TIMER_LABEL,
-			ms: STARTING_TIMER_MS,
-		};
-		game.tickInterval = setInterval(() => this.TickGame(game), TICK_RATE_MS);
-		
-		console.log(`++game: ${game}`);
-		this.games.set(idf, game);
-		return game;
-	}
-	
-	AddClientToGame(game: ZapGame, client: ClientConn) {
-		this.RemoveClientFromGame(client);
-		
-		client.game = game;
-		UpdateLabel(client);
-		
-		game.allClients.set(client.id, client);
-		client.socket.subscribe(game.toAllClients);
-		
-		if (client.endpoint === E_Endpoint.admin) {
-			game.admins.set(client.id, client);
-			client.socket.subscribe(game.toAdmins);
-		}
-		else if (client.endpoint === E_Endpoint.player) {
-			game.players.set(client.id, client);
-			client.socket.subscribe(game.toPlayers);
-		}
-		else if (client.endpoint === E_Endpoint.projector) {
-			game.projectors.set(client.id, client);
-			client.socket.subscribe(game.toProjectors);
-		}
-		
-		this.SendTimer(game, client.toSocket);
-		this.SendInitialArticles(game, client.toSocket);
-		console.log(`${game} added: ${client.label}`);
-	}
-	
-	RemoveClientFromGame(client: ClientConn) {
-		const game = client.game;
-		if (!game) return; //>> no game
-		
-		client.game = null;
-		UpdateLabel(client);
-		
-		game.allClients.delete(client.id);
-		game.admins.delete(client.id);
-		game.players.delete(client.id);
-		game.projectors.delete(client.id);
-		
-		client.socket.unsubscribe(game.toAllClients);
-		client.socket.unsubscribe(game.toAdmins);
-		client.socket.unsubscribe(game.toPlayers);
-		client.socket.unsubscribe(game.toProjectors);
-		
-		console.log(`${game} removed: ${client.label}`);
-		
-		// TODO: check if game should still be alive
-	}
-	
-	TickGame(game: ZapGame) {
-		let next = game.timer.ms - 1000;
-		if (next < 0) next = 0;
-		game.timer.ms = next;
-		
-		// TODO: more resilient time syncing
-		
-		this.SendTimer(game, game.toAllClients);
-	}
-	
-	SendInitialArticles(game: ZapGame, to: string) {
-		this.packets.ArticleList.Send(to, {
-			articles: game.db.current.articles.slice(-ARTICLE_COUNT_INITIAL_SEND),
-		});
-	}
-	
-	async ResetGame(game: ZapGame) {
-		console.log(`RESETTING game ${game.idf}`);
-		
-		await game.db.Backup();
-		
-		game.db.current = {
-			idf: game.idf,
-			lastId: 0,
-			articles: [],
-		};
-		
-		this.SendInitialArticles(game, game.toAllClients);
-		
-		return game.db.Save();
-	}
-	
-	SendTimer = (game: ZapGame, to: string) => this.packets.TimerTick.Send(to, game.timer);
+	UpdateLabel = (client: ClientConn) => client.label =
+		`client(${E_Endpoint[client.endpoint]} #${client.id}, ${client.game?.idf || 'none'})`;
 }
-
-
-const UpdateLabel = (client: ClientConn) => client.label =
-	`client(${E_Endpoint[client.endpoint]} #${client.id}, ${client.game ? client.game.idf : '_'})`;

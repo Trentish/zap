@@ -2,7 +2,7 @@ import {useAtom} from 'jotai/index';
 import {ArticleDat} from '../../../zap-shared/_Dats.ts';
 import {Atom} from 'jotai';
 import React, {useState} from 'react';
-import {$splitArticles} from '../ClientState.ts';
+import {$splitArticles, $spotlight} from '../ClientState.ts';
 import {Button} from '../components/ButtonComponents.tsx';
 import {useClient} from '../ClientContext.ts';
 
@@ -15,7 +15,7 @@ export function ArticleSummary() {
 	const [shouldShowAll, setShouldShowAll] = useState(false);
 	
 	const requestShowAll = () => {
-		client.packets.RequestAllArticles.Send('');
+		client.packets.AllArticles.Send('');
 		setShouldShowAll(true);
 	};
 	
@@ -29,7 +29,7 @@ export function ArticleSummary() {
 		<div className={'articleSummary'}>
 			<h3>Articles:</h3>
 			
-			<div className={'grid'}>
+			<div className={'articleSummaryGrid'}>
 				{articlesToShow.map($article => (
 					<SummaryHeadline
 						key={`${$article}`}
@@ -51,10 +51,24 @@ export function ArticleSummary() {
 
 function SummaryHeadline({$article}: { $article: Atom<ArticleDat> }) {
 	const [article] = useAtom($article);
+	const [spotlight] = useAtom($spotlight);
+	
+	// const className = clsx(
+	// 	'article',
+	// 	{'spotlight': spotlight.spotlightId === article.id},
+	// 	{'pending': article.id > spotlight.pendingAboveId},
+	// );
+	
+	const prefix = spotlight.spotlightId === article.id
+		? '🔦 '
+		: article.id > spotlight.pendingAboveId
+			? '⌛ '
+			: '';
 	
 	return (
 		<>
-			<h2>({article.id}) {article.author}</h2>
+			<h2>{prefix}#{article.id}</h2>
+			<h2>{article.author}</h2>
 			<h2>{article.orgIdf}</h2>
 			<h2>{article.headline}</h2>
 		</>

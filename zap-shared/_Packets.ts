@@ -1,5 +1,5 @@
 import {BasePacketDefs, E_Endpoint, I_PkSource, T_GameIdf} from './SystemTypes.ts';
-import {ArticleDat, ArticleListDat, PostArticleDat, TimerDat} from './_Dats.ts';
+import {ArticleDat, ArticleListDat, PostArticleDat, SpotlightDat, TimerDat} from './_Dats.ts';
 
 type none = string; // no packet
 
@@ -18,11 +18,12 @@ export class ZapPacketDefs<TSrc extends I_PkSource> extends BasePacketDefs<TSrc>
 	
 	//## ARTICLES
 	PostArticle = this.CLIENT_to_SERVER<PostArticleDat>();
-	RequestAllArticles = this.CLIENT_to_SERVER<none>();
+	AllArticles = this.CLIENT_to_SERVER<none>();
 	ResetGame = this.ADMIN_to_SERVER<none>();
 	
-	ArticleAdded = this.SERVER_to_CLIENT<ArticleDat>(); // .WithSerials(ArticleDat.Serials);
-	ArticleList = this.SERVER_to_CLIENT<ArticleListDat>(); // .WithSerials(ArticleListDat.Serials);
+	ArticleList = this.SERVER_to_CLIENT<ArticleListDat>();
+	ArticleAdded = this.SERVER_to_CLIENT<ArticleDat>();
+	SetSpotlight = this.SERVER_to_CLIENT<SpotlightDat>();
 	
 	
 	//## TIMER

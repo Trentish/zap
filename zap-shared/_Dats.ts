@@ -1,5 +1,9 @@
 import {T_GameIdf} from './SystemTypes.ts';
 
+export const HEADLINE_MIN_SIZE = 1;
+export const HEADLINE_MAX_SIZE = 120;
+export const HEADLINE_SIZE: [number, number] = [HEADLINE_MIN_SIZE, HEADLINE_MAX_SIZE];
+
 export interface PostArticleDat {
 	headline: string;
 	author: string;
@@ -17,24 +21,20 @@ export interface ArticleDat {
 	// sound, etc.?
 }
 
-// TODO: server only?
-export interface GameDat {
-	idf: T_GameIdf;
-	lastId: number;
-	articles: ArticleDat[];
-}
-
-
 export interface ArticleListDat {
 	articles: ArticleDat[];
 }
-
 
 // TODO: use or not?
 export interface OrgDat {
 	idf: string,
 	proper_name: string,
 	// logo, etc.?
+}
+
+export interface SpotlightDat {
+	spotlightId: number, // article ID
+	pendingAboveId: number, // article IDs above will be hidden/pending
 }
 
 // TODO: 'tick' messages could be optimized later

@@ -16,28 +16,28 @@ export class JsonSocketClient {
 	pingIntervalMs: number;
 	pingIntervalId: number;
 	
-	_Open = (openEvent: Event) => {
+	_Open = (webSocket: WebSocket, openEvent: Event) => {
 		console.debug(`🔌socket: connected`, this.address, openEvent);
 		this.pingIntervalId = setInterval(this.Ping, this.pingIntervalMs);
 		this.callbacks.OnOpen();
 	};
 	
-	_Close = (closeEvent: CloseEvent) => {
+	_Close = (webSocket: WebSocket, closeEvent: CloseEvent) => {
 		console.debug(`🔌socket: connection closed 💥💥💥💥💥💥💥💥💥💥`, closeEvent);
 		clearInterval(this.pingIntervalId);
 		this.callbacks.OnClose(closeEvent.code, closeEvent.reason);
 	};
 	
-	_Error = (errorEvent: Event) => {
+	_Error = (webSocket: WebSocket, errorEvent: Event) => {
 		console.debug(`🔌socket: error`, errorEvent);
 		clearInterval(this.pingIntervalId);
 		this.callbacks.OnError(errorEvent);
 	};
 	
-	_Receive = (messageEvent: MessageEvent) => {
+	_Receive = (webSocket: WebSocket, messageEvent: MessageEvent) => {
 		if (messageEvent.data === PONG_MSG) return; //>> received pong
 		
-		console.debug(`🔌socket: receive`, messageEvent.data);
+		// console.debug(`🔌socket: receive`, messageEvent.data);
 		const msg = JSON.parse(messageEvent.data);
 		this.callbacks.OnReceive(msg);
 	};
@@ -53,17 +53,20 @@ export class JsonSocketClient {
 	) => {
 		console.debug(`Socket.Connect`, address);
 		
-		// if (this.webSocket) throw new Error(`TODO: clean up last instance of WebSocket`); // TODO
+		if (this.webSocket) {
+			// throw new Error(`clean up last instance of WebSocket`); // TODO
+			console.warn(`existing WebSocket, status: ${this.webSocket.readyState}`)
+		}
 		
 		if (!this.callbacks) throw new Error(`SetCallbacks first!`);
 		
 		this.address = address;
-		this.webSocket = new WebSocket(address);
-		
-		this.webSocket.onopen = this._Open;
-		this.webSocket.onclose = this._Close;
-		this.webSocket.onerror = this._Error;
-		this.webSocket.onmessage = this._Receive;
+		const webSocket = new WebSocket(address);
+		webSocket.onopen = (evt) => this._Open(webSocket, evt);
+		webSocket.onclose = (evt) => this._Close(webSocket, evt);
+		webSocket.onerror = (evt) => this._Error(webSocket, evt);
+		webSocket.onmessage = (evt) => this._Receive(webSocket, evt);
+		this.webSocket = webSocket;
 		
 		clearInterval(this.pingIntervalId);
 		this.pingIntervalMs = pingIntervalMs;
@@ -71,6 +74,11 @@ export class JsonSocketClient {
 	
 	/** takes object, converts to JSON, sends     */
 	Send = (dataObj: object) => {
+		if (this.webSocket.readyState !== WebSocket.OPEN) {
+			this._Close(this.webSocket, new CloseEvent('closed somehow??'));
+			throw new Error(`tried to send on closed socket`);
+		}
+		
 		console.debug(`Socket.Send`, dataObj);
 		const json = JSON.stringify(dataObj);
 		this.webSocket.send(json);

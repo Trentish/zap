@@ -10,6 +10,7 @@ export type T_Input<TVal> = {
 	
 	type?: React.HTMLInputTypeAttribute,
 	placeholder?: string,
+	maxLength?: number,
 	
 	className?: string,
 	
@@ -19,7 +20,7 @@ export type T_Input<TVal> = {
 	
 	inputClass?: string,
 	inputStyle?: React.CSSProperties,
-	inputProps?: object,
+	inputProps?: React.InputHTMLAttributes<HTMLInputElement>,
 	
 	/** required if not string */
 	stringToValue?: (str: string) => TVal,
@@ -37,6 +38,7 @@ export function Input<TVal>(props: T_Input<TVal>) {
 		setValue(newValue as TVal);
 	};
 	
+	
 	return (
 		<div className={props.className}>
 			<label
@@ -51,6 +53,7 @@ export function Input<TVal>(props: T_Input<TVal>) {
 					onChange={onChange}
 					type={props.type}
 					placeholder={props.placeholder}
+					maxLength={props.maxLength}
 					
 					className={props.inputClass}
 					style={props.inputStyle}

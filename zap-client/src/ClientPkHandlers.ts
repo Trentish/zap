@@ -1,6 +1,6 @@
 import {ZapPacketDefs} from '../../zap-shared/_Packets.ts';
 import {ConnToServer, ZapClient} from './ZapClient.ts';
-import {$allArticles, $allGameIdfs,  $store, $timer} from './ClientState.ts';
+import {$allArticles, $allGameIdfs, $spotlight, $store, $timer} from './ClientState.ts';
 
 // TODO: break this up at some point?
 export function InitializePackets_CLIENT(defs: ZapPacketDefs<ConnToServer>, client: ZapClient) {
@@ -22,12 +22,14 @@ export function InitializePackets_CLIENT(defs: ZapPacketDefs<ConnToServer>, clie
 	
 	//## ARTICLES
 	
-	defs.ArticleAdded.From_SERVER = (pk) => {
-		$store.set($allArticles, (current) => [...current, pk]);
-		console.log(`add article: ${pk.id}`);
-	};
 	defs.ArticleList.From_SERVER = (pk) => {
 		$store.set($allArticles, pk.articles);
+	};
+	defs.ArticleAdded.From_SERVER = (pk) => {
+		$store.set($allArticles, (current) => [...current, pk]);
+	};
+	defs.SetSpotlight.From_SERVER = (pk) => {
+		$store.set($spotlight, pk);
 	};
 	
 	
@@ -42,3 +44,18 @@ export function InitializePackets_CLIENT(defs: ZapPacketDefs<ConnToServer>, clie
 	
 	
 }
+
+// function FindArticle(id: number): [number, ArticleDat, PrimitiveAtom<ArticleDat>] | null {
+// 	const all = $store.get($allArticles);
+//
+// 	let index = all.length - 1;
+//
+// 	for (index; index >= 0; index--) {
+// 		if (id === all[index].id) break;
+// 	}
+//
+// 	if (index < 0) return null;
+//
+// 	const split = $store.get($splitArticles);
+// 	return [index, all[index], split[index]];
+// }

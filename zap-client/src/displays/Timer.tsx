@@ -9,7 +9,7 @@ export function Timer({$timer}: {
 	const [timer] = useAtom($timer);
 	
 	const label = timer.label;
-	const ms = timer.ms;
+	const ms = timer.ms > 0 ? timer.ms : 0;
 	
 	const fullSeconds = Math.floor(ms / 1000);
 	const minutes = Math.floor(fullSeconds / 60);
