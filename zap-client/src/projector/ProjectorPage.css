@@ -45,8 +45,11 @@
 	}
 }
 
-.articleSummaryGrid {
-	display: grid;
-	grid-template-columns: auto auto auto auto;
-	margin: 24px;
+
+.pinkOrg {
+	border: #ff00d3 1px dashed;
+}
+
+.pinkOrg.spotlight {
+	background: #ff00d3;
 }

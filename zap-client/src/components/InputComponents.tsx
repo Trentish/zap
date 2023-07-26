@@ -8,6 +8,8 @@ export type T_Input<TVal> = {
 	$value: PrimitiveAtom<TVal>,
 	description?: string,
 	
+	textArea?: boolean,
+	
 	type?: React.HTMLInputTypeAttribute,
 	placeholder?: string,
 	maxLength?: number,
@@ -38,6 +40,7 @@ export function Input<TVal>(props: T_Input<TVal>) {
 		setValue(newValue as TVal);
 	};
 	
+	const InputComp = props.textArea ? HtmlTextArea : HtmlInput;
 	
 	return (
 		<div className={props.className}>
@@ -48,7 +51,7 @@ export function Input<TVal>(props: T_Input<TVal>) {
 			>
 				{props.label}
 				
-				<input
+				<InputComp
 					value={props.valueToString ? props.valueToString(value) : `${value}`}
 					onChange={onChange}
 					type={props.type}
@@ -69,3 +72,5 @@ export function Input<TVal>(props: T_Input<TVal>) {
 export const NumberInput = (props: T_Input<number>) =>
 	<Input stringToValue={str => parseInt(str) || 0} {...props}/>;
 
+const HtmlInput = (props: any) => <input {...props}/>;
+const HtmlTextArea = (props: any) => <textarea {...props}/>;

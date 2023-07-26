@@ -8,7 +8,7 @@ import {useClient} from '../ClientContext.ts';
 
 const DEFAULT_SHOW_COUNT = 10;
 
-export function ArticleSummary() {
+export function ArticleSummary({showAdmin}: { showAdmin?: boolean }) {
 	const client = useClient();
 	const [articles] = useAtom($splitArticles);
 	
@@ -26,14 +26,15 @@ export function ArticleSummary() {
 	console.log(`ArticleSummary: show ${shouldShowAll} ${articlesToShow.length}/${articles.length}`);
 	
 	return (
-		<div className={'articleSummary'}>
-			<h3>Articles:</h3>
+		<div className={'articleSummary control-group control-group-vertical'}>
+			<h2>Articles:</h2>
 			
 			<div className={'articleSummaryGrid'}>
 				{articlesToShow.map($article => (
 					<SummaryHeadline
 						key={`${$article}`}
 						$article={$article}
+						showAdmin={showAdmin}
 					/>
 				))}
 			</div>
@@ -49,7 +50,11 @@ export function ArticleSummary() {
 	);
 }
 
-function SummaryHeadline({$article}: { $article: Atom<ArticleDat> }) {
+function SummaryHeadline({$article, showAdmin}: {
+	$article: Atom<ArticleDat>,
+	showAdmin?: boolean
+}) {
+	const client = useClient();
 	const [article] = useAtom($article);
 	const [spotlight] = useAtom($spotlight);
 	
@@ -67,14 +72,41 @@ function SummaryHeadline({$article}: { $article: Atom<ArticleDat> }) {
 	
 	return (
 		<>
-			<h2>{prefix}#{article.id}</h2>
-			<h2>{article.author}</h2>
-			<h2>{article.orgIdf}</h2>
-			<h2>{article.headline}</h2>
+			<div>{prefix}#{article.id}</div>
+			<div>{article.author}</div>
+			<div>{article.orgIdf}</div>
+			<div>
+				{showAdmin && (
+					<Button
+						className={'forceSpotlight'}
+						label={'🔦'}
+						onClick={() => client.packets.ForceSpotlight.Send({
+							id: article.id,
+						})}
+					/>
+				)}{article.headline}</div>
 		</>
 	);
 }
 
+// function AdminForceSpotlight() {
+// 	const client = useClient();
+// 	const [spotlight] = useAtom($spotlight);
+//
+// 	const onSpotlight = () => {
+// 		client.packets.ForceSpotlight.Send({
+// 			id: id,
+// 		});
+// 	};
+//
+// 	return (
+// 		<Button
+// 			className={'tiny'}
+// 			label={'Force Spotlight -5'}
+// 			onClick={onSpotlight}
+// 		/>
+// 	);
+// }
 
 // enum E_ShowOption {
 // 	RECENT,

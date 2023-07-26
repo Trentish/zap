@@ -14,13 +14,13 @@ import {InitializePackets_CLIENT} from './ClientPkHandlers.ts';
 import {$connError, $connStatus, $endpoint, $gameIdf, $location, $store} from './ClientState.ts';
 
 
-const WS_SERVER = 'ws://localhost:3007'; // TODO: config
+// const WS_SERVER = 'ws://localhost:3007'; // TODO: config
+const WS_SERVER = 'ws://127.0.0.1:3007'; // TODO: config
 const RECONNECT_INTERVAL_MS = 5000;
 
 export class ConnToServer implements I_PkSource {endpoint = E_Endpoint.server;}
 
 const Conn = new ConnToServer(); // placeholder
-
 
 export class ZapClient implements I_JsonSocketCallbacks {
 	socket = new JsonSocketClient();

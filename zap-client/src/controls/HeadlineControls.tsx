@@ -55,6 +55,7 @@ export function HeadlineControls() {
 				placeholder={`X adjectively verbed Y!`}
 				maxLength={HEADLINE_MAX_SIZE}
 				inputProps={{onKeyDown: checkKeyDown}}
+				textArea
 			/>
 			<Input
 				label={'Author'}
@@ -62,9 +63,9 @@ export function HeadlineControls() {
 				placeholder={'Jed McJedfry'}
 			/>
 			<Input
-				label={'Org something'}
+				label={'Org TODO'}
 				$value={$org}
-				description={`TODO: actual org support`}
+				description={`(TODO) for now, will apply this string as headline css className`}
 			/>
 			
 			<Button

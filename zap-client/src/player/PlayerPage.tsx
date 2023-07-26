@@ -6,7 +6,7 @@ import {$timer} from '../ClientState.ts';
 
 export function PlayerPage() {
 	return (
-		<div>
+		<div className={'playerPage control-page'}>
 			<h1>player TODO</h1>
 			
 			<HeadlineControls/>

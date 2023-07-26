@@ -42,6 +42,7 @@ function Headline({$article}: { $article: Atom<ArticleDat> }) {
 	
 	const className = clsx(
 		'article',
+		article.orgIdf,
 		{'spotlight': spotlight.spotlightId === article.id},
 		{'pending': article.id > spotlight.pendingAboveId},
 	);

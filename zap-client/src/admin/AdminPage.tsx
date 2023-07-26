@@ -3,33 +3,19 @@ import React from 'react';
 import {Button} from '../components/ButtonComponents.tsx';
 import {TimerControls} from './TimerControls.tsx';
 import {ArticleSummary} from '../displays/ArticleSummary.tsx';
+import './AdminPage.css';
 
 
 export function AdminPage() {
 	const client = useClient();
 	
 	return (
-		<div className={'adminPage'}>
+		<div className={'control-page adminPage'}>
 			<h1>Administrator ONLY!</h1>
 			
 			<TimerControls/>
 			
-			<br/>
-			<br/>
-			<ArticleSummary/>
-			
-			
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<div>
+			<div className={'control-group button-group'}>
 				<Button
 					label={'FORCE Load'}
 					onClick={() => client.packets.DbForceLoad.Send('')}
@@ -48,6 +34,10 @@ export function AdminPage() {
 					onClick={() => client.packets.ResetGame.Send('')}
 				/>
 			</div>
+			
+			<ArticleSummary
+                showAdmin
+            />
 		
 		</div>
 	);

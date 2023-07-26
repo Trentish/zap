@@ -10,8 +10,8 @@ const STARTING_TIMER_LABEL = 'Game Turn';
 const STARTING_TIMER_MS = 30 * 60 * 1000;
 const DB_BACKUP_MS = 5 * 60 * 1000;
 const ARTICLE_COUNT_INITIAL_SEND = 10; // TODO: config/elsewhere
-/** length bonus, will be rounded (ceiling) to tick rate */
-const SPOTLIGHT_DURATION_MS: [number, number] = [4000, 6000];
+/** will be affected by tick rate */
+const SPOTLIGHT_DURATION_MS: [number, number] = [10000, 12000];
 const SPOTLIGHT_COOLDOWN_MS = 1000;
 
 export function MakeGame(idf: T_GameIdf, server: ZapServer): ZapGame {
@@ -47,6 +47,23 @@ export function MakeGame(idf: T_GameIdf, server: ZapServer): ZapGame {
 
 export function DbOnLoad(game: ZapGame, server: ZapServer) {
 	console.log(`game ${game.idf}, loaded db`);
+	
+	const gamePersist = game.db.current;
+	const lastArticleIndex = gamePersist.articles.length - 1;
+	
+	const lastId = lastArticleIndex >= 0
+		? gamePersist.articles[lastArticleIndex].id
+		: -1;
+	
+	game.spotlight = {
+		spotlightId: -1,
+		pendingAboveId: lastId,
+	}
+	game.spotlightIndex = lastArticleIndex;
+	game.spotlightTime = 0;
+	game.spotlightPhase = SpotlightPhase.NONE;
+	SendSpotlight(game, server);
+	
 	SendInitialArticles(game, game.toAllClients, server);
 }
 
@@ -108,6 +125,20 @@ function TickSpotlight(game: ZapGame, server: ZapServer, deltaTime: number) {
 	}
 }
 
+export function ForceSpotlight(game: ZapGame, id: number, server: ZapServer) {
+	const articleIndex = game.db.current.articles.findIndex(a => a.id === id);
+	if (articleIndex < 0) return; //>> can't find article by id
+	
+	game.spotlight = {
+		spotlightId: -1,
+		pendingAboveId: id - 1,
+	}
+	game.spotlightIndex = articleIndex - 1;
+	game.spotlightTime = 0;
+	game.spotlightPhase = SpotlightPhase.NONE;
+	SendSpotlight(game, server);
+}
+
 export function SetTimer(game: ZapGame, timer: TimerDat, server: ZapServer) {
 	game.timer.label = timer.label;
 	if (timer.ms >= 0) {
@@ -153,6 +184,7 @@ export function AddClientToGame(game: ZapGame, client: ClientConn, server: ZapSe
 	}
 	
 	SendTimer(game, server);
+	SendSpotlight(game, server);
 	SendInitialArticles(game, client.toSocket, server);
 	
 	console.log(`${game} added: ${client.label}`);

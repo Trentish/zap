@@ -1,0 +1,107 @@
+
+
+.control-group {
+	display: flex;
+	gap: var(--admin-spacing);
+}
+
+.control-group-vertical {
+	flex-direction: column;
+}
+
+.control-group + .control-group {
+	padding-top: var(--admin-spacing);
+	border-top: solid thin gray;
+}
+
+.articleSummary {
+	padding-bottom: var(--admin-padding); /* hack*/
+}
+
+.articleSummaryGrid {
+	display: grid;
+	grid-template-columns: auto auto auto auto;
+	gap: var(--admin-spacing);
+}
+
+.forceSpotlight {
+	margin-right: var(--admin-spacing);
+}
+
+
+
+
+
+/*!* TODO: actual input styles *!*/
+/*input {*/
+/*	background-color: #f3f3f3;*/
+/*	padding: 6px;*/
+/*	margin: 4px 0 4px 0;*/
+/*}*/
+
+/*input::placeholder {*/
+/*	color: #6c6c6c;*/
+/*	font-size: .5em;*/
+/*	font-style: italic;*/
+/*}*/
+
+/*label {*/
+/*	display: flex;*/
+/*	flex-direction: column;*/
+/*	margin: 4px 0 4px 0;*/
+/*}*/
+
+/*.radios {*/
+/*	display: flex;*/
+/*	flex-direction: row;*/
+/*	cursor: default;*/
+/*}*/
+
+/*.radios label {*/
+/*	display: flex;*/
+/*	flex-direction: row;*/
+/*	align-items: center;*/
+/*	!*background-color: #f60;*!*/
+/*	margin: 0 8px;*/
+/*}*/
+
+/*.radios input {*/
+/*	width: 16px;*/
+/*	height: 16px;*/
+/*	margin-right: 8px;*/
+/*}*/
+
+/*.radios input:checked{*/
+/*	background-color: #000;*/
+/*}*/
+
+.timer {
+	font-size: 4em;
+	font-family: monospace;
+}
+
+.timer-complete {
+	animation: blink .8s step-start infinite;
+}
+
+@keyframes blink {
+	50% {
+		opacity: 0;
+	}
+}
+
+.headlineControls {
+	margin: 24px;
+}
+
+.headlineControls label {
+	font-size: 2em;
+}
+
+.headlineControls input {
+	font-size: 1em;
+}
+
+.headlineControls input::placeholder {
+	font-size: .7em;
+}

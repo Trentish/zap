@@ -5,6 +5,7 @@ import React from 'react';
 import {atom} from 'jotai';
 import {Button} from '../components/ButtonComponents.tsx';
 import {$store, $timer} from '../ClientState.ts';
+import {clsx} from 'clsx';
 
 const $label = atom('');
 const $minutes = atom(5);
@@ -33,43 +34,35 @@ export function TimerControls() {
 		});
 	};
 	
+	// const className = clsx(
+	// 	'blah',
+	// 	'blah2',
+	// 	true ? 'blahtrue' : 'blahfalse',
+	// 	true && 'blahajslkd',
+	// 	{'class-asdfasdf': true},
+	// );
+	
 	return (
-		<div
-			style={{
-				margin: 24,
-			}}
-		>
+		<div className={'control-group control-group-vertical timerControls'}>
 			<Timer
 				$timer={$timer}
 			/>
 			
-			<div
-				style={{
-					display: 'flex',
-					alignItems: 'center',
-				}}
-			>
+			<div className={'control-group timerLabelControls'}>
 				<Input
 					label={'Timer Label'}
 					$value={$label}
 				/>
 				
-				<div style={{width: 16}}/>
-				
 				<Button
 					label={'Set Label Only'}
 					onClick={sendLabelOnly}
-					buttonStyle={{height: 32, backgroundColor: '#fff'}}
 				/>
 			
 			</div>
 			
 			
-			<div
-				style={{
-					display: 'flex',
-				}}
-			>
+			<div className={'control-group numberLabelControls'}>
 				<NumberInput
 					label={'Minutes'}
 					$value={$minutes}
@@ -81,12 +74,12 @@ export function TimerControls() {
 					label={'Seconds'}
 					$value={$seconds}
 				/>
+				
+				<Button
+					label={'New Timer'}
+					onClick={sendTimer}
+				/>
 			</div>
-			
-			<Button
-				label={'New Timer'}
-				onClick={sendTimer}
-			/>
 		</div>
 	);
 }

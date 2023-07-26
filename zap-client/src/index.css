@@ -10,6 +10,7 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	font-family: 'Helvetica Neue', 'Arial', sans-serif;
 }
 
 #root {
@@ -18,18 +19,25 @@ body {
 	display: flex;
 }
 
-/* TODO: #jedstyle 😎 */
-
-h1 {
-	font-size: 3em;
-	color: #525252;
+:root {
+	--admin-padding: 50px;
+	--control-radius: 5px;
+	--admin-spacing: 10px;
 }
 
-/* TODO: actual button style */
+button, input, submit, textarea {
+	border: none;
+	border-radius: var(--control-radius);
+	padding: var(--admin-spacing);
+}
+
+input, textarea {
+	border: solid thin gray;
+}
+
 button {
 	background-color: #cfec85;
-	padding: 6px 12px;
-	border: #000 1px solid;
+	text-align: center;
 }
 
 button:hover {
@@ -37,7 +45,7 @@ button:hover {
 }
 
 button:focus {
-	outline: 4px solid #dc143c;
+	outline: 4px solid #fff;
 	/*border-radius: 5px;*/
 }
 
@@ -50,81 +58,32 @@ button:disabled {
 	background-color: #ff4b4b;
 }
 
-.dangerButton:focus {
-	outline: 4px solid #6e0016;
-}
-
-
-/* TODO: actual input styles */
 input {
-	background-color: #f3f3f3;
-	padding: 6px;
-	margin: 4px 0 4px 0;
+	background: white;
 }
-
-input::placeholder {
-	color: #6c6c6c;
-	font-size: .5em;
-	font-style: italic;
-}
-
 label {
 	display: flex;
-	flex-direction: column;
-	margin: 4px 0 4px 0;
-}
-
-.radios {
-	display: flex;
-	flex-direction: row;
-	cursor: default;
-}
-
-.radios label {
-	display: flex;
-	flex-direction: row;
 	align-items: center;
-	/*background-color: #f60;*/
-	margin: 0 8px;
+	gap: var(--admin-spacing);
 }
 
-.radios input {
-	width: 16px;
-	height: 16px;
-	margin-right: 8px;
+/*!* TODO: #jedstyle 😎 *!*/
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: bold;
 }
 
-.radios input:checked{
-	background-color: #000;
-}
+h1 { font-size: 3em; }
+h2 { font-size: 2.5em; }
+h3 { font-size: 2.15em; }
+h4 { font-size: 1.85em; }
+h5 { font-size: 1.5em; }
+h6 { font-size: 1.15em;}
 
-.timer {
-	font-size: 4em;
-	font-family: monospace;
-}
-
-.timer-complete {
-	animation: blink .8s step-start infinite;
-}
-
-@keyframes blink {
-	50% {
-		opacity: 0;
-	}
-}
-
-.headlineControls {
-	margin: 24px;
-}
-
-.headlineControls label {
-	font-size: 2em;
-}
-
-.headlineControls input {
-	font-size: 1em;
-}
-
-.headlineControls input::placeholder {
-	font-size: .7em;
+.control-page  {
+	margin: var(--admin-padding);
+	display: flex;
+	flex-direction: column;
+	gap: var(--admin-spacing);
+	width: 100%;
 }
