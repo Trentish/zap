@@ -1,4 +1,5 @@
 ## dev
+- install `nvm` and set the default Node version to `16`
 - set up: run `npm install` in both /zap-server and /zap-client
 - run server: /zap-server `npm run dev`
 - run client: /zap-client `npm run dev`
