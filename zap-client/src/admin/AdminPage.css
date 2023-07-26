@@ -77,7 +77,7 @@
 
 .timer {
 	font-size: 4em;
-	font-family: monospace;
+	/*font-family: monospace;*/
 }
 
 .timer-complete {

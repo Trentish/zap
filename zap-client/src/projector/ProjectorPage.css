@@ -1,55 +1,308 @@
-.articleContainer {
-	flex: 1 1 auto;
-	background-color: #f60;
-	color: #fff;
-	padding: 1em;
-}
-
-.articleContainer h3 {
-	font-weight: bold;
-	display: grid;
-}
-
-.articles {
-	/*display: grid;*/
-	/*grid-template-columns: repeat(3, 1fr);*/
-	/*grid-gap: 1em;*/
-}
-
-.article {
-	padding: 1em;
-}
-
-/*.article:last-child {*/
-/*	background: #fc0;*/
-/*	color: #000;*/
+/*.articleContainer {*/
+/*	flex: 1 1 auto;*/
+/*	background-color: #fc0;*/
+/*	color: #fff;*/
+/*	padding: 1em;*/
 /*}*/
 
-.article.spotlight {
-	background: #fc0;
-	color: #000;
-	font-size: 4em;
+/*.articleContainer h3 {*/
+/*	font-weight: bold;*/
+/*	display: grid;*/
+/*}*/
 
-	/*transition: all .5s ease-in-out;*/
-	transform: translateX(200%);
-	animation: fly-in .5s forwards;
+/*.articles {*/
+/*	!*display: grid;*!*/
+/*	!*grid-template-columns: repeat(3, 1fr);*!*/
+/*	!*grid-gap: 1em;*!*/
+/*}*/
+
+/*.article {*/
+/*	padding: 1em;*/
+/*}*/
+
+/*!*.article:last-child {*!*/
+/*!*	background: #fc0;*!*/
+/*!*	color: #000;*!*/
+/*!*}*!*/
+
+/*.article.spotlight {*/
+/*	background: #fc0;*/
+/*	color: #000;*/
+/*	font-size: 4em;*/
+
+/*	!*transition: all .5s ease-in-out;*!*/
+/*	transform: translateX(200%);*/
+/*	animation: fly-in .5s forwards;*/
+/*}*/
+
+/*.article.pending {*/
+/*	display: none;*/
+/*}*/
+
+/*@keyframes fly-in {*/
+/*	100% {*/
+/*		transform: translateX(0%);*/
+/*	}*/
+/*}*/
+
+
+/*.pinkOrg {*/
+/*	border: #ff00d3 1px dashed;*/
+/*}*/
+
+/*.pinkOrg.spotlight {*/
+/*	background: #ff00d3;*/
+/*}*/
+
+/*body {*/
+/*	font-family: "Tofino Wide Bold";*/
+/*}*/
+
+/* Tofino Wide - Bold */
+/*@font-face {*/
+/*	font-family: 'Tofino Wide Bold';*/
+/*	!*src: url(../asset/fonts/Tofino/Wide/OTF/TofinoWide-Bold.otf) format('otf');*!*/
+/*	!*src: url(./src/fonts/Tofino/Wide/OTF/TofinoWide-Bold.otf) format('otf'),*!*/
+/*	!*url('fonts/Tofino/Wide/WOFF2/TofinoWide-Bold.woff2') format('woff2'),*!*/
+/*	!*url('fonts/Tofino/Wide/WOFF/TofinoWide-Bold.woff') format('woff'),*!*/
+/*	!*url('fonts/Tofino/Wide/TTF/TofinoWide-Bold.ttf') format('truetype');*!*/
+/*	font-weight: 700;*/
+/*	font-style: normal;*/
+/*}*/
+
+.projector-page {
+	margin: 0;
+	padding: 0;
+	background-color: #2e3436;
+	/* background-image: url('ink3.svg'); */
+	background-position: center center;
+	background-repeat: no-repeat;
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: 'Tofino Wide Personal';
+	color: white;
 }
 
-.article.pending {
+.projector-page .ink-logo {
+	z-index: 0;
+}
+.projector-page canvas {
+	position: fixed;
+	left: 0px;
+	bottom: 40px;
+	/* border-top: 3px solid #ccc;
+	border-bottom: 3px solid #ccc;
+	background: linear-gradient(0deg, rgba(75,75,75,1) 0%, rgba(25,25,25,1) 100%);
+	box-shadow: 0 0 20px #000; */
+	background: rgba(0,0,0,1.0);
+}
+
+.projector-page #mainlogo {
+	height: 125px;
+	position: fixed;
+
+	left: 0;
+	bottom: 8px;
+	/* filter: drop-shadow(3px 2px 2px rgb(0 0 0 / 0.4)); */
+}
+
+.projector-page #myVideo {
+	position: fixed;
+	min-width: 100%;
+	min-height: 100%;
+	filter:  brightness(0.3);
+	/* filter: hue-rotate(235deg) saturate(1); */
+}
+
+.projector-page #bigvidbox {
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: flex;
+	flex-direction: horizontal;
+	height: 60vh;
+	justify-content: center;
+	width: 90vw;
+	left: 5vw;
+	margin: auto;
+	top: calc((100vh - 60vh - 100px) / 2);
+	gap: 30px;
+}
+
+.projector-page #bigvidbox > video {
+	/* border: 2px solid #333; */
+	box-shadow: 0 0 10px #000;
+	height: 60vh;
+	object-fit: cover;
+	align-self: end;
+}
+
+.projector-page #bigvidbox > #talkinghead {
+	width: 30vw;
+	object-fit: cover;
+	align-self: end;
+}
+
+.projector-page #bigvidbox > #featureVid {
+	width: 50vw;
+	object-fit: cover;
+	align-self: end;
+}
+
+.projector-page bigvidbox #talkingheadcaption {
+	position: absolute;
+	background: white;
+	border-left: solid 7px #fc0;
+	padding: 5px 20px;
+	font-family: 'Tofino Semibold Personal';
+	font-weight: 500;
+	display: block;
+	font-size: 40px;
+	z-index: 1;
+	left: 30px;
+	bottom: 30px;
+	filter: drop-shadow(5px 0px 10px rgb(0 0 0 / 0.6));
+}
+
+.projector-page #bigvidbox #bigvidcaption {
+	position: absolute;
+	font-family: 'Tofino Semibold Personal';
+	font-weight: 500;
+	display: block;
+	font-size: 40px;
+	z-index: 1;
+	right: 30px;
+	top: 30px;
+	display: flex;
+	border-right: solid 7px #cc004c;
+	flex-direction: column;
+	gap: 0;
+	align-items: flex-end;
+	filter: drop-shadow(5px 0px 10px rgb(0 0 0 / 0.6));
+}
+.projector-page #bigvidcaption * {
+	background: white;
+	padding: 5px 20px;
+	/* box-shadow: 0 0 10px #000; */
+}
+.projector-page #bigvidcaption sub {
+	line-height: 1em;
+	font-size: 20px;
+	background: black;
+	color: white;
+}
+
+.projector-page #camVid {
+	position: fixed;
+	right: 40px;
+	top: 40px;
+	height: 450px;
+	width: 800px;
+
+	border: 3px solid #ccc;
+	box-shadow: 0 0 10px #000;
+}
+
+/* #talkinghead {
+	position: fixed;
+	left: 20vh;
+	bottom: 20vh;
+	height: 48vh;
+	width: 40vh;
+
+	border: 3px solid #ccc;
+	box-shadow: 0 0 10px #000;
+}
+
+#featureVid {
+	position: fixed;
+	right: 10vw;
+	top: 10vh;
+	//right: calc((100vw - 80vw - 8px) / 2);
+	//top: calc((100vh - 45vw - 8px - 100px) / 2);
+	height: 36vw;
+	width: 64vw;
+
+	border: 4px solid #ccc;
+	box-shadow: 0 0 10px #000;
+} */
+
+.projector-page .fullScreenHeadline {
+	position: fixed;
+	left: 0;
+	top: 0;
+	height: 100vh;
+	width: 100vw;
+	background-color: #663399;
+	color: white;
+	font-family: 'Tofino Wide Personal';
+	line-height: 1.1;
+	font-size: 10vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 10vh;
+	z-index: 1;
+	box-sizing: border-box;
+}
+
+.projector-page .fullScreenHeadline > div {
+	display: flex;
+	gap: 40px;
+	flex-direction: column;
+	align-items: flex-start;
+	filter: drop-shadow(5px 5px 10px rgb(0 0 0 / 0.3));
+}
+
+.projector-page .fullScreenHeadline .location {
+	font-family: 'Tofino Wide Black Personal';
+	font-size: 6vh;
+	padding: 10px 0;
+	border-bottom: solid 8px #fc0;
+	text-transform: uppercase;
+}
+
+.projector-page .fullScreenHeadline > video {
+	position: fixed;
+	min-width: 100%;
+	min-height: 100%;
+	/* filter:  hue-rotate(-50deg) saturate(106%) brightness(50%); */
+	filter: brightness(0.5);
+	z-index: -1;
+}
+.projector-page .fullScreenHeadline::after {
+	content: " ";
+	position: absolute;
+	right: 10vh;
+	top: 5vh;
+	background-image: url(ink5.svg);
+	background-repeat: no-repeat;
+	background-position: right top;
+	background-size: min(200px, 10vw);
+	opacity: 1;
+	z-index: 1;
+	width: 100vw;
+	height: 100vh;
+}
+
+.projector-page .fullScreenHeadline.fullScreenHeadline-hidden {
 	display: none;
 }
 
-@keyframes fly-in {
-	100% {
-		transform: translateX(0%);
-	}
+.projector-page .stinger {
+	position: fixed;
+	min-height: 100vh;
+	min-height: 100vw;
+	z-index: 2;
 }
-
-
-.pinkOrg {
-	border: #ff00d3 1px dashed;
+.projector-page .in-stinger {
+	/* filter: brightness(0.5); */
+	/* filter: hue-rotate(235deg) saturate(1) brightness(0.5); */
 }
-
-.pinkOrg.spotlight {
-	background: #ff00d3;
+.projector-page .out-stinger {
+	/* filter: hue-rotate(235deg) saturate(1) brightness(0.5); */
 }
