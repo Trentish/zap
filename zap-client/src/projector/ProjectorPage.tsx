@@ -7,12 +7,16 @@ import {$splitArticles, $spotlight, $timer} from '../ClientState.ts';
 import {Atom} from 'jotai/vanilla/atom';
 import {clsx} from 'clsx';
 import {Crawler} from './Crawler.tsx';
+import {useClient} from '../ClientContext.ts';
 
 const SHOW_LAST_COUNT = 7;
 
 export function ProjectorPage() {
+	const client = useClient();
+	
 	return (
 		<div className={'projector-page'}>
+		<div className={`projector-page ${client.gameIdf}`}>
 			<video autoPlay muted loop id={'bgVideo'}>
 				<source src={'../assets/videos/box-background.mp4'} type={'video/mp4'}/>
 			</video>

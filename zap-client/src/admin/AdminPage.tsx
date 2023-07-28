@@ -10,7 +10,7 @@ export function AdminPage() {
 	const client = useClient();
 	
 	return (
-		<div className={'control-page adminPage'}>
+		<div className={`control-page adminPage ${client.gameIdf}`}>
 			<h1>Administrator ONLY!</h1>
 			
 			<TimerControls/>
