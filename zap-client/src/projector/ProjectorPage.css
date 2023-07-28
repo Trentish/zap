@@ -73,7 +73,7 @@
 .projector-page {
 	margin: 0;
 	padding: 0;
-	background-color: #2e3436;
+	/*background-color: #2e3436;*/
 	/* background-image: url('ink3.svg'); */
 	background-position: center center;
 	background-repeat: no-repeat;
@@ -82,13 +82,26 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	flex-direction: column;
 	font-family: 'Tofino Wide Personal';
 	color: white;
+}
+
+.projector-page #bgVideo {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	filter: brightness(0.3);
+	z-index: -1;
+	/* filter: hue-rotate(235deg) saturate(1); */
 }
 
 .projector-page .ink-logo {
 	z-index: 0;
 }
+
 .projector-page canvas {
 	position: fixed;
 	left: 0px;
@@ -97,7 +110,7 @@
 	border-bottom: 3px solid #ccc;
 	background: linear-gradient(0deg, rgba(75,75,75,1) 0%, rgba(25,25,25,1) 100%);
 	box-shadow: 0 0 20px #000; */
-	background: rgba(0,0,0,1.0);
+	background: rgba(0, 0, 0, 1.0);
 }
 
 .projector-page #mainlogo {
@@ -107,14 +120,6 @@
 	left: 0;
 	bottom: 8px;
 	/* filter: drop-shadow(3px 2px 2px rgb(0 0 0 / 0.4)); */
-}
-
-.projector-page #myVideo {
-	position: fixed;
-	min-width: 100%;
-	min-height: 100%;
-	filter:  brightness(0.3);
-	/* filter: hue-rotate(235deg) saturate(1); */
 }
 
 .projector-page #bigvidbox {
@@ -183,11 +188,13 @@
 	align-items: flex-end;
 	filter: drop-shadow(5px 0px 10px rgb(0 0 0 / 0.6));
 }
+
 .projector-page #bigvidcaption * {
 	background: white;
 	padding: 5px 20px;
 	/* box-shadow: 0 0 10px #000; */
 }
+
 .projector-page #bigvidcaption sub {
 	line-height: 1em;
 	font-size: 20px;
@@ -274,6 +281,7 @@
 	filter: brightness(0.5);
 	z-index: -1;
 }
+
 .projector-page .fullScreenHeadline::after {
 	content: " ";
 	position: absolute;
@@ -299,10 +307,12 @@
 	min-height: 100vw;
 	z-index: 2;
 }
+
 .projector-page .in-stinger {
 	/* filter: brightness(0.5); */
 	/* filter: hue-rotate(235deg) saturate(1) brightness(0.5); */
 }
+
 .projector-page .out-stinger {
 	/* filter: hue-rotate(235deg) saturate(1) brightness(0.5); */
 }

@@ -12,9 +12,11 @@ export const $endpoint = atom(E_Endpoint.unknown);
 export const $gameIdf = atom<T_GameIdf>('');
 export const $allGameIdfs = atom<string[]>([]);
 
+/** all articles we have locally (may not have *all* of them) */
 export const $allArticles = atom<ArticleDat[]>([]);
 export const $splitArticles = splitAtom($allArticles);//, a => `articleAtomId${a.id}`);
 export const $spotlight = atom<SpotlightDat>({spotlightId: -1, pendingAboveId: -1});
+export const $crawlerArticles = atom<ArticleDat[]>([]);
 
 export const $author = atomWithStorage('ZAP_AUTHOR', '');
 

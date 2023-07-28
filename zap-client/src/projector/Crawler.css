@@ -1,0 +1,80 @@
+:root {
+	--crawlDuration0: 2s;
+	--crawlDuration1: 3s;
+	--crawlStart0: 0px;
+	--crawlStart1: 100px;
+	--crawlEnd0: -100px;
+	--crawlEnd1: -100px;
+	--crawlWidth0: 555px; /* debug */
+	--crawlWidth1: 555px; /* debug */
+}
+
+.crawlerHeadline {
+	display: inline-block;
+	padding: 0 42px;
+	font-size: 2em;
+	/*background-color: #adadad;*/
+	/*border: orange 4px solid;*/
+}
+
+.crawlerContainer {
+	width: 100%;
+	height: 60px;
+	position: relative;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.crawlerContainer:before {
+	position: absolute;
+	display: block;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	content: '';
+	background: linear-gradient(
+			90deg,
+			#fff,
+			transparent 24px,
+			transparent calc(100% - 24px),
+			#fff
+	);
+}
+
+.crawlGroup {
+	position: absolute;
+	left: 0;
+	transform: translateX(-9999px);
+}
+
+.crawlGroup.anim0 {
+	animation-name: crawlAnim0;
+	animation-duration: var(--crawlDuration0);
+	animation-timing-function: linear;
+	/*background-color: #a7e36a;*/
+}
+
+@keyframes crawlAnim0 {
+	0% {
+		transform: translateX(var(--crawlStart0));
+	}
+	100% {
+		transform: translateX(var(--crawlEnd0));
+	}
+}
+
+.crawlGroup.anim1 {
+	animation-name: crawlAnim1;
+	animation-duration: var(--crawlDuration1);
+	animation-timing-function: linear;
+	background-color: #e36a8a;
+}
+
+@keyframes crawlAnim1 {
+	0% {
+		transform: translateX(var(--crawlStart1));
+	}
+	100% {
+		transform: translateX(var(--crawlEnd1));
+	}
+}

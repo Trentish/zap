@@ -12,11 +12,11 @@ export interface PostArticleDat {
 
 export interface ArticleDat {
 	id: number;
-	createdAt: string;
+	createdAt?: string;
 	headline: string;
-	author: string;
-	orgIdf: string;
-	themeTags: string[];
+	author?: string;
+	orgIdf?: string;
+	themeTags?: string[];
 	// tickerVisible: boolean; // maybe?
 	// sound, etc.?
 }

@@ -9,7 +9,7 @@ const TICK_RATE_MS = 1000;
 const STARTING_TIMER_LABEL = 'Game Turn';
 const STARTING_TIMER_MS = 30 * 60 * 1000;
 const DB_BACKUP_MS = 5 * 60 * 1000;
-const ARTICLE_COUNT_INITIAL_SEND = 10; // TODO: config/elsewhere
+const ARTICLE_COUNT_INITIAL_SEND = 12; // TODO: config/elsewhere
 /** will be affected by tick rate */
 const SPOTLIGHT_DURATION_MS: [number, number] = [10000, 12000];
 const SPOTLIGHT_COOLDOWN_MS = 1000;
