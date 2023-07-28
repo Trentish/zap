@@ -51,7 +51,7 @@
 	animation-name: crawlAnim0;
 	animation-duration: var(--crawlDuration0);
 	animation-timing-function: linear;
-	/*background-color: #a7e36a;*/
+	background-color: #a7e36a;
 }
 
 @keyframes crawlAnim0 {
