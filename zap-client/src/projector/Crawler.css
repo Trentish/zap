@@ -56,10 +56,10 @@
 
 @keyframes crawlAnim0 {
 	0% {
-		transform: translateX(var(--crawlStart0));
+		transform:  translate3d(0, 0, 0) translateX(var(--crawlStart0));
 	}
 	100% {
-		transform: translateX(var(--crawlEnd0));
+		transform:  translate3d(0, 0, 0) translateX(var(--crawlEnd0));
 	}
 }
 
@@ -72,9 +72,9 @@
 
 @keyframes crawlAnim1 {
 	0% {
-		transform: translateX(var(--crawlStart1));
+		transform:  translate3d(0, 0, 0) translateX(var(--crawlStart1));
 	}
 	100% {
-		transform: translateX(var(--crawlEnd1));
+		transform:  translate3d(0, 0, 0) translateX(var(--crawlEnd1));
 	}
 }

@@ -2,29 +2,95 @@ import {ArticleDat} from '../../../zap-shared/_Dats.ts';
 import {Timer} from '../displays/Timer.tsx';
 import {useAtom} from 'jotai';
 import './ProjectorPage.css';
-import React from 'react';
+import React, {ReactEventHandler, SyntheticEvent} from 'react';
 import {$splitArticles, $spotlight, $timer} from '../ClientState.ts';
 import {Atom} from 'jotai/vanilla/atom';
 import {clsx} from 'clsx';
 import {Crawler} from './Crawler.tsx';
 import {useClient} from '../ClientContext.ts';
 
+const eventBus = document;
+
 const SHOW_LAST_COUNT = 7;
+
+const stingerInRef = React.createRef<HTMLVideoElement>();
+const stingerOutRef = React.createRef<HTMLVideoElement>();
+
+/*
+	I don't love this as a solution -- global variable!
+	but passing things around through DISJOINT events
+	makes it hard. It's not a true event chain we fully
+	control that we're dealing with.
+*/
+let MUTATING_SPOTLIGHT_REF = React.createRef<HTMLDivElement>();
+
+eventBus.addEventListener("custom:startTheSpotlight", e => {
+	if (stingerInRef.current != null) stingerInRef.current.play();
+});
+eventBus.addEventListener("custom:endTheSpotlight", e => {
+	if (stingerOutRef.current != null) stingerOutRef.current.play();
+});
+
+const headlineStingerIn_onTimeUpdate = (event: SyntheticEvent<HTMLVideoElement>) => {
+	console.log(event.currentTarget.currentTime);
+	if (event.currentTarget.currentTime >= 0.6) {
+		console.log("headlineStingerIn_onTimeUpdate we're 0.6 seconds in!")
+		if (MUTATING_SPOTLIGHT_REF.current != null) MUTATING_SPOTLIGHT_REF.current.classList.add("now-showing");
+	}
+};
+
+const TEMPORARY__headlineStingerIn_onPlay = (event: SyntheticEvent<HTMLVideoElement>) => {
+	/*
+		We should be reacting to something the server does here.
+		Ideally the server will give us something we can use
+		so we can have the SpotlightHeadline function add an additional
+		class to the spotlight when it's about to be turned off, say
+		3 seconds before it's going to be removed (ideally customizable).
+		That way we know the end is coming and can signal it that way, I think.
+
+		Our goal is to have the outtro video complete and the spotlight hidden
+		before react/theserver starts messing with the DOM again.
+
+		At least those are my sleepy thoughts right now!
+	 */
+
+	setTimeout(function() {
+		console.log("6 seconds");
+		const evt = new CustomEvent("custom:endTheSpotlight");
+		eventBus.dispatchEvent(evt);
+	}, 6000);
+};
+
+const headlineStingerOut_onTimeUpdate = (event: SyntheticEvent<HTMLVideoElement>) => {
+	console.log(event.currentTarget.currentTime);
+	if (event.currentTarget.currentTime >= 0.6) {
+		console.log("headlineStingerOut_onTimeUpdate we're 0.6 seconds in!")
+		if (MUTATING_SPOTLIGHT_REF.current != null) MUTATING_SPOTLIGHT_REF.current.classList.remove("now-showing");
+	}
+};
 
 export function ProjectorPage() {
 	const client = useClient();
-	
+
 	return (
-		<div className={'projector-page'}>
 		<div className={`projector-page ${client.gameIdf}`}>
-			<video autoPlay muted loop id={'bgVideo'}>
+			<video autoPlay muted loop id={'backgroundVideoLoop'}>
+				<source src={'../assets/videos/box-background.mp4'} type={'video/mp4'}/>
+			</video>
+			<video onTimeUpdate={headlineStingerIn_onTimeUpdate} onPlay={TEMPORARY__headlineStingerIn_onPlay} ref={stingerInRef} className="stinger in-stinger">
+				<source src={'../assets/videos/fw_red.webm'} type="video/webm" />
+			</video>
+			<video onTimeUpdate={headlineStingerOut_onTimeUpdate} ref={stingerOutRef} className="stinger out-stinger">
+				<source src={'../assets/videos/circle_red.webm'} type="video/webm" />
+			</video>
+			<video autoPlay muted loop id={'backgroundVideoLoop'}>
 				<source src={'../assets/videos/box-background.mp4'} type={'video/mp4'}/>
 			</video>
 			<Timer $timer={$timer}/>
 			
 			<Headlines/>
 			
-			<Crawler/>
+			{/*<Crawler/>*/}
 		</div>
 	);
 }
@@ -33,30 +99,105 @@ function Headlines() {
 	const [articles] = useAtom($splitArticles);
 	
 	return (
-		<div className={'articles'}>
-			{articles.slice(-SHOW_LAST_COUNT).reverse().map($article => (
-				<Headline
-					key={`${$article}`}
-					$article={$article}
-				/>
-			))}
+		<>
+			<div className={`spotlight-articles`}>
+				{articles.slice(-SHOW_LAST_COUNT).reverse().map($article => (
+					<SpotlightHeadline
+						key={`${$article}`}
+						$article={$article}
+					/>
+				))}
+			</div>
+			<div className={'articles'}>
+				{articles.slice(-SHOW_LAST_COUNT).reverse().map($article => (
+					<Headline
+						key={`${$article}`}
+						$article={$article}
+					/>
+				))}
+			</div>
+		</>
+	);
+}
+
+function SpotlightHeadline({$article}: { $article: Atom<ArticleDat> }) {
+	const [article] = useAtom($article);
+	const [spotlight] = useAtom($spotlight);
+	const onAnimationStart = () => {
+		console.log(`A new spotlight headline has dropped!`);
+		const evt = new CustomEvent("custom:startTheSpotlight");
+		eventBus.dispatchEvent(evt);
+	};
+
+	const articleRef = React.createRef<HTMLDivElement>();
+
+	const weAreSpotlightingThisArticleRightNow = spotlight.spotlightId === article.id;
+
+	const className = clsx(
+		'article',
+		article.orgIdf,
+		{'spotlight': weAreSpotlightingThisArticleRightNow}
+	);
+
+	if (weAreSpotlightingThisArticleRightNow) {
+		// We do this so it's accessible elsewhere
+		MUTATING_SPOTLIGHT_REF = articleRef;
+	}
+
+	/*
+		TODO: Fix hackiness!
+		TODO: Figure out how!
+	 */
+	const itIsTimeForDoom = article.orgIdf ? article.orgIdf.includes("doom") : false;
+
+	if (itIsTimeForDoom) {
+		return (
+			<div ref={articleRef} onAnimationStart={onAnimationStart} className={className} data-article-id={article.id} data-spotlight-id={spotlight.spotlightId} data-pending-above-id={spotlight.pendingAboveId}>
+				<div className="headline">{article.headline}</div>
+				<video autoPlay muted loop>
+					<source src={'../assets/videos/deephaven/spotlight_background_doom.mp4'} type={'video/mp4'}/>
+				</video>
+			</div>
+		);
+	}
+	const itIsTimeForDiscovery = article.orgIdf ? article.orgIdf.includes("discovery") : false;
+
+	if (itIsTimeForDiscovery) {
+		return (
+			<div ref={articleRef} onAnimationStart={onAnimationStart} className={className} data-article-id={article.id} data-spotlight-id={spotlight.spotlightId} data-pending-above-id={spotlight.pendingAboveId}>
+				<div className="headline">{article.headline}</div>
+				<video autoPlay muted loop>
+					<source src={'../assets/videos/deephaven/spotlight_background_discovery.mp4'} type={'video/mp4'}/>
+				</video>
+			</div>
+		);
+	}
+
+	return (
+		<div ref={articleRef} onAnimationStart={onAnimationStart} className={className} data-article-id={article.id} data-spotlight-id={spotlight.spotlightId} data-pending-above-id={spotlight.pendingAboveId}>
+			<div className="headline">{article.headline}</div>
 		</div>
 	);
+
+	// const className = clsx(
+	// 	'article',
+	// 	article.orgIdf,
+	// 	{'spotlight': spotlight.spotlightId === article.id},
+	// 	{'pending': article.id > spotlight.pendingAboveId},
+	// );
+	//
+	// return (
+	// 	<div onAnimationStart={onAnimationStart} className={className} data-article-id={article.id} data-spotlight-id={spotlight.spotlightId} data-pending-above-id={spotlight.pendingAboveId}>
+	// 		{article.headline}
+	// 	</div>
+	// );
 }
 
 function Headline({$article}: { $article: Atom<ArticleDat> }) {
 	const [article] = useAtom($article);
-	const [spotlight] = useAtom($spotlight);
-	
-	const className = clsx(
-		'article',
-		article.orgIdf,
-		{'spotlight': spotlight.spotlightId === article.id},
-		{'pending': article.id > spotlight.pendingAboveId},
-	);
 	
 	return (
-		<div className={className}>
+		<div>
 			{article.headline}
 		</div>
 	);
