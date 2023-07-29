@@ -6,7 +6,9 @@
       <script value="dev" />
     </scripts>
     <node-interpreter value="project" />
-    <envs />
+    <envs>
+      <env name="STORAGE_PATH" value="$USER_HOME$/ZapStorage" />
+    </envs>
     <method v="2" />
   </configuration>
 </component>
