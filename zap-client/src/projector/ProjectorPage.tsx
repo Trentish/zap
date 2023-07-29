@@ -178,27 +178,22 @@ function SpotlightHeadline({$article}: { $article: Atom<ArticleDat> }) {
 			<div className="headline">{article.headline}</div>
 		</div>
 	);
-
-	// const className = clsx(
-	// 	'article',
-	// 	article.orgIdf,
-	// 	{'spotlight': spotlight.spotlightId === article.id},
-	// 	{'pending': article.id > spotlight.pendingAboveId},
-	// );
-	//
-	// return (
-	// 	<div onAnimationStart={onAnimationStart} className={className} data-article-id={article.id} data-spotlight-id={spotlight.spotlightId} data-pending-above-id={spotlight.pendingAboveId}>
-	// 		{article.headline}
-	// 	</div>
-	// );
 }
 
 function Headline({$article}: { $article: Atom<ArticleDat> }) {
 	const [article] = useAtom($article);
-	
+	const [spotlight] = useAtom($spotlight);
+
+	const className = clsx(
+		'article',
+		article.orgIdf,
+		{'spotlight': spotlight.spotlightId === article.id},
+		{'pending': article.id > spotlight.pendingAboveId},
+	);
+
 	return (
-		<div>
-			{article.headline}
+		<div className={className} data-article-id={article.id} data-spotlight-id={spotlight.spotlightId} data-pending-above-id={spotlight.pendingAboveId}>
+			{article.headline} --- {className}
 		</div>
 	);
 }
