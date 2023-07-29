@@ -24,19 +24,18 @@ const stingerOutRef = React.createRef<HTMLVideoElement>();
 */
 let MUTATING_SPOTLIGHT_REF = React.createRef<HTMLDivElement>();
 
-eventBus.addEventListener('custom:startTheSpotlight', e => {
+eventBus.addEventListener("custom:startTheSpotlight", e => {
 	if (stingerInRef.current != null) stingerInRef.current.play();
 });
-eventBus.addEventListener('custom:endTheSpotlight', e => {
+eventBus.addEventListener("custom:endTheSpotlight", e => {
 	if (stingerOutRef.current != null) stingerOutRef.current.play();
 });
 
 const headlineStingerIn_onTimeUpdate = (event: SyntheticEvent<HTMLVideoElement>) => {
 	console.log(event.currentTarget.currentTime);
 	if (event.currentTarget.currentTime >= 0.6) {
-		console.log('headlineStingerIn_onTimeUpdate we\'re 0.6 seconds in!');
-		if (MUTATING_SPOTLIGHT_REF.current != null) MUTATING_SPOTLIGHT_REF.current.classList.add(
-			'now-showing');
+		console.log("headlineStingerIn_onTimeUpdate we're 0.6 seconds in!")
+		if (MUTATING_SPOTLIGHT_REF.current != null) MUTATING_SPOTLIGHT_REF.current.classList.add("now-showing");
 	}
 };
 
@@ -54,10 +53,10 @@ const TEMPORARY__headlineStingerIn_onPlay = (event: SyntheticEvent<HTMLVideoElem
 
 		At least those are my sleepy thoughts right now!
 	 */
-	
-	setTimeout(function () {
-		console.log('6 seconds');
-		const evt = new CustomEvent('custom:endTheSpotlight');
+
+	setTimeout(function() {
+		console.log("6 seconds");
+		const evt = new CustomEvent("custom:endTheSpotlight");
 		eventBus.dispatchEvent(evt);
 	}, 6000);
 };
@@ -65,34 +64,24 @@ const TEMPORARY__headlineStingerIn_onPlay = (event: SyntheticEvent<HTMLVideoElem
 const headlineStingerOut_onTimeUpdate = (event: SyntheticEvent<HTMLVideoElement>) => {
 	console.log(event.currentTarget.currentTime);
 	if (event.currentTarget.currentTime >= 0.6) {
-		console.log('headlineStingerOut_onTimeUpdate we\'re 0.6 seconds in!');
-		if (MUTATING_SPOTLIGHT_REF.current != null) MUTATING_SPOTLIGHT_REF.current.classList.remove(
-			'now-showing');
+		console.log("headlineStingerOut_onTimeUpdate we're 0.6 seconds in!")
+		if (MUTATING_SPOTLIGHT_REF.current != null) MUTATING_SPOTLIGHT_REF.current.classList.remove("now-showing");
 	}
 };
 
 export function ProjectorPage() {
 	const client = useClient();
-	
+
 	return (
 		<div className={`projector-page ${client.gameIdf}`}>
 			<video autoPlay muted loop id={'backgroundVideoLoop'}>
 				<source src={'../assets/videos/box-background.mp4'} type={'video/mp4'}/>
 			</video>
-			<video
-				onTimeUpdate={headlineStingerIn_onTimeUpdate}
-				onPlay={TEMPORARY__headlineStingerIn_onPlay}
-				ref={stingerInRef}
-				className='stinger in-stinger'
-			>
-				<source src={'../assets/videos/fw_red.webm'} type='video/webm'/>
+			<video onTimeUpdate={headlineStingerIn_onTimeUpdate} onPlay={TEMPORARY__headlineStingerIn_onPlay} ref={stingerInRef} className="stinger in-stinger">
+				<source src={'../assets/videos/fw_red.webm'} type="video/webm" />
 			</video>
-			<video
-				onTimeUpdate={headlineStingerOut_onTimeUpdate}
-				ref={stingerOutRef}
-				className='stinger out-stinger'
-			>
-				<source src={'../assets/videos/circle_red.webm'} type='video/webm'/>
+			<video onTimeUpdate={headlineStingerOut_onTimeUpdate} ref={stingerOutRef} className="stinger out-stinger">
+				<source src={'../assets/videos/circle_red.webm'} type="video/webm" />
 			</video>
 			<video autoPlay muted loop id={'backgroundVideoLoop'}>
 				<source src={'../assets/videos/box-background.mp4'} type={'video/mp4'}/>
@@ -136,87 +125,60 @@ function SpotlightHeadline({$article}: { $article: Atom<ArticleDat> }) {
 	const [spotlight] = useAtom($spotlight);
 	const onAnimationStart = () => {
 		console.log(`A new spotlight headline has dropped!`);
-		const evt = new CustomEvent('custom:startTheSpotlight');
+		const evt = new CustomEvent("custom:startTheSpotlight");
 		eventBus.dispatchEvent(evt);
 	};
-	
+
 	const articleRef = React.createRef<HTMLDivElement>();
-	
+
 	const weAreSpotlightingThisArticleRightNow = spotlight.spotlightId === article.id;
-	
+
 	const className = clsx(
 		'article',
 		article.orgIdf,
-		{'spotlight': weAreSpotlightingThisArticleRightNow},
+		{'spotlight': weAreSpotlightingThisArticleRightNow}
 	);
-	
+
 	if (weAreSpotlightingThisArticleRightNow) {
 		// We do this so it's accessible elsewhere
 		MUTATING_SPOTLIGHT_REF = articleRef;
 	}
-	
+
 	/*
 		TODO: Fix hackiness!
 		TODO: Figure out how!
 	 */
-	const itIsTimeForDoom = article.orgIdf ? article.orgIdf.includes('doom') : false;
-	
+	const itIsTimeForDoom = article.orgIdf ? article.orgIdf.includes("doom") : false;
+
 	if (itIsTimeForDoom) {
 		return (
-			<div
-				ref={articleRef}
-				onAnimationStart={onAnimationStart}
-				className={className}
-				data-article-id={article.id}
-				data-spotlight-id={spotlight.spotlightId}
-				data-pending-above-id={spotlight.pendingAboveId}
-			>
-				<div className='headline'>{article.headline}</div>
+			<div ref={articleRef} onAnimationStart={onAnimationStart} className={className} data-article-id={article.id} data-spotlight-id={spotlight.spotlightId} data-pending-above-id={spotlight.pendingAboveId}>
+				<div className="headline">{article.headline}</div>
 				<video autoPlay muted loop>
-					<source
-						src={'../assets/videos/deephaven/spotlight_background_doom.mp4'}
-						type={'video/mp4'}
-					/>
+					<source src={'../assets/videos/deephaven/spotlight_background_doom.mp4'} type={'video/mp4'}/>
 				</video>
 			</div>
 		);
 	}
-	const itIsTimeForDiscovery = article.orgIdf ? article.orgIdf.includes('discovery') : false;
-	
+	const itIsTimeForDiscovery = article.orgIdf ? article.orgIdf.includes("discovery") : false;
+
 	if (itIsTimeForDiscovery) {
 		return (
-			<div
-				ref={articleRef}
-				onAnimationStart={onAnimationStart}
-				className={className}
-				data-article-id={article.id}
-				data-spotlight-id={spotlight.spotlightId}
-				data-pending-above-id={spotlight.pendingAboveId}
-			>
-				<div className='headline'>{article.headline}</div>
+			<div ref={articleRef} onAnimationStart={onAnimationStart} className={className} data-article-id={article.id} data-spotlight-id={spotlight.spotlightId} data-pending-above-id={spotlight.pendingAboveId}>
+				<div className="headline">{article.headline}</div>
 				<video autoPlay muted loop>
-					<source
-						src={'../assets/videos/deephaven/spotlight_background_discovery.mp4'}
-						type={'video/mp4'}
-					/>
+					<source src={'../assets/videos/deephaven/spotlight_background_discovery.mp4'} type={'video/mp4'}/>
 				</video>
 			</div>
 		);
 	}
-	
+
 	return (
-		<div
-			ref={articleRef}
-			onAnimationStart={onAnimationStart}
-			className={className}
-			data-article-id={article.id}
-			data-spotlight-id={spotlight.spotlightId}
-			data-pending-above-id={spotlight.pendingAboveId}
-		>
-			<div className='headline'>{article.headline}</div>
+		<div ref={articleRef} onAnimationStart={onAnimationStart} className={className} data-article-id={article.id} data-spotlight-id={spotlight.spotlightId} data-pending-above-id={spotlight.pendingAboveId}>
+			<div className="headline">{article.headline}</div>
 		</div>
 	);
-	
+
 	// const className = clsx(
 	// 	'article',
 	// 	article.orgIdf,
