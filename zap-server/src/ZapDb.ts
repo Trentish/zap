@@ -50,7 +50,9 @@ export class ZapDb<T> {
 			console.log(`access: ${accessError}`);
 			
 			const [, makeError] = await vow(
-				mkdir(folder),
+				mkdir(folder, {
+					recursive: true
+				}),
 			);
 			if (makeError) throw new Error(`TODO: makeError ${makeError}`); // TODO
 		}
