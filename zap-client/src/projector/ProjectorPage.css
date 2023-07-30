@@ -1,3 +1,5 @@
+
+
 .projector-page {
 	margin: 0;
 	padding: 0;
@@ -49,42 +51,50 @@
 	gap: 1em;
 }
 
-.projector-page .spotlight-articles > .article {
+@keyframes animation-only-used-to-trick-the-dom-into-firing-an-onAnimationStart-event-so-we-can-detect-when-this-element-is-created {
+	from { caption-side: bottom; }
+	to { caption-side: bottom; }
+}
+
+.projector-page .spotlight-articles .article {
 	display: none;
 }
 
-.projector-page .spotlight-articles > .article.spotlight {
+.projector-page .spotlight-articles .article.spotlight {
 	position: fixed;
 	left: 0;
 	top: 0;
 	height: 100vh;
 	width: 100vw;
 	background-color: #f60;
-	color: white;
-	line-height: 1.1;
-	font-size: 10vh;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	padding: 10vh;
 	z-index: 1;
 	box-sizing: border-box;
 	animation-name: animation-only-used-to-trick-the-dom-into-firing-an-onAnimationStart-event-so-we-can-detect-when-this-element-is-created;
 	animation-duration: 1ms;
 	opacity: 0;
 	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 }
 
-.projector-page .spotlight-articles > .article.spotlight.now-showing {
+.projector-page .spotlight-articles .article.spotlight.now-showing {
 	opacity: 1;
 }
 
-@keyframes animation-only-used-to-trick-the-dom-into-firing-an-onAnimationStart-event-so-we-can-detect-when-this-element-is-created {
-	from { caption-side: bottom; }
-	to { caption-side: bottom; }
+.projector-page .spotlight-carrier {
+	display: flex;
+	color: white;
+	line-height: 1.1;
+	font-size: 15vh;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	position: absolute;
+	padding: 10vh;
 }
 
-.projector-page .spotlight-articles > .article.spotlight > video {
+.projector-page .spotlight-articles .article.spotlight .spotlight-background {
 	z-index: 1;
 	position: absolute;
 	width: 100vw;
@@ -94,16 +104,197 @@
 	object-fit: cover;
 }
 
-.projector-page .spotlight-articles > .article.spotlight > .headline {
+.projector-page .spotlight-articles .article.spotlight *:not(video) {
 	z-index: 2;
 }
 
-.projector-page .spotlight-articles > .article.spotlight.doom > .headline {
-	color: black;
-	font-weight: bold;
+/*.projector-page .spotlight-articles > .article.spotlight video*/
 
-	-webkit-text-fill-color: #000;
-	-webkit-text-stroke-width: 0.2vh;
-	-webkit-text-stroke-color: #ffcc0033;
-	paint-order: stroke fill;
+/* Deephaven-specific-stuff */
+:root {
+	--color-calamity: #ff0000;
+	--filter-calamity: brightness(100%) invert(1) hue-rotate(160deg);
+	--mix-blend-mode-calamity: screen;
+
+	--color-discovery: #0000ff;
+	--filter-discovery: brightness(100%) hue-rotate(300deg);
+	--mix-blend-mode-discovery: screen;
+
+	--color-doom: #ff00ff;
+	--filter-doom: brightness(100%) invert(1) hue-rotate(300deg);
+	--mix-blend-mode-doom: screen;
+
+	--color-grudge: #606;
+	--filter-grudge: brightness(150%) invert(1) hue-rotate(0deg);
+	--mix-blend-mode-grudge: hard-light;
+
+	/*--color-gossip: #a0a;*/
+	/*--filter-gossip: brightness(100%) invert(1) hue-rotate(100deg);*/
+	/*--mix-blend-mode-gossip: luminosity;*/
+
+	--color-gossip: #a0a;
+	--filter-gossip: brightness(100%) invert(0) hue-rotate(0deg) saturate(150%);
+	--mix-blend-mode-gossip: screen;
+
+	--color-oath: #0a0;
+	--filter-oath: brightness(75%) invert(1) hue-rotate(100deg);
+	--mix-blend-mode-oath: difference;
+
+	/*--color-triumph: #00ff00;*/
+	/*--filter-triumph: brightness(100%) invert(1) hue-rotate(300deg);*/
+	/*--mix-blend-mode-triumph: overlay;*/
+
+	--color-triumph: #00ff00;
+	--filter-triumph: brightness(100%) invert(1) hue-rotate(200deg);
+	--mix-blend-mode-triumph: soft-light;
+
+	--control-radius: 5px;
+	--admin-spacing: 10px;
+}
+
+@font-face {
+	font-family: "NCAA NKU Norse";
+	src:
+		url("../assets/fonts/NCAA_NKU_Norse/NCAANkuNorse-Plain.woff2") format("woff2"),
+		url("../assets/fonts/NCAA_NKU_Norse/NCAANkuNorse-Plain.woff") format("woff");
+}
+
+.deephaven.projector-page .spotlight-carrier {
+	font-family: "Norse";
+	align-items: center;
+	text-align: center;
+	/*mix-blend-mode: screen;*/
+	/*mix-blend-mode: exclusion;*/
+	/*mix-blend-mode: difference;*/
+	mix-blend-mode: screen;
+	background-color: white;
+	background-image: url('../assets/images/deephaven/stone-background.jpg');
+	background-size: cover;
+	height: 100vh;
+	width: 100vw;
+}
+
+.deephaven.projector-page .spotlight-carrier > * {
+	/*background: -webkit-linear-gradient(45deg, #000, #333);*/
+	background: #000;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	/*mix-blend-mode: screen;*/
+	/*animation: shineText 6s ease-in-out infinite;*/
+	/*text-shadow: #000 -0.5vh -0.3vh 0;*/
+
+	/*color: #222;*/
+}
+
+.deephaven.projector-page .spotlight-carrier .headline {
+	/*background-color: red;*/
+	/*mix-blend-mode: screen;*/
+	font-size: min(12vh, 10vw);
+}
+@keyframes shineText {
+	0%{
+		background-size: 100% 100%;
+	}
+	50%{
+		background-size: 100% 500%;
+	}
+	100%{
+		background-size: 100% 100%;
+	}
+}
+
+.deephaven.projector-page .spotlight-carrier .theme {
+	font-family: "NCAA NKU Norse";
+	text-transform: uppercase;
+	position: relative;
+	font-size: min(6vh, 6vw);
+	transform: translateY(2.5vh);  /* NKU Norse is tricky with its baseline so translate it */
+	margin-bottom: 5vh;
+}
+
+.deephaven.projector-page .spotlight-carrier .theme::after {
+	background: #ffcc00;
+	position: fixed;
+	bottom: 0.1em;
+	left: 0;
+	height: 0.1em;
+	width: 100%;
+	display: block;
+	content: " ";
+	z-index: -1;
+}
+
+.deephaven.projector-page .calamity {
+	filter: var(--filter-calamity);
+}
+.deephaven.projector-page .calamity .spotlight-carrier {
+	mix-blend-mode: var(--mix-blend-mode-calamity);
+}
+.deephaven.projector-page .calamity .spotlight-carrier .theme::after {
+	background: var(--color-calamity);
+}
+
+
+.deephaven.projector-page .discovery {
+	filter: var(--filter-discovery);
+}
+.deephaven.projector-page .discovery .spotlight-carrier {
+	mix-blend-mode: var(--mix-blend-mode-discovery);
+}
+.deephaven.projector-page .discovery .spotlight-carrier .theme::after {
+	background: var(--color-discovery);
+}
+
+.deephaven.projector-page .spotlight-articles .doom {
+	filter: var(--filter-doom);
+}
+.deephaven.projector-page .doom .spotlight-carrier {
+	mix-blend-mode: var(--mix-blend-mode-doom);
+}
+.deephaven.projector-page .spotlight-articles .doom .spotlight-carrier .theme::after {
+	background: var(--color-doom);
+}
+
+.deephaven.projector-page .spotlight-articles .grudge {
+	filter: var(--filter-grudge);
+}
+.deephaven.projector-page .grudge .spotlight-carrier {
+	mix-blend-mode: var(--mix-blend-mode-grudge);
+}
+.deephaven.projector-page .spotlight-articles .grudge .spotlight-carrier .theme::after {
+	background: var(--color-grudge);
+}
+
+.deephaven.projector-page .gossip {
+	filter: var(--filter-gossip);
+}
+.deephaven.projector-page .gossip .spotlight-carrier {
+	mix-blend-mode: var(--mix-blend-mode-gossip);
+}
+.deephaven.projector-page .gossip .spotlight-carrier .theme::after {
+	background: var(--color-gossip);
+}
+
+.deephaven.projector-page .spotlight-articles .oath {
+	filter: var(--filter-oath);
+}
+.deephaven.projector-page .oath .spotlight-carrier {
+	mix-blend-mode: var(--mix-blend-mode-oath);
+}
+.deephaven.projector-page .spotlight-articles .oath .spotlight-carrier .theme::after {
+	background: var(--color-oath);
+}
+
+.deephaven.projector-page .spotlight-articles .triumph {
+	/*filter: var(--filter-triumph);*/
+	filter: brightness(100%) invert(1) hue-rotate(200deg);
+}
+.deephaven.projector-page .triumph .spotlight-carrier {
+	/*mix-blend-mode: var(--mix-blend-mode-triumph);*/
+	--mix-blend-mode-triumph: soft-light;
+	filter: brightness(100%);
+	background: white;
+}
+.deephaven.projector-page .spotlight-articles .triumph .spotlight-carrier .theme::after {
+	background: var(--color-triumph);
 }

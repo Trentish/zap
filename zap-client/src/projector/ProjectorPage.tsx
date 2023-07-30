@@ -3,7 +3,7 @@ import {Timer} from '../displays/Timer.tsx';
 import {useAtom} from 'jotai';
 import './ProjectorPage.css';
 import React, {ReactEventHandler, SyntheticEvent} from 'react';
-import {$splitArticles, $spotlight, $timer} from '../ClientState.ts';
+import {$splitArticles, $spotlight, $timer, $gameIdf} from '../ClientState.ts';
 import {Atom} from 'jotai/vanilla/atom';
 import {clsx} from 'clsx';
 import {Crawler} from './Crawler.tsx';
@@ -58,7 +58,7 @@ const TEMPORARY__headlineStingerIn_onPlay = (event: SyntheticEvent<HTMLVideoElem
 		console.log("6 seconds");
 		const evt = new CustomEvent("custom:endTheSpotlight");
 		eventBus.dispatchEvent(evt);
-	}, 6000);
+	}, 9000);
 };
 
 const headlineStingerOut_onTimeUpdate = (event: SyntheticEvent<HTMLVideoElement>) => {
@@ -82,9 +82,6 @@ export function ProjectorPage() {
 			</video>
 			<video onTimeUpdate={headlineStingerOut_onTimeUpdate} ref={stingerOutRef} className="stinger out-stinger">
 				<source src={'../assets/videos/circle_red.webm'} type="video/webm" />
-			</video>
-			<video autoPlay muted loop id={'backgroundVideoLoop'}>
-				<source src={'../assets/videos/box-background.mp4'} type={'video/mp4'}/>
 			</video>
 			<Timer $timer={$timer}/>
 			
@@ -148,34 +145,28 @@ function SpotlightHeadline({$article}: { $article: Atom<ArticleDat> }) {
 		TODO: Fix hackiness!
 		TODO: Figure out how!
 	 */
-	const itIsTimeForDoom = article.orgIdf ? article.orgIdf.includes("doom") : false;
+	const [gameIdf] = useAtom($gameIdf);
+	const itIsDeephavenTime = gameIdf === "deephaven";
 
-	if (itIsTimeForDoom) {
+	if (itIsDeephavenTime) {
 		return (
 			<div ref={articleRef} onAnimationStart={onAnimationStart} className={className} data-article-id={article.id} data-spotlight-id={spotlight.spotlightId} data-pending-above-id={spotlight.pendingAboveId}>
-				<div className="headline">{article.headline}</div>
-				<video autoPlay muted loop>
-					<source src={'../assets/videos/deephaven/spotlight_background_doom.mp4'} type={'video/mp4'}/>
+				<video className="spotlight-background" autoPlay muted loop>
+					<source src={'../assets/videos/deephaven/spotlight-background-3.mp4'} type={'video/mp4'}/>
 				</video>
-			</div>
-		);
-	}
-	const itIsTimeForDiscovery = article.orgIdf ? article.orgIdf.includes("discovery") : false;
-
-	if (itIsTimeForDiscovery) {
-		return (
-			<div ref={articleRef} onAnimationStart={onAnimationStart} className={className} data-article-id={article.id} data-spotlight-id={spotlight.spotlightId} data-pending-above-id={spotlight.pendingAboveId}>
-				<div className="headline">{article.headline}</div>
-				<video autoPlay muted loop>
-					<source src={'../assets/videos/deephaven/spotlight_background_discovery.mp4'} type={'video/mp4'}/>
-				</video>
+				<div className="spotlight-carrier">
+					<div className="theme">{article.orgIdf}</div>
+					<div className="headline">{article.headline}</div>
+				</div>
 			</div>
 		);
 	}
 
 	return (
 		<div ref={articleRef} onAnimationStart={onAnimationStart} className={className} data-article-id={article.id} data-spotlight-id={spotlight.spotlightId} data-pending-above-id={spotlight.pendingAboveId}>
-			<div className="headline">{article.headline}</div>
+			<div className="spotlight-carrier">
+				<div className="headline">{article.headline}</div>
+			</div>
 		</div>
 	);
 }
