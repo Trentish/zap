@@ -2,12 +2,13 @@ import {ArticleDat} from '../../../zap-shared/_Dats.ts';
 import {Timer} from '../displays/Timer.tsx';
 import {useAtom} from 'jotai';
 import './ProjectorPage.css';
-import React, {ReactEventHandler, SyntheticEvent} from 'react';
-import {$splitArticles, $spotlight, $timer, $gameIdf} from '../ClientState.ts';
+import React, {SyntheticEvent} from 'react';
+import {$gameIdf, $splitArticles, $spotlight, $timer} from '../ClientState.ts';
 import {Atom} from 'jotai/vanilla/atom';
 import {clsx} from 'clsx';
 import {Crawler} from './Crawler.tsx';
 import {useClient} from '../ClientContext.ts';
+import {BackgroundVideo, Video} from '../components/VideoComponents.tsx';
 
 const eventBus = document;
 
@@ -91,23 +92,23 @@ export function ProjectorPage() {
 		
 		return (
 			<div className={`projector-page ${client.gameIdf}`}>
-				<video autoPlay muted loop id={'backgroundVideoLoop'}>
-					<source src={'../assets/videos/box-background.mp4'} type={'video/mp4'}/>
-				</video>
-				<video
+				<BackgroundVideo
+					src={'../assets/videos/box-background.mp4'}
+					id={'backgroundVideoLoop'}
+				/>
+				<Video
+					src={'../assets/videos/ink-transition.webm'}
 					onTimeUpdate={headlineStingerIn_onTimeUpdate}
 					onPlay={TEMPORARY__headlineStingerIn_onPlay}
+					className={'stinger in-stinger'}
 					ref={stingerInRef}
-					className='stinger in-stinger'
-				>
-					<source src={'../assets/videos/ink-transition.webm'} type='video/webm'/>
-				</video>
-				<video
+				/>
+				<Video
+					src={'../assets/videos/ink-transition.webm'}
 					onTimeUpdate={headlineStingerOut_onTimeUpdate}
-					ref={stingerOutRef} className='stinger out-stinger'
-				>
-					<source src={'../assets/videos/ink-transition.webm'} type='video/webm'/>
-				</video>
+					className={'stinger out-stinger'}
+					ref={stingerOutRef}
+				/>
 				<Timer $timer={$timer}/>
 				
 				<Headlines/>
@@ -122,29 +123,23 @@ export function ProjectorPage() {
 	if (itIsJuntasTime) {
 		return (
 			<div className={`projector-page ${client.gameIdf}`}>
-				<video autoPlay muted loop id={'backgroundVideoLoop'}>
-					<source src={'../assets/videos/juntas/globe2.mov'} type={'video/mp4'}/>
-				</video>
-				<video
+				<BackgroundVideo
+					src={'../assets/videos/juntas/globe2.mov'}
+					id={'backgroundVideoLoop'}
+				/>
+				<Video
+					src={'../assets/videos/juntas/cnn-transition-1.webm'}
 					onTimeUpdate={headlineStingerIn_onTimeUpdate}
 					onPlay={TEMPORARY__headlineStingerIn_onPlay}
-					ref={stingerInRef}
 					className='stinger in-stinger'
-				>
-					<source
-						src={'../assets/videos/juntas/cnn-transition-1.webm'}
-						type='video/webm'
-					/>
-				</video>
-				<video
-					onTimeUpdate={headlineStingerOut_onTimeUpdate} ref={stingerOutRef}
+					ref={stingerInRef}
+				/>
+				<Video
+					src={'../assets/videos/juntas/cnn-transition-1.webm'}
+					onTimeUpdate={headlineStingerOut_onTimeUpdate}
 					className='stinger out-stinger'
-				>
-					<source
-						src={'../assets/videos/juntas/cnn-transition-1.webm'}
-						type='video/webm'
-					/>
-				</video>
+					ref={stingerOutRef}
+				/>
 				
 				<Timer $timer={$timer}/>
 				
@@ -153,32 +148,33 @@ export function ProjectorPage() {
 				{/*<Crawler/>*/}
 				<img className='juntas-news-logo' src={'../assets/images/juntas/logo-cnn.svg'}/>
 				
-				<video autoPlay muted loop id={'vhs-distortion'}>
-					<source src={'../assets/videos/juntas/vhs.mp4'} type={'video/mp4'}/>
-				</video>
+				<BackgroundVideo
+					src={'../assets/videos/juntas/vhs.mp4'}
+					id={'vhs-distortion'}
+				/>
 			</div>
 		);
 	}
 	
 	return (
 		<div className={`projector-page ${client.gameIdf}`}>
-			<video autoPlay muted loop id={'backgroundVideoLoop'}>
-				<source src={'../assets/videos/box-background.mp4'} type={'video/mp4'}/>
-			</video>
-			<video
+			<BackgroundVideo
+				src={'../assets/videos/box-background.mp4'}
+				id={'backgroundVideoLoop'}
+			/>
+			<Video
+				src={'../assets/videos/fw_red.webm'}
 				onTimeUpdate={headlineStingerIn_onTimeUpdate}
 				onPlay={TEMPORARY__headlineStingerIn_onPlay}
+				className={'stinger in-stinger'}
 				ref={stingerInRef}
-				className='stinger in-stinger'
-			>
-				<source src={'../assets/videos/fw_red.webm'} type='video/webm'/>
-			</video>
-			<video
+			/>
+			<Video
+				src={'../assets/videos/circle_red.webm'}
 				onTimeUpdate={headlineStingerOut_onTimeUpdate}
-				ref={stingerOutRef} className='stinger out-stinger'
-			>
-				<source src={'../assets/videos/circle_red.webm'} type='video/webm'/>
-			</video>
+				className={'stinger out-stinger'}
+				ref={stingerOutRef}
+			/>
 			<Timer $timer={$timer}/>
 			
 			<Headlines/>
@@ -260,21 +256,17 @@ function SpotlightHeadline({$article}: { $article: Atom<ArticleDat> }) {
 				data-spotlight-id={spotlight.spotlightId}
 				data-pending-above-id={spotlight.pendingAboveId}
 			>
-				<video className='spotlight-background' autoPlay muted loop>
-					<source
-						src={'../assets/videos/deephaven/spotlight-background-3.mp4'}
-						type={'video/mp4'}
-					/>
-				</video>
-				<video className='spotlight-background doom-background' autoPlay muted loop>
-					<source
-						src={'../assets/videos/deephaven/spotlight-background-5.mp4'}
-						type={'video/mp4'}
-					/>
-				</video>
-				<div className='spotlight-carrier'>
-					<div className='theme'>{article.orgIdf}</div>
-					<div className='headline'>{article.headline}</div>
+				<BackgroundVideo
+					src={'../assets/videos/deephaven/spotlight-background-3.mp4'}
+					className={'spotlight-background'}
+				/>
+				<BackgroundVideo
+					src={'../assets/videos/deephaven/spotlight-background-5.mp4'}
+					className={'spotlight-background doom-background'}
+				/>
+				<div className={'spotlight-carrier'}>
+					<div className={'theme'}>{article.orgIdf}</div>
+					<div className={'headline'}>{article.headline}</div>
 				</div>
 			</div>
 		);
@@ -290,21 +282,14 @@ function SpotlightHeadline({$article}: { $article: Atom<ArticleDat> }) {
 				data-spotlight-id={spotlight.spotlightId}
 				data-pending-above-id={spotlight.pendingAboveId}
 			>
-				<video
+				<BackgroundVideo
+					src={'../assets/videos/juntas/tobacco_fwp91f00.mp4'}
+					className={'spotlight-background'}
 					ref={hackyHackHackCNNSpotRef}
-					className='spotlight-background'
-					autoPlay
-					muted
-					loop
-				>
-					<source
-						src={'../assets/videos/juntas/tobacco_fwp91f00.mp4'}
-						type={'video/mp4'}
-					/>
-				</video>
-				<div className='spotlight-carrier'>
-					<div className='theme'>{article.orgIdf}</div>
-					<div className='headline'>{article.headline}</div>
+				/>
+				<div className={'spotlight-carrier'}>
+					<div className={'theme'}>{article.orgIdf}</div>
+					<div className={'headline'}>{article.headline}</div>
 				</div>
 			</div>
 		);
