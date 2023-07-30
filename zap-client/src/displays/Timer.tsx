@@ -26,8 +26,19 @@ export function Timer({$timer}: {
 	// TODO: better label
 	
 	return (
-		<p
-			className={classNames}
-		>{minutesText}:{secondsText} {label}</p>
+		<div className={classNames}>
+			<span className="minutes">
+				{minutesText}
+			</span>
+			<span className="colon">
+				:
+			</span>
+			<span className="seconds">
+				{secondsText}
+			</span>
+			<span className="timer-label">
+				{label}
+			</span>
+		</div>
 	);
 }

@@ -1,13 +1,15 @@
+import {PrimitiveAtom} from 'jotai/vanilla/atom';
 import {useClient} from '../ClientContext.ts';
 import {Input} from '../components/InputComponents.tsx';
 import React from 'react';
 import {atom} from 'jotai';
 import {Button} from '../components/ButtonComponents.tsx';
-import {$author, $store} from '../ClientState.ts';
-import {HEADLINE_MAX_SIZE, HEADLINE_MIN_SIZE} from '../../../zap-shared/_Dats.ts';
+import {$author, $store, $gameIdf} from '../ClientState.ts';
+import {HEADLINE_MAX_SIZE, HEADLINE_MIN_SIZE, TimerDat} from '../../../zap-shared/_Dats.ts';
+import {useAtom} from "jotai/index";
 
 const $headline = atom('');
-const $org = atom('orgTODO'); // TODO: actual org support
+const $org = atom('orgTODO');// TODO: actual org support
 
 const $canSubmit = atom((get) => {
 	const headline = get($headline);
@@ -45,7 +47,7 @@ export function HeadlineControls() {
 			postArticle();
 		}
 	};
-	
+
 	return (
 		<div className={'headlineControls'}>
 			<Input
@@ -62,21 +64,43 @@ export function HeadlineControls() {
 				$value={$author}
 				placeholder={'Jed McJedfry'}
 			/>
-			<Input
-				label={'Org TODO'}
-				$value={$org}
-				description={`(TODO) for now, will apply this string as headline css className`}
-			/>
-			
+			<ThemeControls $org={$org} $gameIdf={$gameIdf}/>
 			<Button
 				label={'Post'}
 				onClick={postArticle}
 				enabledIf={$canSubmit}
 			/>
 			
-			
 			<br/><br/><br/><br/>
 			<p>TODO: org stuff?</p>
 		</div>
 	);
+}
+
+export function ThemeControls({$org, $gameIdf}: {
+		$org: PrimitiveAtom<string>,
+		$gameIdf: PrimitiveAtom<string>
+	}) {
+
+	const [theGameIdfThingy] = useAtom($gameIdf);
+
+	// TODO: I wanted to have radio buttons or a select box for different
+	// themes here but it seems those components are quite a bit more
+	// complicated to implement than I initially thought. :(
+
+	switch (theGameIdfThingy) {
+		case 'deephaven':
+		case 'juntas-bbc':
+		case 'juntas-cnn':
+		case 'juntas-pbs':
+		case 'juntas':
+		default:
+			return (
+				<Input
+					label={'Org TODO'}
+					$value={$org}
+					description={`(TODO) for now, will apply this string as headline css className`}
+				/>
+			);
+	}
 }
