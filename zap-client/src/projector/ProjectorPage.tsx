@@ -15,6 +15,7 @@ const SHOW_LAST_COUNT = 7;
 
 const stingerInRef = React.createRef<HTMLVideoElement>();
 const stingerOutRef = React.createRef<HTMLVideoElement>();
+const hackyHackHackCNNSpotRef = React.createRef<HTMLVideoElement>();
 
 /*
 	I don't love this as a solution -- global variable!
@@ -29,6 +30,14 @@ eventBus.addEventListener("custom:startTheSpotlight", e => {
 });
 eventBus.addEventListener("custom:endTheSpotlight", e => {
 	if (stingerOutRef.current != null) stingerOutRef.current.play();
+});
+eventBus.addEventListener("custom:scrubToRandomCNNSpot", e => {
+	if (hackyHackHackCNNSpotRef.current != null) {
+		const timeArray = [260, 32, 575, 289];
+		const randomIndex = Math.floor(Math.random() * timeArray.length);
+
+		hackyHackHackCNNSpotRef.current.currentTime = timeArray[randomIndex];
+	}
 });
 
 const headlineStingerIn_onTimeUpdate = (event: SyntheticEvent<HTMLVideoElement>) => {
@@ -74,6 +83,7 @@ export function ProjectorPage() {
 
 	const [gameIdf] = useAtom($gameIdf);
 	const itIsDeephavenTime = gameIdf === "deephaven";
+	const itIsJuntasTime = gameIdf === "juntas";
 
 	if (itIsDeephavenTime) {
 
@@ -100,30 +110,57 @@ export function ProjectorPage() {
 		);
 	}
 
+
+	if (itIsJuntasTime) {
+		return (
+			<div className={`projector-page ${client.gameIdf}`}>
+				<video autoPlay muted loop id={'backgroundVideoLoop'}>
+					<source src={'../assets/videos/juntas/globe2.mov'} type={'video/mp4'}/>
+				</video>
+				<video onTimeUpdate={headlineStingerIn_onTimeUpdate} onPlay={TEMPORARY__headlineStingerIn_onPlay}
+						ref={stingerInRef} className="stinger in-stinger">
+					<source src={'../assets/videos/juntas/cnn-transition-1.webm'} type="video/webm"/>
+				</video>
+				<video onTimeUpdate={headlineStingerOut_onTimeUpdate} ref={stingerOutRef}
+						className="stinger out-stinger">
+					<source src={'../assets/videos/juntas/cnn-transition-1.webm'} type="video/webm"/>
+				</video>
+
+				<Timer $timer={$timer}/>
+
+				<Headlines/>
+
+				{/*<Crawler/>*/}
+				<img className="juntas-news-logo" src={'../assets/images/juntas/logo-cnn.svg'}/>
+
+				<video autoPlay muted loop id={'vhs-distortion'}>
+					<source src={'../assets/videos/juntas/vhs.mp4'} type={'video/mp4'}/>
+				</video>
+			</div>
+		);
+	}
+
 	return (
 		<div className={`projector-page ${client.gameIdf}`}>
 			<video autoPlay muted loop id={'backgroundVideoLoop'}>
-				<source src={'../assets/videos/juntas/globe2.mov'} type={'video/mp4'}/>
+				<source src={'../assets/videos/box-background.mp4'} type={'video/mp4'}/>
 			</video>
-			<video onTimeUpdate={headlineStingerIn_onTimeUpdate} onPlay={TEMPORARY__headlineStingerIn_onPlay} ref={stingerInRef} className="stinger in-stinger">
-				<source src={'../assets/videos/juntas/cnn-transition-1.webm'} type="video/webm" />
+			<video onTimeUpdate={headlineStingerIn_onTimeUpdate} onPlay={TEMPORARY__headlineStingerIn_onPlay}
+					ref={stingerInRef} className="stinger in-stinger">
+				<source src={'../assets/videos/fw_red.webm'} type="video/webm"/>
 			</video>
-			<video onTimeUpdate={headlineStingerOut_onTimeUpdate} ref={stingerOutRef} className="stinger out-stinger">
-				<source src={'../assets/videos/juntas/cnn-transition-1.webm'} type="video/webm" />
+			<video onTimeUpdate={headlineStingerOut_onTimeUpdate}
+					ref={stingerOutRef} className="stinger out-stinger">
+				<source src={'../assets/videos/circle_red.webm'} type="video/webm"/>
 			</video>
-
 			<Timer $timer={$timer}/>
 
 			<Headlines/>
 
 			{/*<Crawler/>*/}
-			<img className="juntas-news-logo" src={'../assets/images/juntas/logo-cnn.svg'} />
-
-			<video autoPlay muted loop id={'vhs-distortion'}>
-				<source src={'../assets/videos/juntas/vhs.mp4'} type={'video/mp4'}/>
-			</video>
 		</div>
 	);
+
 }
 
 function Headlines() {
@@ -158,6 +195,10 @@ function SpotlightHeadline({$article}: { $article: Atom<ArticleDat> }) {
 		console.log(`A new spotlight headline has dropped!`);
 		const evt = new CustomEvent("custom:startTheSpotlight");
 		eventBus.dispatchEvent(evt);
+
+
+		const hackyMcHackerson = new CustomEvent("custom:scrubToRandomCNNSpot");
+		eventBus.dispatchEvent(hackyMcHackerson);
 	};
 
 	const articleRef = React.createRef<HTMLDivElement>();
@@ -203,7 +244,7 @@ function SpotlightHeadline({$article}: { $article: Atom<ArticleDat> }) {
 	if (itIsJuntasTime) {
 		return (
 			<div ref={articleRef} onAnimationStart={onAnimationStart} className={className} data-article-id={article.id} data-spotlight-id={spotlight.spotlightId} data-pending-above-id={spotlight.pendingAboveId}>
-				<video className="spotlight-background" autoPlay muted loop>
+				<video ref={hackyHackHackCNNSpotRef} className="spotlight-background" autoPlay muted loop>
 					<source src={'../assets/videos/juntas/tobacco_fwp91f00.mp4'} type={'video/mp4'}/>
 				</video>
 				<div className="spotlight-carrier">
