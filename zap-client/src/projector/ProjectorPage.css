@@ -137,18 +137,95 @@
 	font-size: 10vmax;
 }
 
-.projector-page .inkbeard-news-logo {
-	display: none;
+
+/* Juntas-specific stuff */
+:root {
+	--juntas--cnn-logo-left: 10vmin;
 }
 
-/*.projector-page .spotlight-articles > .article.spotlight video*/
+.juntas.projector-page .stinger {
+	z-index: 5;
+}
+
+.juntas.projector-page #backgroundVideoLoop {
+	filter: hue-rotate(180deg) brightness(4) saturate(0.6);
+}
+
+.juntas.projector-page #vhs-distortion {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	object-fit: cover;
+	opacity: 0.15;
+	z-index: 6;
+}
+
+.juntas.projector-page .juntas-news-logo {
+	display: block;
+	position: fixed;
+	left: var(--juntas--cnn-logo-left);
+	bottom: 5vmin;
+	max-height: 10vmin;
+	z-index: 2;
+}
+
+.juntas.projector-page .timer .timer-label {
+	font-family: "Helvetica", sans-serif;
+	font-size: 3vmin;
+	position: fixed;
+	right: var(--juntas--cnn-logo-left);
+	top: 5vmin;
+}
+
+.juntas.projector-page .timer {
+	position: fixed;
+	right: var(--juntas--cnn-logo-left);
+	bottom: 5vmin;
+	font-size: 8.5vmin;
+	letter-spacing: -0.02em;
+	font-weight: bold;
+	font-family: "Helvetica", sans-serif;
+	text-shadow: 0.01em 0.01em 0 black, 0.02em 0.02em 0 black, 0.03em 0.03em 0 black, 0.04em 0.04em 0 black, 0.05em 0.05em 0 black,
+	0.06em 0.06em 0 black, 0.07em 0.07em 0 black, 0.08em 0.08em 0 black, 0.09em 0.09em 0 black, 0.10em 0.10em 0 black,
+	0.11em 0.11em 0 black, 0.12em 0.12em 0 black, 0.13em 0.13em 0 black, 0.14em 0.14em 0 black, 0.15em 0.15em 0 black;
+
+}
+
+.juntas.projector-page .spotlight-articles .article.spotlight {
+	background-color: #369;
+	z-index: 2;
+}
+
+.juntas.projector-page .spotlight-articles .spotlight-carrier {
+	align-self: flex-start;
+	padding: 0 var(--juntas--cnn-logo-left);
+	z-index: 2;
+	font-weight: bold;
+	font-style: italic;
+	text-shadow: 0.01em 0.01em 0 black, 0.02em 0.02em 0 black, 0.03em 0.03em 0 black, 0.04em 0.04em 0 black, 0.05em 0.05em 0 black,
+	0.06em 0.06em 0 black, 0.07em 0.07em 0 black, 0.08em 0.08em 0 black, 0.09em 0.09em 0 black, 0.10em 0.10em 0 black,
+	0.11em 0.11em 0 black, 0.12em 0.12em 0 black, 0.13em 0.13em 0 black, 0.14em 0.14em 0 black, 0.15em 0.15em 0 black;
+	letter-spacing: -0.02em;
+	line-height: 1.1;
+	align-items: flex-start;
+	flex-direction: column;
+
+	font-size: 6vmax;
+	gap: 1vmax;
+}
+
+.juntas.projector-page .spotlight-articles .theme {
+	font-size: 3vmax;
+}
+
+.juntas.projector-page .spotlight-articles .spotlight-background {
+	transform: translateX(2vw) scale(110%);
+}
+
+
+
 
 /* Deephaven-specific-stuff */
-:root {
-	--control-radius: 5px;
-	--admin-spacing: 10px;
-}
-
 @font-face {
 	font-family: "NCAA NKU Norse";
 	src:

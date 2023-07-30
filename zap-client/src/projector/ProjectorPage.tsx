@@ -72,23 +72,56 @@ const headlineStingerOut_onTimeUpdate = (event: SyntheticEvent<HTMLVideoElement>
 export function ProjectorPage() {
 	const client = useClient();
 
+	const [gameIdf] = useAtom($gameIdf);
+	const itIsDeephavenTime = gameIdf === "deephaven";
+
+	if (itIsDeephavenTime) {
+
+		return (
+			<div className={`projector-page ${client.gameIdf}`}>
+				<video autoPlay muted loop id={'backgroundVideoLoop'}>
+					<source src={'../assets/videos/box-background.mp4'} type={'video/mp4'}/>
+				</video>
+				<video onTimeUpdate={headlineStingerIn_onTimeUpdate} onPlay={TEMPORARY__headlineStingerIn_onPlay}
+						ref={stingerInRef} className="stinger in-stinger">
+					<source src={'../assets/videos/ink-transition.webm'} type="video/webm"/>
+				</video>
+				<video onTimeUpdate={headlineStingerOut_onTimeUpdate}
+						ref={stingerOutRef} className="stinger out-stinger">
+					<source src={'../assets/videos/ink-transition.webm'} type="video/webm"/>
+				</video>
+				<Timer $timer={$timer}/>
+
+				<Headlines/>
+
+				<Crawler/>
+				<img className="inkbeard-news-logo" src={'../assets/images/deephaven/ink6.svg'}/>
+			</div>
+		);
+	}
+
 	return (
 		<div className={`projector-page ${client.gameIdf}`}>
 			<video autoPlay muted loop id={'backgroundVideoLoop'}>
-				<source src={'../assets/videos/box-background.mp4'} type={'video/mp4'}/>
+				<source src={'../assets/videos/juntas/globe2.mov'} type={'video/mp4'}/>
 			</video>
 			<video onTimeUpdate={headlineStingerIn_onTimeUpdate} onPlay={TEMPORARY__headlineStingerIn_onPlay} ref={stingerInRef} className="stinger in-stinger">
-				<source src={'../assets/videos/ink-transition.webm'} type="video/webm" />
+				<source src={'../assets/videos/juntas/cnn-transition-1.webm'} type="video/webm" />
 			</video>
 			<video onTimeUpdate={headlineStingerOut_onTimeUpdate} ref={stingerOutRef} className="stinger out-stinger">
-				<source src={'../assets/videos/ink-transition.webm'} type="video/webm" />
+				<source src={'../assets/videos/juntas/cnn-transition-1.webm'} type="video/webm" />
 			</video>
+
 			<Timer $timer={$timer}/>
-			
+
 			<Headlines/>
-			
-			<Crawler/>
-			<img className="inkbeard-news-logo" src={'../assets/images/deephaven/ink6.svg'} />
+
+			{/*<Crawler/>*/}
+			<img className="juntas-news-logo" src={'../assets/images/juntas/logo-cnn.svg'} />
+
+			<video autoPlay muted loop id={'vhs-distortion'}>
+				<source src={'../assets/videos/juntas/vhs.mp4'} type={'video/mp4'}/>
+			</video>
 		</div>
 	);
 }
@@ -148,6 +181,7 @@ function SpotlightHeadline({$article}: { $article: Atom<ArticleDat> }) {
 	 */
 	const [gameIdf] = useAtom($gameIdf);
 	const itIsDeephavenTime = gameIdf === "deephaven";
+	const itIsJuntasTime = gameIdf === "juntas";
 
 	if (itIsDeephavenTime) {
 		return (
@@ -157,6 +191,20 @@ function SpotlightHeadline({$article}: { $article: Atom<ArticleDat> }) {
 				</video>
 				<video className="spotlight-background doom-background" autoPlay muted loop>
 					<source src={'../assets/videos/deephaven/spotlight-background-5.mp4'} type={'video/mp4'}/>
+				</video>
+				<div className="spotlight-carrier">
+					<div className="theme">{article.orgIdf}</div>
+					<div className="headline">{article.headline}</div>
+				</div>
+			</div>
+		);
+	}
+
+	if (itIsJuntasTime) {
+		return (
+			<div ref={articleRef} onAnimationStart={onAnimationStart} className={className} data-article-id={article.id} data-spotlight-id={spotlight.spotlightId} data-pending-above-id={spotlight.pendingAboveId}>
+				<video className="spotlight-background" autoPlay muted loop>
+					<source src={'../assets/videos/juntas/tobacco_fwp91f00.mp4'} type={'video/mp4'}/>
 				</video>
 				<div className="spotlight-carrier">
 					<div className="theme">{article.orgIdf}</div>
