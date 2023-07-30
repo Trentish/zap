@@ -112,42 +112,6 @@
 
 /* Deephaven-specific-stuff */
 :root {
-	--color-calamity: #ff0000;
-	--filter-calamity: brightness(100%) invert(1) hue-rotate(160deg);
-	--mix-blend-mode-calamity: screen;
-
-	--color-discovery: #0000ff;
-	--filter-discovery: brightness(100%) hue-rotate(300deg);
-	--mix-blend-mode-discovery: screen;
-
-	--color-doom: #ff00ff;
-	--filter-doom: brightness(100%) invert(1) hue-rotate(300deg);
-	--mix-blend-mode-doom: screen;
-
-	--color-grudge: #606;
-	--filter-grudge: brightness(150%) invert(1) hue-rotate(0deg);
-	--mix-blend-mode-grudge: hard-light;
-
-	/*--color-gossip: #a0a;*/
-	/*--filter-gossip: brightness(100%) invert(1) hue-rotate(100deg);*/
-	/*--mix-blend-mode-gossip: luminosity;*/
-
-	--color-gossip: #a0a;
-	--filter-gossip: brightness(100%) invert(0) hue-rotate(0deg) saturate(150%);
-	--mix-blend-mode-gossip: screen;
-
-	--color-oath: #0a0;
-	--filter-oath: brightness(75%) invert(1) hue-rotate(100deg);
-	--mix-blend-mode-oath: difference;
-
-	/*--color-triumph: #00ff00;*/
-	/*--filter-triumph: brightness(100%) invert(1) hue-rotate(300deg);*/
-	/*--mix-blend-mode-triumph: overlay;*/
-
-	--color-triumph: #00ff00;
-	--filter-triumph: brightness(100%) invert(1) hue-rotate(200deg);
-	--mix-blend-mode-triumph: soft-light;
-
 	--control-radius: 5px;
 	--admin-spacing: 10px;
 }
@@ -163,9 +127,6 @@
 	font-family: "Norse";
 	align-items: center;
 	text-align: center;
-	/*mix-blend-mode: screen;*/
-	/*mix-blend-mode: exclusion;*/
-	/*mix-blend-mode: difference;*/
 	mix-blend-mode: screen;
 	background-color: white;
 	background-image: url('../assets/images/deephaven/stone-background.jpg');
@@ -175,32 +136,13 @@
 }
 
 .deephaven.projector-page .spotlight-carrier > * {
-	/*background: -webkit-linear-gradient(45deg, #000, #333);*/
 	background: #000;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
-	/*mix-blend-mode: screen;*/
-	/*animation: shineText 6s ease-in-out infinite;*/
-	/*text-shadow: #000 -0.5vh -0.3vh 0;*/
-
-	/*color: #222;*/
 }
 
 .deephaven.projector-page .spotlight-carrier .headline {
-	/*background-color: red;*/
-	/*mix-blend-mode: screen;*/
 	font-size: min(12vh, 10vw);
-}
-@keyframes shineText {
-	0%{
-		background-size: 100% 100%;
-	}
-	50%{
-		background-size: 100% 500%;
-	}
-	100%{
-		background-size: 100% 100%;
-	}
 }
 
 .deephaven.projector-page .spotlight-carrier .theme {
@@ -224,77 +166,114 @@
 	z-index: -1;
 }
 
+
+
 .deephaven.projector-page .calamity {
-	filter: var(--filter-calamity);
+	filter: brightness(100%) invert(1) hue-rotate(160deg);
 }
 .deephaven.projector-page .calamity .spotlight-carrier {
-	mix-blend-mode: var(--mix-blend-mode-calamity);
+	mix-blend-mode: screen;
 }
 .deephaven.projector-page .calamity .spotlight-carrier .theme::after {
-	background: var(--color-calamity);
+	background: #ff0000;
 }
 
 
 .deephaven.projector-page .discovery {
-	filter: var(--filter-discovery);
+	filter: brightness(100%) hue-rotate(300deg);
 }
 .deephaven.projector-page .discovery .spotlight-carrier {
-	mix-blend-mode: var(--mix-blend-mode-discovery);
+	mix-blend-mode: screen;
 }
 .deephaven.projector-page .discovery .spotlight-carrier .theme::after {
-	background: var(--color-discovery);
+	background: #0000ff;
 }
 
-.deephaven.projector-page .spotlight-articles .doom {
-	filter: var(--filter-doom);
+.deephaven.projector-page .spotlight-articles video.spotlight-background.doom-background,
+.deephaven.projector-page .spotlight-articles .doom video.spotlight-background {
+	display: none;
+}
+.deephaven.projector-page .spotlight-articles .doom video.spotlight-background.doom-background {
+	display: block;
 }
 .deephaven.projector-page .doom .spotlight-carrier {
-	mix-blend-mode: var(--mix-blend-mode-doom);
+	mix-blend-mode: overlay;
+	filter: invert(1); /* TODO: Ask Trenton */
 }
 .deephaven.projector-page .spotlight-articles .doom .spotlight-carrier .theme::after {
-	background: var(--color-doom);
+	background: #000;
 }
 
+@keyframes grudge {
+	0%{
+		filter: brightness(150%) invert(1);
+	}
+	10%{
+		filter: brightness(175%) invert(1);
+	}
+	75%{
+		filter: brightness(100%) invert(1);
+	}
+	100%{
+		filter: brightness(95%) invert(1);
+	}
+}
 .deephaven.projector-page .spotlight-articles .grudge {
-	filter: var(--filter-grudge);
+	animation: grudge ease-in-out 6s infinite alternate-reverse;
 }
 .deephaven.projector-page .grudge .spotlight-carrier {
-	mix-blend-mode: var(--mix-blend-mode-grudge);
+	mix-blend-mode: hard-light;
 }
 .deephaven.projector-page .spotlight-articles .grudge .spotlight-carrier .theme::after {
-	background: var(--color-grudge);
+	background: #606;
 }
+
 
 .deephaven.projector-page .gossip {
-	filter: var(--filter-gossip);
+	filter: brightness(100%) invert(0) hue-rotate(0deg) saturate(150%);
 }
 .deephaven.projector-page .gossip .spotlight-carrier {
-	mix-blend-mode: var(--mix-blend-mode-gossip);
+	mix-blend-mode: screen;
 }
 .deephaven.projector-page .gossip .spotlight-carrier .theme::after {
-	background: var(--color-gossip);
+	background: #a0a;
 }
+
 
 .deephaven.projector-page .spotlight-articles .oath {
-	filter: var(--filter-oath);
+	filter: invert(1) sepia(1);
 }
 .deephaven.projector-page .oath .spotlight-carrier {
-	mix-blend-mode: var(--mix-blend-mode-oath);
-}
-.deephaven.projector-page .spotlight-articles .oath .spotlight-carrier .theme::after {
-	background: var(--color-oath);
-}
-
-.deephaven.projector-page .spotlight-articles .triumph {
-	/*filter: var(--filter-triumph);*/
+	mix-blend-mode: screen;
 	filter: brightness(100%) invert(1) hue-rotate(200deg);
 }
+.deephaven.projector-page .spotlight-articles .oath .spotlight-carrier .theme::after {
+	background: #f70;
+}
+
+
+.deephaven.projector-page .spotlight-articles .triumph video.spotlight-background {
+	filter: hue-rotate(110deg);
+}
 .deephaven.projector-page .triumph .spotlight-carrier {
-	/*mix-blend-mode: var(--mix-blend-mode-triumph);*/
-	--mix-blend-mode-triumph: soft-light;
-	filter: brightness(100%);
-	background: white;
+	mix-blend-mode: screen;
+	filter: brightness(100%) invert(1) hue-rotate(200deg);
 }
 .deephaven.projector-page .spotlight-articles .triumph .spotlight-carrier .theme::after {
-	background: var(--color-triumph);
+	background: #f70;
 }
+
+
+/* Light background gold kinda nice */
+/*.deephaven.projector-page .spotlight-articles .grudge video.spotlight-background {*/
+/*	filter: hue-rotate(110deg);*/
+/*}*/
+/*.deephaven.projector-page .spotlight-articles .grudge {*/
+/*	filter: brightness(150%) invert(0) hue-rotate(0deg);*/
+/*}*/
+/*.deephaven.projector-page .grudge .spotlight-carrier {*/
+/*	mix-blend-mode: hard-light;*/
+/*}*/
+/*.deephaven.projector-page .spotlight-articles .grudge .spotlight-carrier .theme::after {*/
+/*	background: #606;*/
+/*}*/

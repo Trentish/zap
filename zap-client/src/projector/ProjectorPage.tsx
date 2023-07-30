@@ -154,6 +154,9 @@ function SpotlightHeadline({$article}: { $article: Atom<ArticleDat> }) {
 				<video className="spotlight-background" autoPlay muted loop>
 					<source src={'../assets/videos/deephaven/spotlight-background-3.mp4'} type={'video/mp4'}/>
 				</video>
+				<video className="spotlight-background doom-background" autoPlay muted loop>
+					<source src={'../assets/videos/deephaven/spotlight-background-5.mp4'} type={'video/mp4'}/>
+				</video>
 				<div className="spotlight-carrier">
 					<div className="theme">{article.orgIdf}</div>
 					<div className="headline">{article.headline}</div>
