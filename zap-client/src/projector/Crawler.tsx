@@ -1,34 +1,16 @@
 import './Crawler.css';
 import React, {forwardRef, useEffect, useRef} from 'react';
 import {atom, useAtom} from 'jotai';
-import {$store} from '../ClientState.ts';
+import {$allArticles, $store} from '../ClientState.ts';
 import {ArticleDat} from '../../../zap-shared/_Dats.ts';
 import {PrimitiveAtom} from 'jotai/vanilla/atom';
 
+// TODO: cleanup/organize this file
 
 const SHOW_COUNT = 12;
 const CRAWL_RATE = 160; // width pixels / CRAWL_RATE
-const DEFAULT_ANIM_VARS: T_AnimVars = {duration: 1, x: -100};
 
-const tempArticles66: ArticleDat[] = [
-	{id: 1, headline: 'aaaaaaaaa'},
-	{id: 2, headline: 'bbbbbbbbbbbbbbbbbbbbbbbbbbb'},
-	{id: 3, headline: 'ccccccccccccccc'},
-	{id: 4, headline: 'dddddddddddddddddddd'},
-	{id: 5, headline: 'eeeeeeeeeeeeeeeeeeeee'},
-	{id: 6, headline: 'fffffffffffffffff'},
-	{id: 7, headline: 'gggggggggggggggggggg'},
-	{id: 8, headline: 'hhhhhhhhhhhhhhhhhhhhh'},
-	{id: 9, headline: 'iiiiiiiiiiiiiiiiiii'},
-	{id: 10, headline: 'jjjjjjjjjjjjjjjjjjjjjj'},
-	{id: 11, headline: 'kkkkkkkkkkkkkkkkkkkkkkkkkkk'},
-	{id: 12, headline: 'lllllllllllllllllllll'},
-	{id: 13, headline: 'mmmmmmmmmmmmmmmmmmmmmmm'},
-	{id: 14, headline: 'nnnnnnnnnnnnnnnnnnnnnnnnnnn'},
-	{id: 15, headline: 'ooooooooooooooooooooooooo'},
-];
-
-const newHeadlines = [
+const exampleHeadlines = [
 	'Elven King Thranduil denounces trade deal with Dwarf nation',
 	'Hobbit Celebrations Abound on Bilbo Baggins\' 111th Birthday',
 	'Mayor announces new bridge to be built across Brandywine River',
@@ -50,7 +32,7 @@ const newHeadlines = [
 	'Gollum Captured by Authorities, to Face Trial for Murder of Deagol',
 ];
 
-const tempArticles: ArticleDat[] = newHeadlines.map((v, i) => (
+const tempArticles: ArticleDat[] = exampleHeadlines.map((v, i) => (
 	{id: i, headline: v}
 ));
 
@@ -223,8 +205,8 @@ function UpdateGroupItems($items: PrimitiveAtom<T_Item[]>) {
 
 // TODO: put external, pass in
 function GetNextItems(prevIndex: number, countToAdd: number): [number, T_Item[]] {
-	// let allArticles = $store.get($allArticles);
-	let allArticles = $store.get($testArticles);
+	let allArticles = $store.get($allArticles);
+	// let allArticles = $store.get($testArticles);
 	
 	if (!allArticles?.length) {
 		allArticles = tempArticles;
