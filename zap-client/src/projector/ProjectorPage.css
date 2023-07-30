@@ -245,7 +245,7 @@
 	text-align: center;
 	mix-blend-mode: screen;
 	background-color: white;
-	background-image: url('../assets/images/deephaven/stone-background-2.jpg');
+	background-image: url('../../assets/images/deephaven/stone-background-2.jpg');
 	background-size: cover;
 	height: 100vh;
 	width: 100vw;
