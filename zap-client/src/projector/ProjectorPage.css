@@ -108,6 +108,34 @@
 	z-index: 2;
 }
 
+.projector-page .articles {
+	display: none;
+}
+
+.projector-page .timer {
+	font-size: 20vmax;
+	display: grid;
+	grid-template-columns: 1fr min-content 1fr;
+	gap: 0.05em;
+}
+
+.projector-page .timer .minutes {
+	text-align: right;
+}
+.projector-page .timer .colon {
+	width: 0.3em;
+	text-align: center;
+}
+.projector-page .timer .seconds {
+	text-align: left;
+}
+.projector-page .timer .timer-label {
+	text-align: center;
+	grid-column: span 3;
+	font-family: "NCAA NKU Norse", "Norse", sans-serif;
+	font-size: 10vmax;
+}
+
 /*.projector-page .spotlight-articles > .article.spotlight video*/
 
 /* Deephaven-specific-stuff */
@@ -123,16 +151,23 @@
 		url("../assets/fonts/NCAA_NKU_Norse/NCAANkuNorse-Plain.woff") format("woff");
 }
 
+.deephaven.projector-page .timer {
+	font-family: "Norse";
+	font-weight: bold;
+}
+
 .deephaven.projector-page .spotlight-carrier {
 	font-family: "Norse";
 	align-items: center;
 	text-align: center;
 	mix-blend-mode: screen;
 	background-color: white;
-	background-image: url('../assets/images/deephaven/stone-background.jpg');
+	background-image: url('../assets/images/deephaven/stone-background-2.jpg');
 	background-size: cover;
 	height: 100vh;
 	width: 100vw;
+
+	perspective: 100vw;
 }
 
 .deephaven.projector-page .spotlight-carrier > * {
@@ -142,7 +177,9 @@
 }
 
 .deephaven.projector-page .spotlight-carrier .headline {
-	font-size: min(12vh, 10vw);
+	font-size: min(15vh, 12vw);
+	text-size-adjust: auto;
+	/*transform: rotate3d(1, 0, 0, 55deg);*/
 }
 
 .deephaven.projector-page .spotlight-carrier .theme {
@@ -150,8 +187,8 @@
 	text-transform: uppercase;
 	position: relative;
 	font-size: min(6vh, 6vw);
-	transform: translateY(2.5vh);  /* NKU Norse is tricky with its baseline so translate it */
 	margin-bottom: 5vh;
+	transform: translateY(2.5vh);
 }
 
 .deephaven.projector-page .spotlight-carrier .theme::after {
@@ -168,25 +205,26 @@
 
 
 
-.deephaven.projector-page .calamity {
-	filter: brightness(100%) invert(1) hue-rotate(160deg);
+.deephaven.projector-page .spotlight-articles .calamity video.spotlight-background {
+	filter: brightness(250%) invert(0) hue-rotate(110deg);
 }
 .deephaven.projector-page .calamity .spotlight-carrier {
-	mix-blend-mode: screen;
+	filter: brightness(100%) invert(1) hue-rotate(180deg);
 }
 .deephaven.projector-page .calamity .spotlight-carrier .theme::after {
-	background: #ff0000;
+	background: #f70;
 }
 
 
-.deephaven.projector-page .discovery {
+.deephaven.projector-page .spotlight-articles .discovery video.spotlight-background {
 	filter: brightness(100%) hue-rotate(300deg);
+	mix-blend-mode: multiply;
 }
 .deephaven.projector-page .discovery .spotlight-carrier {
-	mix-blend-mode: screen;
+	mix-blend-mode: difference;
 }
 .deephaven.projector-page .discovery .spotlight-carrier .theme::after {
-	background: #0000ff;
+	background: #000;
 }
 
 .deephaven.projector-page .spotlight-articles video.spotlight-background.doom-background,
@@ -204,25 +242,12 @@
 	background: #000;
 }
 
-@keyframes grudge {
-	0%{
-		filter: brightness(150%) invert(1);
-	}
-	10%{
-		filter: brightness(175%) invert(1);
-	}
-	75%{
-		filter: brightness(100%) invert(1);
-	}
-	100%{
-		filter: brightness(95%) invert(1);
-	}
-}
+
 .deephaven.projector-page .spotlight-articles .grudge {
-	animation: grudge ease-in-out 6s infinite alternate-reverse;
+	filter: brightness(100%) invert(0) hue-rotate(180deg) saturate(250%);
 }
 .deephaven.projector-page .grudge .spotlight-carrier {
-	mix-blend-mode: hard-light;
+	filter: brightness(100%) invert(1) hue-rotate(180deg);
 }
 .deephaven.projector-page .spotlight-articles .grudge .spotlight-carrier .theme::after {
 	background: #606;
@@ -253,15 +278,43 @@
 
 
 .deephaven.projector-page .spotlight-articles .triumph video.spotlight-background {
-	filter: hue-rotate(110deg);
+	filter: brightness(350%) hue-rotate(180deg);
+	mix-blend-mode: screen;
 }
 .deephaven.projector-page .triumph .spotlight-carrier {
 	mix-blend-mode: screen;
-	filter: brightness(100%) invert(1) hue-rotate(200deg);
+	filter: brightness(100%) invert(1) hue-rotate(180deg);
 }
 .deephaven.projector-page .spotlight-articles .triumph .spotlight-carrier .theme::after {
 	background: #f70;
 }
+
+/* Golden triumph */
+/*.deephaven.projector-page .spotlight-articles .triumph video.spotlight-background {*/
+/*	filter: hue-rotate(110deg);*/
+/*}*/
+/*.deephaven.projector-page .triumph .spotlight-carrier {*/
+/*	mix-blend-mode: screen;*/
+/*	filter: brightness(100%) invert(1) hue-rotate(200deg);*/
+/*}*/
+/*.deephaven.projector-page .spotlight-articles .triumph .spotlight-carrier .theme::after {*/
+/*	background: #f70;*/
+/*}*/
+
+/* Maybe a better gossip? */
+/*.deephaven.projector-page .calamity {*/
+/*	filter: brightness(100%) invert(1) hue-rotate(160deg);*/
+/*}*/
+/*.deephaven.projector-page .calamity .spotlight-carrier {*/
+/*	!*mix-blend-mode: hard-light;*!*/
+/*	filter: brightness(100%) invert(1) hue-rotate(180deg);*/
+/*}*/
+/*.deephaven.projector-page .calamity .spotlight-carrier .headline {*/
+/*	!*mix-blend-mode: multiply;*!*/
+/*}*/
+/*.deephaven.projector-page .calamity .spotlight-carrier .theme::after {*/
+/*	background: #ff00ff;*/
+/*}*/
 
 
 /* Light background gold kinda nice */
