@@ -11,7 +11,16 @@ import {
 import {ZapPacketDefs} from '../../zap-shared/_Packets.ts';
 import {I_JsonSocketCallbacks, JsonSocketClient} from './lib/JsonSocketClient.ts';
 import {InitializePackets_CLIENT} from './ClientPkHandlers.ts';
-import {$connError, $connStatus, $endpoint, $gameIdf, $location, $store} from './ClientState.ts';
+import {
+	$connError,
+	$connStatus,
+	$endpoint,
+	$gameIdf,
+	$location,
+	$store,
+	$uuid,
+} from './ClientState.ts';
+import {nanoid} from 'nanoid';
 
 
 // const WS_SERVER = 'ws://localhost:3007'; // TODO: config
@@ -35,6 +44,9 @@ export class ZapClient implements I_JsonSocketCallbacks {
 		console.log(`initialize Client`);
 		
 		$store.set($connStatus, E_ConnStatus.initializing);
+		
+		// const uuid = $store.get($uuid);
+		// if (!uuid) $store.set($uuid, nanoid(5));
 		
 		this.UpdateLocation();
 		$store.sub($location, this.UpdateLocation);

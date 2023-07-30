@@ -1,0 +1,15 @@
+.headlineControls {
+	margin: 24px;
+}
+
+.headlineControls label {
+	font-size: 2em;
+}
+
+.headlineControls input {
+	font-size: 1em;
+}
+
+.headlineControls input::placeholder {
+	font-size: .7em;
+}

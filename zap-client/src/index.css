@@ -1,3 +1,4 @@
+
 body {
 	margin: 0;
 	padding: 0;
@@ -10,7 +11,6 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	font-family: 'Helvetica Neue', 'Arial', sans-serif;
 }
 
 #root {
@@ -33,6 +33,7 @@ button, input, submit, textarea {
 
 input, textarea {
 	border: solid thin gray;
+	background: white;
 }
 
 button {
@@ -58,9 +59,6 @@ button:disabled {
 	background-color: #ff4b4b;
 }
 
-input {
-	background: white;
-}
 label {
 	display: flex;
 	align-items: center;
@@ -73,17 +71,58 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: bold;
 }
 
-h1 { font-size: 3em; }
-h2 { font-size: 2.5em; }
-h3 { font-size: 2.15em; }
-h4 { font-size: 1.85em; }
-h5 { font-size: 1.5em; }
-h6 { font-size: 1.15em;}
+h1 {
+	font-size: 3em;
+}
 
-.control-page  {
+h2 {
+	font-size: 2.5em;
+}
+
+h3 {
+	font-size: 2.15em;
+}
+
+h4 {
+	font-size: 1.85em;
+}
+
+h5 {
+	font-size: 1.5em;
+}
+
+h6 {
+	font-size: 1.15em;
+}
+
+.control-page {
 	margin: var(--admin-padding);
 	display: flex;
 	flex-direction: column;
 	gap: var(--admin-spacing);
 	width: 100%;
+}
+
+/* TODO: radios styling */
+.radios {
+	display: flex;
+	flex-direction: row;
+	cursor: default;
+}
+
+.radios label {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin: 0 8px;
+}
+
+.radios input {
+	width: 16px;
+	height: 16px;
+	margin-right: 8px;
+}
+
+.radios input:checked{
+	background-color: #000;
 }

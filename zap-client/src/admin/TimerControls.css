@@ -1,0 +1,14 @@
+.timer {
+	font-size: 4em;
+	/*font-family: monospace;*/
+}
+
+.timer-complete {
+	animation: blink .8s step-start infinite;
+}
+
+@keyframes blink {
+	50% {
+		opacity: 0;
+	}
+}

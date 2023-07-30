@@ -5,6 +5,7 @@ import React, {useState} from 'react';
 import {$splitArticles, $spotlight} from '../ClientState.ts';
 import {Button} from '../components/ButtonComponents.tsx';
 import {useClient} from '../ClientContext.ts';
+import './ArticleSummary.css';
 
 const DEFAULT_SHOW_COUNT = 10;
 
@@ -64,17 +65,14 @@ function SummaryHeadline({$article, showAdmin}: {
 	// 	{'pending': article.id > spotlight.pendingAboveId},
 	// );
 	
-	const prefix = spotlight.spotlightId === article.id
-		? '🔦 '
+	const icon = spotlight.spotlightId === article.id
+		? ' 🔦'
 		: article.id > spotlight.pendingAboveId
-			? '⌛ '
+			? ' ⌛'
 			: '';
 	
 	return (
 		<>
-			<div>{prefix}#{article.id}</div>
-			<div>{article.author}</div>
-			<div>{article.orgIdf}</div>
 			<div>
 				{showAdmin && (
 					<Button
@@ -84,7 +82,15 @@ function SummaryHeadline({$article, showAdmin}: {
 							id: article.id,
 						})}
 					/>
-				)}{article.headline}</div>
+				)}#{article.id}{icon}</div>
+			<div>{article.orgIdf}</div>
+			<div>{article.headline}</div>
+			{showAdmin
+				? (
+					<div>{article.author}</div>
+				) : (
+					<div/>
+				)}
 		</>
 	);
 }

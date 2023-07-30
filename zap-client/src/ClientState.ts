@@ -3,6 +3,7 @@ import {atomWithLocation} from 'jotai-location';
 import {E_ConnStatus, E_Endpoint, T_GameIdf} from '../../zap-shared/SystemTypes.ts';
 import {ArticleDat, SpotlightDat, TimerDat} from '../../zap-shared/_Dats.ts';
 import {atomWithStorage, splitAtom} from 'jotai/utils';
+import {nanoid} from 'nanoid';
 
 export const $store = getDefaultStore();
 export const $connStatus = atom(E_ConnStatus.unset);
@@ -11,6 +12,7 @@ export const $location = atomWithLocation();
 export const $endpoint = atom(E_Endpoint.unknown);
 export const $gameIdf = atom<T_GameIdf>('');
 export const $allGameIdfs = atom<string[]>([]);
+export const $uuid = atomWithStorage('ZAP_UUID', nanoid(5));
 
 /** all articles we have locally (may not have *all* of them) */
 export const $allArticles = atom<ArticleDat[]>([]);

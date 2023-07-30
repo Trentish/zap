@@ -3,19 +3,22 @@ import {useClient} from '../ClientContext.ts';
 import {Input} from '../components/InputComponents.tsx';
 import React from 'react';
 import {atom} from 'jotai';
-import {Button} from '../components/ButtonComponents.tsx';
-import {$author, $store, $gameIdf} from '../ClientState.ts';
+import {Button, Radios, T_RadioOption} from '../components/ButtonComponents.tsx';
+import {$author, $store, $gameIdf, $uuid} from '../ClientState.ts';
 import {HEADLINE_MAX_SIZE, HEADLINE_MIN_SIZE, TimerDat} from '../../../zap-shared/_Dats.ts';
-import {useAtom} from "jotai/index";
+import {useAtom} from 'jotai/index';
+import './HeadlineControls.css';
+
+const USE_UUID_INSTEAD_OF_AUTHOR = true;
 
 const $headline = atom('');
-const $org = atom('orgTODO');// TODO: actual org support
+const $org = atom('');
 
 const $canSubmit = atom((get) => {
 	const headline = get($headline);
 	if (!headline || headline.length <= HEADLINE_MIN_SIZE) return false; //>> below min size
 	
-	const author = get($author);
+	const author = USE_UUID_INSTEAD_OF_AUTHOR ? get($uuid) : get($author);
 	if (!author || author.length <= 0) return false; //>> missing author
 	
 	const org = get($org);
@@ -28,8 +31,8 @@ export function HeadlineControls() {
 	const client = useClient();
 	
 	const postArticle = () => {
-		const headline = $store.get($headline);
-		const author = $store.get($author);
+		const headline = $store.get($headline).trim();
+		const author = USE_UUID_INSTEAD_OF_AUTHOR ? $store.get($uuid) : $store.get($author);
 		const org = $store.get($org);
 		
 		client.packets.PostArticle.Send({
@@ -47,7 +50,7 @@ export function HeadlineControls() {
 			postArticle();
 		}
 	};
-
+	
 	return (
 		<div className={'headlineControls'}>
 			<Input
@@ -59,11 +62,13 @@ export function HeadlineControls() {
 				inputProps={{onKeyDown: checkKeyDown}}
 				textArea
 			/>
-			<Input
-				label={'Author'}
-				$value={$author}
-				placeholder={'Jed McJedfry'}
-			/>
+			{!USE_UUID_INSTEAD_OF_AUTHOR && (
+				<Input
+					label={'Author'}
+					$value={$author}
+					placeholder={'Jed McJedfry'}
+				/>
+			)}
 			<ThemeControls $org={$org} $gameIdf={$gameIdf}/>
 			<Button
 				label={'Post'}
@@ -78,18 +83,25 @@ export function HeadlineControls() {
 }
 
 export function ThemeControls({$org, $gameIdf}: {
-		$org: PrimitiveAtom<string>,
-		$gameIdf: PrimitiveAtom<string>
-	}) {
-
+	$org: PrimitiveAtom<string>,
+	$gameIdf: PrimitiveAtom<string>
+}) {
+	
 	const [theGameIdfThingy] = useAtom($gameIdf);
-
+	
 	// TODO: I wanted to have radio buttons or a select box for different
 	// themes here but it seems those components are quite a bit more
 	// complicated to implement than I initially thought. :(
-
+	
 	switch (theGameIdfThingy) {
 		case 'deephaven':
+			return (
+				<Radios
+					$value={$org}
+					title={'Type'}
+					options={DEEPHAVEN_ORGS}
+				/>
+			);
 		case 'juntas-bbc':
 		case 'juntas-cnn':
 		case 'juntas-pbs':
@@ -104,3 +116,13 @@ export function ThemeControls({$org, $gameIdf}: {
 			);
 	}
 }
+
+const DEEPHAVEN_ORGS: T_RadioOption[] = [
+	{id: 'oath', label: 'Oath'},
+	{id: 'grudge', label: 'Grudge'},
+	{id: 'triumph', label: 'Triumph'},
+	{id: 'calamity', label: 'Calamity'},
+	{id: 'discovery', label: 'Discovery'},
+	{id: 'gossip', label: 'Gossip'},
+	{id: 'doom', label: 'Doom'},
+];

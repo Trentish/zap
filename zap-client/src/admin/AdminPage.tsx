@@ -5,16 +5,21 @@ import {TimerControls} from './TimerControls.tsx';
 import {ArticleSummary} from '../displays/ArticleSummary.tsx';
 import './AdminPage.css';
 import {useAtom} from 'jotai';
-import {$gameIdf} from '../ClientState.ts';
+import {$gameIdf, $uuid} from '../ClientState.ts';
 
 
 export function AdminPage() {
 	const client = useClient();
 	const [gameIdf] = useAtom($gameIdf);
+	const [uuid] = useAtom($uuid);
 	
 	return (
 		<div className={`control-page adminPage ${client.gameIdf}`}>
-			<h1><span style={{color: 'blue'}}>{gameIdf}</span> Administrator ONLY!</h1>
+			<h1>
+				<span style={{color: 'blue'}}>{gameIdf}</span>
+				Administrator ONLY!
+				<span style={{color: '#9f9f9f'}}>({uuid})</span>
+			</h1>
 			
 			<TimerControls/>
 			

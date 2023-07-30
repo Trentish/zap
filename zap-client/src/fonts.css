@@ -1,0 +1,12 @@
+
+@font-face {
+	font-family: 'NCAA NKU Norse';
+	src: url("../assets/fonts/NCAA_NKU_Norse/NCAANKUNorse-Plain.woff") format("woff");
+}
+
+@font-face {
+	font-family: 'TofinoCond-Bold';
+	font-weight: 400;
+	font-style: normal;
+	src: url("../assets/fonts/Tofino/Condensed/OTF/TofinoCond-Bold.otf") format("opentype");
+}

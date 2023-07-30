@@ -37,22 +37,22 @@ export function Button(props: T_Button) {
 }
 
 
-export type T_Radios = {
+export type T_RadioOption = {
+	id: string,
+	label: string,
+	data?: string | number | object,
+}
+
+export type P_Radios = {
 	/** index/id of options */
-	$value: PrimitiveAtom<number>,
+	$value: PrimitiveAtom<string>,
 	title: string, // legend?
 	options: T_RadioOption[],
 	
 	containerClass?: string,
 }
 
-export type T_RadioOption = {
-	label: string,
-	key?: string, // or use label
-	data?: string | number | object,
-}
-
-export function Radios(props: T_Radios) {
+export function Radios(props: P_Radios) {
 	return (
 		<fieldset className={clsx('radios', props.containerClass)}>
 			<legend>{props.title}</legend>
@@ -60,8 +60,7 @@ export function Radios(props: T_Radios) {
 			{props.options.map((
 				(option, index) => (
 					<RadioOption
-						key={`${index}`}
-						id={index}
+						key={option.id}
 						$value={props.$value}
 						{...option}
 					/>
@@ -72,8 +71,7 @@ export function Radios(props: T_Radios) {
 }
 
 function RadioOption(props: T_RadioOption & {
-	id: number,
-	$value: PrimitiveAtom<number>
+	$value: PrimitiveAtom<string>
 }) {
 	const [value, setValue] = useAtom(props.$value);
 	

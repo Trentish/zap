@@ -226,12 +226,6 @@
 
 
 /* Deephaven-specific-stuff */
-@font-face {
-	font-family: "NCAA NKU Norse";
-	src:
-		url("../assets/fonts/NCAA_NKU_Norse/NCAANkuNorse-Plain.woff2") format("woff2"),
-		url("../assets/fonts/NCAA_NKU_Norse/NCAANkuNorse-Plain.woff") format("woff");
-}
 
 .deephaven.projector-page .inkbeard-news-logo {
 	display: block;
@@ -239,12 +233,14 @@
 }
 
 .deephaven.projector-page .timer {
-	font-family: "Norse";
+	/*font-family: "Norse";*/
+	font-family: "NCAA NKU Norse";
 	font-weight: bold;
 }
 
 .deephaven.projector-page .spotlight-carrier {
-	font-family: "Norse";
+	/*font-family: "Norse";*/
+	font-family: "NCAA NKU Norse";
 	align-items: center;
 	text-align: center;
 	mix-blend-mode: screen;
@@ -419,7 +415,9 @@
 /*}*/
 
 .deephaven.projector-page .crawlerHeadline {
-	font-family: Norse, sans-serif;
+	/*font-family: Norse, sans-serif;*/
+	font-family: 'NCAA NKU Norse', serif;
+	/*font-family: 'TofinoCond-Bold', serif;*/
 	font-size: 5vmax;
 	padding: 0 5vmax;
 	position: relative;

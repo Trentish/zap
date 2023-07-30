@@ -5,7 +5,7 @@ import React from 'react';
 import {atom} from 'jotai';
 import {Button} from '../components/ButtonComponents.tsx';
 import {$store, $timer} from '../ClientState.ts';
-import {clsx} from 'clsx';
+import './TimerControls.css';
 
 const $label = atom('');
 const $minutes = atom(5);
