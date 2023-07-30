@@ -34,14 +34,15 @@
 	z-index: 2;
 }
 
- .projector-page .in-stinger {
-	/* filter: brightness(0.5); */
-	/* filter: hue-rotate(235deg) saturate(1) brightness(0.5); */
-}
+/* .projector-page .in-stinger {*/
+/*	!* filter: brightness(0.5); *!*/
+/*	 transform: rotate(180deg);*/
+/*	 filter: saturate(0) brightness(10%);*/
+/*}*/
 
-.projector-page .out-stinger {
-	/* filter: hue-rotate(235deg) saturate(1) brightness(0.5); */
-}
+/*.projector-page .out-stinger {*/
+/*	filter: saturate(0) brightness(10%);*/
+/*}*/
 
 /* TODO: TMP */
 .projector-page .articles {
@@ -136,6 +137,10 @@
 	font-size: 10vmax;
 }
 
+.projector-page .inkbeard-news-logo {
+	display: none;
+}
+
 /*.projector-page .spotlight-articles > .article.spotlight video*/
 
 /* Deephaven-specific-stuff */
@@ -149,6 +154,11 @@
 	src:
 		url("../assets/fonts/NCAA_NKU_Norse/NCAANkuNorse-Plain.woff2") format("woff2"),
 		url("../assets/fonts/NCAA_NKU_Norse/NCAANkuNorse-Plain.woff") format("woff");
+}
+
+.deephaven.projector-page .inkbeard-news-logo {
+	display: block;
+	max-height: 30vh;
 }
 
 .deephaven.projector-page .timer {
@@ -330,3 +340,27 @@
 /*.deephaven.projector-page .spotlight-articles .grudge .spotlight-carrier .theme::after {*/
 /*	background: #606;*/
 /*}*/
+
+.deephaven.projector-page .crawlerHeadline {
+	font-family: Norse, sans-serif;
+	font-size: 5vmax;
+	padding: 0 5vmax;
+	position: relative;
+}
+.deephaven.projector-page .crawlerHeadline::before {
+	content: "  ⬩  ";
+	display: block;
+	color: #013848;
+	position: absolute;
+	left: -2.5vmax;
+	top: -0.95vmax;
+}
+
+.deephaven.projector-page .crawlGroup.anim0,
+.deephaven.projector-page .crawlGroup.anim1 {
+	background: transparent;
+}
+.deephaven.projector-page .crawlerContainer {
+	background: #000;
+	height: 5.5vmax;
+}

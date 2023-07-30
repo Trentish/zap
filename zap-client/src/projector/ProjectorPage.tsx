@@ -33,8 +33,8 @@ eventBus.addEventListener("custom:endTheSpotlight", e => {
 
 const headlineStingerIn_onTimeUpdate = (event: SyntheticEvent<HTMLVideoElement>) => {
 	console.log(event.currentTarget.currentTime);
-	if (event.currentTarget.currentTime >= 0.6) {
-		console.log("headlineStingerIn_onTimeUpdate we're 0.6 seconds in!")
+	if (event.currentTarget.currentTime >= 1) {
+		console.log("headlineStingerIn_onTimeUpdate we're 1 seconds in!")
 		if (MUTATING_SPOTLIGHT_REF.current != null) MUTATING_SPOTLIGHT_REF.current.classList.add("now-showing");
 	}
 };
@@ -63,8 +63,8 @@ const TEMPORARY__headlineStingerIn_onPlay = (event: SyntheticEvent<HTMLVideoElem
 
 const headlineStingerOut_onTimeUpdate = (event: SyntheticEvent<HTMLVideoElement>) => {
 	console.log(event.currentTarget.currentTime);
-	if (event.currentTarget.currentTime >= 0.6) {
-		console.log("headlineStingerOut_onTimeUpdate we're 0.6 seconds in!")
+	if (event.currentTarget.currentTime >= 1) {
+		console.log("headlineStingerOut_onTimeUpdate we're 1 seconds in!")
 		if (MUTATING_SPOTLIGHT_REF.current != null) MUTATING_SPOTLIGHT_REF.current.classList.remove("now-showing");
 	}
 };
@@ -78,16 +78,17 @@ export function ProjectorPage() {
 				<source src={'../assets/videos/box-background.mp4'} type={'video/mp4'}/>
 			</video>
 			<video onTimeUpdate={headlineStingerIn_onTimeUpdate} onPlay={TEMPORARY__headlineStingerIn_onPlay} ref={stingerInRef} className="stinger in-stinger">
-				<source src={'../assets/videos/fw_red.webm'} type="video/webm" />
+				<source src={'../assets/videos/ink-transition.webm'} type="video/webm" />
 			</video>
 			<video onTimeUpdate={headlineStingerOut_onTimeUpdate} ref={stingerOutRef} className="stinger out-stinger">
-				<source src={'../assets/videos/circle_red.webm'} type="video/webm" />
+				<source src={'../assets/videos/ink-transition.webm'} type="video/webm" />
 			</video>
 			<Timer $timer={$timer}/>
 			
 			<Headlines/>
 			
-			{/*<Crawler/>*/}
+			<Crawler/>
+			<img className="inkbeard-news-logo" src={'../assets/images/deephaven/ink6.svg'} />
 		</div>
 	);
 }
