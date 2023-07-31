@@ -9,7 +9,12 @@ import {clsx} from 'clsx';
 import {Crawler} from './Crawler.tsx';
 import {useClient} from '../ClientContext.ts';
 import {BackgroundVideo, Video} from '../components/VideoComponents.tsx';
-import {T_SpotlightRefs} from '../configs/BaseGameConfig.ts';
+import {
+	INTRO_MID_DEFAULT,
+	OUTRO_MID_DEFAULT,
+	SPOTLIGHT_DURATION,
+	T_SpotlightRefs,
+} from '../configs/BaseGameConfig.ts';
 
 const SHOW_LAST_COUNT = 7;
 
@@ -33,7 +38,7 @@ export function ProjectorPage() {
 			)}
 			
 			{config.logo && (
-				<img className={'logo'} src={'../assets/images/deephaven/ink6.svg'}/>
+				<img className={'logo'} src={config.logo}/>
 			)}
 			
 			<Spotlight/>
@@ -87,66 +92,114 @@ function SpotlightHeadline({article}: { article?: ArticleDat }) {
 	const [spotlight] = useAtom($spotlight);
 	const [config] = useAtom($config);
 	
-	const spotlightRef = useRef<HTMLDivElement>(null);
-	const spotlightVideoRef = useRef<HTMLVideoElement>(null);
+	const spotlightContainerRef = useRef<HTMLDivElement>(null);
+	const spotlightBackgroundRef = useRef<HTMLVideoElement>(null);
+	const spotlightOverlayRef = useRef<HTMLVideoElement>(null);
 	const introRef = useRef<HTMLVideoElement>(null);
 	const outroRef = useRef<HTMLVideoElement>(null);
 	const carrierRef = useRef<HTMLDivElement>(null);
 	
 	const refs: T_SpotlightRefs = {
-		spotlightRef: spotlightRef,
-		spotlightVideoRef: spotlightVideoRef,
+		spotlightContainerRef: spotlightContainerRef,
+		spotlightBackgroundRef: spotlightBackgroundRef,
+		spotlightOverlayRef: spotlightOverlayRef,
 		introRef: introRef,
 		outroRef: outroRef,
 		carrierRef: carrierRef,
 	};
 	
 	const orgIdf = article?.orgIdf || '';
-	const org = config.GetOrg(orgIdf);
+	const org = config.GetOrg(article);
+	
 	
 	
 	useEffect(() => {
 		if (!article) return;
 		
-		introRef.current?.play();
+		const spotlightContainer = spotlightContainerRef.current;
+		const background = spotlightBackgroundRef.current;
+		const overlay = spotlightOverlayRef.current;
+		const intro = introRef.current;
+		const outro = outroRef.current;
+		const carrier = carrierRef.current;
 		
-		setTimeout(() => {
-			spotlightVideoRef.current?.classList.add('show');
-			carrierRef.current?.classList.add('show');
-		}, 1000);
-		setTimeout(() => outroRef.current?.play(), 9000);
-		setTimeout(() => {
-			spotlightVideoRef.current?.classList.remove('show');
-			carrierRef.current?.classList.remove('show');
-		}, 9500);
+		intro?.classList.add('show');
+		intro?.play();
 		
+		
+		const introTimer = setTimeout(
+			() => {
+				intro?.classList.add('show');
+				background?.classList.add('show');
+				overlay?.classList.add('show');
+				carrier?.classList.add('show');
+				
+				config.OnStart_Spotlight(article, refs);
+			},
+			org.introMidMs || INTRO_MID_DEFAULT,
+		);
+		
+		const durationTimer = setTimeout(
+			() => {
+				outro?.classList.add('show');
+				outro?.play();
+			},
+			SPOTLIGHT_DURATION,
+		);
+		
+		const outroTimer = setTimeout(
+			() => {
+				background?.classList.remove('show');
+				overlay?.classList.remove('show');
+				carrier?.classList.remove('show');
+			},
+			SPOTLIGHT_DURATION + (
+				org.outroMidMs || OUTRO_MID_DEFAULT
+			),
+		);
+		
+		return () => {
+			// cleanup
+			clearTimeout(introTimer);
+			clearTimeout(durationTimer);
+			clearTimeout(outroTimer);
+			intro?.classList.remove('show');
+			background?.classList.remove('show');
+			overlay?.classList.remove('show');
+			carrier?.classList.remove('show');
+			outro?.classList.remove('show');
+		};
 	}, [spotlight]);
 	
-	const className = clsx(
-		'spotlight-container',
-		orgIdf,
-	);
 	
 	return (
 		<div
-			ref={spotlightRef}
-			className={className}
+			ref={spotlightContainerRef}
+			className={`spotlight-container ${orgIdf}`}
 			id={'spotlight'}
 		>
 			<BackgroundVideo
 				src={org.bgVideo}
-				className={clsx('bg-spotlight')}
-				ref={spotlightVideoRef}
+				className={'spotlight-background'}
+				ref={spotlightBackgroundRef}
 			/>
+			
+			{org.overlay && (
+				<BackgroundVideo
+					src={org.overlay}
+					className={'spotlight-overlay'}
+					ref={spotlightOverlayRef}
+				/>
+			)}
 			
 			<Video
 				src={org.introVideo}
 				
-				onPlay={() => introRef.current?.classList.add('show')}
-				onEnded={() => {
-					introRef.current?.classList.remove('show');
-					spotlightVideoRef.current?.classList.add('show');
-				}}
+				// onPlay={() => introRef.current?.classList.add('show')}
+				// onEnded={() => {
+				// 	introRef.current?.classList.remove('show');
+				// 	spotlightVideoRef.current?.classList.add('show');
+				// }}
 				className={'intro'}
 				ref={introRef}
 			/>
@@ -154,11 +207,11 @@ function SpotlightHeadline({article}: { article?: ArticleDat }) {
 			<Video
 				src={org.outroVideo}
 				
-				onPlay={() => outroRef.current?.classList.add('show')}
-				onEnded={() => {
-					outroRef.current?.classList.remove('show');
-					spotlightVideoRef.current?.classList.remove('show');
-				}}
+				// onPlay={() => outroRef.current?.classList.add('show')}
+				// onEnded={() => {
+				// 	outroRef.current?.classList.remove('show');
+				// 	spotlightVideoRef.current?.classList.remove('show');
+				// }}
 				className={'outro'}
 				ref={outroRef}
 			/>
@@ -167,7 +220,7 @@ function SpotlightHeadline({article}: { article?: ArticleDat }) {
 				className={clsx('spotlight-carrier')}
 				ref={carrierRef}
 			>
-			{/*<div className={clsx('spotlight-carrier', isShowing && 'show')}>*/}
+				{/*<div className={clsx('spotlight-carrier', isShowing && 'show')}>*/}
 				<div className={'theme'}>{orgIdf}</div>
 				<div className={'headline'}>{article?.headline}</div>
 			</div>

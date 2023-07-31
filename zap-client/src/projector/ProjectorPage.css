@@ -26,13 +26,13 @@
 	/* filter: hue-rotate(235deg) saturate(1); */
 }
 
-.projector-page .stinger {
-	position: fixed;
-	width: 100vw;
-	height: 100vh;
-	object-fit: cover;
-	z-index: 2;
-}
+/*.projector-page .stinger {*/
+/*	position: fixed;*/
+/*	width: 100vw;*/
+/*	height: 100vh;*/
+/*	object-fit: cover;*/
+/*	z-index: 2;*/
+/*}*/
 
 /* .projector-page .in-stinger {*/
 /*	!* filter: brightness(0.5); *!*/
@@ -52,32 +52,32 @@
 	gap: 1em;
 }
 
-@keyframes animation-only-used-to-trick-the-dom-into-firing-an-onAnimationStart-event-so-we-can-detect-when-this-element-is-created {
-	from { caption-side: bottom; }
-	to { caption-side: bottom; }
-}
+/*@keyframes animation-only-used-to-trick-the-dom-into-firing-an-onAnimationStart-event-so-we-can-detect-when-this-element-is-created {*/
+/*	from { caption-side: bottom; }*/
+/*	to { caption-side: bottom; }*/
+/*}*/
 
-.projector-page .spotlight-articles .article {
-	display: none;
-}
+/*.projector-page .spotlight-articles .article {*/
+/*	display: none;*/
+/*}*/
 
-.projector-page .spotlight-articles .article.spotlight {
-	position: fixed;
-	left: 0;
-	top: 0;
-	height: 100vh;
-	width: 100vw;
-	background-color: #f60;
-	z-index: 1;
-	box-sizing: border-box;
-	animation-name: animation-only-used-to-trick-the-dom-into-firing-an-onAnimationStart-event-so-we-can-detect-when-this-element-is-created;
-	animation-duration: 1ms;
-	opacity: 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-}
+/*.projector-page .spotlight-articles .article.spotlight {*/
+/*	position: fixed;*/
+/*	left: 0;*/
+/*	top: 0;*/
+/*	height: 100vh;*/
+/*	width: 100vw;*/
+/*	background-color: #f60;*/
+/*	z-index: 1;*/
+/*	box-sizing: border-box;*/
+/*	animation-name: animation-only-used-to-trick-the-dom-into-firing-an-onAnimationStart-event-so-we-can-detect-when-this-element-is-created;*/
+/*	animation-duration: 1ms;*/
+/*	opacity: 0;*/
+/*	display: flex;*/
+/*	align-items: center;*/
+/*	justify-content: center;*/
+/*	flex-direction: column;*/
+/*}*/
 
 .spotlight-container {
 	position: absolute;
@@ -85,73 +85,42 @@
 	top: 0;
 	height: 100vh;
 	width: 100vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 	/*background-color: #f60;*/
 }
 
-.spotlight-container .bg-spotlight {
+.spotlight-container .spotlight-background {
 	display: none;
+
 	position: absolute;
 	left: 0;
 	top: 0;
 	height: 100vh;
 	width: 100vw;
 	z-index: 3;
+	object-fit: cover;
 }
 
 .projector-page .spotlight-container .spotlight-carrier {
 	display: none;
-	position: absolute;
-	left: 0;
-	top: 0;
-	height: 100vh;
-	width: 100vw;
-	z-index: 4;
 }
 
 .spotlight-container .intro {
 	display: none;
-	position: absolute;
-	left: 0;
-	top: 0;
-	height: 100vh;
-	width: 100vw;
-	z-index: 5;
 }
 
 .spotlight-container .outro {
 	display: none;
-	position: absolute;
-	left: 0;
-	top: 0;
-	height: 100vh;
-	width: 100vw;
-	z-index: 6;
 }
-.spotlight-container .bg-spotlight.show {
+
+.spotlight-container .spotlight-background.show {
 	display: block;
 }
 
 .spotlight-container .spotlight-carrier.show {
-	display: block;
-}
-
-.spotlight-container .intro.show {
-	display: block;
-}
-
-.spotlight-container .outro.show {
-	display: block;
-}
-
-
-
-
-
-.projector-page .spotlight-articles .article.spotlight.now-showing {
-	opacity: 1;
-}
-
-.projector-page .spotlight-carrier {
 	display: flex;
 	color: white;
 	line-height: 1.1;
@@ -161,21 +130,68 @@
 	flex-direction: column;
 	position: absolute;
 	padding: 10vh;
-}
-
-.projector-page .spotlight-articles .article.spotlight .spotlight-background {
-	z-index: 1;
-	position: absolute;
-	width: 100vw;
-	height: 100vh;
 	left: 0;
 	top: 0;
-	object-fit: cover;
+	height: 100vh;
+	width: 100vw;
+	z-index: 4;
 }
 
-.projector-page .spotlight-articles .article.spotlight *:not(video) {
-	z-index: 2;
+.spotlight-container .intro.show {
+	display: flex;
+
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100vh;
+	width: 100vw;
+	z-index: 5;
 }
+
+.spotlight-container .outro.show {
+	display: flex;
+
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100vh;
+	width: 100vw;
+	z-index: 6;
+}
+
+
+
+
+
+/*.projector-page .spotlight-articles .article.spotlight.now-showing {*/
+/*	opacity: 1;*/
+/*}*/
+
+/*.projector-page .spotlight-carrier {*/
+/*	display: flex;*/
+/*	color: white;*/
+/*	line-height: 1.1;*/
+/*	font-size: 15vh;*/
+/*	align-items: center;*/
+/*	justify-content: center;*/
+/*	flex-direction: column;*/
+/*	position: absolute;*/
+/*	padding: 10vh;*/
+/*}*/
+
+/*.projector-page .spotlight-articles .article.spotlight .spotlight-background {*/
+/*	z-index: 1;*/
+/*	position: absolute;*/
+/*	width: 100vw;*/
+/*	height: 100vh;*/
+/*	left: 0;*/
+/*	top: 0;*/
+/*	object-fit: cover;*/
+/*}*/
+
+/*.projector-page .spotlight-articles .article.spotlight *:not(video) {*/
+/*	z-index: 2;*/
+/*}*/
 
 .projector-page .articles {
 	display: none;
@@ -206,20 +222,17 @@
 }
 
 
-/* Juntas-specific stuff */
+/*## Juntas-specific stuff */
 :root {
 	--juntas--cnn-logo-left: 10vmin;
-}
-
-.juntas.projector-page .stinger {
-	z-index: 5;
 }
 
 .juntas.projector-page #backgroundVideoLoop {
 	filter: hue-rotate(180deg) brightness(4) saturate(0.6);
 }
 
-.juntas.projector-page #vhs-distortion {
+/* VHS distortion */
+.juntas.projector-page .spotlight-overlay {
 	position: fixed;
 	width: 100vw;
 	height: 100vh;
@@ -259,12 +272,12 @@
 
 }
 
-.juntas.projector-page .spotlight-articles .article.spotlight {
+.juntas.projector-page .article.spotlight {
 	background-color: #369;
 	z-index: 2;
 }
 
-.juntas.projector-page .spotlight-articles .spotlight-carrier {
+.juntas.projector-page .spotlight-carrier {
 	align-self: flex-start;
 	padding: 0 var(--juntas--cnn-logo-left);
 	z-index: 2;
@@ -282,18 +295,18 @@
 	gap: 1vmax;
 }
 
-.juntas.projector-page .spotlight-articles .theme {
+.juntas.projector-page .theme {
 	font-size: 3vmax;
 }
 
-.juntas.projector-page .spotlight-articles .spotlight-background {
+.juntas.projector-page .spotlight-background {
 	transform: translateX(2vw) scale(110%);
 }
 
 
 
 
-/* Deephaven-specific-stuff */
+/*## Deephaven-specific-stuff */
 
 .deephaven.projector-page .logo {
 	display: block;
@@ -313,7 +326,7 @@
 	text-align: center;
 	mix-blend-mode: screen;
 	background-color: white;
-	/*background-image: url('../../assets/images/deephaven/stone-background-2.jpg');*/
+	background-image: url('../../assets/images/deephaven/stone-background-2.jpg');
 	background-size: cover;
 	height: 100vh;
 	width: 100vw;
@@ -356,7 +369,7 @@
 
 
 
-.deephaven.projector-page .spotlight-articles .calamity video.spotlight-background {
+.deephaven.projector-page .calamity video.spotlight-background {
 	filter: brightness(250%) invert(0) hue-rotate(110deg);
 }
 .deephaven.projector-page .calamity .spotlight-carrier {
@@ -367,7 +380,7 @@
 }
 
 
-.deephaven.projector-page .spotlight-articles .discovery video.spotlight-background {
+.deephaven.projector-page .discovery video.spotlight-background {
 	filter: brightness(100%) hue-rotate(300deg);
 	mix-blend-mode: multiply;
 }
@@ -378,29 +391,23 @@
 	background: #000;
 }
 
-/*.deephaven.projector-page .spotlight-articles video.spotlight-background.doom-background,*/
-/*.deephaven.projector-page .spotlight-articles .doom video.spotlight-background {*/
-/*	display: none;*/
-/*}*/
-/*.deephaven.projector-page .spotlight-articles .doom video.spotlight-background.doom-background {*/
-/*	display: block;*/
-/*}*/
+
 .deephaven.projector-page .doom .spotlight-carrier {
 	mix-blend-mode: overlay;
 	filter: invert(1); /* TODO: Ask Trenton */
 }
-.deephaven.projector-page .spotlight-articles .doom .spotlight-carrier .theme::after {
+.deephaven.projector-page .doom .spotlight-carrier .theme::after {
 	background: #000;
 }
 
 
-.deephaven.projector-page .spotlight-articles .grudge {
+.deephaven.projector-page .grudge {
 	filter: brightness(100%) invert(0) hue-rotate(180deg) saturate(250%);
 }
 .deephaven.projector-page .grudge .spotlight-carrier {
 	filter: brightness(100%) invert(1) hue-rotate(180deg);
 }
-.deephaven.projector-page .spotlight-articles .grudge .spotlight-carrier .theme::after {
+.deephaven.projector-page .grudge .spotlight-carrier .theme::after {
 	background: #606;
 }
 
@@ -416,19 +423,19 @@
 }
 
 
-.deephaven.projector-page .spotlight-articles .oath {
+.deephaven.projector-page .oath {
 	filter: invert(1) sepia(1);
 }
 .deephaven.projector-page .oath .spotlight-carrier {
 	mix-blend-mode: screen;
 	filter: brightness(100%) invert(1) hue-rotate(200deg);
 }
-.deephaven.projector-page .spotlight-articles .oath .spotlight-carrier .theme::after {
+.deephaven.projector-page .oath .spotlight-carrier .theme::after {
 	background: #f70;
 }
 
 
-.deephaven.projector-page .spotlight-articles .triumph video.spotlight-background {
+.deephaven.projector-page .triumph video.spotlight-background {
 	filter: brightness(350%) hue-rotate(180deg);
 	mix-blend-mode: screen;
 }
@@ -436,7 +443,7 @@
 	mix-blend-mode: screen;
 	filter: brightness(100%) invert(1) hue-rotate(180deg);
 }
-.deephaven.projector-page .spotlight-articles .triumph .spotlight-carrier .theme::after {
+.deephaven.projector-page .triumph .spotlight-carrier .theme::after {
 	background: #f70;
 }
 
