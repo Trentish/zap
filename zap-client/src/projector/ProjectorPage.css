@@ -79,6 +79,74 @@
 	flex-direction: column;
 }
 
+.spotlight-container {
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100vh;
+	width: 100vw;
+	/*background-color: #f60;*/
+}
+
+.spotlight-container .bg-spotlight {
+	display: none;
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100vh;
+	width: 100vw;
+	z-index: 3;
+}
+
+.projector-page .spotlight-container .spotlight-carrier {
+	display: none;
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100vh;
+	width: 100vw;
+	z-index: 4;
+}
+
+.spotlight-container .intro {
+	display: none;
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100vh;
+	width: 100vw;
+	z-index: 5;
+}
+
+.spotlight-container .outro {
+	display: none;
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100vh;
+	width: 100vw;
+	z-index: 6;
+}
+.spotlight-container .bg-spotlight.show {
+	display: block;
+}
+
+.spotlight-container .spotlight-carrier.show {
+	display: block;
+}
+
+.spotlight-container .intro.show {
+	display: block;
+}
+
+.spotlight-container .outro.show {
+	display: block;
+}
+
+
+
+
+
 .projector-page .spotlight-articles .article.spotlight.now-showing {
 	opacity: 1;
 }
@@ -245,7 +313,7 @@
 	text-align: center;
 	mix-blend-mode: screen;
 	background-color: white;
-	background-image: url('../../assets/images/deephaven/stone-background-2.jpg');
+	/*background-image: url('../../assets/images/deephaven/stone-background-2.jpg');*/
 	background-size: cover;
 	height: 100vh;
 	width: 100vw;

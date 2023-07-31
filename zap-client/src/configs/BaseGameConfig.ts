@@ -1,4 +1,4 @@
-import {SyntheticEvent} from 'react';
+import React, {SyntheticEvent} from 'react';
 
 export type T_Org = {
 	id: string,
@@ -34,7 +34,6 @@ export class BaseGameConfig {
 	}
 	
 	
-	
 	GetOrg(id: string): T_Org {
 		const org = this.orgLup.get(id);
 		console.log(`GetOrg ${id} -> `, org);
@@ -42,39 +41,49 @@ export class BaseGameConfig {
 		return org;
 	}
 	
-	OnStart_Spotlight(stingerIn: HTMLVideoElement|null, bgVideoRef: HTMLVideoElement|null) {
+	OnStart_Spotlight(refs: T_SpotlightRefs) {
 		console.log(`A new spotlight headline has dropped!`);
 		
-		stingerIn?.play();
+		refs.introRef.current?.play();
 	}
 	
 	// TODO: stingerOut here is confusing?
-	OnPlay_StingerIn(event: SyntheticEvent<HTMLVideoElement>, stingerOut: HTMLVideoElement|null) {
-		console.log(`OnPlay_StingerIn`)
+	OnPlay_StingerIn(evt: SyntheticEvent<HTMLVideoElement>, refs: T_SpotlightRefs) {
+		console.log(`OnPlay_StingerIn`);
 		
 		setTimeout(function () {
 			console.log('StingerIn timeout');
-			stingerOut?.play();
+			refs.outroRef.current?.play();
 		}, 9000);
 	}
 	
-	OnTimeUpdate_StingerIn(event: SyntheticEvent<HTMLVideoElement>, articleDiv: HTMLDivElement|null) {
-		console.log(`OnTimeUpdate_StingerIn ${event.currentTarget.currentTime}`);
-		if (event.currentTarget.currentTime >= 1) {
+	OnTimeUpdate_StingerIn(evt: SyntheticEvent<HTMLVideoElement>, refs: T_SpotlightRefs) {
+		console.log(`OnTimeUpdate_StingerIn ${evt.currentTarget.currentTime}`);
+		if (evt.currentTarget.currentTime >= 1) {
 			console.log(`headlineStingerIn_onTimeUpdate we're 1 seconds in!`);
-			if (articleDiv) articleDiv.classList.add('now-showing');
+			refs.spotlightRef.current?.classList.add('now-showing');
 		}
 	}
 	
 	// TODO: ref of something else (parent?) for adding/removing class, or move this to spotlight section
-	OnTimeUpdate_StingerOut(event: SyntheticEvent<HTMLVideoElement>, articleDiv: HTMLDivElement|null) {
-		console.log(`OnTimeUpdate_StingerOut ${event.currentTarget.currentTime}`);
-		if (event.currentTarget.currentTime >= 1) {
+	OnTimeUpdate_StingerOut(
+		evt: SyntheticEvent<HTMLVideoElement>,
+		refs: T_SpotlightRefs,
+	) {
+		console.log(`OnTimeUpdate_StingerOut ${evt.currentTarget.currentTime}`);
+		if (evt.currentTarget.currentTime >= 1) {
 			console.log(`headlineStingerOut_onTimeUpdate we're 1 seconds in!`);
-			if (articleDiv) articleDiv.classList.remove('now-showing');
+			refs.spotlightRef.current?.classList.remove('now-showing');
 		}
 	}
 }
 
+export type T_SpotlightRefs = {
+	spotlightRef: React.RefObject<HTMLDivElement>,
+	spotlightVideoRef: React.RefObject<HTMLVideoElement>,
+	introRef: React.RefObject<HTMLVideoElement>,
+	outroRef: React.RefObject<HTMLVideoElement>,
+	carrierRef: React.RefObject<HTMLDivElement>,
+}
 
 export const FallbackConfig = new BaseGameConfig();

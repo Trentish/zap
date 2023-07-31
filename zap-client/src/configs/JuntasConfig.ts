@@ -1,4 +1,4 @@
-import {BaseGameConfig, T_Org} from './BaseGameConfig.ts';
+import {BaseGameConfig, T_Org, T_SpotlightRefs} from './BaseGameConfig.ts';
 
 const J_VIDS = '../assets/videos/juntas/';
 
@@ -15,16 +15,16 @@ class JuntasConfig extends BaseGameConfig {
 	
 	orgs: T_Org[] = [BBC, CNN, PBS];
 	
-	OnStart_Spotlight(stingerIn: HTMLVideoElement|null, bgVideoRef: HTMLVideoElement|null) {
-		console.log(`OnPlay_StingerIn juntas ${stingerIn}`, stingerIn)
+	OnStart_Spotlight(refs: T_SpotlightRefs) {
+		console.log(`OnPlay_StingerIn juntas`)
 		
-		if (!bgVideoRef) return;
+		if (!refs.spotlightVideoRef.current) return;
 		
 		const timeArray = [260, 32, 575, 289];
 		const randomIndex = Math.floor(Math.random() * timeArray.length);
 		
-		bgVideoRef.currentTime = timeArray[randomIndex];
-		stingerIn?.play();
+		refs.spotlightVideoRef.current.currentTime = timeArray[randomIndex];
+		refs.introRef.current?.play();
 	}
 	
 	

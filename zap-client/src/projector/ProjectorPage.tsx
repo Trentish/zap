@@ -2,21 +2,16 @@ import {ArticleDat} from '../../../zap-shared/_Dats.ts';
 import {Timer} from '../displays/Timer.tsx';
 import {useAtom} from 'jotai';
 import './ProjectorPage.css';
-import React, {useRef} from 'react';
-import {$config, $splitArticles, $spotlight, $timer} from '../ClientState.ts';
+import React, {useEffect, useRef} from 'react';
+import {$allArticles, $config, $splitArticles, $spotlight, $timer} from '../ClientState.ts';
 import {Atom} from 'jotai/vanilla/atom';
 import {clsx} from 'clsx';
 import {Crawler} from './Crawler.tsx';
 import {useClient} from '../ClientContext.ts';
 import {BackgroundVideo, Video} from '../components/VideoComponents.tsx';
+import {T_SpotlightRefs} from '../configs/BaseGameConfig.ts';
 
 const SHOW_LAST_COUNT = 7;
-
-const stingerInRef = React.createRef<HTMLVideoElement>();
-const stingerOutRef = React.createRef<HTMLVideoElement>();
-
-// TODO: move
-let MUTATING_SPOTLIGHT_REF: React.RefObject<HTMLDivElement>;
 
 export function ProjectorPage() {
 	const client = useClient();
@@ -27,28 +22,6 @@ export function ProjectorPage() {
 			<BackgroundVideo
 				src={config.bgVideo}
 				id={'backgroundVideoLoop'}
-			/>
-			
-			<Video
-				src={config.introVideo}
-				// src={'../assets/videos/juntas/cnn-transition-1.webm'}
-				onTimeUpdate={evt => config.OnTimeUpdate_StingerIn(
-					evt,
-					MUTATING_SPOTLIGHT_REF?.current,
-				)}
-				onPlay={evt => config.OnPlay_StingerIn(evt, stingerOutRef.current)}
-				className={'stinger in-stinger'}
-				ref={stingerInRef}
-			/>
-			
-			<Video
-				src={config.outroVideo}
-				onTimeUpdate={evt => config.OnTimeUpdate_StingerOut(
-					evt,
-					MUTATING_SPOTLIGHT_REF?.current,
-				)}
-				className={'stinger out-stinger'}
-				ref={stingerOutRef}
 			/>
 			
 			<Timer $timer={$timer}/>
@@ -62,6 +35,8 @@ export function ProjectorPage() {
 			{config.logo && (
 				<img className={'logo'} src={'../assets/images/deephaven/ink6.svg'}/>
 			)}
+			
+			<Spotlight/>
 		</div>
 	);
 }
@@ -71,14 +46,19 @@ function Headlines() {
 	
 	return (
 		<>
-			<div className={`spotlight-articles`}>
-				{articles.slice(-SHOW_LAST_COUNT).reverse().map($article => (
-					<SpotlightHeadline
-						key={`${$article}`}
-						$article={$article}
-					/>
-				))}
-			</div>
+			{/*<div className={`spotlight-articles`}>*/}
+			{/*	{articles.slice(-SHOW_LAST_COUNT).reverse().map($article => (*/}
+			{/*		<SpotlightHeadline*/}
+			{/*			key={`${$article}`}*/}
+			{/*			$article={$article}*/}
+			{/*		/>*/}
+			{/*	))}*/}
+			{/*</div>*/}
+			
+			{/*<div className={'spotlight-articles'}>*/}
+			{/*	<Spotlight/>*/}
+			{/*</div>*/}
+			
 			<div className={'articles'}>
 				{articles.slice(-SHOW_LAST_COUNT).reverse().map($article => (
 					<Headline
@@ -91,47 +71,105 @@ function Headlines() {
 	);
 }
 
-function SpotlightHeadline({$article}: { $article: Atom<ArticleDat> }) {
-	const [article] = useAtom($article);
+function Spotlight() {
+	const [articles] = useAtom($allArticles);
+	const [spotlight] = useAtom($spotlight);
+	
+	const article = articles.find(a => a.id === spotlight.spotlightId);
+	
+	return (
+		<SpotlightHeadline article={article}/>
+	);
+}
+
+// function SpotlightHeadline({$article}: { $article: Atom<ArticleDat> }) {
+function SpotlightHeadline({article}: { article?: ArticleDat }) {
 	const [spotlight] = useAtom($spotlight);
 	const [config] = useAtom($config);
 	
-	
 	const spotlightRef = useRef<HTMLDivElement>(null);
-	const bgVideoRef = useRef<HTMLVideoElement>(null);
+	const spotlightVideoRef = useRef<HTMLVideoElement>(null);
+	const introRef = useRef<HTMLVideoElement>(null);
+	const outroRef = useRef<HTMLVideoElement>(null);
+	const carrierRef = useRef<HTMLDivElement>(null);
+	
+	const refs: T_SpotlightRefs = {
+		spotlightRef: spotlightRef,
+		spotlightVideoRef: spotlightVideoRef,
+		introRef: introRef,
+		outroRef: outroRef,
+		carrierRef: carrierRef,
+	};
+	
+	const orgIdf = article?.orgIdf || '';
+	const org = config.GetOrg(orgIdf);
 	
 	
-	const weAreSpotlightingThisArticleRightNow = spotlight.spotlightId === article.id;
+	useEffect(() => {
+		if (!article) return;
+		
+		introRef.current?.play();
+		
+		setTimeout(() => {
+			spotlightVideoRef.current?.classList.add('show');
+			carrierRef.current?.classList.add('show');
+		}, 1000);
+		setTimeout(() => outroRef.current?.play(), 9000);
+		setTimeout(() => {
+			spotlightVideoRef.current?.classList.remove('show');
+			carrierRef.current?.classList.remove('show');
+		}, 9500);
+		
+	}, [spotlight]);
 	
 	const className = clsx(
-		'article',
-		article.orgIdf,
-		{'spotlight': weAreSpotlightingThisArticleRightNow},
+		'spotlight-container',
+		orgIdf,
 	);
-	
-	if (weAreSpotlightingThisArticleRightNow) {
-		// We do this so it's accessible elsewhere
-		MUTATING_SPOTLIGHT_REF = spotlightRef;
-	}
 	
 	return (
 		<div
 			ref={spotlightRef}
-			onAnimationStart={() => config.OnStart_Spotlight(
-				stingerInRef.current,
-				bgVideoRef.current,
-			)}
 			className={className}
-			data-debug={`${article.id}, ${spotlight.spotlightId}, ${spotlight.pendingAboveId}`}
+			id={'spotlight'}
 		>
 			<BackgroundVideo
-				src={config.GetOrg(article.orgIdf).bgVideo}
-				className={'spotlight-background'}
-				ref={bgVideoRef}
+				src={org.bgVideo}
+				className={clsx('bg-spotlight')}
+				ref={spotlightVideoRef}
 			/>
-			<div className={'spotlight-carrier'}>
-				<div className={'theme'}>{article.orgIdf}</div>
-				<div className={'headline'}>{article.headline}</div>
+			
+			<Video
+				src={org.introVideo}
+				
+				onPlay={() => introRef.current?.classList.add('show')}
+				onEnded={() => {
+					introRef.current?.classList.remove('show');
+					spotlightVideoRef.current?.classList.add('show');
+				}}
+				className={'intro'}
+				ref={introRef}
+			/>
+			
+			<Video
+				src={org.outroVideo}
+				
+				onPlay={() => outroRef.current?.classList.add('show')}
+				onEnded={() => {
+					outroRef.current?.classList.remove('show');
+					spotlightVideoRef.current?.classList.remove('show');
+				}}
+				className={'outro'}
+				ref={outroRef}
+			/>
+			{/*was carrier*/}
+			<div
+				className={clsx('spotlight-carrier')}
+				ref={carrierRef}
+			>
+			{/*<div className={clsx('spotlight-carrier', isShowing && 'show')}>*/}
+				<div className={'theme'}>{orgIdf}</div>
+				<div className={'headline'}>{article?.headline}</div>
 			</div>
 		</div>
 	);
