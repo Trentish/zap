@@ -51,7 +51,7 @@ const BBC: T_Org = {
 	id: 'bbc',
 	label: 'BBC',
 	bgVideo: `${J_VIDS}tobacco_fwp91f00.mp4`,
-	overlay: `${J_VIDS}vhs.mp4`,
+	overlayVideo: `${J_VIDS}vhs.mp4`,
 	introVideo: `${J_VIDS}cnn-transition-1.webm`,
 	outroVideo: `${J_VIDS}cnn-transition-1.webm`,
 };
@@ -60,7 +60,7 @@ const CNN: T_Org = {
 	id: 'cnn',
 	label: 'CNN',
 	bgVideo: `${J_VIDS}tobacco_fwp91f00.mp4`,
-	overlay: `${J_VIDS}vhs.mp4`,
+	overlayVideo: `${J_VIDS}vhs.mp4`,
 	introVideo: `${J_VIDS}cnn-transition-1.webm`,
 	outroVideo: `${J_VIDS}cnn-transition-1.webm`,
 	showAsRadio: true,
@@ -70,7 +70,7 @@ const PBS: T_Org = {
 	id: 'pbs',
 	label: 'PBS',
 	bgVideo: `${J_VIDS}tobacco_fwp91f00.mp4`,
-	overlay: `${J_VIDS}vhs.mp4`,
+	overlayVideo: `${J_VIDS}vhs.mp4`,
 	introVideo: `${J_VIDS}cnn-transition-1.webm`,
 	outroVideo: `${J_VIDS}cnn-transition-1.webm`,
 };
@@ -79,7 +79,7 @@ const REAGAN: T_Org = {
 	id: 'reagan',
 	label: `oh no not that guy`,
 	bgVideo: `../assets/videos/deephaven/spotlight-background-5.mp4`,
-	overlay: `${J_VIDS}vhs.mp4`,
+	overlayVideo: `${J_VIDS}vhs.mp4`,
 	introVideo: `${J_VIDS}cnn-transition-1.webm`,
 	outroVideo: `${J_VIDS}cnn-transition-1.webm`,
 };

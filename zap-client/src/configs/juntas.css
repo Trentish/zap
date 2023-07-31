@@ -9,14 +9,14 @@
 }
 
 /* VHS distortion */
-.juntas.projector-page .spotlight-overlay {
-	position: fixed;
-	width: 100vw;
-	height: 100vh;
-	object-fit: cover;
-	opacity: 0.15;
-	z-index: 6;
-}
+/*.juntas.projector-page .spotlight-overlay {*/
+/*	position: fixed;*/
+/*	width: 100vw;*/
+/*	height: 100vh;*/
+/*	object-fit: cover;*/
+/*	opacity: 0.15;*/
+/*	z-index: 6;*/
+/*}*/
 
 .juntas.projector-page .logo {
 	display: block;
@@ -51,13 +51,13 @@
 
 .juntas.projector-page .article.spotlight {
 	background-color: #369;
-	z-index: 2;
+	/*z-index: 2;*/
 }
 
 .juntas.projector-page .spotlight-carrier {
 	align-self: flex-start;
 	padding: 0 var(--juntas--cnn-logo-left);
-	z-index: 2;
+	/*z-index: 2;*/
 	font-weight: bold;
 	font-style: italic;
 	text-shadow: 0.01em 0.01em 0 black, 0.02em 0.02em 0 black, 0.03em 0.03em 0 black, 0.04em 0.04em 0 black, 0.05em 0.05em 0 black,

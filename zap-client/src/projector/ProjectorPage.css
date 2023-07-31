@@ -27,14 +27,18 @@
 
 /* TODO: TMP */
 .projector-page .articles {
+	display: none;
 	background: red;
-	display: flex;
+	/*display: flex;*/
 	flex-direction: column;
 	gap: 1em;
 }
 
+
+/*## SPOTLIGHT 🔦 🔦 🔦 🔦 */
+
 .spotlight-container {
-	position: absolute;
+	position: fixed;
 	left: 0;
 	top: 0;
 	height: 100vh;
@@ -47,9 +51,9 @@
 }
 
 .spotlight-container .spotlight-background {
-	display: none;
+	display: none; /* waiting for .show */
 
-	position: absolute;
+	position: fixed;
 	left: 0;
 	top: 0;
 	height: 100vh;
@@ -58,31 +62,27 @@
 	object-fit: cover;
 }
 
-.projector-page .spotlight-container .spotlight-carrier {
-	display: none;
+.spotlight-container .spotlight-overlay {
+	display: none; /* waiting for .show */
+
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	object-fit: cover;
+	opacity: 0.15;
+	z-index: 4;
 }
 
-.spotlight-container .intro {
-	display: none;
-}
+.spotlight-container .spotlight-carrier {
+	display: none; /* waiting for .show */
 
-.spotlight-container .outro {
-	display: none;
-}
-
-.spotlight-container .spotlight-background.show {
-	display: block;
-}
-
-.spotlight-container .spotlight-carrier.show {
-	display: flex;
 	color: white;
 	line-height: 1.1;
 	font-size: 15vh;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-	position: absolute;
+	position: fixed;
 	padding: 10vh;
 	left: 0;
 	top: 0;
@@ -91,10 +91,10 @@
 	z-index: 4;
 }
 
-.spotlight-container .intro.show {
-	display: flex;
+.spotlight-container .intro {
+	display: none; /* waiting for .show */
 
-	position: absolute;
+	position: fixed;
 	left: 0;
 	top: 0;
 	height: 100vh;
@@ -102,10 +102,10 @@
 	z-index: 5;
 }
 
-.spotlight-container .outro.show {
-	display: flex;
+.spotlight-container .outro {
+	display: none; /* waiting for .show */
 
-	position: absolute;
+	position: fixed;
 	left: 0;
 	top: 0;
 	height: 100vh;
@@ -113,10 +113,26 @@
 	z-index: 6;
 }
 
-
-.projector-page .articles {
-	display: none;
+.spotlight-container .spotlight-background.show {
+	display: flex;
 }
+
+.spotlight-container .spotlight-overlay.show {
+	display: flex;
+}
+
+.spotlight-container .spotlight-carrier.show {
+	display: flex;
+}
+
+.spotlight-container .intro.show {
+	display: flex;
+}
+
+.spotlight-container .outro.show {
+	display: flex;
+}
+
 
 
 /*## TIMER*/
@@ -159,7 +175,7 @@
 	flex-direction: column;
 	background-color: #282a25;
 	font-size: 10vmax;
-	position: absolute;
+	position: fixed;
 	left: 0;
 	top: 0;
 	height: 100vh;

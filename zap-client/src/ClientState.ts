@@ -20,6 +20,14 @@ export const $uuid = atomWithStorage('ZAP_UUID', nanoid(5));
 export const $allArticles = atom<ArticleDat[]>([]);
 export const $splitArticles = splitAtom($allArticles);//, a => `articleAtomId${a.id}`);
 export const $spotlight = atom<SpotlightDat>({spotlightId: -1, pendingAboveId: -1});
+
+export const $spotlightArticle = atom<ArticleDat | null>((get) => {
+	const articles = get($allArticles);
+	const spotlight = get($spotlight);
+	const article = articles.find(a => a.id === spotlight.spotlightId);
+	return article || null;
+});
+
 export const $crawlerArticles = atom<ArticleDat[]>([]);
 
 export const $author = atomWithStorage('ZAP_AUTHOR', '');

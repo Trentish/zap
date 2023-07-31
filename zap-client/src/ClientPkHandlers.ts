@@ -29,6 +29,7 @@ export function InitializePackets_CLIENT(defs: ZapPacketDefs<ConnToServer>, clie
 		$store.set($allArticles, (current) => [...current, pk]);
 	};
 	defs.SetSpotlight.From_SERVER = (pk) => {
+		console.log(`-> 🔦 received spotlight`, pk);
 		$store.set($spotlight, pk);
 	};
 	
@@ -44,18 +45,3 @@ export function InitializePackets_CLIENT(defs: ZapPacketDefs<ConnToServer>, clie
 	
 	
 }
-
-// function FindArticle(id: number): [number, ArticleDat, PrimitiveAtom<ArticleDat>] | null {
-// 	const all = $store.get($allArticles);
-//
-// 	let index = all.length - 1;
-//
-// 	for (index; index >= 0; index--) {
-// 		if (id === all[index].id) break;
-// 	}
-//
-// 	if (index < 0) return null;
-//
-// 	const split = $store.get($splitArticles);
-// 	return [index, all[index], split[index]];
-// }

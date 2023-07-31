@@ -9,6 +9,7 @@ export const Video = forwardRef(
 	function Video(props: P_Video, ref: React.ForwardedRef<HTMLVideoElement>) {
 		return (
 			<video
+				autoPlay={false}
 				{...props}
 				ref={ref}
 			>
@@ -27,8 +28,6 @@ export type P_BackgroundVideo = {
 
 export const BackgroundVideo = forwardRef(
 	function BackgroundVideo(props: P_BackgroundVideo, ref: React.ForwardedRef<HTMLVideoElement>) {
-		console.log(`BackgroundVideo: ${props.src}`);
-		
 		return (
 			<video
 				id={props.id}
@@ -49,6 +48,8 @@ export const BackgroundVideo = forwardRef(
 
 
 function GetSourceType(src: string): string {
+	if (!src) return '';
+	
 	const ext = src.split('.').pop()?.toLowerCase();
 	
 	switch (ext) {

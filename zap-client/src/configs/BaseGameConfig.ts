@@ -5,7 +5,7 @@ export type T_Org = {
 	id: string,
 	label: string,
 	bgVideo: string,
-	overlay?: string,
+	overlayVideo?: string,
 	introVideo: string,
 	outroVideo: string,
 	
@@ -53,7 +53,7 @@ export class BaseGameConfig {
 		return org;
 	}
 	
-	// TODO: maybe move to T_Org
+	// TODO: rename, maybe move to T_Org
 	OnStart_Spotlight(article: ArticleDat | undefined, refs: T_SpotlightRefs) {
 		console.log(`A new spotlight headline has dropped!`);
 	}
@@ -66,6 +66,8 @@ export type T_SpotlightRefs = {
 	introRef: React.RefObject<HTMLVideoElement>,
 	outroRef: React.RefObject<HTMLVideoElement>,
 	carrierRef: React.RefObject<HTMLDivElement>,
+	themeRef: React.RefObject<HTMLDivElement>,
+	headlineRef: React.RefObject<HTMLDivElement>,
 }
 
 export const FallbackConfig = new BaseGameConfig();
