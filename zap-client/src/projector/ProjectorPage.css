@@ -310,13 +310,13 @@
 	background: #000;
 }
 
-.deephaven.projector-page .spotlight-articles video.spotlight-background.doom-background,
-.deephaven.projector-page .spotlight-articles .doom video.spotlight-background {
-	display: none;
-}
-.deephaven.projector-page .spotlight-articles .doom video.spotlight-background.doom-background {
-	display: block;
-}
+/*.deephaven.projector-page .spotlight-articles video.spotlight-background.doom-background,*/
+/*.deephaven.projector-page .spotlight-articles .doom video.spotlight-background {*/
+/*	display: none;*/
+/*}*/
+/*.deephaven.projector-page .spotlight-articles .doom video.spotlight-background.doom-background {*/
+/*	display: block;*/
+/*}*/
 .deephaven.projector-page .doom .spotlight-carrier {
 	mix-blend-mode: overlay;
 	filter: invert(1); /* TODO: Ask Trenton */

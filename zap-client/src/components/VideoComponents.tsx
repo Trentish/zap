@@ -21,25 +21,14 @@ export const Video = forwardRef(
 	},
 );
 
-// export function Video(props: P_Video & React.VideoHTMLAttributes<HTMLVideoElement>) {
-// 	return (
-// 		<video
-// 			{...props}
-// 		>
-// 			<source
-// 				src={props.src}
-// 				type={GetSourceType(props.src)}
-// 			/>
-// 		</video>
-// 	);
-// }
-
 export type P_BackgroundVideo = {
 	src: string,
 } & React.VideoHTMLAttributes<HTMLVideoElement>;
 
 export const BackgroundVideo = forwardRef(
 	function BackgroundVideo(props: P_BackgroundVideo, ref: React.ForwardedRef<HTMLVideoElement>) {
+		console.log(`BackgroundVideo: ${props.src}`);
+		
 		return (
 			<video
 				id={props.id}
