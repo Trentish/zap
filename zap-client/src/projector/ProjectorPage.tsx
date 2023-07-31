@@ -30,8 +30,8 @@ export function ProjectorPage() {
 			/>
 			
 			<Video
-				// src={config.introVideo}
-				src={'../assets/videos/juntas/cnn-transition-1.webm'}
+				src={config.introVideo}
+				// src={'../assets/videos/juntas/cnn-transition-1.webm'}
 				onTimeUpdate={evt => config.OnTimeUpdate_StingerIn(
 					evt,
 					MUTATING_SPOTLIGHT_REF?.current,
