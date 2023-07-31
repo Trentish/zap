@@ -1,5 +1,6 @@
 import {BaseGameConfig, T_Org, T_SpotlightRefs} from './BaseGameConfig.ts';
 import {ArticleDat} from '../../../zap-shared/_Dats.ts';
+import './juntas.css'; //## NOTE: will always load (regardless of gameIdf)
 
 const J_VIDS = '../assets/videos/juntas/';
 

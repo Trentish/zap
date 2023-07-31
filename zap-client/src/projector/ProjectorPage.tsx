@@ -87,7 +87,9 @@ function Spotlight() {
 	);
 }
 
-// function SpotlightHeadline({$article}: { $article: Atom<ArticleDat> }) {
+const SHOW = (element: HTMLElement | null) => element?.classList.add('show');
+const HIDE = (element: HTMLElement | null) => element?.classList.remove('show');
+
 function SpotlightHeadline({article}: { article?: ArticleDat }) {
 	const [spotlight] = useAtom($spotlight);
 	const [config] = useAtom($config);
@@ -112,7 +114,6 @@ function SpotlightHeadline({article}: { article?: ArticleDat }) {
 	const org = config.GetOrg(article);
 	
 	
-	
 	useEffect(() => {
 		if (!article) return;
 		
@@ -123,16 +124,15 @@ function SpotlightHeadline({article}: { article?: ArticleDat }) {
 		const outro = outroRef.current;
 		const carrier = carrierRef.current;
 		
-		intro?.classList.add('show');
+		SHOW(intro);
 		intro?.play();
-		
 		
 		const introTimer = setTimeout(
 			() => {
-				intro?.classList.add('show');
-				background?.classList.add('show');
-				overlay?.classList.add('show');
-				carrier?.classList.add('show');
+				SHOW(intro);
+				SHOW(background);
+				SHOW(overlay);
+				SHOW(carrier);
 				
 				config.OnStart_Spotlight(article, refs);
 			},
@@ -141,7 +141,7 @@ function SpotlightHeadline({article}: { article?: ArticleDat }) {
 		
 		const durationTimer = setTimeout(
 			() => {
-				outro?.classList.add('show');
+				SHOW(outro);
 				outro?.play();
 			},
 			SPOTLIGHT_DURATION,
@@ -149,9 +149,9 @@ function SpotlightHeadline({article}: { article?: ArticleDat }) {
 		
 		const outroTimer = setTimeout(
 			() => {
-				background?.classList.remove('show');
-				overlay?.classList.remove('show');
-				carrier?.classList.remove('show');
+				HIDE(background);
+				HIDE(overlay);
+				HIDE(carrier);
 			},
 			SPOTLIGHT_DURATION + (
 				org.outroMidMs || OUTRO_MID_DEFAULT
@@ -163,11 +163,11 @@ function SpotlightHeadline({article}: { article?: ArticleDat }) {
 			clearTimeout(introTimer);
 			clearTimeout(durationTimer);
 			clearTimeout(outroTimer);
-			intro?.classList.remove('show');
-			background?.classList.remove('show');
-			overlay?.classList.remove('show');
-			carrier?.classList.remove('show');
-			outro?.classList.remove('show');
+			HIDE(intro);
+			HIDE(background);
+			HIDE(overlay);
+			HIDE(carrier);
+			HIDE(outro);
 		};
 	}, [spotlight]);
 	
@@ -194,33 +194,20 @@ function SpotlightHeadline({article}: { article?: ArticleDat }) {
 			
 			<Video
 				src={org.introVideo}
-				
-				// onPlay={() => introRef.current?.classList.add('show')}
-				// onEnded={() => {
-				// 	introRef.current?.classList.remove('show');
-				// 	spotlightVideoRef.current?.classList.add('show');
-				// }}
 				className={'intro'}
 				ref={introRef}
 			/>
 			
 			<Video
 				src={org.outroVideo}
-				
-				// onPlay={() => outroRef.current?.classList.add('show')}
-				// onEnded={() => {
-				// 	outroRef.current?.classList.remove('show');
-				// 	spotlightVideoRef.current?.classList.remove('show');
-				// }}
 				className={'outro'}
 				ref={outroRef}
 			/>
-			{/*was carrier*/}
+			
 			<div
 				className={clsx('spotlight-carrier')}
 				ref={carrierRef}
 			>
-				{/*<div className={clsx('spotlight-carrier', isShowing && 'show')}>*/}
 				<div className={'theme'}>{orgIdf}</div>
 				<div className={'headline'}>{article?.headline}</div>
 			</div>

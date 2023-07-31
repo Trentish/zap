@@ -1,5 +1,4 @@
 
-
 .projector-page {
 	margin: 0;
 	padding: 0;
@@ -26,24 +25,6 @@
 	/* filter: hue-rotate(235deg) saturate(1); */
 }
 
-/*.projector-page .stinger {*/
-/*	position: fixed;*/
-/*	width: 100vw;*/
-/*	height: 100vh;*/
-/*	object-fit: cover;*/
-/*	z-index: 2;*/
-/*}*/
-
-/* .projector-page .in-stinger {*/
-/*	!* filter: brightness(0.5); *!*/
-/*	 transform: rotate(180deg);*/
-/*	 filter: saturate(0) brightness(10%);*/
-/*}*/
-
-/*.projector-page .out-stinger {*/
-/*	filter: saturate(0) brightness(10%);*/
-/*}*/
-
 /* TODO: TMP */
 .projector-page .articles {
 	background: red;
@@ -51,33 +32,6 @@
 	flex-direction: column;
 	gap: 1em;
 }
-
-/*@keyframes animation-only-used-to-trick-the-dom-into-firing-an-onAnimationStart-event-so-we-can-detect-when-this-element-is-created {*/
-/*	from { caption-side: bottom; }*/
-/*	to { caption-side: bottom; }*/
-/*}*/
-
-/*.projector-page .spotlight-articles .article {*/
-/*	display: none;*/
-/*}*/
-
-/*.projector-page .spotlight-articles .article.spotlight {*/
-/*	position: fixed;*/
-/*	left: 0;*/
-/*	top: 0;*/
-/*	height: 100vh;*/
-/*	width: 100vw;*/
-/*	background-color: #f60;*/
-/*	z-index: 1;*/
-/*	box-sizing: border-box;*/
-/*	animation-name: animation-only-used-to-trick-the-dom-into-firing-an-onAnimationStart-event-so-we-can-detect-when-this-element-is-created;*/
-/*	animation-duration: 1ms;*/
-/*	opacity: 0;*/
-/*	display: flex;*/
-/*	align-items: center;*/
-/*	justify-content: center;*/
-/*	flex-direction: column;*/
-/*}*/
 
 .spotlight-container {
 	position: absolute;
@@ -160,42 +114,12 @@
 }
 
 
-
-
-
-/*.projector-page .spotlight-articles .article.spotlight.now-showing {*/
-/*	opacity: 1;*/
-/*}*/
-
-/*.projector-page .spotlight-carrier {*/
-/*	display: flex;*/
-/*	color: white;*/
-/*	line-height: 1.1;*/
-/*	font-size: 15vh;*/
-/*	align-items: center;*/
-/*	justify-content: center;*/
-/*	flex-direction: column;*/
-/*	position: absolute;*/
-/*	padding: 10vh;*/
-/*}*/
-
-/*.projector-page .spotlight-articles .article.spotlight .spotlight-background {*/
-/*	z-index: 1;*/
-/*	position: absolute;*/
-/*	width: 100vw;*/
-/*	height: 100vh;*/
-/*	left: 0;*/
-/*	top: 0;*/
-/*	object-fit: cover;*/
-/*}*/
-
-/*.projector-page .spotlight-articles .article.spotlight *:not(video) {*/
-/*	z-index: 2;*/
-/*}*/
-
 .projector-page .articles {
 	display: none;
 }
+
+
+/*## TIMER */
 
 .projector-page .timer {
 	font-size: 20vmax;
@@ -207,310 +131,19 @@
 .projector-page .timer .minutes {
 	text-align: right;
 }
+
 .projector-page .timer .colon {
 	width: 0.3em;
 	text-align: center;
 }
+
 .projector-page .timer .seconds {
 	text-align: left;
 }
+
 .projector-page .timer .timer-label {
 	text-align: center;
 	grid-column: span 3;
 	font-family: "NCAA NKU Norse", "Norse", sans-serif;
 	font-size: 10vmax;
-}
-
-
-/*## Juntas-specific stuff */
-:root {
-	--juntas--cnn-logo-left: 10vmin;
-}
-
-.juntas.projector-page #backgroundVideoLoop {
-	filter: hue-rotate(180deg) brightness(4) saturate(0.6);
-}
-
-/* VHS distortion */
-.juntas.projector-page .spotlight-overlay {
-	position: fixed;
-	width: 100vw;
-	height: 100vh;
-	object-fit: cover;
-	opacity: 0.15;
-	z-index: 6;
-}
-
-.juntas.projector-page .logo {
-	display: block;
-	position: fixed;
-	left: var(--juntas--cnn-logo-left);
-	bottom: 5vmin;
-	max-height: 10vmin;
-	z-index: 2;
-}
-
-.juntas.projector-page .timer .timer-label {
-	font-family: "Helvetica", sans-serif;
-	font-size: 3vmin;
-	position: fixed;
-	right: var(--juntas--cnn-logo-left);
-	top: 5vmin;
-}
-
-.juntas.projector-page .timer {
-	position: fixed;
-	right: var(--juntas--cnn-logo-left);
-	bottom: 5vmin;
-	font-size: 8.5vmin;
-	letter-spacing: -0.02em;
-	font-weight: bold;
-	font-family: "Helvetica", sans-serif;
-	text-shadow: 0.01em 0.01em 0 black, 0.02em 0.02em 0 black, 0.03em 0.03em 0 black, 0.04em 0.04em 0 black, 0.05em 0.05em 0 black,
-	0.06em 0.06em 0 black, 0.07em 0.07em 0 black, 0.08em 0.08em 0 black, 0.09em 0.09em 0 black, 0.10em 0.10em 0 black,
-	0.11em 0.11em 0 black, 0.12em 0.12em 0 black, 0.13em 0.13em 0 black, 0.14em 0.14em 0 black, 0.15em 0.15em 0 black;
-
-}
-
-.juntas.projector-page .article.spotlight {
-	background-color: #369;
-	z-index: 2;
-}
-
-.juntas.projector-page .spotlight-carrier {
-	align-self: flex-start;
-	padding: 0 var(--juntas--cnn-logo-left);
-	z-index: 2;
-	font-weight: bold;
-	font-style: italic;
-	text-shadow: 0.01em 0.01em 0 black, 0.02em 0.02em 0 black, 0.03em 0.03em 0 black, 0.04em 0.04em 0 black, 0.05em 0.05em 0 black,
-	0.06em 0.06em 0 black, 0.07em 0.07em 0 black, 0.08em 0.08em 0 black, 0.09em 0.09em 0 black, 0.10em 0.10em 0 black,
-	0.11em 0.11em 0 black, 0.12em 0.12em 0 black, 0.13em 0.13em 0 black, 0.14em 0.14em 0 black, 0.15em 0.15em 0 black;
-	letter-spacing: -0.02em;
-	line-height: 1.1;
-	align-items: flex-start;
-	flex-direction: column;
-
-	font-size: 6vmax;
-	gap: 1vmax;
-}
-
-.juntas.projector-page .theme {
-	font-size: 3vmax;
-}
-
-.juntas.projector-page .spotlight-background {
-	transform: translateX(2vw) scale(110%);
-}
-
-
-
-
-/*## Deephaven-specific-stuff */
-
-.deephaven.projector-page .logo {
-	display: block;
-	max-height: 30vh;
-}
-
-.deephaven.projector-page .timer {
-	/*font-family: "Norse";*/
-	font-family: "NCAA NKU Norse";
-	font-weight: bold;
-}
-
-.deephaven.projector-page .spotlight-carrier {
-	/*font-family: "Norse";*/
-	font-family: "NCAA NKU Norse";
-	align-items: center;
-	text-align: center;
-	mix-blend-mode: screen;
-	background-color: white;
-	background-image: url('../../assets/images/deephaven/stone-background-2.jpg');
-	background-size: cover;
-	height: 100vh;
-	width: 100vw;
-
-	perspective: 100vw;
-}
-
-.deephaven.projector-page .spotlight-carrier > * {
-	background: #000;
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-}
-
-.deephaven.projector-page .spotlight-carrier .headline {
-	font-size: min(15vh, 12vw);
-	text-size-adjust: auto;
-	/*transform: rotate3d(1, 0, 0, 55deg);*/
-}
-
-.deephaven.projector-page .spotlight-carrier .theme {
-	font-family: "NCAA NKU Norse";
-	text-transform: uppercase;
-	position: relative;
-	font-size: min(6vh, 6vw);
-	margin-bottom: 5vh;
-	transform: translateY(2.5vh);
-}
-
-.deephaven.projector-page .spotlight-carrier .theme::after {
-	background: #ffcc00;
-	position: fixed;
-	bottom: 0.1em;
-	left: 0;
-	height: 0.1em;
-	width: 100%;
-	display: block;
-	content: " ";
-	z-index: -1;
-}
-
-
-
-.deephaven.projector-page .calamity video.spotlight-background {
-	filter: brightness(250%) invert(0) hue-rotate(110deg);
-}
-.deephaven.projector-page .calamity .spotlight-carrier {
-	filter: brightness(100%) invert(1) hue-rotate(180deg);
-}
-.deephaven.projector-page .calamity .spotlight-carrier .theme::after {
-	background: #f70;
-}
-
-
-.deephaven.projector-page .discovery video.spotlight-background {
-	filter: brightness(100%) hue-rotate(300deg);
-	mix-blend-mode: multiply;
-}
-.deephaven.projector-page .discovery .spotlight-carrier {
-	mix-blend-mode: difference;
-}
-.deephaven.projector-page .discovery .spotlight-carrier .theme::after {
-	background: #000;
-}
-
-
-.deephaven.projector-page .doom .spotlight-carrier {
-	mix-blend-mode: overlay;
-	filter: invert(1); /* TODO: Ask Trenton */
-}
-.deephaven.projector-page .doom .spotlight-carrier .theme::after {
-	background: #000;
-}
-
-
-.deephaven.projector-page .grudge {
-	filter: brightness(100%) invert(0) hue-rotate(180deg) saturate(250%);
-}
-.deephaven.projector-page .grudge .spotlight-carrier {
-	filter: brightness(100%) invert(1) hue-rotate(180deg);
-}
-.deephaven.projector-page .grudge .spotlight-carrier .theme::after {
-	background: #606;
-}
-
-
-.deephaven.projector-page .gossip {
-	filter: brightness(100%) invert(0) hue-rotate(0deg) saturate(150%);
-}
-.deephaven.projector-page .gossip .spotlight-carrier {
-	mix-blend-mode: screen;
-}
-.deephaven.projector-page .gossip .spotlight-carrier .theme::after {
-	background: #a0a;
-}
-
-
-.deephaven.projector-page .oath {
-	filter: invert(1) sepia(1);
-}
-.deephaven.projector-page .oath .spotlight-carrier {
-	mix-blend-mode: screen;
-	filter: brightness(100%) invert(1) hue-rotate(200deg);
-}
-.deephaven.projector-page .oath .spotlight-carrier .theme::after {
-	background: #f70;
-}
-
-
-.deephaven.projector-page .triumph video.spotlight-background {
-	filter: brightness(350%) hue-rotate(180deg);
-	mix-blend-mode: screen;
-}
-.deephaven.projector-page .triumph .spotlight-carrier {
-	mix-blend-mode: screen;
-	filter: brightness(100%) invert(1) hue-rotate(180deg);
-}
-.deephaven.projector-page .triumph .spotlight-carrier .theme::after {
-	background: #f70;
-}
-
-/* Golden triumph */
-/*.deephaven.projector-page .spotlight-articles .triumph video.spotlight-background {*/
-/*	filter: hue-rotate(110deg);*/
-/*}*/
-/*.deephaven.projector-page .triumph .spotlight-carrier {*/
-/*	mix-blend-mode: screen;*/
-/*	filter: brightness(100%) invert(1) hue-rotate(200deg);*/
-/*}*/
-/*.deephaven.projector-page .spotlight-articles .triumph .spotlight-carrier .theme::after {*/
-/*	background: #f70;*/
-/*}*/
-
-/* Maybe a better gossip? */
-/*.deephaven.projector-page .calamity {*/
-/*	filter: brightness(100%) invert(1) hue-rotate(160deg);*/
-/*}*/
-/*.deephaven.projector-page .calamity .spotlight-carrier {*/
-/*	!*mix-blend-mode: hard-light;*!*/
-/*	filter: brightness(100%) invert(1) hue-rotate(180deg);*/
-/*}*/
-/*.deephaven.projector-page .calamity .spotlight-carrier .headline {*/
-/*	!*mix-blend-mode: multiply;*!*/
-/*}*/
-/*.deephaven.projector-page .calamity .spotlight-carrier .theme::after {*/
-/*	background: #ff00ff;*/
-/*}*/
-
-
-/* Light background gold kinda nice */
-/*.deephaven.projector-page .spotlight-articles .grudge video.spotlight-background {*/
-/*	filter: hue-rotate(110deg);*/
-/*}*/
-/*.deephaven.projector-page .spotlight-articles .grudge {*/
-/*	filter: brightness(150%) invert(0) hue-rotate(0deg);*/
-/*}*/
-/*.deephaven.projector-page .grudge .spotlight-carrier {*/
-/*	mix-blend-mode: hard-light;*/
-/*}*/
-/*.deephaven.projector-page .spotlight-articles .grudge .spotlight-carrier .theme::after {*/
-/*	background: #606;*/
-/*}*/
-
-.deephaven.projector-page .crawlerHeadline {
-	/*font-family: Norse, sans-serif;*/
-	font-family: 'NCAA NKU Norse', serif;
-	/*font-family: 'TofinoCond-Bold', serif;*/
-	font-size: 5vmax;
-	padding: 0 5vmax;
-	position: relative;
-}
-.deephaven.projector-page .crawlerHeadline::before {
-	content: "  ⬩  ";
-	display: block;
-	color: #013848;
-	position: absolute;
-	left: -2.5vmax;
-	top: -0.95vmax;
-}
-
-.deephaven.projector-page .crawlGroup.anim0,
-.deephaven.projector-page .crawlGroup.anim1 {
-	background: transparent;
-}
-.deephaven.projector-page .crawlerContainer {
-	background: #000;
-	height: 5.5vmax;
 }
