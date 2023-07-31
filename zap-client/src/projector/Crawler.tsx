@@ -33,7 +33,7 @@ const exampleHeadlines = [
 ];
 
 const tempArticles: ArticleDat[] = exampleHeadlines.map((v, i) => (
-	{id: i, headline: v}
+	{id: i, headline: v, orgIdf: ''}
 ));
 
 const $testArticles = atom(tempArticles);
@@ -205,12 +205,14 @@ function UpdateGroupItems($items: PrimitiveAtom<T_Item[]>) {
 
 // TODO: put external, pass in
 function GetNextItems(prevIndex: number, countToAdd: number): [number, T_Item[]] {
-	let allArticles = $store.get($allArticles);
+	const allArticles = $store.get($allArticles);
 	// let allArticles = $store.get($testArticles);
 	
-	if (!allArticles?.length) {
-		allArticles = tempArticles;
-	}
+	// if (!allArticles?.length) {
+	// 	allArticles = tempArticles;
+	// }
+	
+	if (!allArticles?.length) return [0,[]];
 	
 	const allArticlesCount = allArticles.length;
 	

@@ -4,6 +4,9 @@ import {E_ConnStatus, E_Endpoint, T_GameIdf} from '../../zap-shared/SystemTypes.
 import {ArticleDat, SpotlightDat, TimerDat} from '../../zap-shared/_Dats.ts';
 import {atomWithStorage, splitAtom} from 'jotai/utils';
 import {nanoid} from 'nanoid';
+import {FallbackConfig} from './configs/BaseGameConfig.ts';
+import DeephavenConfig from './configs/DeephavenConfig.ts';
+import JuntasConfig from './configs/JuntasConfig.ts';
 
 export const $store = getDefaultStore();
 export const $connStatus = atom(E_ConnStatus.unset);
@@ -13,7 +16,6 @@ export const $endpoint = atom(E_Endpoint.unknown);
 export const $gameIdf = atom<T_GameIdf>('');
 export const $allGameIdfs = atom<string[]>([]);
 export const $uuid = atomWithStorage('ZAP_UUID', nanoid(5));
-
 /** all articles we have locally (may not have *all* of them) */
 export const $allArticles = atom<ArticleDat[]>([]);
 export const $splitArticles = splitAtom($allArticles);//, a => `articleAtomId${a.id}`);
@@ -23,3 +25,14 @@ export const $crawlerArticles = atom<ArticleDat[]>([]);
 export const $author = atomWithStorage('ZAP_AUTHOR', '');
 
 export const $timer = atom<TimerDat>({label: '', ms: 0});
+
+export const $config = atom(get => {
+	switch (get($gameIdf)) {
+		case DeephavenConfig.gameIdf:
+			return DeephavenConfig;
+		case JuntasConfig.gameIdf:
+			return JuntasConfig;
+		default:
+			return FallbackConfig;
+	}
+});

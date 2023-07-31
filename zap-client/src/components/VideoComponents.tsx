@@ -64,6 +64,7 @@ function GetSourceType(src: string): string {
 	
 	switch (ext) {
 		case 'webm':
+		case 'mov':
 		case 'mp4':
 			return `video/${ext}`;
 		default:

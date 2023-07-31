@@ -4,10 +4,11 @@ import {Input} from '../components/InputComponents.tsx';
 import React from 'react';
 import {atom} from 'jotai';
 import {Button, Radios, T_RadioOption} from '../components/ButtonComponents.tsx';
-import {$author, $store, $gameIdf, $uuid} from '../ClientState.ts';
+import {$author, $store, $gameIdf, $uuid, $config} from '../ClientState.ts';
 import {HEADLINE_MAX_SIZE, HEADLINE_MIN_SIZE, TimerDat} from '../../../zap-shared/_Dats.ts';
 import {useAtom} from 'jotai/index';
 import './HeadlineControls.css';
+import DeephavenConfig from '../configs/DeephavenConfig.ts';
 
 const USE_UUID_INSTEAD_OF_AUTHOR = true;
 
@@ -86,43 +87,41 @@ export function ThemeControls({$org, $gameIdf}: {
 	$org: PrimitiveAtom<string>,
 	$gameIdf: PrimitiveAtom<string>
 }) {
+	const [config] = useAtom($config);
 	
-	const [theGameIdfThingy] = useAtom($gameIdf);
+	if (!config?.orgs.length) return <div/>;
 	
+	return (
+		<Radios
+			$value={$org}
+			title={'Type'}
+			options={config.orgs}
+		/>
+	);
 	// TODO: I wanted to have radio buttons or a select box for different
 	// themes here but it seems those components are quite a bit more
 	// complicated to implement than I initially thought. :(
-	
-	switch (theGameIdfThingy) {
-		case 'deephaven':
-			return (
-				<Radios
-					$value={$org}
-					title={'Type'}
-					options={DEEPHAVEN_ORGS}
-				/>
-			);
-		case 'juntas-bbc':
-		case 'juntas-cnn':
-		case 'juntas-pbs':
-		case 'juntas':
-		default:
-			return (
-				<Input
-					label={'Org TODO'}
-					$value={$org}
-					description={`(TODO) for now, will apply this string as headline css className`}
-				/>
-			);
-	}
+	//
+	// switch (theGameIdfThingy) {
+	// 	case 'deephaven':
+	// 		return (
+	// 			<Radios
+	// 				$value={$org}
+	// 				title={'Type'}
+	// 				options={DeephavenConfig.orgs}
+	// 			/>
+	// 		);
+	// 	case 'juntas-bbc':
+	// 	case 'juntas-cnn':
+	// 	case 'juntas-pbs':
+	// 	case 'juntas':
+	// 	default:
+	// 		return (
+	// 			<Input
+	// 				label={'Org TODO'}
+	// 				$value={$org}
+	// 				description={`(TODO) for now, will apply this string as headline css className`}
+	// 			/>
+	// 		);
+	// }
 }
-
-const DEEPHAVEN_ORGS: T_RadioOption[] = [
-	{id: 'oath', label: 'Oath'},
-	{id: 'grudge', label: 'Grudge'},
-	{id: 'triumph', label: 'Triumph'},
-	{id: 'calamity', label: 'Calamity'},
-	{id: 'discovery', label: 'Discovery'},
-	{id: 'gossip', label: 'Gossip'},
-	{id: 'doom', label: 'Doom'},
-];

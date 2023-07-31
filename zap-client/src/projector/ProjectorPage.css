@@ -160,7 +160,7 @@
 	z-index: 6;
 }
 
-.juntas.projector-page .juntas-news-logo {
+.juntas.projector-page .logo {
 	display: block;
 	position: fixed;
 	left: var(--juntas--cnn-logo-left);
@@ -227,7 +227,7 @@
 
 /* Deephaven-specific-stuff */
 
-.deephaven.projector-page .inkbeard-news-logo {
+.deephaven.projector-page .logo {
 	display: block;
 	max-height: 30vh;
 }
