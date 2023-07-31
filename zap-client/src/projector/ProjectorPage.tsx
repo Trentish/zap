@@ -117,17 +117,18 @@ function SpotlightHeadline({$article}: { $article: Atom<ArticleDat> }) {
 	return (
 		<div
 			ref={spotlightRef}
-			onAnimationStart={() => config.OnStart_Spotlight(stingerInRef.current, bgVideoRef.current)}
+			onAnimationStart={() => config.OnStart_Spotlight(
+				stingerInRef.current,
+				bgVideoRef.current,
+			)}
 			className={className}
 			data-debug={`${article.id}, ${spotlight.spotlightId}, ${spotlight.pendingAboveId}`}
 		>
-			{weAreSpotlightingThisArticleRightNow && (
-				<BackgroundVideo
-					src={config.GetOrg(article.orgIdf).bgVideo}
-					className={'spotlight-background'}
-					ref={bgVideoRef}
-				/>
-			)}
+			<BackgroundVideo
+				src={config.GetOrg(article.orgIdf).bgVideo}
+				className={'spotlight-background'}
+				ref={bgVideoRef}
+			/>
 			<div className={'spotlight-carrier'}>
 				<div className={'theme'}>{article.orgIdf}</div>
 				<div className={'headline'}>{article.headline}</div>
