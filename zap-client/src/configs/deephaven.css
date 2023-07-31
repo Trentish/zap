@@ -87,7 +87,7 @@
 }
 
 
-/*      ## gossip */
+/*      ##  gossip */
 .deephaven.projector-page .gossip {
 	filter: brightness(100%) invert(0) hue-rotate(0deg) saturate(150%);
 }

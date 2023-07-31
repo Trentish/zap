@@ -48,23 +48,26 @@ export type P_Radios = {
 	$value: PrimitiveAtom<string>,
 	title: string, // legend?
 	options: T_RadioOption[],
+	filterOption?: (option: T_RadioOption | undefined) => boolean | undefined,
 	
 	containerClass?: string,
 }
 
 export function Radios(props: P_Radios) {
+	const options = props.filterOption
+		? props.options.filter(props.filterOption)
+		: props.options;
+	
 	return (
 		<fieldset className={clsx('radios', props.containerClass)}>
 			<legend>{props.title}</legend>
 			
-			{props.options.map((
-				(option, index) => (
-					<RadioOption
-						key={option.id}
-						$value={props.$value}
-						{...option}
-					/>
-				)
+			{options.map(option => (
+				<RadioOption
+					key={option.id}
+					$value={props.$value}
+					{...option}
+				/>
 			))}
 		</fieldset>
 	);

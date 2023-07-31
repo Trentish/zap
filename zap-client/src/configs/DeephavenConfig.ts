@@ -30,6 +30,7 @@ const GOSSIP: T_Org = {
 	bgVideo: `${DH_VIDS}spotlight-background-3.mp4`,
 	introVideo: `${DH_VIDS}ink-transition.webm`,
 	outroVideo: `${DH_VIDS}ink-transition.webm`,
+	showAsRadio: true,
 };
 const DISCOVERY: T_Org = {
 	id: 'discovery',
@@ -37,6 +38,7 @@ const DISCOVERY: T_Org = {
 	bgVideo: `${DH_VIDS}spotlight-background-3.mp4`,
 	introVideo: `${DH_VIDS}ink-transition.webm`,
 	outroVideo: `${DH_VIDS}ink-transition.webm`,
+	showAsRadio: true,
 };
 const TRIUMPH: T_Org = {
 	id: 'triumph',
@@ -44,6 +46,7 @@ const TRIUMPH: T_Org = {
 	bgVideo: `${DH_VIDS}spotlight-background-3.mp4`,
 	introVideo: `${DH_VIDS}ink-transition.webm`,
 	outroVideo: `${DH_VIDS}ink-transition.webm`,
+	showAsRadio: true,
 };
 const CALAMITY: T_Org = {
 	id: 'calamity',
@@ -51,6 +54,7 @@ const CALAMITY: T_Org = {
 	bgVideo: `${DH_VIDS}spotlight-background-3.mp4`,
 	introVideo: `${DH_VIDS}ink-transition.webm`,
 	outroVideo: `${DH_VIDS}ink-transition.webm`,
+	showAsRadio: true,
 };
 const OATH: T_Org = {
 	id: 'oath',
@@ -58,6 +62,7 @@ const OATH: T_Org = {
 	bgVideo: `${DH_VIDS}spotlight-background-3.mp4`,
 	introVideo: `${DH_VIDS}ink-transition.webm`,
 	outroVideo: `${DH_VIDS}ink-transition.webm`,
+	showAsRadio: true,
 };
 const GRUDGE: T_Org = {
 	id: 'grudge',
@@ -65,6 +70,7 @@ const GRUDGE: T_Org = {
 	bgVideo: `${DH_VIDS}spotlight-background-3.mp4`,
 	introVideo: `${DH_VIDS}ink-transition.webm`,
 	outroVideo: `${DH_VIDS}ink-transition.webm`,
+	showAsRadio: true,
 };
 const DOOM: T_Org = {
 	id: 'doom',
@@ -72,6 +78,7 @@ const DOOM: T_Org = {
 	bgVideo: `${DH_VIDS}spotlight-background-5.mp4`,
 	introVideo: `${DH_VIDS}ink-transition.webm`,
 	outroVideo: `${DH_VIDS}ink-transition.webm`,
+	showAsRadio: true,
 };
 
 

@@ -2,7 +2,7 @@ import {ArticleDat} from '../../../zap-shared/_Dats.ts';
 import {Timer} from '../displays/Timer.tsx';
 import {useAtom} from 'jotai';
 import './ProjectorPage.css';
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {$allArticles, $config, $splitArticles, $spotlight, $timer} from '../ClientState.ts';
 import {Atom} from 'jotai/vanilla/atom';
 import {clsx} from 'clsx';
@@ -24,6 +24,8 @@ export function ProjectorPage() {
 	
 	return (
 		<div className={`projector-page ${client.gameIdf}`}>
+			<InitialClickMe/>
+			
 			<BackgroundVideo
 				src={config.bgVideo}
 				id={'backgroundVideoLoop'}
@@ -205,7 +207,7 @@ function SpotlightHeadline({article}: { article?: ArticleDat }) {
 			/>
 			
 			<div
-				className={clsx('spotlight-carrier')}
+				className={'spotlight-carrier'}
 				ref={carrierRef}
 			>
 				<div className={'theme'}>{orgIdf}</div>
@@ -235,5 +237,17 @@ function Headline({$article}: { $article: Atom<ArticleDat> }) {
 		>
 			{article.headline} --- {className}
 		</div>
+	);
+}
+
+function InitialClickMe() {
+	const [needClick, setNeedClick] = useState(true);
+	if (!needClick) return <div/>;
+	
+	return (
+		<div
+			className={'initial-click-me'}
+			onClick={() => setNeedClick(false)}
+		>Click Me</div>
 	);
 }

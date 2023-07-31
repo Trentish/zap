@@ -119,7 +119,8 @@
 }
 
 
-/*## TIMER */
+/*## TIMER*/
+/*TODO: projector timer VS player/admin timer*/
 
 .projector-page .timer {
 	font-size: 20vmax;
@@ -146,4 +147,22 @@
 	grid-column: span 3;
 	font-family: "NCAA NKU Norse", "Norse", sans-serif;
 	font-size: 10vmax;
+}
+
+
+.projector-page .initial-click-me {
+	display: flex;
+	color: white;
+	line-height: 1.1;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	background-color: #282a25;
+	font-size: 10vmax;
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100vh;
+	width: 100vw;
+	z-index: 999;
 }

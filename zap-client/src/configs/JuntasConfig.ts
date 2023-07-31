@@ -63,6 +63,7 @@ const CNN: T_Org = {
 	overlay: `${J_VIDS}vhs.mp4`,
 	introVideo: `${J_VIDS}cnn-transition-1.webm`,
 	outroVideo: `${J_VIDS}cnn-transition-1.webm`,
+	showAsRadio: true,
 };
 
 const PBS: T_Org = {

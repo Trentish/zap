@@ -1,4 +1,4 @@
-import React, {SyntheticEvent} from 'react';
+import React from 'react';
 import {ArticleDat} from '../../../zap-shared/_Dats.ts';
 
 export type T_Org = {
@@ -11,6 +11,8 @@ export type T_Org = {
 	
 	introMidMs?: 1000,
 	outroMidMs?: 500,
+	
+	showAsRadio?: boolean,
 }
 
 // TODO: where does this want to live
@@ -42,7 +44,6 @@ export class BaseGameConfig {
 		//
 	}
 	
-	
 	GetOrg(article: ArticleDat | undefined): T_Org {
 		if (!article) return this.fallbackOrg;
 		
@@ -52,39 +53,10 @@ export class BaseGameConfig {
 		return org;
 	}
 	
+	// TODO: maybe move to T_Org
 	OnStart_Spotlight(article: ArticleDat | undefined, refs: T_SpotlightRefs) {
 		console.log(`A new spotlight headline has dropped!`);
-		// refs.introRef.current?.play();
 	}
-	
-	// OnPlay_StingerIn(evt: SyntheticEvent<HTMLVideoElement>, refs: T_SpotlightRefs) {
-	// 	console.log(`OnPlay_StingerIn`);
-	//
-	// 	setTimeout(function () {
-	// 		console.log('StingerIn timeout');
-	// 		refs.outroRef.current?.play();
-	// 	}, 9000);
-	// }
-	//
-	// OnTimeUpdate_StingerIn(evt: SyntheticEvent<HTMLVideoElement>, refs: T_SpotlightRefs) {
-	// 	console.log(`OnTimeUpdate_StingerIn ${evt.currentTarget.currentTime}`);
-	// 	if (evt.currentTarget.currentTime >= 1) {
-	// 		console.log(`headlineStingerIn_onTimeUpdate we're 1 seconds in!`);
-	// 		refs.spotlightRef.current?.classList.add('now-showing');
-	// 	}
-	// }
-	//
-	// // TODO: ref of something else (parent?) for adding/removing class, or move this to spotlight section
-	// OnTimeUpdate_StingerOut(
-	// 	evt: SyntheticEvent<HTMLVideoElement>,
-	// 	refs: T_SpotlightRefs,
-	// ) {
-	// 	console.log(`OnTimeUpdate_StingerOut ${evt.currentTarget.currentTime}`);
-	// 	if (evt.currentTarget.currentTime >= 1) {
-	// 		console.log(`headlineStingerOut_onTimeUpdate we're 1 seconds in!`);
-	// 		refs.spotlightRef.current?.classList.remove('now-showing');
-	// 	}
-	// }
 }
 
 export type T_SpotlightRefs = {

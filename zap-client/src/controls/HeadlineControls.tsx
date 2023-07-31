@@ -2,13 +2,12 @@ import {PrimitiveAtom} from 'jotai/vanilla/atom';
 import {useClient} from '../ClientContext.ts';
 import {Input} from '../components/InputComponents.tsx';
 import React from 'react';
-import {atom} from 'jotai';
+import {atom, useAtom} from 'jotai';
 import {Button, Radios, T_RadioOption} from '../components/ButtonComponents.tsx';
-import {$author, $store, $gameIdf, $uuid, $config} from '../ClientState.ts';
-import {HEADLINE_MAX_SIZE, HEADLINE_MIN_SIZE, TimerDat} from '../../../zap-shared/_Dats.ts';
-import {useAtom} from 'jotai/index';
+import {$author, $config, $store, $uuid} from '../ClientState.ts';
+import {HEADLINE_MAX_SIZE, HEADLINE_MIN_SIZE} from '../../../zap-shared/_Dats.ts';
 import './HeadlineControls.css';
-import DeephavenConfig from '../configs/DeephavenConfig.ts';
+import {T_Org} from '../configs/BaseGameConfig.ts';
 
 const USE_UUID_INSTEAD_OF_AUTHOR = true;
 
@@ -37,7 +36,6 @@ export function HeadlineControls() {
 		const org = $store.get($org);
 		
 		client.packets.PostArticle.Send({
-			// headline: `Testy test ${Math.floor(Math.random() * 99999)}`,
 			headline: headline,
 			author: author,
 			orgIdf: org, // TODO
@@ -57,8 +55,9 @@ export function HeadlineControls() {
 			<Input
 				label={'Headline'}
 				$value={$headline}
-				description={`don't post stupid shit (TODO)`}
-				placeholder={`X adjectively verbed Y!`}
+				description={`don't post stupid shit (TODO, maybe have examples)`}
+				placeholder={``}
+				// placeholder={`X adjectively verbed Y!`}
 				maxLength={HEADLINE_MAX_SIZE}
 				inputProps={{onKeyDown: checkKeyDown}}
 				textArea
@@ -70,7 +69,7 @@ export function HeadlineControls() {
 					placeholder={'Jed McJedfry'}
 				/>
 			)}
-			<ThemeControls $org={$org} $gameIdf={$gameIdf}/>
+			<ThemeControls $org={$org}/>
 			<Button
 				label={'Post'}
 				onClick={postArticle}
@@ -83,10 +82,11 @@ export function HeadlineControls() {
 	);
 }
 
-export function ThemeControls({$org, $gameIdf}: {
-	$org: PrimitiveAtom<string>,
-	$gameIdf: PrimitiveAtom<string>
-}) {
+const OnlyIncludeOrgIf = (opt: T_RadioOption | undefined) => (
+	opt as T_Org
+).showAsRadio;
+
+export function ThemeControls({$org}: { $org: PrimitiveAtom<string> }) {
 	const [config] = useAtom($config);
 	
 	if (!config?.orgs.length) return <div/>;
@@ -96,32 +96,7 @@ export function ThemeControls({$org, $gameIdf}: {
 			$value={$org}
 			title={'Type'}
 			options={config.orgs}
+			filterOption={OnlyIncludeOrgIf}
 		/>
 	);
-	// TODO: I wanted to have radio buttons or a select box for different
-	// themes here but it seems those components are quite a bit more
-	// complicated to implement than I initially thought. :(
-	//
-	// switch (theGameIdfThingy) {
-	// 	case 'deephaven':
-	// 		return (
-	// 			<Radios
-	// 				$value={$org}
-	// 				title={'Type'}
-	// 				options={DeephavenConfig.orgs}
-	// 			/>
-	// 		);
-	// 	case 'juntas-bbc':
-	// 	case 'juntas-cnn':
-	// 	case 'juntas-pbs':
-	// 	case 'juntas':
-	// 	default:
-	// 		return (
-	// 			<Input
-	// 				label={'Org TODO'}
-	// 				$value={$org}
-	// 				description={`(TODO) for now, will apply this string as headline css className`}
-	// 			/>
-	// 		);
-	// }
 }

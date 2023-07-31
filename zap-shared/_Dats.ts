@@ -16,7 +16,7 @@ export interface ArticleDat {
 	headline: string;
 	author?: string;
 	orgIdf: string;
-	themeTags?: string[];
+	themeTags?: string[]; // TODO: currently unused
 	// tickerVisible: boolean; // maybe?
 	// sound, etc.?
 }
