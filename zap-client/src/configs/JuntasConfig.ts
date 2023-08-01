@@ -53,7 +53,9 @@ const BBC: T_Org = {
 	bgVideo: `${J_VIDS}tobacco_fwp91f00.mp4`,
 	overlayVideo: `${J_VIDS}vhs.mp4`,
 	introVideo: `${J_VIDS}cnn-transition-1.webm`,
+	introAudio: ``, // TODO
 	outroVideo: `${J_VIDS}cnn-transition-1.webm`,
+	outroAudio: ``, // TODO
 };
 
 const CNN: T_Org = {
@@ -62,7 +64,9 @@ const CNN: T_Org = {
 	bgVideo: `${J_VIDS}tobacco_fwp91f00.mp4`,
 	overlayVideo: `${J_VIDS}vhs.mp4`,
 	introVideo: `${J_VIDS}cnn-transition-1.webm`,
+	introAudio: ``, // TODO
 	outroVideo: `${J_VIDS}cnn-transition-1.webm`,
+	outroAudio: ``, // TODO
 	showAsRadio: true,
 };
 
@@ -72,7 +76,9 @@ const PBS: T_Org = {
 	bgVideo: `${J_VIDS}tobacco_fwp91f00.mp4`,
 	overlayVideo: `${J_VIDS}vhs.mp4`,
 	introVideo: `${J_VIDS}cnn-transition-1.webm`,
+	introAudio: ``, // TODO
 	outroVideo: `${J_VIDS}cnn-transition-1.webm`,
+	outroAudio: ``, // TODO
 };
 
 const REAGAN: T_Org = {
@@ -81,7 +87,9 @@ const REAGAN: T_Org = {
 	bgVideo: `../assets/videos/deephaven/spotlight-background-5.mp4`,
 	overlayVideo: `${J_VIDS}vhs.mp4`,
 	introVideo: `${J_VIDS}cnn-transition-1.webm`,
+	introAudio: ``, // TODO
 	outroVideo: `${J_VIDS}cnn-transition-1.webm`,
+	outroAudio: ``, // TODO
 };
 
 export default new JuntasConfig();

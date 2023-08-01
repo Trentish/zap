@@ -6,11 +6,17 @@ export type T_Org = {
 	label: string,
 	bgVideo: string,
 	overlayVideo?: string,
-	introVideo: string,
-	outroVideo: string,
 	
-	introMidMs?: 1000,
-	outroMidMs?: 500,
+	introVideo: string,
+	introAudio: string,
+	introAudioDelay?: number,
+	
+	outroVideo: string,
+	outroAudio: string,
+	outroAudioDelay?: number,
+	
+	introMidMs?: number,
+	outroMidMs?: number,
 	
 	showAsRadio?: boolean,
 }
@@ -30,7 +36,9 @@ export class BaseGameConfig {
 		label: '',
 		bgVideo: `../assets/videos/box-background.mp4`,
 		introVideo: `../assets/videos/fw_red.webm`,
+		introAudio: '',
 		outroVideo: `../assets/videos/circle_red.webm`,
+		outroAudio: '',
 	};
 	
 	showCrawler = true;
@@ -63,8 +71,10 @@ export type T_SpotlightRefs = {
 	spotlightContainerRef: React.RefObject<HTMLDivElement>,
 	spotlightBackgroundRef: React.RefObject<HTMLVideoElement>,
 	spotlightOverlayRef: React.RefObject<HTMLVideoElement>,
-	introRef: React.RefObject<HTMLVideoElement>,
-	outroRef: React.RefObject<HTMLVideoElement>,
+	introVideoRef: React.RefObject<HTMLVideoElement>,
+	introAudioRef: React.RefObject<HTMLAudioElement>,
+	outroVideoRef: React.RefObject<HTMLVideoElement>,
+	outroAudioRef: React.RefObject<HTMLAudioElement>,
 	carrierRef: React.RefObject<HTMLDivElement>,
 	themeRef: React.RefObject<HTMLDivElement>,
 	headlineRef: React.RefObject<HTMLDivElement>,

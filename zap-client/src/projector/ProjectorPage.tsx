@@ -22,6 +22,7 @@ import {
 	T_Org,
 	T_SpotlightRefs,
 } from '../configs/BaseGameConfig.ts';
+import {Audio} from '../components/AudioComponents.tsx';
 
 const SHOW_LAST_COUNT = 7;
 const LOG = true;
@@ -77,9 +78,14 @@ const SHOW = (element: HTMLElement | null) => element?.classList.add('show');
 const HIDE = (element: HTMLElement | null) => element?.classList.remove('show');
 const ADD_CLASS = (element: HTMLElement | null, c: string) => element?.classList.add(c);
 const REMOVE_CLASS = (element: HTMLElement | null, c: string) => element?.classList.remove(c);
-const PLAY = (videoEl: HTMLVideoElement | null) => videoEl?.play().then();
+const PLAY = (mediaEl: HTMLVideoElement | HTMLAudioElement | null) => {
+	if (mediaEl && mediaEl.src) mediaEl.play().then().catch(); // TODO: fix error when empty audio
+};
 const SET_VID = (videoEl: HTMLVideoElement | null, src: string | undefined) => {
 	if (videoEl && src) videoEl.src = src;
+};
+const SET_AUD = (audioEl: HTMLAudioElement | null, src: string | undefined) => {
+	if (audioEl && src) audioEl.src = src;
 };
 const SET_TEXT = (element: HTMLDivElement | null, text: string) => {
 	if (element) element.innerText = text;
@@ -92,8 +98,10 @@ function Spotlight() {
 	const spotlightContainerRef = useRef<HTMLDivElement>(null);
 	const spotlightBackgroundRef = useRef<HTMLVideoElement>(null);
 	const spotlightOverlayRef = useRef<HTMLVideoElement>(null);
-	const introRef = useRef<HTMLVideoElement>(null);
-	const outroRef = useRef<HTMLVideoElement>(null);
+	const introVideoRef = useRef<HTMLVideoElement>(null);
+	const introAudioRef = useRef<HTMLAudioElement>(null);
+	const outroVideoRef = useRef<HTMLVideoElement>(null);
+	const outroAudioRef = useRef<HTMLAudioElement>(null);
 	const carrierRef = useRef<HTMLDivElement>(null);
 	const themeRef = useRef<HTMLDivElement>(null);
 	const headlineRef = useRef<HTMLDivElement>(null);
@@ -102,8 +110,10 @@ function Spotlight() {
 		spotlightContainerRef: spotlightContainerRef,
 		spotlightBackgroundRef: spotlightBackgroundRef,
 		spotlightOverlayRef: spotlightOverlayRef,
-		introRef: introRef,
-		outroRef: outroRef,
+		introVideoRef: introVideoRef,
+		introAudioRef: introAudioRef,
+		outroVideoRef: outroVideoRef,
+		outroAudioRef: outroAudioRef,
 		carrierRef: carrierRef,
 		themeRef: themeRef,
 		headlineRef: headlineRef,
@@ -115,8 +125,10 @@ function Spotlight() {
 		const spotlightContainer = spotlightContainerRef.current;
 		const background = spotlightBackgroundRef.current;
 		const overlay = spotlightOverlayRef.current;
-		const intro = introRef.current;
-		const outro = outroRef.current;
+		const introVideo = introVideoRef.current;
+		const introAudio = introAudioRef.current;
+		const outroVideo = outroVideoRef.current;
+		const outroAudio = outroAudioRef.current;
 		const carrier = carrierRef.current;
 		const theme = themeRef.current;
 		const headline = headlineRef.current;
@@ -132,19 +144,21 @@ function Spotlight() {
 			ADD_CLASS(spotlightContainer, org.id);
 			
 			SET_VID(background, org.bgVideo);
-			SET_VID(intro, org.introVideo);
-			SET_VID(outro, org.outroVideo);
+			SET_VID(introVideo, org.introVideo);
+			SET_AUD(introAudio, org.introAudio);
+			SET_VID(outroVideo, org.outroVideo);
+			SET_AUD(outroAudio, org.outroAudio);
 			SET_VID(overlay, org.overlayVideo);
 			SET_TEXT(theme, org.label);
 			SET_TEXT(headline, article.headline);
 			
-			SHOW(intro);
-			PLAY(intro);
+			SHOW(introVideo);
+			PLAY(introVideo);
 			
-			const introTimer = setTimeout(
+			const introVideoTimer = setTimeout(
 				() => {
 					if (LOG) console.log(`🔦 useEffect: Spotlight,  intro mid`);
-					SHOW(intro);
+					SHOW(introVideo);
 					SHOW(background);
 					SHOW(overlay);
 					SHOW(carrier);
@@ -154,9 +168,15 @@ function Spotlight() {
 				org.introMidMs || INTRO_MID_DEFAULT,
 			);
 			
+			const introAudioTimer = setTimeout(
+				() => {
+					PLAY(introAudio);
+				}, org.introAudioDelay || 0);
+			
 			return () => {
 				if (LOG) console.log(`🔦 useEffect: Spotlight,  ENTER cleanup`);
-				clearTimeout(introTimer);
+				clearTimeout(introVideoTimer);
+				clearTimeout(introAudioTimer);
 			}; //>> started spotlight
 		}
 		
@@ -172,10 +192,10 @@ function Spotlight() {
 		//## spotlight EXIT
 		if (LOG) console.log(`🔦 useEffect: Spotlight,  spotlight EXIT`);
 		
-		SHOW(outro);
-		PLAY(outro);
+		SHOW(outroVideo);
+		PLAY(outroVideo);
 		
-		const outroTimer = setTimeout(
+		const outroVideoTimer = setTimeout(
 			() => {
 				if (LOG) console.log(`🔦 useEffect: Spotlight,  outro mid`);
 				
@@ -186,14 +206,20 @@ function Spotlight() {
 			prevOrg.outroMidMs || OUTRO_MID_DEFAULT,
 		);
 		
+		const outroAudioTimer = setTimeout(
+			() => {
+				PLAY(outroAudio);
+			}, prevOrg.outroAudioDelay || 0);
+		
 		return () => {
 			if (LOG) console.log(`🔦 useEffect: Spotlight,  EXIT cleanup`);
-			clearTimeout(outroTimer);
+			clearTimeout(outroVideoTimer);
+			clearTimeout(outroAudioTimer);
 			REMOVE_CLASS(spotlightContainer, prevOrg.id);
 			HIDE(background);
 			HIDE(overlay);
-			HIDE(intro);
-			HIDE(outro);
+			HIDE(introVideo);
+			HIDE(outroVideo);
 			HIDE(carrier);
 		}; //>> triggered outro
 	}, [article]);
@@ -205,39 +231,43 @@ function Spotlight() {
 			id={'spotlight'}
 		>
 			<BackgroundVideo
-				// src={org.bgVideo}
-				src={''}
+				src={``}
 				className={'spotlight-background'}
 				ref={spotlightBackgroundRef}
 			/>
 			
 			<BackgroundVideo
-				// src={org.overlayVideo}
-				src={''}
+				src={``}
 				className={'spotlight-overlay'}
 				ref={spotlightOverlayRef}
 			/>
 			
 			<Video
-				// src={org.introVideo}
 				src={``}
 				className={'intro'}
-				ref={introRef}
+				ref={introVideoRef}
+			/>
+			
+			<Audio
+				src={``}
+				ref={introAudioRef}
 			/>
 			
 			<Video
-				// src={org.outroVideo}
-				src={''}
+				src={``}
 				className={'outro'}
-				ref={outroRef}
+				ref={outroVideoRef}
+			/>
+			
+			<Audio
+				src={``}
+				ref={outroAudioRef}
 			/>
 			
 			<div
 				className={'spotlight-carrier'}
 				ref={carrierRef}
 			>
-				{/*<div className={'theme'}>{org?.label}</div>*/}
-				{/*<div className={'headline'}>{article?.headline}</div>*/}
 				<div
 					className={'theme'}
 					ref={themeRef}
