@@ -84,8 +84,11 @@ const PLAY = (mediaEl: HTMLVideoElement | HTMLAudioElement | null) => {
 const SET_VID = (videoEl: HTMLVideoElement | null, src: string | undefined) => {
 	if (videoEl && src) videoEl.src = src;
 };
-const SET_AUD = (audioEl: HTMLAudioElement | null, src: string | undefined) => {
-	if (audioEl && src) audioEl.src = src;
+const SET_AUD = (audioEl: HTMLAudioElement | null, src: string | undefined, volume = 1) => {
+	if (audioEl && src) {
+		audioEl.src = src;
+		audioEl.volume = volume;
+	}
 };
 const SET_TEXT = (element: HTMLDivElement | null, text: string) => {
 	if (element) element.innerText = text;
@@ -145,9 +148,9 @@ function Spotlight() {
 			
 			SET_VID(background, org.bgVideo);
 			SET_VID(introVideo, org.introVideo);
-			SET_AUD(introAudio, org.introAudio);
+			SET_AUD(introAudio, org.introAudio, org.introVolume);
 			SET_VID(outroVideo, org.outroVideo);
-			SET_AUD(outroAudio, org.outroAudio);
+			SET_AUD(outroAudio, org.outroAudio, org.outroVolume);
 			SET_VID(overlay, org.overlayVideo);
 			SET_TEXT(theme, org.label);
 			SET_TEXT(headline, article.headline);

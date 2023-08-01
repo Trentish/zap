@@ -1,3 +1,28 @@
+
+## TODO: need
+- [ ] DH Proj: turn label too big
+- [ ] DH Proj: crawler size/height
+- [ ] Player: basic styling
+- [ ] Player: timer styling
+- [ ] DH Audio: volume balance (can use org.introVolume, etc.)
+- [ ] asdf
+- [ ] asdf
+- [ ] asdf
+## TODO: nice to have
+- [ ] Admin: Timer niceties, save, restart, etc.
+- [ ] Player: default Org selection
+- [ ] Player: guidelines, examples
+- [ ] asdf
+- [ ] asdf
+- [ ] asdf
+- [ ] asdf
+- [ ] asdf
+- [ ] asdf
+- [ ] asdf
+- [ ] asdf
+
+
+
 ## dev
 - install `nvm` and set the default Node version to `16`
 - set up: run `npm install` in both /zap-server and /zap-client

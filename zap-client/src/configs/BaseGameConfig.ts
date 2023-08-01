@@ -10,10 +10,12 @@ export type T_Org = {
 	introVideo: string,
 	introAudio: string,
 	introAudioDelay?: number,
+	introVolume?: number,
 	
 	outroVideo: string,
 	outroAudio: string,
 	outroAudioDelay?: number,
+	outroVolume?: number,
 	
 	introMidMs?: number,
 	outroMidMs?: number,
