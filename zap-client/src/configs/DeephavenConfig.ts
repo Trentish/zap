@@ -8,8 +8,6 @@ class DeephavenConfig extends BaseGameConfig {
 	gameIdf = 'deephaven';
 	
 	bgVideo = `${DH_VID}deephaven-background.mp4`;
-	introVideo = `${DH_VID}ink-transition.webm`; // TEMP
-	outroVideo = `${DH_VID}ink-transition.webm`; // TEMP
 	
 	showCrawler = true;
 	logo = '../assets/images/deephaven/ink6.svg';

@@ -5,7 +5,7 @@ export type T_Org = {
 	id: string,
 	label: string,
 	bgVideo: string,
-	overlayVideo?: string,
+	// overlayVideo?: string,
 	
 	introVideo: string,
 	introAudio: string,
@@ -17,6 +17,7 @@ export type T_Org = {
 	outroAudioDelay?: number,
 	outroVolume?: number,
 	
+	// delay before triggering "middle" of intro
 	introMidMs?: number,
 	outroMidMs?: number,
 	
@@ -32,6 +33,7 @@ export class BaseGameConfig {
 	gameIdf: string;
 	
 	bgVideo = '../assets/videos/box-background.mp4';
+	overlayVideo = '';
 	
 	fallbackOrg: T_Org = {
 		id: 'default',
@@ -72,7 +74,7 @@ export class BaseGameConfig {
 export type T_SpotlightRefs = {
 	spotlightContainerRef: React.RefObject<HTMLDivElement>,
 	spotlightBackgroundRef: React.RefObject<HTMLVideoElement>,
-	spotlightOverlayRef: React.RefObject<HTMLVideoElement>,
+	// spotlightOverlayRef: React.RefObject<HTMLVideoElement>,
 	introVideoRef: React.RefObject<HTMLVideoElement>,
 	introAudioRef: React.RefObject<HTMLAudioElement>,
 	outroVideoRef: React.RefObject<HTMLVideoElement>,

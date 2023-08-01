@@ -4,22 +4,20 @@
 - [ ] DH Proj: crawler size/height
 - [ ] Player: basic styling
 - [ ] Player: timer styling
-- [ ] DH Audio: volume balance (can use org.introVolume, etc.)
-- [ ] asdf
-- [ ] asdf
-- [ ] asdf
+- [ ] DH audio: volume balance (can use org.introVolume, etc.)
+- [ ] DH fonts
+- [ ] DH has some wrong styles?
+- [ ] DH transition width
+- [x] Juntas VHS overlay over everything
+- [ ] Juntas audio
+- [ ] Test with router, etc.
 ## TODO: nice to have
 - [ ] Admin: Timer niceties, save, restart, etc.
 - [ ] Player: default Org selection
 - [ ] Player: guidelines, examples
-- [ ] asdf
-- [ ] asdf
-- [ ] asdf
-- [ ] asdf
-- [ ] asdf
-- [ ] asdf
-- [ ] asdf
-- [ ] asdf
+- [ ] error: DOMException: The element has no supported sources.
+- [ ] CNN ticker/crawler?
+- [ ] Article featured image
 
 
 

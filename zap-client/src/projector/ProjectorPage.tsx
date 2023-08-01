@@ -42,6 +42,12 @@ export function ProjectorPage() {
 				id={'backgroundVideoLoop'}
 			/>
 			
+			<BackgroundVideo
+				src={config.overlayVideo}
+				className={'projector-overlay'}
+				// ref={spotlightOverlayRef}
+			/>
+			
 			<Timer $timer={$timer}/>
 			
 			<Headlines/>
@@ -100,7 +106,7 @@ function Spotlight() {
 	
 	const spotlightContainerRef = useRef<HTMLDivElement>(null);
 	const spotlightBackgroundRef = useRef<HTMLVideoElement>(null);
-	const spotlightOverlayRef = useRef<HTMLVideoElement>(null);
+	// const spotlightOverlayRef = useRef<HTMLVideoElement>(null);
 	const introVideoRef = useRef<HTMLVideoElement>(null);
 	const introAudioRef = useRef<HTMLAudioElement>(null);
 	const outroVideoRef = useRef<HTMLVideoElement>(null);
@@ -112,7 +118,7 @@ function Spotlight() {
 	const refs: T_SpotlightRefs = {
 		spotlightContainerRef: spotlightContainerRef,
 		spotlightBackgroundRef: spotlightBackgroundRef,
-		spotlightOverlayRef: spotlightOverlayRef,
+		// spotlightOverlayRef: spotlightOverlayRef,
 		introVideoRef: introVideoRef,
 		introAudioRef: introAudioRef,
 		outroVideoRef: outroVideoRef,
@@ -127,7 +133,7 @@ function Spotlight() {
 	useEffect(() => {
 		const spotlightContainer = spotlightContainerRef.current;
 		const background = spotlightBackgroundRef.current;
-		const overlay = spotlightOverlayRef.current;
+		// const overlay = spotlightOverlayRef.current;
 		const introVideo = introVideoRef.current;
 		const introAudio = introAudioRef.current;
 		const outroVideo = outroVideoRef.current;
@@ -151,7 +157,7 @@ function Spotlight() {
 			SET_AUD(introAudio, org.introAudio, org.introVolume);
 			SET_VID(outroVideo, org.outroVideo);
 			SET_AUD(outroAudio, org.outroAudio, org.outroVolume);
-			SET_VID(overlay, org.overlayVideo);
+			// SET_VID(overlay, org.overlayVideo);
 			SET_TEXT(theme, org.label);
 			SET_TEXT(headline, article.headline);
 			
@@ -163,7 +169,7 @@ function Spotlight() {
 					if (LOG) console.log(`🔦 useEffect: Spotlight,  intro mid`);
 					SHOW(introVideo);
 					SHOW(background);
-					SHOW(overlay);
+					// SHOW(overlay);
 					SHOW(carrier);
 					
 					config.OnStart_Spotlight(article, refs);
@@ -203,7 +209,7 @@ function Spotlight() {
 				if (LOG) console.log(`🔦 useEffect: Spotlight,  outro mid`);
 				
 				HIDE(background);
-				HIDE(overlay);
+				// HIDE(overlay);
 				HIDE(carrier);
 			},
 			prevOrg.outroMidMs || OUTRO_MID_DEFAULT,
@@ -220,7 +226,7 @@ function Spotlight() {
 			clearTimeout(outroAudioTimer);
 			REMOVE_CLASS(spotlightContainer, prevOrg.id);
 			HIDE(background);
-			HIDE(overlay);
+			// HIDE(overlay);
 			HIDE(introVideo);
 			HIDE(outroVideo);
 			HIDE(carrier);
@@ -239,11 +245,11 @@ function Spotlight() {
 				ref={spotlightBackgroundRef}
 			/>
 			
-			<BackgroundVideo
-				src={``}
-				className={'spotlight-overlay'}
-				ref={spotlightOverlayRef}
-			/>
+			{/*<BackgroundVideo*/}
+			{/*	src={``}*/}
+			{/*	className={'spotlight-overlay'}*/}
+			{/*	ref={spotlightOverlayRef}*/}
+			{/*/>*/}
 			
 			<Video
 				src={``}
