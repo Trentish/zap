@@ -47,6 +47,7 @@ export class BaseGameConfig {
 	
 	showCrawler = true;
 	logo = '';
+	crawlerLogo = '';
 	
 	orgs: T_Org[];
 	protected orgLup: Map<string, T_Org> = new Map();

@@ -24,7 +24,7 @@
 	left: var(--juntas--cnn-logo-left);
 	bottom: 5vmin;
 	max-height: 10vmin;
-	z-index: 2;
+	z-index: 11;
 }
 
 .juntas.projector-page .timer .timer-label {
@@ -36,6 +36,7 @@
 }
 
 .juntas.projector-page .timer {
+	z-index: 11;
 	position: fixed;
 	right: var(--juntas--cnn-logo-left);
 	bottom: 5vmin;
@@ -51,7 +52,6 @@
 
 .juntas.projector-page .article.spotlight {
 	background-color: #369;
-	/*z-index: 2;*/
 }
 
 .juntas.projector-page .spotlight-carrier {
@@ -74,10 +74,58 @@
 
 .juntas.projector-page .theme {
 	font-size: 3vmax;
+	display: none;
 }
 
 .juntas.projector-page .spotlight-background {
 	transform: translateX(2vw) scale(110%);
 }
 
+.juntas.projector-page .headline {
+	font-family: "Helvetica", sans-serif;
+	letter-spacing: -0.02em;
+}
+
+.juntas.projector-page .articles {
+	position: relative;
+	display: flex;
+	font-size: 5vh;
+	background: none;
+	letter-spacing: -0.02em;
+	font-weight: bold;
+	font-style: italic;
+	font-family: "Helvetica", sans-serif;
+	text-shadow: 0.01em 0.01em 0 black, 0.02em 0.02em 0 black, 0.03em 0.03em 0 black, 0.04em 0.04em 0 black, 0.05em 0.05em 0 black,
+	0.06em 0.06em 0 black, 0.07em 0.07em 0 black, 0.08em 0.08em 0 black, 0.09em 0.09em 0 black, 0.10em 0.10em 0 black,
+	0.11em 0.11em 0 black, 0.12em 0.12em 0 black, 0.13em 0.13em 0 black, 0.14em 0.14em 0 black, 0.15em 0.15em 0 black;
+
+	width: 50vw;
+}
+
+.juntas.projector-page .articles:before {
+	content: "TOP STORIES THIS HOUR";
+}
+.juntas.projector-page .articles:after {
+	content: "";
+	width: 100%;
+
+	height: 0.3vh;
+	background: #cc0000;
+	position: absolute;
+	top: 1.25em;
+	z-index: -1;
+
+	display: block;
+	box-shadow: 0.01em 0.01em 0 black, 0.02em 0.02em 0 black, 0.03em 0.03em 0 black, 0.04em 0.04em 0 black, 0.05em 0.05em 0 black,
+	0.06em 0.06em 0 black, 0.07em 0.07em 0 black, 0.08em 0.08em 0 black, 0.09em 0.09em 0 black, 0.10em 0.10em 0 black,
+	0.11em 0.11em 0 black, 0.12em 0.12em 0 black, 0.13em 0.13em 0 black, 0.14em 0.14em 0 black, 0.15em 0.15em 0 black;
+}
+
+
+.juntas.projector-page .articles span.article {
+	display: none;
+}
+.juntas.projector-page .articles div.article:nth-of-type(1n+4) {
+	display: none;
+}
 
