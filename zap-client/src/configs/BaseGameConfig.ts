@@ -46,12 +46,14 @@ export class BaseGameConfig {
 	};
 	
 	showCrawler = true;
+	showLocationField = false;
 	logo = '';
 	crawlerLogo = '';
 	
 	orgs: T_Org[];
 	protected orgLup: Map<string, T_Org> = new Map();
-	
+
+	timerDefs: T_TimerDef[] = [];
 	
 	constructor() {
 		//
@@ -85,4 +87,8 @@ export type T_SpotlightRefs = {
 	headlineRef: React.RefObject<HTMLDivElement>,
 }
 
+export type T_TimerDef = {
+	label?: string;
+	ms: number;
+}
 export const FallbackConfig = new BaseGameConfig();

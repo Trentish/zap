@@ -7,7 +7,8 @@ export const HEADLINE_SIZE: [number, number] = [HEADLINE_MIN_SIZE, HEADLINE_MAX_
 export interface PostArticleDat {
 	headline: string;
 	author: string;
-	orgIdf: string; // TODO
+	orgIdf: string;
+	location?: string;
 }
 
 export interface ArticleDat {
@@ -16,6 +17,7 @@ export interface ArticleDat {
 	headline: string;
 	author?: string;
 	orgIdf: string;
+	location?: string;
 	themeTags?: string[]; // TODO: currently unused
 	// tickerVisible: boolean; // maybe?
 	// sound, etc.?

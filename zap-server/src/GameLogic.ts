@@ -254,6 +254,7 @@ export function AddArticle(game: ZapGame, postArticleDat: PostArticleDat, server
 		headline: postArticleDat.headline,
 		author: postArticleDat.author,
 		orgIdf: postArticleDat.orgIdf,
+		location: postArticleDat.location,
 		themeTags: ['TODO'], // TODO
 	};
 	

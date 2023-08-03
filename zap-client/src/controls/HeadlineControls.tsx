@@ -13,8 +13,11 @@ const USE_UUID_INSTEAD_OF_AUTHOR = true;
 
 const $headline = atom('');
 const $org = atom('');
+const $location = atom('');
 
 const $canSubmit = atom((get) => {
+	const config = get($config);
+
 	const headline = get($headline);
 	if (!headline || headline.length <= HEADLINE_MIN_SIZE) return false; //>> below min size
 	
@@ -23,25 +26,34 @@ const $canSubmit = atom((get) => {
 	
 	const org = get($org);
 	if (!org || org.length <= 0) return false; //>> missing org
+
+	// if (config.showLocationField) {
+	// 	const location = get($location);
+	// 	if (!location || location.length <= 0) return false; //>> missing location
+	// }
 	
 	return true;
 });
 
 export function HeadlineControls() {
 	const client = useClient();
+	const config = $store.get($config);
 	
 	const postArticle = () => {
 		const headline = $store.get($headline).trim();
 		const author = USE_UUID_INSTEAD_OF_AUTHOR ? $store.get($uuid) : $store.get($author);
 		const org = $store.get($org);
-		
+		const location = $store.get($location);
+
 		client.packets.PostArticle.Send({
 			headline: headline,
 			author: author,
 			orgIdf: org, // TODO
+			location: location,
 		});
 		
 		$store.set($headline, '');
+		$store.set($location, '');
 	};
 	
 	const checkKeyDown = (evt: React.KeyboardEvent<HTMLInputElement>) => {
@@ -70,6 +82,13 @@ export function HeadlineControls() {
 				/>
 			)}
 			<ThemeControls $org={$org}/>
+			{config.showLocationField && (
+				<Input
+					label={'Location'}
+					$value={$location}
+					description={`AP Style e.g. TOKYO; WASHINGTON; HIGUERAS; TEGUCIGALPA; ST. PAUL, Minn.; etc. `}
+				/>
+			)}
 			<Button
 				label={'Post'}
 				onClick={postArticle}
