@@ -1,0 +1,49 @@
+/*## Jungle-specific stuff */
+
+:root {
+	--jungle--cnn-logo-left: 10vmin;
+}
+
+.jungle.projector-page #backgroundVideoLoop {
+	filter: unset;
+}
+
+.jungle.projector-page .logo {
+	display: none;
+}
+
+.jungle.projector-page .timer {
+	text-shadow: 0.05em 0.05em 0.05em black;
+	font-family: "TofinoWide-Bold", sans-serif;
+	font-variant-numeric: tabular-nums;
+	z-index: 100;
+
+}
+
+.jungle.projector-page .spotlight-container,
+.jungle.projector-page .articles {
+	display: none;
+}
+
+
+.jungle.projector-page .projector-overlay {
+	/*display: none;*/
+}
+
+.jungle.projector-page .spotlight-container {
+	content: " ";
+	display: block;
+	position: fixed;
+	z-index: 1;
+	width: 100vw;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	background: darkgreen;
+
+	opacity: 0.25;
+
+	/*mix-blend-mode: color-dodge;*/
+	/*filter: brightness(100%) invert(1) hue-rotate(200deg);*/
+
+}
