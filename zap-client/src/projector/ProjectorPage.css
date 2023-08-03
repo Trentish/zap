@@ -69,11 +69,12 @@
 	top: 0;
 	height: 100vh;
 	width: 100vw;
-	z-index: 3;
 	object-fit: cover;
+	z-index: -5;
 }
 
 .spotlight-container .spotlight-carrier {
+	z-index: -5;
 	display: none; /* waiting for .show */
 
 	color: white;
@@ -88,29 +89,28 @@
 	top: 0;
 	height: 100vh;
 	width: 100vw;
-	z-index: 4;
 }
 
 .spotlight-container .intro {
 	display: none; /* waiting for .show */
 
 	position: fixed;
-	left: 0;
-	top: 0;
-	height: 100vh;
-	width: 100vw;
 	z-index: 5;
+
+	width: 100%;
+	height: 100vh;
+	object-fit: cover;
 }
 
 .spotlight-container .outro {
 	display: none; /* waiting for .show */
 
 	position: fixed;
-	left: 0;
-	top: 0;
-	height: 100vh;
-	width: 100vw;
 	z-index: 6;
+
+	width: 100%;
+	height: 100vh;
+	object-fit: cover;
 }
 
 .spotlight-container .spotlight-background.show {
@@ -141,28 +141,14 @@
 .projector-page .timer {
 	font-size: 20vmax;
 	display: grid;
-	grid-template-columns: 1fr min-content 1fr;
 	gap: 0.05em;
-}
-
-.projector-page .timer .minutes {
-	text-align: right;
-}
-
-.projector-page .timer .colon {
-	width: 0.3em;
-	text-align: center;
-}
-
-.projector-page .timer .seconds {
-	text-align: left;
+	font-variant-numeric: tabular-nums;
 }
 
 .projector-page .timer .timer-label {
 	text-align: center;
 	grid-column: span 3;
-	font-family: "NCAA NKU Norse", "Norse", sans-serif;
-	font-size: 10vmax;
+	font-size: 5vmax;
 }
 
 

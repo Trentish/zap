@@ -27,14 +27,8 @@ export function Timer({$timer}: {
 	
 	return (
 		<div className={classNames}>
-			<span className="minutes">
-				{minutesText}
-			</span>
-			<span className="colon">
-				:
-			</span>
-			<span className="seconds">
-				{secondsText}
+			<span className="time">
+				{minutesText}:{secondsText}
 			</span>
 			<span className="timer-label">
 				{label}

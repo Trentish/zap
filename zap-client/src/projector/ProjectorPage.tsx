@@ -59,6 +59,10 @@ export function ProjectorPage() {
 			{config.logo && (
 				<img className={'logo'} src={config.logo}/>
 			)}
+
+			{config.showCrawler && config.crawlerLogo && (
+				<img className={'crawler-logo'} src={config.crawlerLogo}/>
+			)}
 			
 			<Spotlight/>
 		</div>
@@ -300,6 +304,19 @@ function Headline({$article}: { $article: Atom<ArticleDat> }) {
 		{'spotlight': spotlight.spotlightId === article.id},
 		{'pending': article.id > spotlight.pendingAboveId},
 	);
+
+	if ((article.id > spotlight.pendingAboveId) || (spotlight.spotlightId === article.id)) {
+		return (
+			<span
+				className={className}
+				data-article-id={article.id}
+				data-spotlight-id={spotlight.spotlightId}
+				data-pending-above-id={spotlight.pendingAboveId}
+			>
+				{article.headline}
+			</span>
+		);
+	}
 	
 	return (
 		<div
@@ -308,7 +325,7 @@ function Headline({$article}: { $article: Atom<ArticleDat> }) {
 			data-spotlight-id={spotlight.spotlightId}
 			data-pending-above-id={spotlight.pendingAboveId}
 		>
-			{article.headline} --- {className}
+			{article.headline}
 		</div>
 	);
 }

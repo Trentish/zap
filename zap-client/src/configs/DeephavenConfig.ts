@@ -11,6 +11,7 @@ class DeephavenConfig extends BaseGameConfig {
 	
 	showCrawler = true;
 	logo = '../assets/images/deephaven/ink6.svg';
+	crawlerLogo = '../assets/images/deephaven/ink5_gradient.svg';
 	
 	orgs: T_Org[] = [GOSSIP, DISCOVERY, TRIUMPH, CALAMITY, OATH, GRUDGE, DOOM];
 	
@@ -37,7 +38,7 @@ const GOSSIP: T_Org = {
 const DISCOVERY: T_Org = {
 	id: 'discovery',
 	label: 'Discovery',
-	bgVideo: `${DH_VID}spotlight-background-3.mp4`,
+	bgVideo: `${DH_VID}spotlight-background-6.mp4`,
 	introVideo: `${DH_VID}ink-transition.webm`,
 	introAudio: `${DH_AUD}discovery2.mp3`,
 	introAudioDelay: 500,
@@ -59,7 +60,7 @@ const TRIUMPH: T_Org = {
 const CALAMITY: T_Org = {
 	id: 'calamity',
 	label: 'Calamity',
-	bgVideo: `${DH_VID}spotlight-background-3.mp4`,
+	bgVideo: `${DH_VID}spotlight-background-5.mp4`,
 	introVideo: `${DH_VID}ink-transition.webm`,
 	introAudio: `${DH_AUD}calamity2.mp3`,
 	introAudioDelay: 500,
@@ -81,7 +82,7 @@ const OATH: T_Org = {
 const GRUDGE: T_Org = {
 	id: 'grudge',
 	label: 'Grudge',
-	bgVideo: `${DH_VID}spotlight-background-3.mp4`,
+	bgVideo: `${DH_VID}spotlight-background-4.mp4`,
 	introVideo: `${DH_VID}ink-transition.webm`,
 	introAudio: `${DH_AUD}grudge.mp3`,
 	introAudioDelay: 500,
