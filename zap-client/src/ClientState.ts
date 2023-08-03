@@ -7,6 +7,7 @@ import {nanoid} from 'nanoid';
 import {FallbackConfig} from './configs/BaseGameConfig.ts';
 import DeephavenConfig from './configs/DeephavenConfig.ts';
 import JuntasConfig from './configs/JuntasConfig.ts';
+import JungleConfig from './configs/JungleConfig.ts';
 
 export const $store = getDefaultStore();
 export const $connStatus = atom(E_ConnStatus.unset);
@@ -40,6 +41,8 @@ export const $config = atom(get => {
 			return DeephavenConfig;
 		case JuntasConfig.gameIdf:
 			return JuntasConfig;
+		case JungleConfig.gameIdf:
+			return JungleConfig;
 		default:
 			return FallbackConfig;
 	}
