@@ -16,7 +16,7 @@ class JungleConfig extends BaseGameConfig {
     logo = '../assets/images/jungle/logo-cnn.svg';
     crawlerLogo = '';
 
-    orgs: T_Org[] = [PBS];
+    orgs: T_Org[] = [CNN];
 
     timerDefs: T_TimerDef[] = [{
         label: '',
@@ -47,14 +47,17 @@ class JungleConfig extends BaseGameConfig {
     }
 }
 
-const PBS: T_Org = {
+const CNN: T_Org = {
     id: 'pbs',
-    label: 'PBS',
+    label: 'CNN',
     bgVideo: `${J_VIDS}jungle_1.mp4`,
     // overlayVideo: `${J_VIDS}vhs.mp4`,
-    introVideo: `${J_VIDS}cnn-transition-1.webm`,
-    introAudio: `${J_AUDIO}news1.mp3`, // TODO
-    outroVideo: `${J_VIDS}cnn-transition-1.webm`,
+    showAsRadio: true,
+    introMidMs: 1400,
+    outroMidMs: 1400,
+    introVideo: `${J_VIDS}yellowarrow.webm`,
+    introAudio: `${J_AUDIO}jungle_1.mp3`, // TODO
+    outroVideo: `${J_VIDS}yellowarrow.webm`,
     outroAudio: `${J_AUDIO}news_outro_1`, // TODO
 };
 
