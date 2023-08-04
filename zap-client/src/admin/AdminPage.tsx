@@ -6,7 +6,7 @@ import {ArticleSummary} from '../displays/ArticleSummary.tsx';
 import './AdminPage.css';
 import {useAtom} from 'jotai';
 import {$gameIdf, $uuid} from '../ClientState.ts';
-
+import {SituationControls} from "./SituationControls.tsx";
 
 export function AdminPage() {
 	const client = useClient();
@@ -22,6 +22,8 @@ export function AdminPage() {
 			</h1>
 			
 			<TimerControls/>
+
+			<SituationControls/>
 			
 			<div className={'control-group button-group'}>
 				<Button

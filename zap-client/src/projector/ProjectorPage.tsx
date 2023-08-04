@@ -4,7 +4,7 @@ import {atom, useAtom} from 'jotai';
 import './ProjectorPage.css';
 import React, {useEffect, useRef, useState} from 'react';
 import {
-	$config,
+	$config, $situation,
 	$splitArticles,
 	$spotlight,
 	$spotlightArticle,
@@ -32,12 +32,13 @@ const $spotlightOrg = atom<T_Org | null>(null);
 export function ProjectorPage() {
 	const client = useClient();
 	const [config] = useAtom($config);
+	const [situation] = useAtom($situation);
 
 	const timerAudioRef = useRef<HTMLAudioElement>(null);
 	$store.set($timerAudioRef, timerAudioRef);
 	
 	return (
-		<div className={`projector-page ${client.gameIdf}`}>
+		<div className={`projector-page ${client.gameIdf} ${situation.cssClass}`}>
 			<InitialClickMe/>
 			
 			<BackgroundVideo

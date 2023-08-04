@@ -3,7 +3,7 @@ import {
 	ArticleDat,
 	ArticleListDat,
 	PostArticleDat,
-	SetTimerDat,
+	SetTimerDat, SituationDat,
 	SpotlightDat,
 	TimerDat
 } from './_Dats.ts';
@@ -34,9 +34,12 @@ export class ZapPacketDefs<TSrc extends I_PkSource> extends BasePacketDefs<TSrc>
 	SetSpotlight = this.SERVER_to_CLIENT<SpotlightDat>();
 	
 	
-	//## TIMER
+	//## TIMER & SITUATION
 	SetTimer = this.ADMIN_to_SERVER<SetTimerDat>();
 	TimerTick = this.SERVER_to_CLIENT<TimerDat>();
+
+	SetSituation = this.ADMIN_to_SERVER<SituationDat>();
+	Situation = this.SERVER_to_CLIENT<SituationDat>();
 	
 	
 	//## MISC

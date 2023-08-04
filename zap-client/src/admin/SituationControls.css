@@ -1,0 +1,10 @@
+
+
+.situation-def-button {
+    margin-right: 8px;
+    background-color: #efc578;
+}
+
+.situation-def-button.situation-clear {
+    background-color: #b09767;
+}

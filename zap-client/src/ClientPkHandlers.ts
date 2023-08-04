@@ -1,6 +1,6 @@
 import {ZapPacketDefs} from '../../zap-shared/_Packets.ts';
 import {ConnToServer, ZapClient} from './ZapClient.ts';
-import {$allArticles, $allGameIdfs, $spotlight, $store, $timer} from './ClientState.ts';
+import {$allArticles, $allGameIdfs, $situation, $spotlight, $store, $timer} from './ClientState.ts';
 
 // TODO: break this up at some point?
 export function InitializePackets_CLIENT(defs: ZapPacketDefs<ConnToServer>, client: ZapClient) {
@@ -37,7 +37,9 @@ export function InitializePackets_CLIENT(defs: ZapPacketDefs<ConnToServer>, clie
 	//## TIMER
 	
 	defs.TimerTick.From_SERVER = (pk) => client.ReceiveTimerTick(pk);
-	
+	defs.Situation.From_SERVER = (pk) =>  {
+		$store.set($situation, pk);
+	}
 	
 	//## MISC
 	

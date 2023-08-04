@@ -52,6 +52,11 @@ export interface TimerDat {
 	ms: number,
 }
 
+export interface SituationDat {
+	label: string,
+	cssClass: string,
+}
+
 //  Oath, Grudge, Triumph, Calamity, Discovery, Gossip, Doom
 // export type T_Theme = {
 // 	Idf: string,

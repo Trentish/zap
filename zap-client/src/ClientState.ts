@@ -1,7 +1,7 @@
 import {atom, getDefaultStore} from 'jotai';
 import {atomWithLocation} from 'jotai-location';
 import {E_ConnStatus, E_Endpoint, T_GameIdf} from '../../zap-shared/SystemTypes.ts';
-import {ArticleDat, SpotlightDat, TimerDat} from '../../zap-shared/_Dats.ts';
+import {ArticleDat, SituationDat, SpotlightDat, TimerDat} from '../../zap-shared/_Dats.ts';
 import {atomWithStorage, splitAtom} from 'jotai/utils';
 import {nanoid} from 'nanoid';
 import {FallbackConfig} from './configs/BaseGameConfig.ts';
@@ -36,6 +36,8 @@ export const $author = atomWithStorage('ZAP_AUTHOR', '');
 
 export const $timer = atom<TimerDat>({label: '', ms: 0});
 export const $timerAudioRef = atom<React.RefObject<HTMLAudioElement>|undefined>(undefined);
+
+export const $situation = atom<SituationDat>({label: '', cssClass: ''});
 
 export const $config = atom(get => {
 	switch (get($gameIdf)) {

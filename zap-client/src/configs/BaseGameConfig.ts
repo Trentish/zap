@@ -1,5 +1,5 @@
 import React from 'react';
-import {ArticleDat} from '../../../zap-shared/_Dats.ts';
+import {ArticleDat, SituationDat} from '../../../zap-shared/_Dats.ts';
 
 export type T_Org = {
 	id: string,
@@ -58,7 +58,9 @@ export class BaseGameConfig {
 	timerEndSoundStartMs = 0;
 	timerEndSoundVolume = 1;
 	timerDefs: T_TimerDef[] = [];
-	
+
+	situationDefs: SituationDat[] = [];
+
 	constructor() {
 		//
 	}
@@ -95,4 +97,5 @@ export type T_TimerDef = {
 	label?: string;
 	ms: number;
 }
+
 export const FallbackConfig = new BaseGameConfig();

@@ -1,6 +1,13 @@
 import {ZapPacketDefs} from '../../zap-shared/_Packets.js';
 import {ClientConn, ZapServer} from './ZapServer.js';
-import {AddArticle, SendAllArticles, ResetGame, SetTimer, ForceSpotlight} from './GameLogic.js';
+import {
+	AddArticle,
+	SendAllArticles,
+	ResetGame,
+	SetTimer,
+	ForceSpotlight,
+	SetSituation
+} from './GameLogic.js';
 
 export function InitializePackets_SERVER(defs: ZapPacketDefs<ClientConn>, server: ZapServer) {
 	
@@ -20,9 +27,10 @@ export function InitializePackets_SERVER(defs: ZapPacketDefs<ClientConn>, server
 	defs.ForceSpotlight.From_ADMIN = (pk, src) => ForceSpotlight(getGame(src), pk.id, server);
 	
 	
-	//## TIMER
+	//## TIMER & SITUATION
 	defs.SetTimer.From_ADMIN = (pk, src) => SetTimer(getGame(src), pk, server);
-	
+	defs.SetSituation.From_ADMIN = (pk, src) => SetSituation(getGame(src), pk, server);
+
 	
 	//## MISC
 	defs.DbForceLoad.From_ADMIN = (pk, src) => getGame(src).db.Load();

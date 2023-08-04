@@ -6,7 +6,7 @@ import {
 	ArticleDat,
 	HEADLINE_SIZE,
 	PostArticleDat,
-	SetTimerDat
+	SetTimerDat, SituationDat
 } from '../../zap-shared/_Dats.js';
 import {RangeToRange} from '../../zap-shared/Maths.js';
 
@@ -162,6 +162,16 @@ const SendSpotlight = (
 	game: ZapGame,
 	server: ZapServer,
 ) => server.packets.SetSpotlight.Send(game.toAllClients, game.spotlight);
+
+export function SetSituation(game: ZapGame, setSituation: SituationDat, server: ZapServer) {
+	game.situation = setSituation;
+	SendSituation(game, server);
+}
+
+const SendSituation = (
+	game: ZapGame,
+	server: ZapServer
+) => server.packets.Situation.Send(game.toAllClients, game.situation);
 
 export function AddClientToGame(game: ZapGame, client: ClientConn, server: ZapServer) {
 	RemoveClientFromGame(client, server);
