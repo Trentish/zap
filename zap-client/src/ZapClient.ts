@@ -12,15 +12,17 @@ import {ZapPacketDefs} from '../../zap-shared/_Packets.ts';
 import {I_JsonSocketCallbacks, JsonSocketClient} from './lib/JsonSocketClient.ts';
 import {InitializePackets_CLIENT} from './ClientPkHandlers.ts';
 import {
+	$config,
 	$connError,
 	$connStatus,
 	$endpoint,
 	$gameIdf,
 	$location,
 	$store,
-	$uuid,
+	$timer, $timerAudioRef,
 } from './ClientState.ts';
 import {nanoid} from 'nanoid';
+import {TimerDat} from "../../zap-shared/_Dats.ts";
 
 
 // const WS_SERVER = 'ws://localhost:3007'; // TODO: config
@@ -136,5 +138,32 @@ export class ZapClient implements I_JsonSocketCallbacks {
 		console.log(`UpdateLocation: ${loc.pathname}`, pathArr);
 		
 		document.title = `${E_Endpoint[endpoint]} of ${gameIdf || '?'} (ZAP)`;
+	}
+
+
+	canPlayTimerSound = false;
+
+	ReceiveTimerTick(timer: TimerDat) {
+		const config = $store.get($config);
+		const endMs = config.timerEndSoundStartMs;
+
+		if (this.canPlayTimerSound) {
+			if (timer.ms < endMs) {
+				// TODO: play
+				const timerAudioRef = $store.get($timerAudioRef)?.current;
+				if (timerAudioRef && config.timerEndSound) {
+					timerAudioRef.src = config.timerEndSound;
+					timerAudioRef.volume = config.timerEndSoundVolume;
+					timerAudioRef.play();
+				}
+				this.canPlayTimerSound = false;
+			}
+		} else {
+			if (timer.ms > endMs) {
+				this.canPlayTimerSound = true;
+			}
+		}
+
+		$store.set($timer, timer);
 	}
 }

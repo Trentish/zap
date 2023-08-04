@@ -7,6 +7,11 @@
 	animation: blink .8s step-start infinite;
 }
 
+.timer-def-button {
+	margin-right: 8px;
+	background-color: #78b8ef;
+}
+
 @keyframes blink {
 	50% {
 		opacity: 0;

@@ -8,6 +8,7 @@ import {FallbackConfig} from './configs/BaseGameConfig.ts';
 import DeephavenConfig from './configs/DeephavenConfig.ts';
 import JuntasConfig from './configs/JuntasConfig.ts';
 import JungleConfig from './configs/JungleConfig.ts';
+import React from "react";
 
 export const $store = getDefaultStore();
 export const $connStatus = atom(E_ConnStatus.unset);
@@ -34,6 +35,7 @@ export const $crawlerArticles = atom<ArticleDat[]>([]);
 export const $author = atomWithStorage('ZAP_AUTHOR', '');
 
 export const $timer = atom<TimerDat>({label: '', ms: 0});
+export const $timerAudioRef = atom<React.RefObject<HTMLAudioElement>|undefined>(undefined);
 
 export const $config = atom(get => {
 	switch (get($gameIdf)) {

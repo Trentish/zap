@@ -1,5 +1,12 @@
 import {BasePacketDefs, E_Endpoint, I_PkSource, T_GameIdf} from './SystemTypes.ts';
-import {ArticleDat, ArticleListDat, PostArticleDat, SpotlightDat, TimerDat} from './_Dats.ts';
+import {
+	ArticleDat,
+	ArticleListDat,
+	PostArticleDat,
+	SetTimerDat,
+	SpotlightDat,
+	TimerDat
+} from './_Dats.ts';
 
 type none = string; // no packet
 
@@ -28,7 +35,7 @@ export class ZapPacketDefs<TSrc extends I_PkSource> extends BasePacketDefs<TSrc>
 	
 	
 	//## TIMER
-	SetTimer = this.ADMIN_to_SERVER<TimerDat>();
+	SetTimer = this.ADMIN_to_SERVER<SetTimerDat>();
 	TimerTick = this.SERVER_to_CLIENT<TimerDat>();
 	
 	

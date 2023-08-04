@@ -49,10 +49,14 @@ export class BaseGameConfig {
 	showLocationField = false;
 	logo = '';
 	crawlerLogo = '';
+	showTimerLeadingZero = false;
 	
 	orgs: T_Org[];
 	protected orgLup: Map<string, T_Org> = new Map();
 
+	timerEndSound = '';
+	timerEndSoundStartMs = 0;
+	timerEndSoundVolume = 1;
 	timerDefs: T_TimerDef[] = [];
 	
 	constructor() {

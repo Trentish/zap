@@ -9,7 +9,7 @@ import {
 	$spotlight,
 	$spotlightArticle,
 	$store,
-	$timer,
+	$timer, $timerAudioRef,
 } from '../ClientState.ts';
 import {Atom} from 'jotai/vanilla/atom';
 import {clsx} from 'clsx';
@@ -32,6 +32,9 @@ const $spotlightOrg = atom<T_Org | null>(null);
 export function ProjectorPage() {
 	const client = useClient();
 	const [config] = useAtom($config);
+
+	const timerAudioRef = useRef<HTMLAudioElement>(null);
+	$store.set($timerAudioRef, timerAudioRef);
 	
 	return (
 		<div className={`projector-page ${client.gameIdf}`}>
@@ -49,6 +52,11 @@ export function ProjectorPage() {
 			/>
 			
 			<Timer $timer={$timer}/>
+
+			<Audio
+				src={``}
+				ref={timerAudioRef}
+			/>
 			
 			<Headlines/>
 			

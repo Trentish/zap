@@ -36,9 +36,7 @@ export function InitializePackets_CLIENT(defs: ZapPacketDefs<ConnToServer>, clie
 	
 	//## TIMER
 	
-	defs.TimerTick.From_SERVER = (pk) => {
-		$store.set($timer, pk);
-	};
+	defs.TimerTick.From_SERVER = (pk) => client.ReceiveTimerTick(pk);
 	
 	
 	//## MISC

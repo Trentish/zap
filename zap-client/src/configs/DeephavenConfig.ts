@@ -17,6 +17,10 @@ class DeephavenConfig extends BaseGameConfig {
 
     timerDefs: T_TimerDef[] = [
         {
+            label: 'Test Timer',
+            ms: (5 * 60 * 1000) + 30000,
+        },
+        {
             label: 'Guild Meet',
             ms: 5 * 60 * 1000,
         },

@@ -39,6 +39,12 @@ export interface SpotlightDat {
 	pendingAboveId: number, // article IDs above will be hidden/pending
 }
 
+export interface SetTimerDat {
+	label?: string,
+	ms?: number,
+	setLabelOnly?: boolean,
+}
+
 // TODO: 'tick' messages could be optimized later
 export interface TimerDat {
 	label: string,

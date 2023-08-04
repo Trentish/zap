@@ -19,10 +19,15 @@ class JuntasConfig extends BaseGameConfig {
 
     orgs: T_Org[] = [BBC, CNN, PBS];
 
-    timerDefs: T_TimerDef[] = [{
-        label: '',
-        ms: 1000,
-    }];
+    timerEndSound = `${J_AUDIO}juntas_end_turn_1.mp3`;
+    timerEndSoundStartMs = 1100;
+    timerEndSoundVolume = 1;
+    timerDefs: T_TimerDef[] = [
+        {
+            label: '',
+            ms: 30 * 60 * 1000,
+        },
+    ];
 
     constructor() {
         super();

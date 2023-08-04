@@ -2,7 +2,12 @@ import {GamePersist, SpotlightPhase, ZapGame} from './ZapGame.js';
 import {ClientConn, ZapServer} from './ZapServer.js';
 import {E_Endpoint, T_GameIdf} from '../../zap-shared/SystemTypes.js';
 import {ZapDb} from './ZapDb.js';
-import {ArticleDat, HEADLINE_SIZE, PostArticleDat, TimerDat} from '../../zap-shared/_Dats.js';
+import {
+	ArticleDat,
+	HEADLINE_SIZE,
+	PostArticleDat,
+	SetTimerDat
+} from '../../zap-shared/_Dats.js';
 import {RangeToRange} from '../../zap-shared/Maths.js';
 
 const TICK_RATE_MS = 1000;
@@ -139,11 +144,10 @@ export function ForceSpotlight(game: ZapGame, id: number, server: ZapServer) {
 	SendSpotlight(game, server);
 }
 
-export function SetTimer(game: ZapGame, timer: TimerDat, server: ZapServer) {
-	game.timer.label = timer.label;
-	if (timer.ms >= 0) {
-		// skip if -1 (label only)
-		game.timer.ms = timer.ms;
+export function SetTimer(game: ZapGame, setTimerDat: SetTimerDat, server: ZapServer) {
+	game.timer.label = setTimerDat.label || '';
+	if (!setTimerDat.setLabelOnly) {
+		game.timer.ms = setTimerDat.ms || 0;
 		game.lastTick = Date.now();
 	}
 	SendTimer(game, server);
