@@ -24,3 +24,10 @@
 	font-style: normal;
 	src: url("../assets/fonts/Tofino/Condensed/OTF/TofinoCond-Bold.otf") format("opentype");
 }
+
+@font-face {
+	font-family: 'Luminari';
+	font-style: normal;
+	font-weight: normal;
+	src: local('Luminari'), url('../assets/fonts/Luminari/Luminari-Regular.woff') format('woff');
+}

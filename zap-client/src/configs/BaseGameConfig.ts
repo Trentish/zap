@@ -26,7 +26,7 @@ export type T_Org = {
 
 // TODO: where does this want to live
 export const SPOTLIGHT_DURATION = 9000;
-export const INTRO_MID_DEFAULT = 1000;
+export const INTRO_MID_DEFAULT = 1400;
 export const OUTRO_MID_DEFAULT = 500;
 
 export class BaseGameConfig {
