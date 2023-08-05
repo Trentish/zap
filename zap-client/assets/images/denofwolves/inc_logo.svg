@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="409.91077"
+   height="156.00117"
+   viewBox="0 0 108.45555 41.275312"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (c3084ef, 2021-09-22)"
+   sodipodi:docname="inc_logo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.3513321"
+     inkscape:cx="320.79458"
+     inkscape:cy="-64.010914"
+     inkscape:window-width="1728"
+     inkscape:window-height="1051"
+     inkscape:window-x="0"
+     inkscape:window-y="38"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g9498"
+     units="px"
+     width="793.70081px"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-255.72469)">
+    <g
+       id="g9148">
+      <g
+         id="g9498"
+         transform="translate(-244.58954,162.25364)">
+        <path
+           id="path4656-4"
+           style="font-weight:900;font-stretch:semi-expanded;font-size:53.6043px;line-height:1.25;font-family:'Tofino Wide';-inkscape-font-specification:'Tofino Wide Heavy Semi-Expanded';stroke-width:1.34011;fill:#ffffff"
+           d="m 254.52539,94.435855 1.90116,5.345928 5.12424,-2.436027 -2.43551,5.124754 5.34593,1.90117 -5.34593,1.90118 2.43551,5.12423 -5.12424,-2.43602 -1.90116,5.34592 v 19.47427 h 13.40125 V 94.435855 Z" />
+        <path
+           d="m 295.52867,133.78148 h 15.54525 V 94.435925 h -12.91864 l 0.58965,22.299385 -11.95376,-22.299385 h -15.43804 v 39.345555 h 12.86503 l -0.53604,-21.65614 z"
+           style="font-weight:900;font-stretch:semi-expanded;font-size:53.6043px;line-height:1.25;font-family:'Tofino Wide';-inkscape-font-specification:'Tofino Wide Heavy Semi-Expanded';stroke-width:1.34011;fill:#ffffff"
+           id="path4658-04" />
+        <path
+           d="m 333.90837,134.74636 c 11.73934,0 19.08313,-4.07393 19.13673,-18.17186 h -13.18666 c -0.32162,6.00368 -2.94823,6.86135 -6.05728,6.86135 -4.44916,0 -6.53973,-1.82254 -6.53973,-9.32715 0,-7.45099 2.19778,-9.27354 6.70054,-9.27354 3.05545,0 5.57485,0.85767 5.89647,6.2181 h 13.13306 c -0.0536,-13.454681 -7.451,-17.582212 -19.08313,-17.582212 -13.40108,0 -20.26243,5.521243 -20.26243,20.637652 0,15.11642 6.86135,20.63766 20.26243,20.63766 z"
+           style="font-weight:900;font-stretch:semi-expanded;font-size:53.6043px;line-height:1.25;font-family:'Tofino Wide';-inkscape-font-specification:'Tofino Wide Heavy Semi-Expanded';stroke-width:1.34011;fill:#ffffff"
+           id="path4660-3" />
+        <path
+           id="path2746-3-5-5-6-1"
+           style="fill:#ffcc00;stroke-width:0.369729;stroke-linecap:square;stroke-linejoin:round"
+           inkscape:transform-center-x="-9.8067021e-06"
+           inkscape:transform-center-y="3.5671331e-06"
+           d="m 254.52539,94.435855 -1.90119,5.345928 -5.12424,-2.436027 2.43551,5.124754 -5.34593,1.90117 5.34593,1.90118 -2.43551,5.12423 5.12424,-2.43602 1.90119,5.34592 z" />
+      </g>
+    </g>
+  </g>
+</svg>

@@ -2,21 +2,26 @@ import {BaseGameConfig, T_Org, T_TimerDef} from './BaseGameConfig.ts';
 import './DenOfWolves.css';
 import {SituationDat} from "../../../zap-shared/_Dats.ts"; //## NOTE: will always load (regardless of gameIdf)
 
-const DOW_VID = '../assets/videos/denofwolves/';
+const DOW_VID = '../assets/videos/';
 const DOW_AUD = '../assets/audio/';
 
 class DenOfWolvesConfig extends BaseGameConfig {
     gameIdf = 'denofwolves';
 
-    // bgVideo = `${DOW_VID}deephaven-background.mp4`;
+    bgVideo = `${DOW_VID}box-background.mp4`;
 
     showCrawler = true;
-    logo = '../assets/images/denofwolves/ink_logo.svg';
-    crawlerLogo = '../assets/images/denofwolves/ink_logo.svg';
+    logo = '../assets/images/denofwolves/inc_logo.svg';
+    crawlerLogo = '../assets/images/denofwolves/inc_logo.svg';
 
     orgs: T_Org[] = [INC];
     situationDefs: SituationDat[] = [
-        {label: 'Battle Stations', cssClass: 'battle-stations'}
+        {label: 'Alpha', cssClass: 'alpha'},
+        {label: 'Bravo', cssClass: 'bravo'},
+        {label: 'Charlie', cssClass: 'charlie'},
+        {label: 'Delta', cssClass: 'delta'},
+        {label: 'Echo', cssClass: 'echo'},
+        {label: 'Wolf', cssClass: 'wolf'}
     ];
 
     // timerDefs: T_TimerDef[] = [
@@ -46,7 +51,7 @@ class DenOfWolvesConfig extends BaseGameConfig {
 const INC: T_Org = {
     id: 'inc',
     label: 'INC',
-    bgVideo: `${DOW_VID}spotlight-background-3.mp4`,
+    bgVideo: `${DOW_VID}box-background.mp4`,
     introVideo: `../assets/videos/jungle/yellowarrow.webm`,
     // introAudio: `${DOW_AUD}gossip.mp3`,
     // introAudioDelay: 500,

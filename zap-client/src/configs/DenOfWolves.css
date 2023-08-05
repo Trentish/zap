@@ -1,7 +1,48 @@
 /*## denofwolves-specific-stuff */
 
-.battle-stations {
-    background-color: #cc0000;
+
+.denofwolves.projector-page #backgroundVideoLoop {
+    filter: brightness(0.2) saturate(0);
+}
+
+.denofwolves.projector-page.alpha #backgroundVideoLoop {
+    filter: brightness(0.5) hue-rotate(300deg);
+}
+
+.denofwolves.projector-page.bravo #backgroundVideoLoop {
+    filter: brightness(0.3) hue-rotate(30deg);
+}
+
+.denofwolves.projector-page.charlie #backgroundVideoLoop {
+    filter: brightness(1) hue-rotate(-150deg);
+}
+
+.denofwolves.projector-page.delta #backgroundVideoLoop {
+    filter: brightness(0.7) hue-rotate(-175deg) saturate(200%);
+}
+
+.denofwolves.projector-page.echo #backgroundVideoLoop {
+    filter: brightness(0.6) hue-rotate(-205deg) saturate(200%);
+}
+
+.denofwolves.projector-page.wolf #backgroundVideoLoop {
+    filter: brightness(0.6) hue-rotate(-205deg) saturate(200%);
+    animation-name: wolf;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    animation-duration: 2s;
+}
+
+@keyframes wolf {
+    0% {
+        filter: brightness(0.6) hue-rotate(-205deg) saturate(200%);
+    }
+    75% {
+        filter: brightness(0.1) hue-rotate(-205deg) saturate(0%);
+    }
+    100% {
+        filter: brightness(0.1) hue-rotate(-205deg) saturate(0%);
+    }
 }
 
 
@@ -29,25 +70,27 @@
     font-family: "TofinoWide-Medium";
     align-items: center;
     text-align: center;
-    mix-blend-mode: screen;
-    background-color: white;
-    background-image: url('../../assets/images/denofwolves/stone-background-2.jpg');
+    /*background-image: url('../../assets/images/denofwolves/stone-background-2.jpg');*/
     background-size: cover;
     height: 100vh;
     width: 100vw;
+    overflow: visible;
 
     perspective: 100vw;
+
 }
 
 .denofwolves.projector-page .spotlight-carrier > * {
-    background: #000;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    /*background: #000;*/
+    /*-webkit-background-clip: text;*/
+    /*-webkit-text-fill-color: transparent;*/
 }
 
 .denofwolves.projector-page .spotlight-carrier .headline {
     font-size: min(15vh, 12vw);
     text-size-adjust: auto;
+    max-width: 80vw;
+    text-align: left;
     /*transform: rotate3d(1, 0, 0, 55deg);*/
 }
 
@@ -81,9 +124,9 @@
 .denofwolves.projector-page .crawler-logo {
     /*display: block;*/
     position: fixed;
-    height: 20vh;
-    left: 0;
-    bottom: 0;
+    height: 10vh;
+    left: 2vw;
+    bottom: 5vh;
 }
 .denofwolves.projector-page .crawlerHeadline {
     /*font-family: Norse, sans-serif;*/
@@ -116,8 +159,8 @@
     height: var(--denofwolves--crawler-height);
     position: fixed;
     bottom: var(--denofwolves--crawler-distance-from-bottom);
-    left: 25vh;
-    width: calc(100vw - 25vh);
+    left: 26vh;
+    width: calc(100vw - 26vh);
     font-size: 3vh;
     display: flex;
     align-items: center;
@@ -127,152 +170,27 @@
     -webkit-mask-position: left top, left bottom;
 }
 
+.denofwolves.projector-page .spotlight-carrier .theme {
+    font-size: 0 !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: block;
+    width: calc(410vh / 20);
+    height: calc(156vh / 20);
+    background-position: center;
+    position: fixed;
+    right: 2vw;
+    top: 5vh;
 
-/*      ##  gossip */
-.denofwolves.projector-page .gossip .spotlight-background {
-    filter: brightness(500%) hue-rotate(50deg);
-}
-.denofwolves.projector-page .gossip {
-    filter: brightness(100%) invert(0) hue-rotate(0deg) saturate(150%);
-}
-.denofwolves.projector-page .gossip .spotlight-carrier {
-    mix-blend-mode: screen;
-}
-.denofwolves.projector-page .gossip .spotlight-carrier .theme::after {
-    background: #f00;
-}
+    background-image: url('../../assets/images/denofwolves/inc_logo.svg');
 
-
-/*      ## discovery */
-.denofwolves.projector-page .discovery {
-    filter: invert(1);
-}
-.denofwolves.projector-page .discovery video.spotlight-background {
-    filter: brightness(300%) invert(0)  hue-rotate(180deg) saturate(50%);
-}
-.denofwolves.projector-page .discovery .spotlight-carrier {
-    background-image: url('../../assets/images/denofwolves/stone-background-2_gold.jpg');
-    filter: brightness(75%) invert(1) ;
-    mix-blend-mode: multiply;
-}
-.denofwolves.projector-page .discovery .spotlight-carrier .theme::after {
-    background: #000;
 }
 
-
-/*      ## triumph */
-.denofwolves.projector-page .triumph {
-    filter: invert(0) hue-rotate(180deg);
-}
-.denofwolves.projector-page .triumph video.spotlight-background {
-    filter: brightness(500%) hue-rotate(260deg);
-}
-.denofwolves.projector-page .triumph .spotlight-carrier {
-    filter: brightness(100%) invert(1) hue-rotate(190deg);
-    background-image: url('../../assets/images/denofwolves/stone-background-2_gold.jpg');
-    mix-blend-mode: hard-light;
-    color: white;
-}
-.denofwolves.projector-page .triumph .spotlight-carrier .theme::after {
-    background: #000;
+.denofwolves.projector-page .spotlight-carrier {
+    align-items: start;
+    position: relative;
 }
 
-
-/*      ## calamity */
-.denofwolves.projector-page .calamity video.spotlight-background {
-    filter: brightness(250%) invert(1) hue-rotate(180deg);
+.denofwolves.projector-page .spotlight-background {
+    filter: brightness(0.2) saturate(0%);
 }
-.denofwolves.projector-page .calamity video.spotlight-background {
-    transform: rotateX(180deg);
-    filter: brightness(150%);
-}
-.denofwolves.projector-page .calamity .spotlight-carrier {
-    filter: brightness(100%) invert(0) hue-rotate(180deg);
-    background-image: url('../../assets/images/denofwolves/stone-background-2_gold.jpg');
-}
-.denofwolves.projector-page .calamity .spotlight-carrier .theme::after {
-    background: #000;
-}
-
-/*      ## oath */
-.denofwolves.projector-page .oath {
-    filter: invert(1) sepia(1);
-}
-.denofwolves.projector-page .oath video.spotlight-background {
-    transform: rotateX(180deg);
-}
-.denofwolves.projector-page .oath .spotlight-carrier {
-    mix-blend-mode: screen;
-    filter: brightness(100%) invert(1) hue-rotate(200deg);
-}
-.denofwolves.projector-page .oath .spotlight-carrier .theme::after {
-    background: #f70;
-}
-
-
-/*      ## grudge */
-.denofwolves.projector-page .grudge {
-    filter: brightness(100%) invert(0) hue-rotate(80deg) saturate(250%);
-}
-.denofwolves.projector-page .grudge video.spotlight-background {
-    filter: brightness(100%) hue-rotate(0deg);
-}
-.denofwolves.projector-page .grudge .spotlight-carrier {
-    filter: brightness(100%) invert(1) hue-rotate(180deg);
-    background-image: url('../../assets/images/denofwolves/stone-background-2.jpg');
-}
-.denofwolves.projector-page .grudge .spotlight-carrier .theme::after {
-    background: #000;
-}
-
-
-/*      ## carrier */
-.denofwolves.projector-page .doom .spotlight-carrier {
-    mix-blend-mode: overlay;
-    filter: invert(1); /* TODO: Ask Trenton */
-}
-.denofwolves.projector-page .doom .spotlight-carrier .theme::after {
-    background: #000;
-}
-
-/* Golden triumph */
-/*.denofwolves.projector-page .spotlight-articles .triumph video.spotlight-background {*/
-/*	filter: hue-rotate(110deg);*/
-/*}*/
-/*.denofwolves.projector-page .triumph .spotlight-carrier {*/
-/*	mix-blend-mode: screen;*/
-/*	filter: brightness(100%) invert(1) hue-rotate(200deg);*/
-/*}*/
-/*.denofwolves.projector-page .spotlight-articles .triumph .spotlight-carrier .theme::after {*/
-/*	background: #f70;*/
-/*}*/
-
-/* Maybe a better gossip? */
-/*.denofwolves.projector-page .calamity {*/
-/*	filter: brightness(100%) invert(1) hue-rotate(160deg);*/
-/*}*/
-/*.denofwolves.projector-page .calamity .spotlight-carrier {*/
-/*	!*mix-blend-mode: hard-light;*!*/
-/*	filter: brightness(100%) invert(1) hue-rotate(180deg);*/
-/*}*/
-/*.denofwolves.projector-page .calamity .spotlight-carrier .headline {*/
-/*	!*mix-blend-mode: multiply;*!*/
-/*}*/
-/*.denofwolves.projector-page .calamity .spotlight-carrier .theme::after {*/
-/*	background: #ff00ff;*/
-/*}*/
-
-
-/* Light background gold kinda nice */
-/*.denofwolves.projector-page .spotlight-articles .grudge video.spotlight-background {*/
-/*	filter: hue-rotate(110deg);*/
-/*}*/
-/*.denofwolves.projector-page .spotlight-articles .grudge {*/
-/*	filter: brightness(150%) invert(0) hue-rotate(0deg);*/
-/*}*/
-/*.denofwolves.projector-page .grudge .spotlight-carrier {*/
-/*	mix-blend-mode: hard-light;*/
-/*}*/
-/*.denofwolves.projector-page .spotlight-articles .grudge .spotlight-carrier .theme::after {*/
-/*	background: #606;*/
-/*}*/
