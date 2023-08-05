@@ -1,5 +1,6 @@
 import {BaseGameConfig, T_Org, T_TimerDef} from './BaseGameConfig.ts';
-import './DenOfWolves.css'; //## NOTE: will always load (regardless of gameIdf)
+import './DenOfWolves.css';
+import {SituationDat} from "../../../zap-shared/_Dats.ts"; //## NOTE: will always load (regardless of gameIdf)
 
 const DOW_VID = '../assets/videos/denofwolves/';
 const DOW_AUD = '../assets/audio/';
@@ -14,6 +15,9 @@ class DenOfWolvesConfig extends BaseGameConfig {
     crawlerLogo = '../assets/images/denofwolves/ink_logo.svg';
 
     orgs: T_Org[] = [INC];
+    situationDefs: SituationDat[] = [
+        {label: 'Battle Stations', cssClass: 'battle-stations'}
+    ];
 
     // timerDefs: T_TimerDef[] = [
     //     {
