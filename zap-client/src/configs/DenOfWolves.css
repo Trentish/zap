@@ -1,0 +1,273 @@
+/*## denofwolves-specific-stuff */
+
+.denofwolves.projector-page .logo {
+    /*display: block;*/
+    max-height: 20vh;
+    display: none;
+}
+
+.denofwolves.projector-page .timer {
+    /*font-family: "Norse";*/
+    font-family: "TofinoWide-Bold";
+    font-weight: bold;
+    font-size: 30vh;
+}
+
+.denofwolves.projector-page .timer .timer-label {
+    /*font-family: "Norse";*/
+    font-family: "TofinoWide-Medium";
+    font-weight: bold;
+}
+
+.denofwolves.projector-page .spotlight-carrier {
+    /*font-family: "Norse";*/
+    font-family: "TofinoWide-Medium";
+    align-items: center;
+    text-align: center;
+    mix-blend-mode: screen;
+    background-color: white;
+    background-image: url('../../assets/images/denofwolves/stone-background-2.jpg');
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+
+    perspective: 100vw;
+}
+
+.denofwolves.projector-page .spotlight-carrier > * {
+    background: #000;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.denofwolves.projector-page .spotlight-carrier .headline {
+    font-size: min(15vh, 12vw);
+    text-size-adjust: auto;
+    /*transform: rotate3d(1, 0, 0, 55deg);*/
+}
+
+.denofwolves.projector-page .spotlight-carrier .theme {
+    font-family: "TofinoWide-Bold";
+    text-transform: uppercase;
+    position: relative;
+    font-size: min(6vh, 6vw);
+    margin-bottom: 5vh;
+    transform: translateY(2.5vh);
+}
+
+.denofwolves.projector-page .spotlight-carrier .theme::after {
+    background: #ffcc00;
+    position: fixed;
+    bottom: -0.2em;
+    left: 0;
+    height: 0.1em;
+    width: 100%;
+    display: block;
+    content: " ";
+    z-index: -1;
+}
+
+:root {
+    --denofwolves--spacer-width: 15vh;
+    --denofwolves--crawler-height: 10vh;
+    --denofwolves--crawler-distance-from-bottom: 5vh;
+}
+/* ## crawler */
+.denofwolves.projector-page .crawler-logo {
+    /*display: block;*/
+    position: fixed;
+    height: 20vh;
+    left: 0;
+    bottom: 0;
+}
+.denofwolves.projector-page .crawlerHeadline {
+    /*font-family: Norse, sans-serif;*/
+    font-family: 'TofinoWide-Bold', serif;
+    text-transform: uppercase;
+    /*font-family: 'TofinoCond-Bold', serif;*/
+    position: relative;
+    padding: unset;
+    padding-right: var(--denofwolves--spacer-width);
+}
+.denofwolves.projector-page .crawlerHeadline::before {
+    content: "⬩";
+    font-size: 8.5vh;
+    text-align: center;
+    width: var(--denofwolves--spacer-width);
+    display: block;
+    /*color: #013848;*/
+    color: #fc0;
+    position: absolute;
+    right: 0;
+    bottom: -2.85vh;
+}
+
+.denofwolves.projector-page .crawlGroup.anim0,
+.denofwolves.projector-page .crawlGroup.anim1 {
+    background: transparent;
+}
+.denofwolves.projector-page .crawlerContainer {
+    background: transparent;
+    height: var(--denofwolves--crawler-height);
+    position: fixed;
+    bottom: var(--denofwolves--crawler-distance-from-bottom);
+    left: 25vh;
+    width: calc(100vw - 25vh);
+    font-size: 3vh;
+    display: flex;
+    align-items: center;
+    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,1));
+    -webkit-mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: left top, left bottom;
+}
+
+
+/*      ##  gossip */
+.denofwolves.projector-page .gossip .spotlight-background {
+    filter: brightness(500%) hue-rotate(50deg);
+}
+.denofwolves.projector-page .gossip {
+    filter: brightness(100%) invert(0) hue-rotate(0deg) saturate(150%);
+}
+.denofwolves.projector-page .gossip .spotlight-carrier {
+    mix-blend-mode: screen;
+}
+.denofwolves.projector-page .gossip .spotlight-carrier .theme::after {
+    background: #f00;
+}
+
+
+/*      ## discovery */
+.denofwolves.projector-page .discovery {
+    filter: invert(1);
+}
+.denofwolves.projector-page .discovery video.spotlight-background {
+    filter: brightness(300%) invert(0)  hue-rotate(180deg) saturate(50%);
+}
+.denofwolves.projector-page .discovery .spotlight-carrier {
+    background-image: url('../../assets/images/denofwolves/stone-background-2_gold.jpg');
+    filter: brightness(75%) invert(1) ;
+    mix-blend-mode: multiply;
+}
+.denofwolves.projector-page .discovery .spotlight-carrier .theme::after {
+    background: #000;
+}
+
+
+/*      ## triumph */
+.denofwolves.projector-page .triumph {
+    filter: invert(0) hue-rotate(180deg);
+}
+.denofwolves.projector-page .triumph video.spotlight-background {
+    filter: brightness(500%) hue-rotate(260deg);
+}
+.denofwolves.projector-page .triumph .spotlight-carrier {
+    filter: brightness(100%) invert(1) hue-rotate(190deg);
+    background-image: url('../../assets/images/denofwolves/stone-background-2_gold.jpg');
+    mix-blend-mode: hard-light;
+    color: white;
+}
+.denofwolves.projector-page .triumph .spotlight-carrier .theme::after {
+    background: #000;
+}
+
+
+/*      ## calamity */
+.denofwolves.projector-page .calamity video.spotlight-background {
+    filter: brightness(250%) invert(1) hue-rotate(180deg);
+}
+.denofwolves.projector-page .calamity video.spotlight-background {
+    transform: rotateX(180deg);
+    filter: brightness(150%);
+}
+.denofwolves.projector-page .calamity .spotlight-carrier {
+    filter: brightness(100%) invert(0) hue-rotate(180deg);
+    background-image: url('../../assets/images/denofwolves/stone-background-2_gold.jpg');
+}
+.denofwolves.projector-page .calamity .spotlight-carrier .theme::after {
+    background: #000;
+}
+
+/*      ## oath */
+.denofwolves.projector-page .oath {
+    filter: invert(1) sepia(1);
+}
+.denofwolves.projector-page .oath video.spotlight-background {
+    transform: rotateX(180deg);
+}
+.denofwolves.projector-page .oath .spotlight-carrier {
+    mix-blend-mode: screen;
+    filter: brightness(100%) invert(1) hue-rotate(200deg);
+}
+.denofwolves.projector-page .oath .spotlight-carrier .theme::after {
+    background: #f70;
+}
+
+
+/*      ## grudge */
+.denofwolves.projector-page .grudge {
+    filter: brightness(100%) invert(0) hue-rotate(80deg) saturate(250%);
+}
+.denofwolves.projector-page .grudge video.spotlight-background {
+    filter: brightness(100%) hue-rotate(0deg);
+}
+.denofwolves.projector-page .grudge .spotlight-carrier {
+    filter: brightness(100%) invert(1) hue-rotate(180deg);
+    background-image: url('../../assets/images/denofwolves/stone-background-2.jpg');
+}
+.denofwolves.projector-page .grudge .spotlight-carrier .theme::after {
+    background: #000;
+}
+
+
+/*      ## carrier */
+.denofwolves.projector-page .doom .spotlight-carrier {
+    mix-blend-mode: overlay;
+    filter: invert(1); /* TODO: Ask Trenton */
+}
+.denofwolves.projector-page .doom .spotlight-carrier .theme::after {
+    background: #000;
+}
+
+/* Golden triumph */
+/*.denofwolves.projector-page .spotlight-articles .triumph video.spotlight-background {*/
+/*	filter: hue-rotate(110deg);*/
+/*}*/
+/*.denofwolves.projector-page .triumph .spotlight-carrier {*/
+/*	mix-blend-mode: screen;*/
+/*	filter: brightness(100%) invert(1) hue-rotate(200deg);*/
+/*}*/
+/*.denofwolves.projector-page .spotlight-articles .triumph .spotlight-carrier .theme::after {*/
+/*	background: #f70;*/
+/*}*/
+
+/* Maybe a better gossip? */
+/*.denofwolves.projector-page .calamity {*/
+/*	filter: brightness(100%) invert(1) hue-rotate(160deg);*/
+/*}*/
+/*.denofwolves.projector-page .calamity .spotlight-carrier {*/
+/*	!*mix-blend-mode: hard-light;*!*/
+/*	filter: brightness(100%) invert(1) hue-rotate(180deg);*/
+/*}*/
+/*.denofwolves.projector-page .calamity .spotlight-carrier .headline {*/
+/*	!*mix-blend-mode: multiply;*!*/
+/*}*/
+/*.denofwolves.projector-page .calamity .spotlight-carrier .theme::after {*/
+/*	background: #ff00ff;*/
+/*}*/
+
+
+/* Light background gold kinda nice */
+/*.denofwolves.projector-page .spotlight-articles .grudge video.spotlight-background {*/
+/*	filter: hue-rotate(110deg);*/
+/*}*/
+/*.denofwolves.projector-page .spotlight-articles .grudge {*/
+/*	filter: brightness(150%) invert(0) hue-rotate(0deg);*/
+/*}*/
+/*.denofwolves.projector-page .grudge .spotlight-carrier {*/
+/*	mix-blend-mode: hard-light;*/
+/*}*/
+/*.denofwolves.projector-page .spotlight-articles .grudge .spotlight-carrier .theme::after {*/
+/*	background: #606;*/
+/*}*/

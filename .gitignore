@@ -72,3 +72,4 @@ fabric.properties
 # End of https://www.gitignore.io/api/jetbrains
 /dist/
 zap-client/assets/audio/juntas_1_veryLargeAndGitIgnored.mp4
+zap-client/assets/videos/juntas/juntas_1_veryLargeAndGitIgnored.mp4

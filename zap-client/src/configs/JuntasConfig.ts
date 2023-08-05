@@ -10,7 +10,7 @@ class JuntasConfig extends BaseGameConfig {
 
 
     bgVideo = `${J_VIDS}globe2.mov`;
-    overlayVideo = `${J_VIDS}vhs.mp4`;
+    // overlayVideo = `${J_VIDS}vhs.mp4`;
 
     showCrawler = false;
     showLocationField = true;

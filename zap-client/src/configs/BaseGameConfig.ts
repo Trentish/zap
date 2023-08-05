@@ -8,12 +8,12 @@ export type T_Org = {
 	// overlayVideo?: string,
 	
 	introVideo: string,
-	introAudio: string,
+	introAudio?: string,
 	introAudioDelay?: number,
 	introVolume?: number,
 	
 	outroVideo: string,
-	outroAudio: string,
+	outroAudio?: string,
 	outroAudioDelay?: number,
 	outroVolume?: number,
 	

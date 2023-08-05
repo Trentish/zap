@@ -50,6 +50,11 @@
 
 }
 
+.juntas.projector-page .intro,
+.juntas.projector-page .outro {
+	filter: saturate(0%);
+}
+
 .juntas.projector-page .article.spotlight {
 	background-color: #369;
 }
