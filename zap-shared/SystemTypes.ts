@@ -167,25 +167,25 @@ export class SERVER_to_CLIENT<TPk extends T_Packet, TSrc extends I_PkSource> ext
 	from = E_Endpoint.server;
 	to = E_Endpoint.client;
 	useClientCatchall = true;
-	From_SERVER: (pk: TPk) => void;
+	declare From_SERVER: (pk: TPk) => void;
 }
 
 export class SERVER_to_ADMIN<TPk extends T_Packet, TSrc extends I_PkSource> extends ServerPkOutgoing<TPk, TSrc> {
 	from = E_Endpoint.server;
 	to = E_Endpoint.admin;
-	From_SERVER: (pk: TPk) => void;
+	declare From_SERVER: (pk: TPk) => void;
 }
 
 export class SERVER_to_PLAYER<TPk extends T_Packet, TSrc extends I_PkSource> extends ServerPkOutgoing<TPk, TSrc> {
 	from = E_Endpoint.server;
 	to = E_Endpoint.player;
-	From_SERVER: (pk: TPk) => void;
+	declare From_SERVER: (pk: TPk) => void;
 }
 
 export class SERVER_to_PROJECTOR<TPk extends T_Packet, TSrc extends I_PkSource> extends ServerPkOutgoing<TPk, TSrc> {
 	from = E_Endpoint.server;
 	to = E_Endpoint.projector;
-	From_SERVER: (pk: TPk) => void;
+	declare From_SERVER: (pk: TPk) => void;
 }
 
 /** from any type of client */
@@ -193,25 +193,25 @@ export class CLIENT_to_SERVER<TPk extends T_Packet, TSrc extends I_PkSource> ext
 	from = E_Endpoint.client;
 	to = E_Endpoint.server;
 	useClientCatchall = true;
-	From_CLIENT: (pk: TPk, src: TSrc) => void;
+	declare From_CLIENT: (pk: TPk, src: TSrc) => void;
 }
 
 export class ADMIN_to_SERVER<TPk extends T_Packet, TSrc extends I_PkSource> extends ClientPkOutgoing<TPk, TSrc> {
 	from = E_Endpoint.admin;
 	to = E_Endpoint.server;
-	From_ADMIN: (pk: TPk, src: TSrc) => void;
+	declare From_ADMIN: (pk: TPk, src: TSrc) => void;
 }
 
 export class PLAYER_to_SERVER<TPk extends T_Packet, TSrc extends I_PkSource> extends ClientPkOutgoing<TPk, TSrc> {
 	from = E_Endpoint.player;
 	to = E_Endpoint.server;
-	From_PLAYER: (pk: TPk, src: TSrc) => void;
+	declare From_PLAYER: (pk: TPk, src: TSrc) => void;
 }
 
 export class PROJECTOR_to_SERVER<TPk extends T_Packet, TSrc extends I_PkSource> extends ClientPkOutgoing<TPk, TSrc> {
 	from = E_Endpoint.projector;
 	to = E_Endpoint.server;
-	From_PROJECTOR: (pk: TPk, src: TSrc) => void;
+	declare From_PROJECTOR: (pk: TPk, src: TSrc) => void;
 }
 
 export class BasePacketDefs<TSrc extends I_PkSource> {
