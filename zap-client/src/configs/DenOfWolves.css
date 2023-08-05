@@ -14,15 +14,15 @@
 }
 
 .denofwolves.projector-page.charlie #backgroundVideoLoop {
-    filter: brightness(1) hue-rotate(-150deg);
+    filter: brightness(1) hue-rotate(210deg);
 }
 
 .denofwolves.projector-page.delta #backgroundVideoLoop {
-    filter: brightness(0.7) hue-rotate(-175deg) saturate(200%);
+    filter: brightness(1) hue-rotate(182.5deg) saturate(200%);
 }
 
 .denofwolves.projector-page.echo #backgroundVideoLoop {
-    filter: brightness(0.6) hue-rotate(-205deg) saturate(200%);
+    filter: brightness(0.6) hue-rotate(155deg) saturate(200%);
 }
 
 .denofwolves.projector-page.wolf #backgroundVideoLoop {
@@ -31,6 +31,7 @@
     animation-direction: alternate;
     animation-iteration-count: infinite;
     animation-duration: 2s;
+    animation-timing-function: ease-in-out;
 }
 
 @keyframes wolf {
