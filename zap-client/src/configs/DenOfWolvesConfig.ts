@@ -13,6 +13,7 @@ class DenOfWolvesConfig extends BaseGameConfig {
     showCrawler = true;
     logo = '../assets/images/denofwolves/inc_logo.svg';
     crawlerLogo = '../assets/images/denofwolves/inc_logo.svg';
+    timerEndSound = `${DOW_AUD}juntas_end_turn_1.mp3`;
 
     orgs: T_Org[] = [INC];
     situationDefs: SituationDat[] = [
@@ -53,10 +54,12 @@ const INC: T_Org = {
     label: 'INC',
     bgVideo: `${DOW_VID}box-background.mp4`,
     introVideo: `../assets/videos/jungle/yellowarrow.webm`,
-    // introAudio: `${DOW_AUD}gossip.mp3`,
+    introAudio: `${DOW_AUD}denofwolves_news_1.mp3`,
     // introAudioDelay: 500,
     outroVideo: `../assets/videos/jungle/yellowarrow.webm`,
     outroAudio: ``,
+    introMidMs: 1400,
+    outroMidMs: 1400,
     showAsRadio: true,
 };
 

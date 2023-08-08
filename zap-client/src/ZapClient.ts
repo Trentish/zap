@@ -28,7 +28,8 @@ import {TimerDat} from "../../zap-shared/_Dats.ts";
 // const WS_SERVER = 'ws://localhost:3007'; // TODO: config
 // const WS_SERVER = 'ws://127.0.0.1:3007'; // TODO: config
 // const WS_SERVER = 'ws://192.168.0.194:3007'; // TODO: config
-const WS_SERVER = 'ws://172.16.78.241:3007'; // TODO: config
+// const WS_SERVER = 'ws://172.16.78.241:3007'; // TODO: config
+const WS_SERVER = 'ws://172.16.65.110:3007'; // TODO: config
 const RECONNECT_INTERVAL_MS = 5000;
 
 export class ConnToServer implements I_PkSource {endpoint = E_Endpoint.server;}

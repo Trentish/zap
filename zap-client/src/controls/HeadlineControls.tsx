@@ -65,10 +65,10 @@ export function HeadlineControls() {
 	return (
 		<div className={'headlineControls'}>
 			<Input
-				label={'Headline'}
+				label={''}
 				$value={$headline}
-				description={`don't post stupid shit (TODO, maybe have examples)`}
-				placeholder={``}
+				// description={`don't post stupid shit (TODO, maybe have examples)`}
+				placeholder={`Headline`}
 				// placeholder={`X adjectively verbed Y!`}
 				maxLength={HEADLINE_MAX_SIZE}
 				inputProps={{onKeyDown: checkKeyDown}}
@@ -94,9 +94,9 @@ export function HeadlineControls() {
 				onClick={postArticle}
 				enabledIf={$canSubmit}
 			/>
-			
-			<br/><br/><br/><br/>
-			<p>TODO: org stuff?</p>
+
+			{/*<br/><br/><br/><br/>*/}
+			{/*<p>TODO: org stuff?</p>*/}
 		</div>
 	);
 }

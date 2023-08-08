@@ -41,7 +41,7 @@
 }
 
 .deephaven.projector-page .spotlight-carrier .headline {
-	font-size: min(15vh, 12vw);
+	font-size: 6vmax;
 	text-size-adjust: auto;
 	/*transform: rotate3d(1, 0, 0, 55deg);*/
 }
@@ -99,7 +99,7 @@
 	color: #fc0;
 	position: absolute;
 	right: 0;
-	bottom: -2.85vh;
+	bottom: -0.19em;
 }
 
 .deephaven.projector-page .crawlGroup.anim0,
@@ -111,8 +111,8 @@
 	height: var(--deephaven--crawler-height);
 	position: fixed;
 	bottom: var(--deephaven--crawler-distance-from-bottom);
-	left: 25vh;
-	width: calc(100vw - 25vh);
+	left: 10vh;
+	width: calc(100vw - 10vh);
 	font-size: 3vh;
 	display: flex;
 	align-items: center;
@@ -143,7 +143,7 @@
 	filter: invert(1);
 }
 .deephaven.projector-page .discovery video.spotlight-background {
-	filter: brightness(300%) invert(0)  hue-rotate(180deg) saturate(50%);
+	filter: brightness(600%) invert(0)  hue-rotate(180deg) saturate(50%);
 }
 .deephaven.projector-page .discovery .spotlight-carrier {
 	background-image: url('../../assets/images/deephaven/stone-background-2_gold.jpg');
@@ -271,3 +271,8 @@
 /*.deephaven.projector-page .spotlight-articles .grudge .spotlight-carrier .theme::after {*/
 /*	background: #606;*/
 /*}*/
+
+.deephaven.projector-page .spotlight-carrier .smaller-text-please {
+	font-size: 10px;
+
+}
