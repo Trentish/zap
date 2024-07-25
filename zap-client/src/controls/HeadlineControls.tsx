@@ -107,14 +107,16 @@ const OnlyIncludeOrgIf = (opt: T_RadioOption | undefined) => (
 
 export function ThemeControls({$org}: { $org: PrimitiveAtom<string> }) {
 	const [config] = useAtom($config);
+	if (!config) return <div/>;
 	
-	if (!config?.orgs.length) return <div/>;
+	const orgs = config.GetAllOrgs();
+	if (!orgs.length) return <div/>;
 	
 	return (
 		<Radios
 			$value={$org}
 			title={'Type'}
-			options={config.orgs}
+			options={orgs}
 			filterOption={OnlyIncludeOrgIf}
 		/>
 	);

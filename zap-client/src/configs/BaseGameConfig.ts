@@ -1,5 +1,7 @@
 import React from 'react';
 import {ArticleDat, SituationDat} from '../../../zap-shared/_Dats.ts';
+import {useAtom} from 'jotai/index';
+import {$config} from '../ClientState.ts';
 
 export type T_Org = {
 	id: string,
@@ -63,6 +65,10 @@ export class BaseGameConfig {
 
 	constructor() {
 		//
+	}
+	
+	GetAllOrgs() {
+		return this.orgs;
 	}
 	
 	GetOrg(article: ArticleDat | undefined): T_Org {
