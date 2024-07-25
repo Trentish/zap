@@ -8,8 +8,10 @@ import {FallbackConfig} from './configs/BaseGameConfig.ts';
 import DeephavenConfig from './configs/DeephavenConfig.ts';
 import JuntasConfig from './configs/JuntasConfig.ts';
 import JungleConfig from './configs/JungleConfig.ts';
-import React from "react";
-import DenOfWolvesConfig from "./configs/DenOfWolvesConfig.ts";
+import React from 'react';
+import DenOfWolvesConfig from './configs/DenOfWolvesConfig.ts';
+import GrimvaleConfig from './configs/GrimvaleConfig.ts';
+import GoblinConfig from './configs/GoblinConfig.ts';
 
 export const $store = getDefaultStore();
 export const $connStatus = atom(E_ConnStatus.unset);
@@ -25,10 +27,10 @@ export const $splitArticles = splitAtom($allArticles);//, a => `articleAtomId${a
 export const $spotlight = atom<SpotlightDat>({spotlightId: -1, pendingAboveId: -1});
 
 export const $spotlightArticle = atom<ArticleDat | null>((get) => {
-    const articles = get($allArticles);
-    const spotlight = get($spotlight);
-    const article = articles.find(a => a.id === spotlight.spotlightId);
-    return article || null;
+	const articles = get($allArticles);
+	const spotlight = get($spotlight);
+	const article = articles.find(a => a.id === spotlight.spotlightId);
+	return article || null;
 });
 
 export const $crawlerArticles = atom<ArticleDat[]>([]);
@@ -41,16 +43,20 @@ export const $timerAudioRef = atom<React.RefObject<HTMLAudioElement> | undefined
 export const $situation = atom<SituationDat>({label: '', cssClass: ''});
 
 export const $config = atom(get => {
-    switch (get($gameIdf)) {
-        case DeephavenConfig.gameIdf:
-            return DeephavenConfig;
-        case JuntasConfig.gameIdf:
-            return JuntasConfig;
-        case JungleConfig.gameIdf:
-            return JungleConfig;
-        case DenOfWolvesConfig.gameIdf:
-            return DenOfWolvesConfig;
-        default:
-            return FallbackConfig;
-    }
+	switch (get($gameIdf)) {
+		case DeephavenConfig.gameIdf:
+			return DeephavenConfig;
+		case JuntasConfig.gameIdf:
+			return JuntasConfig;
+		case JungleConfig.gameIdf:
+			return JungleConfig;
+		case DenOfWolvesConfig.gameIdf:
+			return DenOfWolvesConfig;
+		case GrimvaleConfig.gameIdf:
+			return GrimvaleConfig;
+		case GoblinConfig.gameIdf:
+			return GoblinConfig;
+		default:
+			return FallbackConfig;
+	}
 });
