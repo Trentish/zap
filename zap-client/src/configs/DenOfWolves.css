@@ -57,13 +57,17 @@
     /*font-family: "Norse";*/
     font-family: "TofinoWide-Bold";
     font-weight: bold;
-    font-size: 30vh;
+    font-size: 20vmax !important;
+    gap: 0;
 }
 
 .denofwolves.projector-page .timer .timer-label {
     /*font-family: "Norse";*/
     font-family: "TofinoWide-Medium";
     font-weight: bold;
+    font-size: 7vmax !important;
+    text-transform: uppercase;
+    margin-bottom:7vmax;
 }
 
 .denofwolves.projector-page .spotlight-carrier {
@@ -90,7 +94,7 @@
 .denofwolves.projector-page .spotlight-carrier .headline {
     font-size: min(15vh, 12vw);
     text-size-adjust: auto;
-    max-width: 80vw;
+    width: 100%;
     text-align: left;
     /*transform: rotate3d(1, 0, 0, 55deg);*/
 }
@@ -139,8 +143,7 @@
     padding-right: var(--denofwolves--spacer-width);
 }
 .denofwolves.projector-page .crawlerHeadline::before {
-    content: "⬩";
-    font-size: 8.5vh;
+    content: "-";
     text-align: center;
     width: var(--denofwolves--spacer-width);
     display: block;
@@ -148,7 +151,7 @@
     color: #fc0;
     position: absolute;
     right: 0;
-    bottom: -2.85vh;
+    bottom: 0;
 }
 
 .denofwolves.projector-page .crawlGroup.anim0,
@@ -183,8 +186,6 @@
     right: 2vw;
     top: 5vh;
 
-    background-image: url('../../assets/images/denofwolves/inc_logo.svg');
-
 }
 
 .denofwolves.projector-page .spotlight-carrier {
@@ -192,6 +193,21 @@
     position: relative;
 }
 
+.denofwolves.projector-page .spotlight-carrier .headline {
+    font-size: 6vmax;
+
+
+    background-size: 15%;
+    background-position: right bottom;
+    padding-right: 20%;
+    background-repeat: no-repeat;
+    background-image: url('../../assets/images/denofwolves/inc_logo.svg');
+}
+
 .denofwolves.projector-page .spotlight-background {
     filter: brightness(0.2) saturate(0%);
 }
+
+
+
+

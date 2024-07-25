@@ -306,6 +306,8 @@ function Spotlight() {
 function Headline({$article}: { $article: Atom<ArticleDat> }) {
 	const [article] = useAtom($article);
 	const [spotlight] = useAtom($spotlight);
+
+	const headlineLength = article.headline.length;
 	
 	const className = clsx(
 		'article',

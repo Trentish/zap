@@ -126,3 +126,41 @@ h6 {
 .radios input:checked{
 	background-color: #000;
 }
+
+textarea {
+	width: 100%;
+	min-height: 30vh;
+	font-size: 20px;
+}
+
+.headlineControls {
+	display: grid;
+	grid-template-areas: "headline type submit";
+	grid-template-columns: 60vw auto auto;
+}
+
+.headlineControls div:first-child {
+	grid-area: headline;
+}
+.headlineControls fieldset {
+	grid-area: type;
+	border: none;
+	display: flex;
+	flex-direction: column;
+}
+.headlineControls button {
+	grid-area: submit;
+}
+.headlineControls legend {
+	display: none;
+}
+
+.playerPage .timer-label {
+	margin-left: 0.5em;
+	font-style: italic;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+	color: #00000044;
+	opacity: 1; /* Firefox */
+}
