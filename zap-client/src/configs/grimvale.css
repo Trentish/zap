@@ -124,22 +124,12 @@
 }
 
 
-/*      ##  gossip */
-.grimvale.projector-page .gossip .spotlight-background {
-	filter: brightness(500%) hue-rotate(50deg);
-}
-.grimvale.projector-page .gossip {
-	filter: brightness(100%) invert(0) hue-rotate(0deg) saturate(150%);
-}
-.grimvale.projector-page .gossip .spotlight-carrier {
-	mix-blend-mode: screen;
-}
-.grimvale.projector-page .gossip .spotlight-carrier .theme::after {
-	background: #f00;
-}
-
-
 /*      ## redbard */
+.grimvale.projector-page .redbard .spotlight-carrier .theme,
+.grimvale.projector-page .redbard .spotlight-carrier .headline  {
+	font-family: "Norse";
+	text-transform: uppercase;
+}
 .grimvale.projector-page .redbard {
 	filter: invert(0) hue-rotate(150deg);
 }
@@ -162,6 +152,11 @@
 }
 
 /*  ## greenbard */
+.grimvale.projector-page .greenbard .spotlight-carrier .theme,
+.grimvale.projector-page .greenbard .spotlight-carrier .headline  {
+	font-family: "Luminari";
+	text-transform: uppercase;
+}
 .grimvale.projector-page .greenbard {
 	/*filter: invert(1);*/
 	filter: hue-rotate(100deg);
@@ -184,6 +179,11 @@
 }
 
 /*      ## bluebard */
+.grimvale.projector-page .bluebard .spotlight-carrier .theme,
+.grimvale.projector-page .bluebard .spotlight-carrier .headline  {
+	font-family: "Rock Thorn";
+	text-transform: uppercase;
+}
 .grimvale.projector-page .bluebard {
 	/*filter: invert(0) hue-rotate(180deg);*/
 }
@@ -206,39 +206,6 @@
 }
 
 
-/*      ## calamity */
-.grimvale.projector-page .calamity video.spotlight-background {
-	filter: brightness(250%) invert(1) hue-rotate(180deg);
-}
-.grimvale.projector-page .calamity video.spotlight-background {
-	transform: rotateX(180deg);
-	filter: brightness(150%);
-}
-.grimvale.projector-page .calamity .spotlight-carrier {
-	filter: brightness(100%) invert(0) hue-rotate(180deg);
-	background-image: url('../../assets/images/grimvale/stone-background-2_gold.jpg');
-}
-.grimvale.projector-page .calamity .spotlight-carrier .theme::after {
-	background: #000;
-}
-
-
-/*      ## grudge */
-.grimvale.projector-page .grudge {
-	filter: brightness(100%) invert(0) hue-rotate(80deg) saturate(250%);
-}
-.grimvale.projector-page .grudge video.spotlight-background {
-	filter: brightness(100%) hue-rotate(0deg);
-}
-.grimvale.projector-page .grudge .spotlight-carrier {
-	filter: brightness(100%) invert(1) hue-rotate(180deg);
-	background-image: url('../../assets/images/grimvale/stone-background-2_gold.jpg');
-}
-.grimvale.projector-page .grudge .spotlight-carrier .theme::after {
-	background: #000;
-}
-
-
 /*      ## carrier */
 .grimvale.projector-page .doom .spotlight-carrier {
 	mix-blend-mode: overlay;
@@ -247,48 +214,6 @@
 .grimvale.projector-page .doom .spotlight-carrier .theme::after {
 	background: #000;
 }
-
-/* Golden bluebard */
-/*.grimvale.projector-page .spotlight-articles .bluebard video.spotlight-background {*/
-/*	filter: hue-rotate(110deg);*/
-/*}*/
-/*.grimvale.projector-page .bluebard .spotlight-carrier {*/
-/*	mix-blend-mode: screen;*/
-/*	filter: brightness(100%) invert(1) hue-rotate(200deg);*/
-/*}*/
-/*.grimvale.projector-page .spotlight-articles .bluebard .spotlight-carrier .theme::after {*/
-/*	background: #f70;*/
-/*}*/
-
-/* Maybe a better gossip? */
-/*.grimvale.projector-page .calamity {*/
-/*	filter: brightness(100%) invert(1) hue-rotate(160deg);*/
-/*}*/
-/*.grimvale.projector-page .calamity .spotlight-carrier {*/
-/*	!*mix-blend-mode: hard-light;*!*/
-/*	filter: brightness(100%) invert(1) hue-rotate(180deg);*/
-/*}*/
-/*.grimvale.projector-page .calamity .spotlight-carrier .headline {*/
-/*	!*mix-blend-mode: multiply;*!*/
-/*}*/
-/*.grimvale.projector-page .calamity .spotlight-carrier .theme::after {*/
-/*	background: #ff00ff;*/
-/*}*/
-
-
-/* Light background gold kinda nice */
-/*.grimvale.projector-page .spotlight-articles .grudge video.spotlight-background {*/
-/*	filter: hue-rotate(110deg);*/
-/*}*/
-/*.grimvale.projector-page .spotlight-articles .grudge {*/
-/*	filter: brightness(150%) invert(0) hue-rotate(0deg);*/
-/*}*/
-/*.grimvale.projector-page .grudge .spotlight-carrier {*/
-/*	mix-blend-mode: hard-light;*/
-/*}*/
-/*.grimvale.projector-page .spotlight-articles .grudge .spotlight-carrier .theme::after {*/
-/*	background: #606;*/
-/*}*/
 
 .grimvale.projector-page .spotlight-carrier .smaller-text-please {
 	font-size: 10px;
