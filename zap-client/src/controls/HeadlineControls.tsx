@@ -110,7 +110,7 @@ export function ThemeControls({$org}: { $org: PrimitiveAtom<string> }) {
 	if (!config) return <div/>;
 	
 	const orgs = config.GetAllOrgs();
-	if (!orgs.length) return <div/>;
+	if (!orgs?.length) return <div/>;
 	
 	return (
 		<Radios
