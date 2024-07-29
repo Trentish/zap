@@ -42,12 +42,13 @@ class GoblinConfig extends BaseGameConfig {
 	}
 }
 
+
 const BIG_CHEESE_SEZ: T_Org = {
 	id: 'bigcheesesez',
 	label: 'Big Cheese Sez',
 	bgVideo: `${DH_VID}spotlight-background-3.mp4`,
 	introVideo: `${DH_VID}yellowarrow.webm`,
-	introAudio: `${DH_AUD}goblin_gossip.mp3`,
+	introAudio: `${DH_AUD}news1.mp3`,
 	introAudioDelay: 0,
 	outroVideo: `${DH_VID}yellowarrow.webm`,
 	outroAudio: ``,
@@ -60,7 +61,7 @@ const REVENANT_REPORT: T_Org = {
 	label: 'Revenant Report',
 	bgVideo: `${DH_VID}spotlight-background-6.mp4`,
 	introVideo: `${DH_VID}yellowarrow.webm`,
-	introAudio: `${DH_AUD}goblin_innovation.mp3`,
+	introAudio: `${DH_AUD}news2.mp3`,
 	introAudioDelay: 200,
 	outroVideo: `${DH_VID}yellowarrow.webm`,
 	outroAudio: ``,
@@ -73,7 +74,7 @@ const THE_SIREN: T_Org = {
 	label: 'The Siren',
 	bgVideo: `${DH_VID}spotlight-background-3.mp4`,
 	introVideo: `${DH_VID}yellowarrow.webm`,
-	introAudio: `${DH_AUD}goblin_accolade.mp3`,
+	introAudio: `${DH_AUD}news3.mp3`,
 	introAudioDelay: 200,
 	outroVideo: `${DH_VID}yellowarrow.webm`,
 	outroAudio: ``,
@@ -86,7 +87,7 @@ const THE_SENTINEL: T_Org = {
 	label: 'The Sentinel',
 	bgVideo: `${DH_VID}spotlight-background-6.mp4`,
 	introVideo: `${DH_VID}yellowarrow.webm`,
-	introAudio: `${DH_AUD}goblin_lifestyle.mp3`,
+	introAudio: `${DH_AUD}news4.mp3`,
 	introAudioDelay: 0,
 	outroVideo: `${DH_VID}yellowarrow.webm`,
 	outroAudio: ``,
@@ -99,7 +100,7 @@ const THE_BEHOLDERS_BUGLE: T_Org = {
 	label: 'The Beholder\'s Bugle',
 	bgVideo: `${DH_VID}spotlight-background-3.mp4`,
 	introVideo: `${DH_VID}yellowarrow.webm`,
-	introAudio: `${DH_AUD}goblin_finance.mp3`,
+	introAudio: `${DH_AUD}news5.mp3`,
 	introAudioDelay: 0,
 	outroVideo: `${DH_VID}yellowarrow.webm`,
 	outroAudio: ``,
