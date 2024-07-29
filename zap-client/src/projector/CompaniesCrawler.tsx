@@ -1,4 +1,4 @@
-import './Crawler.css';
+import './CompaniesCrawler.css';
 import React, {forwardRef, useEffect, useRef} from 'react';
 import {atom, useAtom} from 'jotai';
 import {$allArticles, $store} from '../ClientState.ts';
@@ -7,8 +7,8 @@ import {PrimitiveAtom} from 'jotai/vanilla/atom';
 
 // TODO: cleanup/organize this file
 
-const SHOW_COUNT = 12;
-const CRAWL_RATE = 160; // width pixels / CRAWL_RATE
+const SHOW_COUNT = 1;
+const COMPANIES_CRAWL_RATE = 110; // width pixels / COMPANIES_CRAWL_RATE
 
 const exampleHeadlines = [
 	'Elven King Thranduil denounces trade deal with Dwarf nation',
@@ -39,11 +39,11 @@ const tempArticles: ArticleDat[] = exampleHeadlines.map((v, i) => (
 const $testArticles = atom(tempArticles);
 
 
-type T_CrawlItem = { key: string, index: number };
+type T_CompaniesCrawlItem = { key: string, index: number };
 type T_AnimVars = { duration: number, x: number };
 
 /** important that group width is larger than window width */
-const ITEMS_PER_GROUP = 10;
+const ITEMS_PER_GROUP = 4;
 
 type T_Item = { text: string };
 
@@ -60,7 +60,7 @@ const groupInitials = [$groupInitial0, $groupInitial1];
 const groupKeys = ['0_CrawlGroup', '1_CrawlGroup'];
 const groupAnimClasses = ['anim0', 'anim1'];
 
-export function Crawler() {
+export function CompaniesCrawler() {
 	const groupRefs = [
 		useRef<HTMLDivElement>(null),
 		useRef<HTMLDivElement>(null),
@@ -82,9 +82,9 @@ export function Crawler() {
 	};
 	
 	return (
-		<div className={'crawlerContainer'}>
+		<div className={'companiesCrawlerContainer'}>
 			
-			<CrawlGroup
+			<CompaniesCrawlGroup
 				key={groupKeys[0]}
 				groupId={0}
 				$items={groupItems[0]}
@@ -93,7 +93,7 @@ export function Crawler() {
 				fnRestartAnim={fnRestartAnim}
 			/>
 			
-			<CrawlGroup
+			<CompaniesCrawlGroup
 				key={groupKeys[1]}
 				groupId={1}
 				$items={groupItems[1]}
@@ -107,15 +107,15 @@ export function Crawler() {
 	);
 }
 
-type P_CrawlGroup = {
+type P_CompaniesCrawlGroup = {
 	groupId: number,
 	$items: PrimitiveAtom<T_Item[]>,
 	fnEnded: (groupId: number) => void,
 	fnRestartAnim: (groupId: number) => void,
 }
 
-const CrawlGroup = forwardRef(
-	function CrawlGroup(props: P_CrawlGroup, ref: React.ForwardedRef<HTMLDivElement>) {
+const CompaniesCrawlGroup = forwardRef(
+	function CompaniesCrawlGroup(props: P_CompaniesCrawlGroup, ref: React.ForwardedRef<HTMLDivElement>) {
 		const [items] = useAtom(props.$items);
 		
 		useEffect(() => {
@@ -124,14 +124,14 @@ const CrawlGroup = forwardRef(
 		
 		return (
 			<div
-				className={`crawlGroup`}
+				className={`companiesCrawlGroup`}
 				ref={ref}
 				onAnimationEnd={() => props.fnEnded(props.groupId)}
 			>
 				{items.map((item, i) => (
 					<div
-						key={`${i}crawlItem`}
-						className={'crawlerHeadline'}
+						key={`${i}companiesCrawlItem`}
+						className={'companiesCrawlerHeadline'}
 					>{item.text}</div>
 				))}
 			</div>
@@ -176,13 +176,13 @@ function SetAnimVars(
 	const endX = -animDivWidth;
 	const duration = (
 		-endX + startX
-	) / CRAWL_RATE;
+	) / COMPANIES_CRAWL_RATE;
 	
-	SetVar(`--crawlDuration${groupId}`, duration + 's');
-	SetVar(`--crawlStart${groupId}`, startX + 'px');
-	SetVar(`--crawlEnd${groupId}`, endX + 'px');
+	SetVar(`--companiesCrawlDuration${groupId}`, duration + 's');
+	SetVar(`--companiesCrawlStart${groupId}`, startX + 'px');
+	SetVar(`--companiesCrawlEnd${groupId}`, endX + 'px');
 	
-	SetVar(`--crawlWidth${groupId}`, animDivWidth + 'px');
+	SetVar(`--companiesCrawlWidth${groupId}`, animDivWidth + 'px');
 	
 	console.log(
 		`SetAnimVars: #${groupId}, s${startX} e${endX} d${duration}, w${animDivWidth}`,
@@ -205,7 +205,8 @@ function UpdateGroupItems($items: PrimitiveAtom<T_Item[]>) {
 
 // TODO: put external, pass in
 function GetNextItems(prevIndex: number, countToAdd: number): [number, T_Item[]] {
-	const allArticles = $store.get($allArticles).filter(article => article.orgIdf != 'companieshack');
+	const allArticles = $store.get($allArticles).filter(article => article.orgIdf === 'companieshack');
+
 	// let allArticles = $store.get($testArticles);
 	
 	// if (!allArticles?.length) {
@@ -213,16 +214,17 @@ function GetNextItems(prevIndex: number, countToAdd: number): [number, T_Item[]]
 	// }
 	
 	if (!allArticles?.length) return [0,[]];
-	
+	// const prefixSet = new Set(["GOBO:", "ETN:", "MOON:", "OGRE:"]);
+
 	const allArticlesCount = allArticles.length;
-	
+
 	let minIndex = allArticlesCount - SHOW_COUNT;
 	if (minIndex < 0) minIndex = 0;
 	const maxIndex = allArticlesCount - 1;
-	
+
 	const items: T_Item[] = [];
 	let nextIndex = prevIndex;
-	
+
 	while (countToAdd > 0) {
 		nextIndex += 1;
 		if (nextIndex > maxIndex) nextIndex = minIndex;
@@ -231,9 +233,9 @@ function GetNextItems(prevIndex: number, countToAdd: number): [number, T_Item[]]
 		});
 		--countToAdd;
 	}
-	
+
 	console.log(`GetNextItems  last index: ${nextIndex}, all count: ${allArticlesCount} (${minIndex}, ${maxIndex})`);
-	
+
 	return [nextIndex, items];
 }
 

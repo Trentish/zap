@@ -9,20 +9,20 @@
 .grimvale.projector-page .timer {
 	/*font-family: "Norse";*/
 	/*font-family: "Trattatello";*/
-	font-family: "Copperplate";
+	font-family: "Rock Thorn", "Copperplate";
 	font-weight: bold;
 	font-size: 30vh;
 }
 
 .grimvale.projector-page .timer .timer-label {
 	/*font-family: "Norse";*/
-	font-family: "Copperplate";
+	font-family: "Rock Thorn", "Copperplate";
 	font-weight: bold;
 }
 
 .grimvale.projector-page .spotlight-carrier {
 	/*font-family: "Norse";*/
-	font-family: "Copperplate";
+	font-family: "Rock Thorn", "Copperplate";
 	align-items: center;
 	text-align: center;
 	mix-blend-mode: screen;
@@ -48,7 +48,7 @@
 }
 
 .grimvale.projector-page .spotlight-carrier .theme {
-	font-family: "Copperplate";
+	font-family: "Rock Thorn", "Copperplate";
 	text-transform: uppercase;
 	position: relative;
 	font-size: min(6vh, 6vw);
@@ -84,7 +84,7 @@
 }
 .grimvale.projector-page .crawlerHeadline {
 	/*font-family: Norse, sans-serif;*/
-	font-family: 'Copperplate', serif;
+	font-family: "Rock Thorn", 'Copperplate', serif;
 	text-transform: uppercase;
 	position: relative;
 	padding: unset;

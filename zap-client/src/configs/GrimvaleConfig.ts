@@ -122,13 +122,14 @@ function GetHackyOrgs(): T_Org[] {
 		case 'bard1': return BARD1;
 		case 'bard2': return BARD2;
 		case 'bard3': return BARD3;
+		case 'companieshack': return COMPANIESHACK;
 	}
 }
 
 const BARD1: T_Org[] = [
 	{
 		id: 'redbard',
-		label: 'Hear ye, hear ye!',
+		label: 'The Scarlet Bard',
 		bgVideo: `${DH_VID}spotlight-background-3.mp4`,
 		introVideo: `${DH_VID}vahalla.webm`,
 		introAudio: `${DH_AUD}celtic_harmony.mp3`,
@@ -140,7 +141,7 @@ const BARD1: T_Org[] = [
 	},
 	{
 		id: 'greenbard',
-		label: 'Lend me your ears!',
+		label: 'The Emerald Bard',
 		bgVideo: `${DH_VID}spotlight-background-3.mp4`,
 		introVideo: `${DH_VID}vahalla.webm`,
 		introAudio: `${DH_AUD}knights_and_maids.mp3`,
@@ -152,7 +153,7 @@ const BARD1: T_Org[] = [
 	},
 	{
 		id: 'bluebard',
-		label: 'Good people, hear the news!',
+		label: 'The Cerulean Bard',
 		bgVideo: `${DH_VID}spotlight-background-3.mp4`,
 		introVideo: `${DH_VID}vahalla.webm`,
 		introAudio: `${DH_AUD}princess_of_tears.mp3`,
@@ -163,6 +164,18 @@ const BARD1: T_Org[] = [
 		showAsRadio: false,
 	},
 	/* These must be declared both here AND below to deal with a bug that I don't want to deal with. */
+	{
+		id: 'companieshack',
+		label: '',
+		bgVideo: `${DH_VID}spotlight-background-3.mp4`,
+		introVideo: `${DH_VID}vahalla.webm`,
+		introAudio: `${DH_AUD}princess_of_tears.mp3`,
+		introAudioDelay: 0,
+		outroVideo: `${DH_VID}vahalla.webm`,
+		outroAudio: ``,
+		introMidMs: 601,
+		showAsRadio: false,
+	},
 ];
 
 
@@ -185,6 +198,21 @@ const BARD3: T_Org[] = [
 	{
 		id: 'bluebard',
 		label: 'Good people, hear the news!',
+		bgVideo: `${DH_VID}spotlight-background-3.mp4`,
+		introVideo: `${DH_VID}vahalla.webm`,
+		introAudio: `${DH_AUD}princess_of_tears.mp3`,
+		introAudioDelay: 0,
+		outroVideo: `${DH_VID}vahalla.webm`,
+		outroAudio: ``,
+		introMidMs: 601,
+		showAsRadio: true,
+	},
+];
+
+const COMPANIESHACK: T_Org[] = [
+	{
+		id: 'companieshack',
+		label: '',
 		bgVideo: `${DH_VID}spotlight-background-3.mp4`,
 		introVideo: `${DH_VID}vahalla.webm`,
 		introAudio: `${DH_AUD}princess_of_tears.mp3`,
