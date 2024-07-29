@@ -306,7 +306,7 @@ function Spotlight() {
 	);
 }
 
-function Headline({$article}: { $article: Atom<ArticleDat> }) {
+function  Headline({$article}: { $article: Atom<ArticleDat> }) {
 	const [article] = useAtom($article);
 	const [spotlight] = useAtom($spotlight);
 

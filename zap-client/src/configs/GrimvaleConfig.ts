@@ -53,6 +53,7 @@ const HEARSAY: T_Org = {
 	outroVideo: `${DH_VID}vahalla.webm`,
 	outroAudio: ``,
 	introMidMs: 601,
+	outroMidMs: 601,
 	showAsRadio: true,
 };
 const INNOVATION: T_Org = {
@@ -65,6 +66,7 @@ const INNOVATION: T_Org = {
 	outroVideo: `${DH_VID}vahalla.webm`,
 	outroAudio: ``,
 	introMidMs: 601,
+	outroMidMs: 601,
 	showAsRadio: true,
 };
 const LIFESTYLE: T_Org = {
@@ -77,6 +79,7 @@ const LIFESTYLE: T_Org = {
 	outroVideo: `${DH_VID}vahalla.webm`,
 	outroAudio: ``,
 	introMidMs: 601,
+	outroMidMs: 601,
 	showAsRadio: true,
 };
 const ACCOLADE: T_Org = {
@@ -89,6 +92,7 @@ const ACCOLADE: T_Org = {
 	outroVideo: `${DH_VID}vahalla.webm`,
 	outroAudio: ``,
 	introMidMs: 601,
+	outroMidMs: 601,
 	showAsRadio: true,
 };
 const CRISIS: T_Org = {
@@ -101,6 +105,7 @@ const CRISIS: T_Org = {
 	outroVideo: `${DH_VID}realm.webm`,
 	outroAudio: ``,
 	introMidMs: 601,
+	outroMidMs: 601,
 	showAsRadio: true,
 };
 const FINANCE: T_Org = {
@@ -113,6 +118,7 @@ const FINANCE: T_Org = {
 	outroVideo: `${DH_VID}vahalla.webm`,
 	outroAudio: ``,
 	introMidMs: 601,
+	outroMidMs: 601,
 	showAsRadio: true,
 };
 const DOOM: T_Org = {
@@ -125,6 +131,7 @@ const DOOM: T_Org = {
 	outroVideo: `${DH_VID}lightning.webm`,
 	outroAudio: ``,
 	introMidMs: 601,
+	outroMidMs: 601,
 	showAsRadio: true,
 };
 
