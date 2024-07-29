@@ -66,7 +66,7 @@ export function ProjectorPage() {
 				<Crawler/>
 			)}
 
-			<CompaniesCrawler/>
+			{/*<CompaniesCrawler/>*/}
 			
 			{config.logo && (
 				<img className={'logo'} src={config.logo}/>
