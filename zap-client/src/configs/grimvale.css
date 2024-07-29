@@ -157,10 +157,26 @@
 	background: #000;
 }
 
+/*      ## lifestyle */
+.grimvale.projector-page .lifestyle video.intro,
+.grimvale.projector-page .lifestyle video.outro {
+	filter: invert(0) hue-rotate(20deg) brightness(200%);
+}
+.grimvale.projector-page .lifestyle .spotlight-carrier {
+	filter: invert(1) hue-rotate(220deg) brightness(100%);
+	background-image: url('../../assets/images/grimvale/stone-background-2_gold.jpg');
+}
+.grimvale.projector-page .lifestyle .spotlight-carrier .theme::after {
+	background: #000;
+}
 
 /*      ## accolade */
+.grimvale.projector-page .accolade video.intro,
+.grimvale.projector-page .accolade video.outro {
+	filter: sepia(100%) hue-rotate(170deg) saturate(300%) brightness(150%);
+}
 .grimvale.projector-page .accolade {
-	filter: invert(0) hue-rotate(180deg);
+	filter: invert(0) hue-rotate(50deg);
 }
 .grimvale.projector-page .accolade video.spotlight-background {
 	filter: brightness(500%) hue-rotate(260deg);

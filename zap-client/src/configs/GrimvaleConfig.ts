@@ -13,7 +13,7 @@ class GrimvaleConfig extends BaseGameConfig {
 	logo = '../assets/images/grimvale/ink7.svg';
 	crawlerLogo = '../assets/images/grimvale/ink7.svg';
 
-	orgs: T_Org[] = [GOSSIP, INNOVATION, ACCOLADE, CALAMITY, OATH, GRUDGE, DOOM];
+	orgs: T_Org[] = [GOSSIP, INNOVATION, ACCOLADE, LIFESTYLE, CALAMITY, OATH, GRUDGE, DOOM];
 
 	timerDefs: T_TimerDef[] = [
 		{
@@ -65,6 +65,18 @@ const INNOVATION: T_Org = {
 	outroVideo: `${DH_VID}vahalla.webm`,
 	outroAudio: ``,
 	introMidMs: 601,
+	showAsRadio: true,
+};
+const LIFESTYLE: T_Org = {
+	id: 'lifestyle',
+	label: 'Lifestyle',
+	bgVideo: `${DH_VID}spotlight-background-6.mp4`,
+	introVideo: `${DH_VID}vahalla.webm`,
+	introAudio: `${DH_AUD}grimvale_lifestyle.mp3`,
+	introAudioDelay: 500,
+	outroVideo: `${DH_VID}vahalla.webm`,
+	outroAudio: ``,
+	introMidMs: 201,
 	showAsRadio: true,
 };
 const ACCOLADE: T_Org = {
