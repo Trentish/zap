@@ -72,7 +72,7 @@ const INNOVATION: T_Org = {
 const LIFESTYLE: T_Org = {
 	id: 'lifestyle',
 	label: 'Lifestyle',
-	bgVideo: `${DH_VID}spotlight-background-6.mp4`,
+	bgVideo: `${DH_VID}spotlight-background-3.mp4`,
 	introVideo: `${DH_VID}vahalla.webm`,
 	introAudio: `${DH_AUD}grimvale_lifestyle.mp3`,
 	introAudioDelay: 0,

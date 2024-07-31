@@ -8,7 +8,8 @@
 
 .grimvale.projector-page .timer {
 	/*font-family: "Norse";*/
-	font-family: "Rock Thorn", "Copperplate";
+	font-variant-numeric: tabular-nums;
+	font-family: "Copperplate";
 	font-weight: bold;
 	font-size: 30vh;
 }
@@ -160,12 +161,20 @@
 /*      ## lifestyle */
 .grimvale.projector-page .lifestyle video.intro,
 .grimvale.projector-page .lifestyle video.outro {
-	/*filter: sepia(100%) hue-rotate(0deg) saturate(300%) brightness(150%);*/
-	filter: invert(0) hue-rotate(20deg) brightness(200%);
+	filter: sepia(100%) hue-rotate(170deg) saturate(300%) brightness(150%);
+}
+.grimvale.projector-page .lifestyle {
+	filter: invert(0) hue-rotate(50deg);
+}
+.grimvale.projector-page .lifestyle video.spotlight-background {
+	transform: rotateX(180deg);
+	filter: brightness(500%) hue-rotate(260deg);
 }
 .grimvale.projector-page .lifestyle .spotlight-carrier {
-	filter: invert(1) hue-rotate(220deg) brightness(100%);
+	filter: brightness(100%) invert(1) hue-rotate(190deg);
 	background-image: url('../../assets/images/grimvale/stone-background-2_gold.jpg');
+	mix-blend-mode: hard-light;
+	color: white;
 }
 .grimvale.projector-page .lifestyle .spotlight-carrier .theme::after {
 	background: #000;
@@ -174,19 +183,20 @@
 /*      ## accolade */
 .grimvale.projector-page .accolade video.intro,
 .grimvale.projector-page .accolade video.outro {
-	filter: sepia(100%) hue-rotate(170deg) saturate(300%) brightness(150%);
+	filter: sepia(100%) hue-rotate(-20deg) saturate(300%) brightness(150%);
 }
 .grimvale.projector-page .accolade {
 	filter: invert(0) hue-rotate(50deg);
 }
 .grimvale.projector-page .accolade video.spotlight-background {
 	transform: rotateX(180deg);
-	filter: brightness(500%) hue-rotate(260deg);
+	filter: brightness(500%) hue-rotate(100deg);
 }
 .grimvale.projector-page .accolade .spotlight-carrier {
 	filter: brightness(100%) invert(1) hue-rotate(190deg);
-	background-image: url('../../assets/images/grimvale/stone-background-2_gold.jpg');
-	mix-blend-mode: hard-light;
+	background-image: unset;
+	/*background-image: url('../../assets/images/grimvale/stone-background-2_gold.jpg');*/
+	/*mix-blend-mode: hard-light;*/
 	color: white;
 }
 .grimvale.projector-page .accolade .spotlight-carrier .theme::after {
