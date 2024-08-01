@@ -141,18 +141,20 @@
 /*      ## innovation */
 .grimvale.projector-page .innovation video.intro,
 .grimvale.projector-page .innovation video.outro {
-	filter: invert(1) hue-rotate(-30deg);
+	filter: hue-rotate(100deg) saturate(300%) brightness(100%);
 }
 .grimvale.projector-page .innovation {
-	filter: invert(1);
+	filter: invert(0) hue-rotate(-70deg);
 }
 .grimvale.projector-page .innovation video.spotlight-background {
-	filter: brightness(600%) invert(0)  hue-rotate(180deg) saturate(50%);
+	transform: rotateX(180deg);
+	filter: brightness(500%) hue-rotate(110deg);
 }
 .grimvale.projector-page .innovation .spotlight-carrier {
+	filter: brightness(100%) invert(1) hue-rotate(40deg);
 	background-image: url('../../assets/images/grimvale/stone-background-2_gold.jpg');
-	filter: brightness(75%) invert(1) ;
-	mix-blend-mode: multiply;
+	mix-blend-mode: hard-light;
+	color: white;
 }
 .grimvale.projector-page .innovation .spotlight-carrier .theme::after {
 	background: #000;
@@ -203,7 +205,6 @@
 	background: #000;
 }
 
-
 /*      ## crisis */
 .grimvale.projector-page .crisis video.intro,
 .grimvale.projector-page .crisis video.outro {
@@ -227,21 +228,40 @@
 /*      ## finance */
 .grimvale.projector-page .finance video.intro,
 .grimvale.projector-page .finance video.outro {
-	filter: invert(1) hue-rotate(-30deg);
+	filter: sepia(100%) hue-rotate(70deg) saturate(300%) brightness(150%);
 }
 .grimvale.projector-page .finance {
-	filter: invert(1) sepia(1);
+	filter: invert(0) hue-rotate(-50deg);
 }
 .grimvale.projector-page .finance video.spotlight-background {
-	transform: rotateX(180deg);
+	filter: brightness(500%) hue-rotate(160deg);
 }
 .grimvale.projector-page .finance .spotlight-carrier {
-	mix-blend-mode: screen;
-	filter: brightness(100%) invert(1) hue-rotate(200deg);
+	filter: brightness(100%) invert(1) hue-rotate(90deg);
+	background-image: url('../../assets/images/grimvale/stone-background-2_gold.jpg');
+	mix-blend-mode: hard-light;
+	color: white;
 }
 .grimvale.projector-page .finance .spotlight-carrier .theme::after {
-	background: #f70;
+	background: #000;
 }
+/*.grimvale.projector-page .finance video.intro,*/
+/*.grimvale.projector-page .finance video.outro {*/
+/*	filter: invert(1) hue-rotate(-30deg);*/
+/*}*/
+/*.grimvale.projector-page .finance {*/
+/*	filter: invert(1) sepia(1);*/
+/*}*/
+/*.grimvale.projector-page .finance video.spotlight-background {*/
+/*	transform: rotateX(180deg);*/
+/*}*/
+/*.grimvale.projector-page .finance .spotlight-carrier {*/
+/*	mix-blend-mode: screen;*/
+/*	filter: brightness(100%) invert(1) hue-rotate(200deg);*/
+/*}*/
+/*.grimvale.projector-page .finance .spotlight-carrier .theme::after {*/
+/*	background: #f70;*/
+/*}*/
 
 /*      ## doom */
 .grimvale.projector-page .doom video.intro,

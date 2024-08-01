@@ -59,7 +59,7 @@ const HEARSAY: T_Org = {
 const INNOVATION: T_Org = {
 	id: 'innovation',
 	label: 'Innovation',
-	bgVideo: `${DH_VID}spotlight-background-6.mp4`,
+	bgVideo: `${DH_VID}spotlight-background-3.mp4`,
 	introVideo: `${DH_VID}vahalla.webm`,
 	introAudio: `${DH_AUD}grimvale_innovation.mp3`,
 	introAudioDelay: 200,
