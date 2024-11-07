@@ -33,7 +33,7 @@ export function ProjectorPage() {
 	const client = useClient();
 	const [config] = useAtom($config);
 	const [situation] = useAtom($situation);
-
+	
 	const timerAudioRef = useRef<HTMLAudioElement>(null);
 	$store.set($timerAudioRef, timerAudioRef);
 	
@@ -46,14 +46,16 @@ export function ProjectorPage() {
 				id={'backgroundVideoLoop'}
 			/>
 			
-			<BackgroundVideo
-				src={config.overlayVideo}
-				className={'projector-overlay'}
-				// ref={spotlightOverlayRef}
-			/>
+			{config.overlayVideo && (
+				<BackgroundVideo
+					src={config.overlayVideo}
+					className={'projector-overlay'}
+					// ref={spotlightOverlayRef}
+				/>
+			)}
 			
 			<Timer $timer={$timer}/>
-
+			
 			<Audio
 				src={``}
 				ref={timerAudioRef}
@@ -68,7 +70,7 @@ export function ProjectorPage() {
 			{config.logo && (
 				<img className={'logo'} src={config.logo}/>
 			)}
-
+			
 			{config.showCrawler && config.crawlerLogo && (
 				<img className={'crawler-logo'} src={config.crawlerLogo}/>
 			)}
@@ -306,7 +308,7 @@ function Spotlight() {
 function Headline({$article}: { $article: Atom<ArticleDat> }) {
 	const [article] = useAtom($article);
 	const [spotlight] = useAtom($spotlight);
-
+	
 	const headlineLength = article.headline.length;
 	
 	const className = clsx(
@@ -315,8 +317,12 @@ function Headline({$article}: { $article: Atom<ArticleDat> }) {
 		{'spotlight': spotlight.spotlightId === article.id},
 		{'pending': article.id > spotlight.pendingAboveId},
 	);
-
-	if ((article.id > spotlight.pendingAboveId) || (spotlight.spotlightId === article.id)) {
+	
+	if ((
+		article.id > spotlight.pendingAboveId
+	) || (
+		spotlight.spotlightId === article.id
+	)) {
 		return (
 			<span
 				className={className}

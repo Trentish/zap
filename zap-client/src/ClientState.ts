@@ -12,6 +12,7 @@ import React from 'react';
 import DenOfWolvesConfig from './configs/DenOfWolvesConfig.ts';
 import GrimvaleConfig from './configs/GrimvaleConfig.ts';
 import GoblinConfig from './configs/GoblinConfig.ts';
+import WatchTheSkiesConfig from './configs/WatchTheSkiesConfig.ts';
 
 export const $store = getDefaultStore();
 export const $connStatus = atom(E_ConnStatus.unset);
@@ -56,6 +57,8 @@ export const $config = atom(get => {
 			return GrimvaleConfig;
 		case GoblinConfig.gameIdf:
 			return GoblinConfig;
+		case WatchTheSkiesConfig.gameIdf:
+			return WatchTheSkiesConfig;
 		default:
 			return FallbackConfig;
 	}

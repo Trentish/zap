@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="110"
+   height="60"
+   viewBox="0 0 29.104166 15.875"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.1 r15371"
+   sodipodi:docname="npc_ticker.svg"
+   inkscape:export-filename="C:\Users\jedli\Dropbox\megagames\webassets\nnn_ticker.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="5.6568542"
+     inkscape:cx="67.478905"
+     inkscape:cy="47.824107"
+     inkscape:document-units="px"
+     inkscape:current-layer="g4602"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1137"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid4497" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-281.12498)">
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.57791376;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect8374-7-3-9-0-3-2-5-2-9-7-7-7-37-2-1-8-4"
+       width="29.104166"
+       height="15.87501"
+       x="-29.104166"
+       y="281.12497"
+       transform="scale(-1,1)" />
+    <g
+       id="g4602">
+      <path
+         id="rect8"
+         d="m 2.6458333,285.09373 h 7.9374997 v 7.9375 H 2.6458333 Z"
+         style="fill:#f15c22;stroke-width:0.55121523"
+         inkscape:connector-curvature="0" />
+      <path
+         id="rect10"
+         d="m 10.583333,285.09373 h 7.9375 v 7.9375 h -7.9375 z"
+         style="fill:#111122;stroke-width:0.55121529;fill-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         id="rect12"
+         d="m 18.520833,285.09373 h 7.9375 v 7.9375 h -7.9375 z"
+         style="fill:#4e84c4;stroke-width:0.55121517"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 7.4761149,291.09341 v -2.34864 q 0,-0.51982 -0.2015624,-0.75886 -0.1977578,-0.23902 -0.6503222,-0.23902 -0.2091682,0 -0.4487607,0.1175 -0.2357893,0.11771 -0.3688962,0.29217 v 2.93675 H 4.8558099 v -4.06365 h 0.68455 l 0.1749403,0.37944 q 0.3879118,-0.45531 1.1447196,-0.45531 0.7263837,0 1.1447197,0.43633 0.4221395,0.43254 0.4221395,1.21036 v 2.49283 z"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:medium;line-height:1.25;font-family:'Trebuchet MS';-inkscape-font-specification:'Trebuchet MS Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.19449094"
+         id="path4505"
+         inkscape:connector-curvature="0" />
+      <path
+         sodipodi:nodetypes="ccccccsscscccscscsc"
+         d="m 13.70724,290.99098 v 1.54331 h -0.950764 v -5.50452 h 0.950764 v 0.27319 c 0.238325,-0.23271 0.53116,-0.34907 0.878506,-0.34907 1.29811,0 1.947164,0.71331 1.947164,2.13996 0,0.66525 -0.180012,1.17748 -0.540034,1.53667 -0.357487,0.35918 -0.846813,0.53877 -1.467979,0.53877 -0.299174,0 -0.571726,-0.0594 -0.817657,-0.17834 z m 0,-2.96711 v 2.13615 c 0.172406,0.13916 0.373967,0.20868 0.604686,0.20868 0.438619,0 0.753005,-0.10375 0.943158,-0.31112 0.192687,-0.20994 0.289032,-0.54004 0.289032,-0.99029 0,-0.48061 -0.09508,-0.81829 -0.28523,-1.01306 -0.190152,-0.1973 -0.504538,-0.29596 -0.943157,-0.29596 -0.228183,0 -0.431013,0.0885 -0.608489,0.2656 z"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:medium;line-height:1.25;font-family:'Trebuchet MS';-inkscape-font-specification:'Trebuchet MS Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.19449094"
+         id="path4507"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m 24.033192,287.35229 -0.406928,0.70952 q -0.334668,-0.31492 -0.897521,-0.31492 -0.540034,0 -0.855687,0.36044 -0.31185,0.35667 -0.31185,0.99031 0,1.27867 1.22078,1.27867 0.528625,0 0.93175,-0.34908 l 0.34988,0.74747 q -0.414532,0.258 -0.726384,0.3263 -0.308047,0.0683 -0.730186,0.0683 -0.943158,0 -1.490798,-0.54635 -0.543837,-0.55017 -0.543837,-1.5253 0,-0.95995 0.59708,-1.55185 0.597079,-0.5919 1.627707,-0.5919 0.711172,0 1.235994,0.3984 z"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:medium;line-height:1.25;font-family:'Trebuchet MS';-inkscape-font-specification:'Trebuchet MS Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.19449094"
+         id="path4509"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+</svg>
