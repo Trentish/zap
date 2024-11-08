@@ -16,7 +16,7 @@ class WatchTheSkiesConfig extends BaseGameConfig {
 	crawlerLogo = '../assets/images/wts/gnn_logo.svg';
 	timerEndSound = `${AUD}juntas_end_turn_1.mp3`;
 	
-	orgs: T_Org[] = [GNN_BREAKING, GNN_OPINION, GNN_COVERAGE];
+	orgs: T_Org[] = [GNN_BREAKING, GNN_OPINION, GNN_LATE_NIGHT];
 	// situationDefs: SituationDat[] = [
 	// 	{label: 'Alpha', cssClass: 'alpha'},
 	// 	{label: 'Bravo', cssClass: 'bravo'},
@@ -76,26 +76,26 @@ const GNN_OPINION: T_Org = {
 	id: 'gnnOpinion',
 	label: 'Opinion Desk',
 	bgVideo: `${VID}box-background.mp4`,
-	introVideo: `${VID}jungle/yellowarrow.webm`,
-	introAudio: `${AUD}news3.mp3`,
-	// introAudioDelay: 500,
-	outroVideo: `${VID}fw_red.webm`,
-	outroAudio: ``,
-	introMidMs: 1400,
-	outroMidMs: 500,
-	showAsRadio: true,
-};
-
-const GNN_COVERAGE: T_Org = {
-	id: 'gnnCoverage',
-	label: 'Continuing Coverage',
-	bgVideo: `${VID}box-background.mp4`,
 	introVideo: `${VID}slide_red.webm`,
 	introAudio: `${AUD}news4.mp3`,
 	// introAudioDelay: 500,
 	outroVideo: `${VID}fw_red.webm`,
 	outroAudio: ``,
 	introMidMs: 500,
+	outroMidMs: 500,
+	showAsRadio: true,
+};
+
+const GNN_LATE_NIGHT: T_Org = {
+	id: 'gnnLateNight',
+	label: 'Late Night with Devin Everding',
+	bgVideo: `${VID}box-background.mp4`,
+	introVideo: `${VID}jungle/yellowarrow.webm`,
+	introAudio: `${AUD}news3.mp3`,
+	// introAudioDelay: 500,
+	outroVideo: `${VID}fw_red.webm`,
+	outroAudio: ``,
+	introMidMs: 1400,
 	outroMidMs: 500,
 	showAsRadio: true,
 };
