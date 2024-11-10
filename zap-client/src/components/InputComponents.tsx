@@ -4,6 +4,7 @@ import {useAtom} from 'jotai';
 
 
 export type T_Input<TVal> = {
+	id?: string,
 	label: string,
 	$value: PrimitiveAtom<TVal>,
 	description?: string,
@@ -13,6 +14,7 @@ export type T_Input<TVal> = {
 	type?: React.HTMLInputTypeAttribute,
 	placeholder?: string,
 	maxLength?: number,
+	showCharCount?: boolean,
 	
 	className?: string,
 	
@@ -41,9 +43,14 @@ export function Input<TVal>(props: T_Input<TVal>) {
 	};
 	
 	const InputComp = props.textArea ? HtmlTextArea : HtmlInput;
+
+	const valueText = props.valueToString ? props.valueToString(value) : `${value}`;
 	
 	return (
-		<div className={props.className}>
+		<div
+			id={props.id}
+			className={props.className}
+		>
 			<label
 				className={props.labelClass}
 				style={props.labelStyle}
@@ -52,7 +59,7 @@ export function Input<TVal>(props: T_Input<TVal>) {
 				{props.label}
 				
 				<InputComp
-					value={props.valueToString ? props.valueToString(value) : `${value}`}
+					value={valueText}
 					onChange={onChange}
 					type={props.type}
 					placeholder={props.placeholder}
@@ -65,6 +72,7 @@ export function Input<TVal>(props: T_Input<TVal>) {
 			</label>
 			
 			{props.description && <p>{props.description}</p>}
+			{props.showCharCount && <p>{valueText.length}/{props.maxLength}</p>}
 		</div>
 	);
 }

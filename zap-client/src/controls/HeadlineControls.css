@@ -13,3 +13,29 @@
 .headlineControls input::placeholder {
 	font-size: .7em;
 }
+
+.headlineControls #inpHeadline textarea {
+	font-size: 1.3em;
+	/*padding: 12px;*/
+}
+
+.headlineControls #radiosTheme label {
+	font-size: 1.5em;
+	margin-bottom: 16px;
+}
+
+.headlineControls #container_btnPost {
+	display: flex;
+	flex-direction: column;
+}
+
+.headlineControls #btnPost {
+	min-width: 100px;
+	flex: 1 1 auto;
+	font-size: 1.4em;
+}
+
+.headlineControls #desc_btnPost {
+	font-style: italic;
+	color: #414141;
+}

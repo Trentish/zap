@@ -41,8 +41,13 @@ export function HeadlineControls() {
 	
 	const postArticle = () => {
 		const headline = $store.get($headline).trim();
+		if (headline.length == 0) return; //>> no text
+
 		const author = USE_UUID_INSTEAD_OF_AUTHOR ? $store.get($uuid) : $store.get($author);
 		const org = $store.get($org);
+
+		if (org.length == 0) return; //>> no org
+
 		const location = $store.get($location);
 
 		client.packets.PostArticle.Send({
@@ -65,12 +70,15 @@ export function HeadlineControls() {
 	return (
 		<div className={'headlineControls'}>
 			<Input
+				id={'inpHeadline'}
 				label={''}
 				$value={$headline}
 				// description={`don't post stupid shit (TODO, maybe have examples)`}
+				// description={'jksldjf'}
 				placeholder={`Headline`}
 				// placeholder={`X adjectively verbed Y!`}
 				maxLength={HEADLINE_MAX_SIZE}
+				showCharCount
 				inputProps={{onKeyDown: checkKeyDown}}
 				textArea
 			/>
@@ -89,11 +97,15 @@ export function HeadlineControls() {
 					description={`AP Style e.g. TOKYO; WASHINGTON; HIGUERAS; TEGUCIGALPA; ST. PAUL, Minn.; etc. `}
 				/>
 			)}
-			<Button
-				label={'Post'}
-				onClick={postArticle}
-				enabledIf={$canSubmit}
-			/>
+			<div id={'container_btnPost'}>
+				<Button
+					id={'btnPost'}
+					label={'Post'}
+					onClick={postArticle}
+					enabledIf={$canSubmit}
+				/>
+				<p id={'desc_btnPost'}>CTRL+ENTER</p>
+			</div>
 
 			{/*<br/><br/><br/><br/>*/}
 			{/*<p>TODO: org stuff?</p>*/}
@@ -114,6 +126,7 @@ export function ThemeControls({$org}: { $org: PrimitiveAtom<string> }) {
 	
 	return (
 		<Radios
+			id={'radiosTheme'}
 			$value={$org}
 			title={'Type'}
 			options={orgs}

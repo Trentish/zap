@@ -4,6 +4,7 @@ import {atom, useAtom, useAtomValue} from 'jotai';
 import {clsx} from 'clsx';
 
 export type T_Button = {
+	id?: string,
 	label: string,
 	onClick: React.MouseEventHandler<HTMLButtonElement>,
 	
@@ -23,6 +24,7 @@ export function Button(props: T_Button) {
 	
 	return (
 		<button
+			id={props.id}
 			onClick={props.onClick}
 			disabled={!enabled}
 			
@@ -45,6 +47,7 @@ export type T_RadioOption = {
 
 export type P_Radios = {
 	/** index/id of options */
+	id?: string,
 	$value: PrimitiveAtom<string>,
 	title: string, // legend?
 	options: T_RadioOption[],
@@ -59,7 +62,10 @@ export function Radios(props: P_Radios) {
 		: props.options;
 	
 	return (
-		<fieldset className={clsx('radios', props.containerClass)}>
+		<fieldset
+			id={props.id}
+			className={clsx('radios', props.containerClass)}
+		>
 			<legend>{props.title}</legend>
 			
 			{options.map(option => (

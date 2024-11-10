@@ -57,7 +57,6 @@ class WatchTheSkiesConfig extends BaseGameConfig {
 	}
 }
 
-
 const GNN_BREAKING: T_Org = {
 	id: 'gnnBreaking',
 	label: 'Breaking News',
@@ -67,7 +66,7 @@ const GNN_BREAKING: T_Org = {
 	// introAudioDelay: 500,
 	outroVideo: `${VID}fw_red.webm`,
 	outroAudio: ``,
-	introMidMs: 500,
+	introMidMs: 1000,
 	outroMidMs: 500,
 	showAsRadio: true,
 };

@@ -16,8 +16,12 @@ export function PlayerPage() {
 	
 	return (
 		<div className={`playerPage control-page ${client.gameIdf}`}>
-			<h1>
-				<span style={{margin: '0 1em 0 0'}}>{gameIdf}</span>
+			<h1 style={{
+				margin: 0,
+			}}>
+				<span style={{
+					margin: '0 1em 0 0'
+				}}>{gameIdf}</span>
 				<span style={{color: '#d0d0d0'}}>({uuid})</span>
 			</h1>
 			

@@ -20,7 +20,7 @@ body {
 }
 
 :root {
-	--admin-padding: 50px;
+	--admin-padding: 30px;
 	--control-radius: 5px;
 	--admin-spacing: 10px;
 }
