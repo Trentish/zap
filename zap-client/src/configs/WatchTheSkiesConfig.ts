@@ -87,7 +87,7 @@ const GNN_OPINION: T_Org = {
 
 const GNN_LATE_NIGHT: T_Org = {
 	id: 'gnnLateNight',
-	label: 'Late Night with Devin Everding',
+	label: 'Late Night News',
 	bgVideo: `${VID}box-background.mp4`,
 	introVideo: `${VID}jungle/yellowarrow.webm`,
 	introAudio: `${AUD}news3.mp3`,

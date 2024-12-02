@@ -28,7 +28,7 @@ class InkConfig extends BaseGameConfig {
 			label: 'Clan Time',
 			ms: 4 * 60 * 1000,
 		},
-	]
+	];
 	
 	constructor() {
 		super();
@@ -48,8 +48,6 @@ class InkConfig extends BaseGameConfig {
 		RenameOrg(DOOM, 'Doom'),
 	];
 }
-
-
 
 
 export default new InkConfig();
