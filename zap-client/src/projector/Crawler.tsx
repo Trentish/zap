@@ -205,7 +205,7 @@ function UpdateGroupItems($items: PrimitiveAtom<T_Item[]>) {
 
 // TODO: put external, pass in
 function GetNextItems(prevIndex: number, countToAdd: number): [number, T_Item[]] {
-	const allArticles = $store.get($allArticles);
+	const allArticles = $store.get($allArticles).filter(article => article.orgIdf != 'companieshack');
 	// let allArticles = $store.get($testArticles);
 	
 	// if (!allArticles?.length) {

@@ -13,6 +13,7 @@ import {
 } from '../ClientState.ts';
 import {Atom} from 'jotai/vanilla/atom';
 import {clsx} from 'clsx';
+import {CompaniesCrawler} from './CompaniesCrawler.tsx';
 import {Crawler} from './Crawler.tsx';
 import {useClient} from '../ClientContext.ts';
 import {BackgroundVideo, Video} from '../components/VideoComponents.tsx';
@@ -66,6 +67,8 @@ export function ProjectorPage() {
 			{config.showCrawler && (
 				<Crawler/>
 			)}
+
+			{/*<CompaniesCrawler/>*/}
 			
 			{config.logo && (
 				<img className={'logo'} src={config.logo}/>
@@ -305,7 +308,7 @@ function Spotlight() {
 	);
 }
 
-function Headline({$article}: { $article: Atom<ArticleDat> }) {
+function  Headline({$article}: { $article: Atom<ArticleDat> }) {
 	const [article] = useAtom($article);
 	const [spotlight] = useAtom($spotlight);
 	

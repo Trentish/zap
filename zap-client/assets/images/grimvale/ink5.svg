@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="815"
+   height="425"
+   viewBox="0 0 215.63541 112.44792"
+   version="1.1"
+   id="svg1030"
+   inkscape:version="1.1.1 (c3084ef, 2021-09-22)"
+   sodipodi:docname="ink5.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1032"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.5"
+     inkscape:cx="81"
+     inkscape:cy="379"
+     inkscape:window-width="1660"
+     inkscape:window-height="969"
+     inkscape:window-x="1818"
+     inkscape:window-y="102"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="g14746"
+     units="px"
+     width="216px" />
+  <defs
+     id="defs1027">
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient114318"
+       id="linearGradient1550"
+       x1="207.33757"
+       y1="164.15848"
+       x2="210.33757"
+       y2="140.15848"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.8313376,-0.05983979,0.05983979,1.8313376,-357.8701,-227.12718)" />
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient114318">
+      <stop
+         style="stop-color:#cc004c;stop-opacity:1"
+         offset="0"
+         id="stop114314" />
+      <stop
+         style="stop-color:#fcb711;stop-opacity:1"
+         offset="1"
+         id="stop114316" />
+    </linearGradient>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter14694"
+       x="-0.1217479"
+       y="-0.30045201"
+       width="1.2434958"
+       height="1.600904">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="8.7927397"
+         id="feGaussianBlur14696" />
+    </filter>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g14746"
+       transform="translate(16.15723,13.663435)">
+      <g
+         id="g14559"
+         style="opacity:0.5;fill:#000000;filter:url(#filter14694)">
+        <g
+           id="g1322-8"
+           transform="matrix(1.832315,0,0,1.832315,-348.85391,-239.04972)"
+           style="fill:#000000">
+          <path
+             d="m 210.75239,166.70299 h 8.4 v -29.16 h -8.4 z"
+             style="font-weight:800;font-stretch:semi-expanded;font-size:40px;line-height:1.25;font-family:'Tofino Wide';-inkscape-font-specification:'Tofino Wide Ultra-Bold Semi-Expanded';fill:#000000"
+             id="path1145-5" />
+          <path
+             d="m 243.31863,166.70299 h 9.96 v -29.16 h -8.12 l 0.44,18.76 -11.2,-18.76 h -9.88 l -0.08,29.16 h 8.12 l -0.36,-18.44 z"
+             style="font-weight:800;font-stretch:semi-expanded;font-size:40px;line-height:1.25;font-family:'Tofino Wide';-inkscape-font-specification:'Tofino Wide Ultra-Bold Semi-Expanded';fill:#000000"
+             id="path1147-8" />
+          <path
+             d="m 258.5649,166.70299 h 8.4 v -5.2 l 5.04,-5.88 6.48,11.08 h 9.2 l -10.36,-17.32 10.16,-11.84 h -9.6 l -10.92,13.72 v -13.72 h -8.4 z"
+             style="font-weight:800;font-stretch:semi-expanded;font-size:40px;line-height:1.25;font-family:'Tofino Wide';-inkscape-font-specification:'Tofino Wide Ultra-Bold Semi-Expanded';fill:#000000"
+             id="path1149-9" />
+        </g>
+        <path
+           class="st0"
+           d="m 18.414224,68.98488 c 1.974059,4.19263 4.065447,7.058867 7.004185,8.697029 C 20.026091,68.5834 16.91062,61.866539 14.856747,51.299246 13.323371,43.376298 13.04924,35.959601 14.561175,28.034084 c 0.802842,-4.221065 2.132919,-9.370202 4.475043,-13.029148 0.638789,-1.000372 1.375937,-1.939413 2.2488,-2.802123 -6.309357,12.132545 -7.760752,24.75137 -5.149559,38.038257 1.061612,5.422477 2.781402,10.812634 4.854632,16.186281 l 3.988451,-3.262162 -2.165536,0.928161 3.974068,-6.528591 c -2.56854,1.493812 -4.109201,3.817023 -5.49572,3.802709 4.76389,-6.146793 7.622301,-12.097233 8.045603,-17.621741 -1.258616,1.119805 -2.662807,2.450138 -3.677271,2.902664 2.930566,-7.365719 2.266999,-13.630477 2.750965,-20.451876 C 24.916429,32.626067 20.436234,37.515166 18.155073,38.094286 26.131672,29.578803 29.937393,23.899522 24.947282,7.4458139 14.264136,10.685802 10.482051,16.580542 10.746992,24.688575 L 8.0505558,17.865542 C 4.4237979,26.974148 6.2760277,32.706013 11.391708,40.209635 9.2232697,37.86438 7.60294,35.333202 6.2760277,32.706013 2.1697907,44.449447 8.2546924,54.699568 15.159188,61.383853 12.393416,59.472419 9.5930176,56.277827 6.772072,52.307845 c 0.3930099,4.780822 1.9367044,9.119153 6.80394,12.176611 l -1.530903,0.732252 2.85339,1.35624 -2.339133,1.053634 z"
+           id="path91564-0-1-0-4-5-2-6"
+           style="clip-rule:evenodd;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke-width:0.424525"
+           sodipodi:nodetypes="cccccccccccccccccccccccccccc" />
+      </g>
+      <g
+         id="g14674">
+        <g
+           id="g1322"
+           transform="matrix(1.832315,0,0,1.832315,-348.85391,-239.04972)"
+           style="fill:#ffffff">
+          <path
+             d="m 210.75239,166.70299 h 8.4 v -29.16 h -8.4 z"
+             style="font-weight:800;font-stretch:semi-expanded;font-size:40px;line-height:1.25;font-family:'Tofino Wide';-inkscape-font-specification:'Tofino Wide Ultra-Bold Semi-Expanded';fill:#ffffff"
+             id="path1145" />
+          <path
+             d="m 243.31863,166.70299 h 9.96 v -29.16 h -8.12 l 0.44,18.76 -11.2,-18.76 h -9.88 l -0.08,29.16 h 8.12 l -0.36,-18.44 z"
+             style="font-weight:800;font-stretch:semi-expanded;font-size:40px;line-height:1.25;font-family:'Tofino Wide';-inkscape-font-specification:'Tofino Wide Ultra-Bold Semi-Expanded';fill:#ffffff"
+             id="path1147" />
+          <path
+             d="m 258.5649,166.70299 h 8.4 v -5.2 l 5.04,-5.88 6.48,11.08 h 9.2 l -10.36,-17.32 10.16,-11.84 h -9.6 l -10.92,13.72 v -13.72 h -8.4 z"
+             style="font-weight:800;font-stretch:semi-expanded;font-size:40px;line-height:1.25;font-family:'Tofino Wide';-inkscape-font-specification:'Tofino Wide Ultra-Bold Semi-Expanded';fill:#ffffff"
+             id="path1149" />
+        </g>
+        <path
+           class="st0"
+           d="m 18.414224,68.98488 c 1.974059,4.19263 4.065447,7.058867 7.004185,8.697029 C 20.026091,68.5834 16.91062,61.866539 14.856747,51.299246 13.323371,43.376298 13.04924,35.959601 14.561175,28.034084 c 0.802842,-4.221065 2.132919,-9.370202 4.475043,-13.029148 0.638789,-1.000372 1.375937,-1.939413 2.2488,-2.802123 -6.309357,12.132545 -7.760752,24.75137 -5.149559,38.038257 1.061612,5.422477 2.781402,10.812634 4.854632,16.186281 l 3.988451,-3.262162 -2.165536,0.928161 3.974068,-6.528591 c -2.56854,1.493812 -4.109201,3.817023 -5.49572,3.802709 4.76389,-6.146793 7.622301,-12.097233 8.045603,-17.621741 -1.258616,1.119805 -2.662807,2.450138 -3.677271,2.902664 2.930566,-7.365719 2.266999,-13.630477 2.750965,-20.451876 C 24.916429,32.626067 20.436234,37.515166 18.155073,38.094286 26.131672,29.578803 29.937393,23.899522 24.947282,7.4458139 14.264136,10.685802 10.482051,16.580542 10.746992,24.688575 L 8.0505558,17.865542 C 4.4237979,26.974148 6.2760277,32.706013 11.391708,40.209635 9.2232697,37.86438 7.60294,35.333202 6.2760277,32.706013 2.1697907,44.449447 8.2546924,54.699568 15.159188,61.383853 12.393416,59.472419 9.5930176,56.277827 6.772072,52.307845 c 0.3930099,4.780822 1.9367044,9.119153 6.80394,12.176611 l -1.530903,0.732252 2.85339,1.35624 -2.339133,1.053634 z"
+           id="path91564-0-1-0-4-5-2"
+           style="clip-rule:evenodd;fill:url(#linearGradient1550);fill-opacity:1;fill-rule:evenodd;stroke-width:0.424525"
+           sodipodi:nodetypes="cccccccccccccccccccccccccccc" />
+      </g>
+    </g>
+  </g>
+</svg>

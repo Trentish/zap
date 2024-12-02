@@ -8,7 +8,7 @@
 
 .grimvale.projector-page .timer {
 	/*font-family: "Norse";*/
-	/*font-family: "Trattatello";*/
+	font-variant-numeric: tabular-nums;
 	font-family: "Copperplate";
 	font-weight: bold;
 	font-size: 30vh;
@@ -16,18 +16,18 @@
 
 .grimvale.projector-page .timer .timer-label {
 	/*font-family: "Norse";*/
-	font-family: "Copperplate";
+	font-family: "Rock Thorn", "Copperplate";
 	font-weight: bold;
 }
 
 .grimvale.projector-page .spotlight-carrier {
 	/*font-family: "Norse";*/
-	font-family: "Copperplate";
+	font-family: "Rock Thorn", "Copperplate";
 	align-items: center;
 	text-align: center;
 	mix-blend-mode: screen;
 	background-color: white;
-	background-image: url('../../assets/images/grimvale/stone-background-2_gold.jpg');
+	background-image: url('../../assets/images/grimvale/stone-background-2.jpg');
 	background-size: cover;
 	height: 100vh;
 	width: 100vw;
@@ -48,7 +48,7 @@
 }
 
 .grimvale.projector-page .spotlight-carrier .theme {
-	font-family: "Copperplate";
+	font-family: "Rock Thorn", "Copperplate";
 	text-transform: uppercase;
 	position: relative;
 	font-size: min(6vh, 6vw);
@@ -80,12 +80,12 @@
 	height: 20vh;
 	left: 0;
 	bottom: 0;
-	display: none;
 }
 .grimvale.projector-page .crawlerHeadline {
 	/*font-family: Norse, sans-serif;*/
-	font-family: 'Copperplate', serif;
+	font-family: "Rock Thorn", "Copperplate";
 	text-transform: uppercase;
+	/*font-family: 'TofinoCond-Bold', serif;*/
 	position: relative;
 	padding: unset;
 	padding-right: var(--grimvale--spacer-width);
@@ -100,7 +100,7 @@
 	color: #fc0;
 	position: absolute;
 	right: 0;
-	bottom: -0.4em;
+	bottom: -0.330em;
 }
 
 .grimvale.projector-page .crawlGroup.anim0,
@@ -112,134 +112,163 @@
 	height: var(--grimvale--crawler-height);
 	position: fixed;
 	bottom: var(--grimvale--crawler-distance-from-bottom);
-	left: 0;
-	width: 100vw;
+	left: 10vh;
+	width: calc(100vw - 10vh);
 	font-size: 3vh;
 	display: flex;
 	align-items: center;
-	/*-webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,1));*/
-	/*-webkit-mask-size: 100% 100%;*/
-	/*-webkit-mask-repeat: no-repeat;*/
-	/*-webkit-mask-position: left top, left bottom;*/
+	-webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,1));
+	-webkit-mask-size: 100% 100%;
+	-webkit-mask-repeat: no-repeat;
+	-webkit-mask-position: left top, left bottom;
 }
 
 
-/*      ##  gossip */
-.grimvale.projector-page .gossip .spotlight-background {
+/*      ##  hearsay */
+.grimvale.projector-page .hearsay .spotlight-background {
 	filter: brightness(500%) hue-rotate(50deg);
 }
-.grimvale.projector-page .gossip {
+.grimvale.projector-page .hearsay {
 	filter: brightness(100%) invert(0) hue-rotate(0deg) saturate(150%);
 }
-.grimvale.projector-page .gossip .spotlight-carrier {
+.grimvale.projector-page .hearsay .spotlight-carrier {
 	mix-blend-mode: screen;
 }
-.grimvale.projector-page .gossip .spotlight-carrier .theme::after {
+.grimvale.projector-page .hearsay .spotlight-carrier .theme::after {
 	background: #f00;
 }
 
+/*      ## innovation */
+.grimvale.projector-page .innovation video.intro,
+.grimvale.projector-page .innovation video.outro {
+	filter: hue-rotate(100deg) saturate(300%) brightness(100%);
+}
+.grimvale.projector-page .innovation {
+	filter: invert(0) hue-rotate(-70deg);
+}
+.grimvale.projector-page .innovation video.spotlight-background {
+	transform: rotateX(180deg);
+	filter: brightness(500%) hue-rotate(110deg);
+}
+.grimvale.projector-page .innovation .spotlight-carrier {
+	filter: brightness(100%) invert(1) hue-rotate(40deg);
+	background-image: url('../../assets/images/grimvale/stone-background-2_gold.jpg');
+	mix-blend-mode: hard-light;
+	color: white;
+}
+.grimvale.projector-page .innovation .spotlight-carrier .theme::after {
+	background: #000;
+}
 
-/*      ## redbard */
-.grimvale.projector-page .redbard {
-	filter: invert(0) hue-rotate(150deg);
+/*      ## lifestyle */
+.grimvale.projector-page .lifestyle video.intro,
+.grimvale.projector-page .lifestyle video.outro {
+	filter: sepia(100%) hue-rotate(170deg) saturate(300%) brightness(150%);
 }
-.grimvale.projector-page .redbard .intro,
-.grimvale.projector-page .redbard .outro
-{
-	filter: hue-rotate(-25deg) saturate(300%);
+.grimvale.projector-page .lifestyle {
+	filter: invert(0) hue-rotate(50deg);
 }
-.grimvale.projector-page .redbard video.spotlight-background {
+.grimvale.projector-page .lifestyle video.spotlight-background {
+	transform: rotateX(180deg);
 	filter: brightness(500%) hue-rotate(260deg);
 }
-.grimvale.projector-page .redbard .spotlight-carrier {
+.grimvale.projector-page .lifestyle .spotlight-carrier {
 	filter: brightness(100%) invert(1) hue-rotate(190deg);
 	background-image: url('../../assets/images/grimvale/stone-background-2_gold.jpg');
 	mix-blend-mode: hard-light;
 	color: white;
 }
-.grimvale.projector-page .redbard .spotlight-carrier .theme::after {
+.grimvale.projector-page .lifestyle .spotlight-carrier .theme::after {
 	background: #000;
 }
 
-/*  ## greenbard */
-.grimvale.projector-page .greenbard {
-	/*filter: invert(1);*/
-	filter: hue-rotate(100deg);
+/*      ## accolade */
+.grimvale.projector-page .accolade video.intro,
+.grimvale.projector-page .accolade video.outro {
+	filter: sepia(100%) hue-rotate(-20deg) saturate(300%) brightness(150%);
 }
-.grimvale.projector-page .greenbard .intro,
-.grimvale.projector-page .greenbard .outro
-{
-	filter: hue-rotate(130deg) saturate(200%);
+.grimvale.projector-page .accolade {
+	filter: invert(0) hue-rotate(50deg);
 }
-.grimvale.projector-page .greenbard video.spotlight-background {
-	filter: brightness(600%) invert(1)  hue-rotate(280deg) saturate(50%);
+.grimvale.projector-page .accolade video.spotlight-background {
+	transform: rotateX(180deg);
+	filter: brightness(500%) hue-rotate(100deg);
 }
-.grimvale.projector-page .greenbard .spotlight-carrier {
-	background-image: url('../../assets/images/grimvale/stone-background-2_gold.jpg');
-	filter: brightness(75%) invert(1) ;
-	mix-blend-mode: multiply;
-}
-.grimvale.projector-page .greenbard .spotlight-carrier .theme::after {
-	background: #000;
-}
-
-/*      ## bluebard */
-.grimvale.projector-page .bluebard {
-	/*filter: invert(0) hue-rotate(180deg);*/
-}
-.grimvale.projector-page .bluebard .intro,
-.grimvale.projector-page .bluebard .outro
-{
-	filter: hue-rotate(0deg) saturate(200%);
-}
-.grimvale.projector-page .bluebard video.spotlight-background {
-	filter: brightness(500%) hue-rotate(260deg);
-}
-.grimvale.projector-page .bluebard .spotlight-carrier {
+.grimvale.projector-page .accolade .spotlight-carrier {
 	filter: brightness(100%) invert(1) hue-rotate(190deg);
-	background-image: url('../../assets/images/grimvale/stone-background-2_gold.jpg');
-	mix-blend-mode: hard-light;
+	background-image: unset;
+	/*background-image: url('../../assets/images/grimvale/stone-background-2_gold.jpg');*/
+	/*mix-blend-mode: hard-light;*/
 	color: white;
 }
-.grimvale.projector-page .bluebard .spotlight-carrier .theme::after {
+.grimvale.projector-page .accolade .spotlight-carrier .theme::after {
 	background: #000;
 }
 
-
-/*      ## calamity */
-.grimvale.projector-page .calamity video.spotlight-background {
+/*      ## crisis */
+.grimvale.projector-page .crisis video.intro,
+.grimvale.projector-page .crisis video.outro {
+	filter: sepia(100%) hue-rotate(-25deg) saturate(300%) brightness(150%);
+}
+.grimvale.projector-page .crisis video.spotlight-background {
 	filter: brightness(250%) invert(1) hue-rotate(180deg);
 }
-.grimvale.projector-page .calamity video.spotlight-background {
+.grimvale.projector-page .crisis video.spotlight-background {
 	transform: rotateX(180deg);
 	filter: brightness(150%);
 }
-.grimvale.projector-page .calamity .spotlight-carrier {
+.grimvale.projector-page .crisis .spotlight-carrier {
 	filter: brightness(100%) invert(0) hue-rotate(180deg);
 	background-image: url('../../assets/images/grimvale/stone-background-2_gold.jpg');
 }
-.grimvale.projector-page .calamity .spotlight-carrier .theme::after {
+.grimvale.projector-page .crisis .spotlight-carrier .theme::after {
 	background: #000;
 }
 
-
-/*      ## grudge */
-.grimvale.projector-page .grudge {
-	filter: brightness(100%) invert(0) hue-rotate(80deg) saturate(250%);
+/*      ## finance */
+.grimvale.projector-page .finance video.intro,
+.grimvale.projector-page .finance video.outro {
+	filter: sepia(100%) hue-rotate(70deg) saturate(300%) brightness(150%);
 }
-.grimvale.projector-page .grudge video.spotlight-background {
-	filter: brightness(100%) hue-rotate(0deg);
+.grimvale.projector-page .finance {
+	filter: invert(0) hue-rotate(-50deg);
 }
-.grimvale.projector-page .grudge .spotlight-carrier {
-	filter: brightness(100%) invert(1) hue-rotate(180deg);
+.grimvale.projector-page .finance video.spotlight-background {
+	filter: brightness(500%) hue-rotate(160deg);
+}
+.grimvale.projector-page .finance .spotlight-carrier {
+	filter: brightness(100%) invert(1) hue-rotate(90deg);
 	background-image: url('../../assets/images/grimvale/stone-background-2_gold.jpg');
+	mix-blend-mode: hard-light;
+	color: white;
 }
-.grimvale.projector-page .grudge .spotlight-carrier .theme::after {
+.grimvale.projector-page .finance .spotlight-carrier .theme::after {
 	background: #000;
 }
+/*.grimvale.projector-page .finance video.intro,*/
+/*.grimvale.projector-page .finance video.outro {*/
+/*	filter: invert(1) hue-rotate(-30deg);*/
+/*}*/
+/*.grimvale.projector-page .finance {*/
+/*	filter: invert(1) sepia(1);*/
+/*}*/
+/*.grimvale.projector-page .finance video.spotlight-background {*/
+/*	transform: rotateX(180deg);*/
+/*}*/
+/*.grimvale.projector-page .finance .spotlight-carrier {*/
+/*	mix-blend-mode: screen;*/
+/*	filter: brightness(100%) invert(1) hue-rotate(200deg);*/
+/*}*/
+/*.grimvale.projector-page .finance .spotlight-carrier .theme::after {*/
+/*	background: #f70;*/
+/*}*/
 
-
-/*      ## carrier */
+/*      ## doom */
+.grimvale.projector-page .doom video.intro,
+.grimvale.projector-page .doom video.outro {
+	/*filter: saturate(100%) hue-rotate(-0deg);*/
+	/*filter: brightness(100%) sepia(1) saturate(400%) hue-rotate(-38deg);*/
+}
 .grimvale.projector-page .doom .spotlight-carrier {
 	mix-blend-mode: overlay;
 	filter: invert(1); /* TODO: Ask Trenton */
@@ -248,30 +277,30 @@
 	background: #000;
 }
 
-/* Golden bluebard */
-/*.grimvale.projector-page .spotlight-articles .bluebard video.spotlight-background {*/
+/* Golden accolade */
+/*.grimvale.projector-page .spotlight-articles .accolade video.spotlight-background {*/
 /*	filter: hue-rotate(110deg);*/
 /*}*/
-/*.grimvale.projector-page .bluebard .spotlight-carrier {*/
+/*.grimvale.projector-page .accolade .spotlight-carrier {*/
 /*	mix-blend-mode: screen;*/
 /*	filter: brightness(100%) invert(1) hue-rotate(200deg);*/
 /*}*/
-/*.grimvale.projector-page .spotlight-articles .bluebard .spotlight-carrier .theme::after {*/
+/*.grimvale.projector-page .spotlight-articles .accolade .spotlight-carrier .theme::after {*/
 /*	background: #f70;*/
 /*}*/
 
-/* Maybe a better gossip? */
-/*.grimvale.projector-page .calamity {*/
+/* Maybe a better hearsay? */
+/*.grimvale.projector-page .crisis {*/
 /*	filter: brightness(100%) invert(1) hue-rotate(160deg);*/
 /*}*/
-/*.grimvale.projector-page .calamity .spotlight-carrier {*/
+/*.grimvale.projector-page .crisis .spotlight-carrier {*/
 /*	!*mix-blend-mode: hard-light;*!*/
 /*	filter: brightness(100%) invert(1) hue-rotate(180deg);*/
 /*}*/
-/*.grimvale.projector-page .calamity .spotlight-carrier .headline {*/
+/*.grimvale.projector-page .crisis .spotlight-carrier .headline {*/
 /*	!*mix-blend-mode: multiply;*!*/
 /*}*/
-/*.grimvale.projector-page .calamity .spotlight-carrier .theme::after {*/
+/*.grimvale.projector-page .crisis .spotlight-carrier .theme::after {*/
 /*	background: #ff00ff;*/
 /*}*/
 
