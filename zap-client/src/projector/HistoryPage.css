@@ -1,0 +1,29 @@
+
+.historyPage {
+	padding: 24px;
+}
+
+.historyGrid {
+	display: grid;
+	/*grid-template-columns: auto auto auto;*/
+	grid-template-columns: auto auto;
+	gap: 5px;
+}
+
+.historyTime {
+	text-align: right;
+	/*text-align: center;*/
+	align-self: center;
+	padding-right: 6px;
+	color: #5b5b5b;
+}
+
+.historyLabel {
+	text-align: center;
+	align-self: center;
+}
+
+.historyHeadline {
+	font-size: 32px;
+	align-self: center;
+}

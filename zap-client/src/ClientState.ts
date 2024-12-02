@@ -13,6 +13,7 @@ import DenOfWolvesConfig from './configs/DenOfWolvesConfig.ts';
 import GrimvaleConfig from './configs/GrimvaleConfig.ts';
 import GoblinConfig from './configs/GoblinConfig.ts';
 import WatchTheSkiesConfig from './configs/WatchTheSkiesConfig.ts';
+import InkConfig from './configs/InkConfig.ts';
 
 export const $store = getDefaultStore();
 export const $connStatus = atom(E_ConnStatus.unset);
@@ -45,6 +46,8 @@ export const $situation = atom<SituationDat>({label: '', cssClass: ''});
 
 export const $config = atom(get => {
 	switch (get($gameIdf)) {
+		case InkConfig.gameIdf:
+			return InkConfig;
 		case DeephavenConfig.gameIdf:
 			return DeephavenConfig;
 		case JuntasConfig.gameIdf:

@@ -5,6 +5,7 @@ import {ProjectorPage} from './projector/ProjectorPage.tsx';
 import {useAtom} from 'jotai';
 import {E_ConnStatus, E_Endpoint, T_GameIdf} from '../../zap-shared/SystemTypes.ts';
 import {$allGameIdfs, $connError, $connStatus, $endpoint, $gameIdf} from './ClientState.ts';
+import {HistoryPage} from './projector/HistoryPage.tsx';
 
 
 export function Routing() {
@@ -36,6 +37,9 @@ const ROUTES: Record<string, T_Route> = {
 	},
 	[E_Endpoint[E_Endpoint.projector]]: {
 		page: ProjectorPage,
+	},
+	[E_Endpoint[E_Endpoint.history]]: {
+		page: HistoryPage,
 	},
 };
 
@@ -72,6 +76,7 @@ function BadRoute() {
 				<button onClick={() => doNav(E_Endpoint.admin, gameIdf)}>admin</button>
 				<button onClick={() => doNav(E_Endpoint.player, gameIdf)}>player</button>
 				<button onClick={() => doNav(E_Endpoint.projector, gameIdf)}>projector</button>
+				<button onClick={() => doNav(E_Endpoint.history, gameIdf)}>history</button>
 			</div>
 		);
 	}

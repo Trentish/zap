@@ -168,7 +168,7 @@ function Spotlight() {
 			const org = config.GetOrg(article);
 			$store.set($spotlightOrg, org);
 			
-			ADD_CLASS(spotlightContainer, org.id);
+			ADD_CLASS(spotlightContainer, org.cssClass || org.id);
 			
 			SET_VID(background, org.bgVideo);
 			SET_VID(introVideo, org.introVideo);
@@ -242,7 +242,7 @@ function Spotlight() {
 			if (LOG) console.log(`🔦 useEffect: Spotlight,  EXIT cleanup`);
 			clearTimeout(outroVideoTimer);
 			clearTimeout(outroAudioTimer);
-			REMOVE_CLASS(spotlightContainer, prevOrg.id);
+			REMOVE_CLASS(spotlightContainer, prevOrg.cssClass || prevOrg.id);
 			HIDE(background);
 			// HIDE(overlay);
 			HIDE(introVideo);

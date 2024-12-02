@@ -2,7 +2,7 @@ import {useAtom} from 'jotai/index';
 import {ArticleDat} from '../../../zap-shared/_Dats.ts';
 import {Atom} from 'jotai';
 import React, {useState} from 'react';
-import {$splitArticles, $spotlight} from '../ClientState.ts';
+import {$config, $splitArticles, $spotlight} from '../ClientState.ts';
 import {Button} from '../components/ButtonComponents.tsx';
 import {useClient} from '../ClientContext.ts';
 import './ArticleSummary.css';
@@ -58,6 +58,7 @@ function SummaryHeadline({$article, showAdmin}: {
 	const client = useClient();
 	const [article] = useAtom($article);
 	const [spotlight] = useAtom($spotlight);
+	const [config] = useAtom($config);
 	
 	// const className = clsx(
 	// 	'article',
@@ -71,6 +72,8 @@ function SummaryHeadline({$article, showAdmin}: {
 			? ' ⌛'
 			: '';
 	
+	const org = config.GetOrg(article);
+	
 	return (
 		<>
 			<div>
@@ -83,7 +86,7 @@ function SummaryHeadline({$article, showAdmin}: {
 						})}
 					/>
 				)}#{article.id}{icon}</div>
-			<div>{article.orgIdf}</div>
+			<div>{org.label}</div>
 			<div>{article.headline}</div>
 			{showAdmin
 				? (

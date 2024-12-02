@@ -5,6 +5,7 @@ import {$config} from '../ClientState.ts';
 
 export type T_Org = {
 	id: string,
+	cssClass?: string, // if none, uses 'id' instead
 	label: string,
 	bgVideo: string,
 	// overlayVideo?: string,

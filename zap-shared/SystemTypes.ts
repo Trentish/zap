@@ -20,6 +20,7 @@ export enum E_Endpoint {
 	admin,
 	player,
 	projector,
+	history,
 }
 
 export enum E_ConnStatus {
@@ -52,6 +53,8 @@ export function GetEndpoint(str: string): E_Endpoint {
 			return E_Endpoint.player;
 		case 'projector':
 			return E_Endpoint.projector;
+		case 'history':
+			return E_Endpoint.history;
 	}
 }
 
@@ -140,6 +143,9 @@ export class ClientPkOutgoing<TPk extends T_Packet, TSrc extends I_PkSource> ext
 			case E_Endpoint.projector:
 				this.From_PROJECTOR(pk, src);
 				return;
+			case E_Endpoint.history:
+				this.From_HISTORY(pk, src);
+				return;
 			
 		}
 		
@@ -160,6 +166,7 @@ export class ClientPkOutgoing<TPk extends T_Packet, TSrc extends I_PkSource> ext
 	protected From_ADMIN: (pk: TPk, src: TSrc) => void;
 	protected From_PLAYER: (pk: TPk, src: TSrc) => void;
 	protected From_PROJECTOR: (pk: TPk, src: TSrc) => void;
+	protected From_HISTORY: (pk: TPk, src: TSrc) => void;
 }
 
 /** to any type of client */
@@ -185,6 +192,12 @@ export class SERVER_to_PLAYER<TPk extends T_Packet, TSrc extends I_PkSource> ext
 export class SERVER_to_PROJECTOR<TPk extends T_Packet, TSrc extends I_PkSource> extends ServerPkOutgoing<TPk, TSrc> {
 	from = E_Endpoint.server;
 	to = E_Endpoint.projector;
+	declare From_SERVER: (pk: TPk) => void;
+}
+
+export class SERVER_to_HISTORY<TPk extends T_Packet, TSrc extends I_PkSource> extends ServerPkOutgoing<TPk, TSrc> {
+	from = E_Endpoint.server;
+	to = E_Endpoint.history;
 	declare From_SERVER: (pk: TPk) => void;
 }
 
@@ -214,6 +227,12 @@ export class PROJECTOR_to_SERVER<TPk extends T_Packet, TSrc extends I_PkSource> 
 	declare From_PROJECTOR: (pk: TPk, src: TSrc) => void;
 }
 
+export class HISTORY_to_SERVER<TPk extends T_Packet, TSrc extends I_PkSource> extends ClientPkOutgoing<TPk, TSrc> {
+	from = E_Endpoint.history;
+	to = E_Endpoint.server;
+	declare From_HISTORY: (pk: TPk, src: TSrc) => void;
+}
+
 export class BasePacketDefs<TSrc extends I_PkSource> {
 	protected StartingPacketId: number = 1;
 	_ALL_PACKET_HANDLERS: BasePkHandler<TSrc>[] = [];
@@ -239,8 +258,10 @@ export class BasePacketDefs<TSrc extends I_PkSource> {
 	protected SERVER_to_ADMIN = <TPk extends T_Packet>() => new SERVER_to_ADMIN<TPk, TSrc>();
 	protected SERVER_to_PLAYER = <TPk extends T_Packet>() => new SERVER_to_PLAYER<TPk, TSrc>();
 	protected SERVER_to_PROJECTOR = <TPk extends T_Packet>() => new SERVER_to_PROJECTOR<TPk, TSrc>();
+	protected SERVER_to_HISTORY = <TPk extends T_Packet>() => new SERVER_to_HISTORY<TPk, TSrc>();
 	protected CLIENT_to_SERVER = <TPk extends T_Packet>() => new CLIENT_to_SERVER<TPk, TSrc>();
 	protected ADMIN_to_SERVER = <TPk extends T_Packet>() => new ADMIN_to_SERVER<TPk, TSrc>();
 	protected PLAYER_to_SERVER = <TPk extends T_Packet>() => new PLAYER_to_SERVER<TPk, TSrc>();
 	protected PROJECTOR_to_SERVER = <TPk extends T_Packet>() => new PROJECTOR_to_SERVER<TPk, TSrc>();
+	protected HISTORY_to_SERVER = <TPk extends T_Packet>() => new HISTORY_to_SERVER<TPk, TSrc>();
 }

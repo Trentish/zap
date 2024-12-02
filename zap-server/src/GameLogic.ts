@@ -17,6 +17,7 @@ const DB_BACKUP_MS = 5 * 60 * 1000;
 const ARTICLE_COUNT_INITIAL_SEND = 12; // TODO: config/elsewhere
 /** will be affected by tick rate */
 const SPOTLIGHT_DURATION_MS: [number, number] = [10000, 25000];
+// const SPOTLIGHT_DURATION_MS: [number, number] = [40000, 41000];
 const SPOTLIGHT_COOLDOWN_MS = 3000; // must be >= max outro
 
 export function MakeGame(idf: T_GameIdf, server: ZapServer): ZapGame {
@@ -192,6 +193,11 @@ export function AddClientToGame(game: ZapGame, client: ClientConn, server: ZapSe
 			client.socket.subscribe(game.toPlayers);
 			break;
 		case E_Endpoint.projector:
+			game.projectors.set(client.id, client);
+			client.socket.subscribe(game.toProjectors);
+			break;
+		case E_Endpoint.history:
+			// treated as a Projector here
 			game.projectors.set(client.id, client);
 			client.socket.subscribe(game.toProjectors);
 			break;

@@ -1,17 +1,44 @@
 import {BaseGameConfig, T_Org, T_TimerDef} from './BaseGameConfig.ts';
 import './grimvale.css'; //## NOTE: will always load (regardless of gameIdf)
 
-const DH_VID = '../assets/videos/grimvale/';
-const DH_AUD = '../assets/audio/';
+const VID = '../assets/videos/';
+const AUD = '../assets/audio/';
+
+
+/*
+
+
+TODO: use INK module instead!
+	use INK module instead!
+	use INK module instead!
+	use INK module instead!
+	use INK module instead!
+	use INK module instead!
+	use INK module instead!
+	use INK module instead!
+	use INK module instead!
+	use INK module instead!
+	use INK module instead!
+	use INK module instead!
+	use INK module instead!
+	use INK module instead!
+	use INK module instead!
+	use INK module instead!
+	use INK module instead!
+	use INK module instead!
+	use INK module instead!
+
+
+*/
 
 class GrimvaleConfig extends BaseGameConfig {
 	gameIdf = 'grimvale';
 
-	bgVideo = `${DH_VID}grimvale-background.mp4`;
+	bgVideo = `${VID}mist.mp4`;
 
 	showCrawler = true;
-	logo = '../assets/images/grimvale/ink7.svg';
-	crawlerLogo = '../assets/images/grimvale/ink7.svg';
+	logo = '../assets/images/ink7.svg';
+	crawlerLogo = '../assets/images/ink7.svg';
 
 	orgs: T_Org[] = [HEARSAY, INNOVATION, ACCOLADE, LIFESTYLE, FINANCE, CRISIS, DOOM];
 
@@ -46,11 +73,11 @@ class GrimvaleConfig extends BaseGameConfig {
 const HEARSAY: T_Org = {
 	id: 'hearsay',
 	label: 'Hearsay',
-	bgVideo: `${DH_VID}spotlight-background-3.mp4`,
-	introVideo: `${DH_VID}vahalla.webm`,
-	introAudio: `${DH_AUD}grimvale_gossip.mp3`,
+	bgVideo: `${VID}spotlight-background-3.mp4`,
+	introVideo: `${VID}vahalla.webm`,
+	introAudio: `${AUD}gossip.mp3`,
 	introAudioDelay: 0,
-	outroVideo: `${DH_VID}vahalla.webm`,
+	outroVideo: `${VID}vahalla.webm`,
 	outroAudio: ``,
 	introMidMs: 601,
 	outroMidMs: 601,
@@ -59,11 +86,11 @@ const HEARSAY: T_Org = {
 const INNOVATION: T_Org = {
 	id: 'innovation',
 	label: 'Innovation',
-	bgVideo: `${DH_VID}spotlight-background-3.mp4`,
-	introVideo: `${DH_VID}vahalla.webm`,
-	introAudio: `${DH_AUD}grimvale_innovation.mp3`,
+	bgVideo: `${VID}spotlight-background-3.mp4`,
+	introVideo: `${VID}vahalla.webm`,
+	introAudio: `${AUD}innovation.mp3`,
 	introAudioDelay: 200,
-	outroVideo: `${DH_VID}vahalla.webm`,
+	outroVideo: `${VID}vahalla.webm`,
 	outroAudio: ``,
 	introMidMs: 601,
 	outroMidMs: 601,
@@ -72,11 +99,11 @@ const INNOVATION: T_Org = {
 const LIFESTYLE: T_Org = {
 	id: 'lifestyle',
 	label: 'Lifestyle',
-	bgVideo: `${DH_VID}spotlight-background-3.mp4`,
-	introVideo: `${DH_VID}vahalla.webm`,
-	introAudio: `${DH_AUD}grimvale_lifestyle.mp3`,
+	bgVideo: `${VID}spotlight-background-3.mp4`,
+	introVideo: `${VID}vahalla.webm`,
+	introAudio: `${AUD}lifestyle.mp3`,
 	introAudioDelay: 0,
-	outroVideo: `${DH_VID}vahalla.webm`,
+	outroVideo: `${VID}vahalla.webm`,
 	outroAudio: ``,
 	introMidMs: 601,
 	outroMidMs: 601,
@@ -85,11 +112,11 @@ const LIFESTYLE: T_Org = {
 const ACCOLADE: T_Org = {
 	id: 'accolade',
 	label: 'Accolade',
-	bgVideo: `${DH_VID}spotlight-background-3.mp4`,
-	introVideo: `${DH_VID}vahalla.webm`,
-	introAudio: `${DH_AUD}grimvale_accolade.mp3`,
+	bgVideo: `${VID}spotlight-background-3.mp4`,
+	introVideo: `${VID}vahalla.webm`,
+	introAudio: `${AUD}accolade.mp3`,
 	introAudioDelay: 200,
-	outroVideo: `${DH_VID}vahalla.webm`,
+	outroVideo: `${VID}vahalla.webm`,
 	outroAudio: ``,
 	introMidMs: 601,
 	outroMidMs: 601,
@@ -98,11 +125,11 @@ const ACCOLADE: T_Org = {
 const CRISIS: T_Org = {
 	id: 'crisis',
 	label: 'Crisis',
-	bgVideo: `${DH_VID}spotlight-background-5.mp4`,
-	introVideo: `${DH_VID}realm.webm`,
-	introAudio: `${DH_AUD}grimvale_crisis.mp3`,
+	bgVideo: `${VID}spotlight-background-5.mp4`,
+	introVideo: `${VID}realm.webm`,
+	introAudio: `${AUD}crisis.mp3`,
 	introAudioDelay: 0,
-	outroVideo: `${DH_VID}realm.webm`,
+	outroVideo: `${VID}realm.webm`,
 	outroAudio: ``,
 	introMidMs: 601,
 	outroMidMs: 601,
@@ -111,11 +138,11 @@ const CRISIS: T_Org = {
 const FINANCE: T_Org = {
 	id: 'finance',
 	label: 'Finance',
-	bgVideo: `${DH_VID}spotlight-background-3.mp4`,
-	introVideo: `${DH_VID}vahalla.webm`,
-	introAudio: `${DH_AUD}grimvale_finance.mp3`,
+	bgVideo: `${VID}spotlight-background-3.mp4`,
+	introVideo: `${VID}vahalla.webm`,
+	introAudio: `${AUD}finance.mp3`,
 	introAudioDelay: 0,
-	outroVideo: `${DH_VID}vahalla.webm`,
+	outroVideo: `${VID}vahalla.webm`,
 	outroAudio: ``,
 	introMidMs: 601,
 	outroMidMs: 601,
@@ -124,11 +151,11 @@ const FINANCE: T_Org = {
 const DOOM: T_Org = {
 	id: 'doom',
 	label: 'Doom',
-	bgVideo: `${DH_VID}spotlight-background-5.mp4`,
-	introVideo: `${DH_VID}lightning.webm`,
-	introAudio: `${DH_AUD}grimvale_doom.mp3`,
+	bgVideo: `${VID}spotlight-background-5.mp4`,
+	introVideo: `${VID}lightning.webm`,
+	introAudio: `${AUD}doom.mp3`,
 	introAudioDelay: 0,
-	outroVideo: `${DH_VID}lightning.webm`,
+	outroVideo: `${VID}lightning.webm`,
 	outroAudio: ``,
 	introMidMs: 601,
 	outroMidMs: 601,

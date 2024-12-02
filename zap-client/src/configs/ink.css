@@ -1,0 +1,267 @@
+/*## Ink-specific-stuff */
+
+.ink.projector-page .logo {
+	max-height: 20vh;
+	display: none;
+}
+
+.ink.projector-page .timer {
+	font-variant-numeric: tabular-nums;
+	font-family: "Copperplate";
+	font-weight: bold;
+	font-size: 30vh;
+}
+
+.ink.projector-page .timer .timer-label {
+	font-family: "Rock Thorn", "Copperplate";
+	font-weight: bold;
+}
+
+:root {
+	--ink--spacer-width: 15vh;
+	--ink--crawler-height: 10vh;
+	--ink--crawler-distance-from-bottom: 5vh;
+}
+/* ## crawler */
+.ink.projector-page .crawler-logo {
+	/*display: block;*/
+	position: fixed;
+	height: 20vh;
+	left: 0;
+	bottom: 0;
+}
+.ink.projector-page .crawlerHeadline {
+	/*font-family: Norse, sans-serif;*/
+	font-family: "Rock Thorn", "Copperplate";
+	text-transform: uppercase;
+	/*font-family: 'TofinoCond-Bold', serif;*/
+	position: relative;
+	padding: unset;
+	padding-right: var(--ink--spacer-width);
+}
+.ink.projector-page .crawlerHeadline::before {
+	content: "⬩";
+	font-size: 8.5vh;
+	text-align: center;
+	width: var(--ink--spacer-width);
+	display: block;
+	/*color: #013848;*/
+	color: #fc0;
+	position: absolute;
+	right: 0;
+	bottom: -0.330em;
+}
+
+.ink.projector-page .crawlGroup.anim0,
+.ink.projector-page .crawlGroup.anim1 {
+	background: transparent;
+}
+.ink.projector-page .crawlerContainer {
+	background: transparent;
+	height: var(--ink--crawler-height);
+	position: fixed;
+	bottom: var(--ink--crawler-distance-from-bottom);
+	left: 10vh;
+	width: calc(100vw - 10vh);
+	font-size: 3vh;
+	display: flex;
+	align-items: center;
+	mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,1));
+	mask-size: 100% 100%;
+	mask-repeat: no-repeat;
+	mask-position: left top, left bottom;
+}
+
+
+
+.ink.projector-page .spotlight-carrier {
+	font-family: "Rock Thorn", "Copperplate";
+	align-items: center;
+	text-align: center;
+	mix-blend-mode: screen;
+	/*background-color: white;*/
+	/*background-image: url('../../assets/images/stone-background-2.jpg');*/
+	background-size: cover;
+	height: 100vh;
+	width: 100vw;
+
+	perspective: 100vw;
+}
+
+.ink.projector-page .spotlight-carrier > * {
+	/*background: #000;*/
+	/*-webkit-background-clip: text;*/
+	/*-webkit-text-fill-color: transparent;*/
+}
+
+.ink.projector-page .spotlight-carrier .headline {
+	font-size: 6vmax;
+	text-size-adjust: auto;
+	/*transform: rotate3d(1, 0, 0, 55deg);*/
+}
+
+.ink.projector-page .spotlight-carrier .theme {
+	font-family: "Rock Thorn", "Copperplate";
+	text-transform: uppercase;
+	position: relative;
+	font-size: min(6vh, 6vw);
+	margin-bottom: 5vh;
+	transform: translateY(2.5vh);
+}
+
+.ink.projector-page .spotlight-carrier .theme::after {
+	background: #ffcc00;
+	position: fixed;
+	bottom: -0.2em;
+	left: 0;
+	height: 0.1em;
+	width: 100%;
+	display: block;
+	content: " ";
+	z-index: -1;
+}
+
+
+/*      ##  hearsay */
+.ink.projector-page .hearsay video.intro,
+.ink.projector-page .hearsay video.outro {
+	filter: sepia(100%) hue-rotate(-90deg) saturate(100%) brightness(100%);
+}
+.ink.projector-page .hearsay .spotlight-background {
+	filter: brightness(80%) saturate(50%);
+}
+.ink.projector-page .hearsay {
+	/*filter: brightness(100%) invert(0) hue-rotate(0deg) saturate(150%);*/
+}
+.ink.projector-page .hearsay .spotlight-carrier {
+	/*mix-blend-mode: screen;*/
+}
+.ink.projector-page .hearsay .spotlight-carrier .theme::after {
+	background: #f00;
+}
+
+/*      ## innovation */
+.ink.projector-page .innovation video.intro,
+.ink.projector-page .innovation video.outro {
+	/*filter: hue-rotate(120deg) saturate(100%) brightness(100%);*/
+}
+.ink.projector-page .innovation video.spotlight-background {
+	filter: brightness(50%) saturate(50%) hue-rotate(110deg);
+}
+.ink.projector-page .innovation .spotlight-carrier .theme::after {
+	background: #fff;
+}
+
+/*      ## accolade */
+.ink.projector-page .accolade video.intro,
+.ink.projector-page .accolade video.outro {
+	filter: sepia(100%) hue-rotate(-20deg) saturate(300%) brightness(150%);
+}
+.ink.projector-page .accolade video.spotlight-background {
+	filter: brightness(30%) saturate(80%) hue-rotate(20deg);
+}
+.ink.projector-page .accolade .spotlight-carrier {
+	color: white;
+}
+.ink.projector-page .accolade .spotlight-carrier .theme::after {
+	background: #fff;
+}
+
+/*      ## crisis */
+.ink.projector-page .crisis video.intro,
+.ink.projector-page .crisis video.outro {
+	/*filter: sepia(100%) hue-rotate(-25deg) saturate(300%) brightness(150%);*/
+	filter: hue-rotate(180deg) saturate(100%) brightness(100%);
+}
+.ink.projector-page .crisis video.spotlight-background {
+	filter: brightness(20%) saturate(50%);
+	transform: rotate(180deg);
+}
+.ink.projector-page .crisis .spotlight-carrier .theme::after {
+	background: #fff;
+}
+
+/*      ## doom */
+.ink.projector-page .doom video.intro,
+.ink.projector-page .doom video.outro {
+	/*filter: saturate(100%) hue-rotate(-0deg);*/
+	/*filter: brightness(100%) sepia(1) saturate(400%) hue-rotate(-38deg);*/
+}
+.ink.projector-page .doom .spotlight-carrier {
+	/*mix-blend-mode: overlay;*/
+	/*filter: invert(1); !* TODO: Ask Trenton *!*/
+	/*background: unset;*/
+}
+.ink.projector-page .doom .spotlight-carrier .theme::after {
+	background: #fff;
+}
+
+/*      ## oath */
+.ink.projector-page .oath video.intro,
+.ink.projector-page .oath video.outro {
+	/*filter: hue-rotate(120deg) saturate(100%) brightness(100%);*/
+}
+.ink.projector-page .oath video.spotlight-background {
+	filter: brightness(50%) saturate(50%) hue-rotate(220deg);
+	transform: rotate(180deg);
+}
+.ink.projector-page .oath .spotlight-carrier .theme::after {
+	background: #fff;
+}
+
+/*      ## grudge */
+.ink.projector-page .grudge video.intro,
+.ink.projector-page .grudge video.outro {
+	filter: hue-rotate(150deg) saturate(40%) brightness(70%);
+}
+.ink.projector-page .grudge video.spotlight-background {
+	filter: brightness(50%) saturate(70%) hue-rotate(-30deg);
+}
+.ink.projector-page .grudge .spotlight-carrier .theme::after {
+	background: #fff;
+}
+
+
+
+/*      ## lifestyle */
+.ink.projector-page .lifestyle video.intro,
+.ink.projector-page .lifestyle video.outro {
+	filter: sepia(100%) hue-rotate(170deg) saturate(300%) brightness(150%);
+}
+.ink.projector-page .lifestyle {
+	filter: invert(0) hue-rotate(50deg);
+}
+.ink.projector-page .lifestyle video.spotlight-background {
+	transform: rotateX(180deg);
+	filter: brightness(500%) hue-rotate(260deg);
+}
+.ink.projector-page .lifestyle .spotlight-carrier {
+	filter: brightness(100%) invert(1) hue-rotate(190deg);
+	background-image: url('../../assets/images/stone-background-2_gold.jpg');
+	mix-blend-mode: hard-light;
+	color: white;
+}
+.ink.projector-page .lifestyle .spotlight-carrier .theme::after {
+	background: #000;
+}
+
+/*      ## finance */
+.ink.projector-page .finance video.intro,
+.ink.projector-page .finance video.outro {
+	filter: sepia(100%) hue-rotate(70deg) saturate(300%) brightness(150%);
+}
+.ink.projector-page .finance {
+	filter: invert(0) hue-rotate(-50deg);
+}
+.ink.projector-page .finance video.spotlight-background {
+	filter: brightness(500%) hue-rotate(160deg);
+}
+.ink.projector-page .finance .spotlight-carrier {
+	filter: brightness(100%) invert(1) hue-rotate(90deg);
+	background-image: url('../../assets/images/stone-background-2_gold.jpg');
+	mix-blend-mode: hard-light;
+	color: white;
+}
+.ink.projector-page .finance .spotlight-carrier .theme::after {
+	background: #000;
+}
