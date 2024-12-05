@@ -6,7 +6,7 @@ import {
 	ResetGame,
 	SetTimer,
 	ForceSpotlight,
-	SetSituation
+	SetSituation, SetStat,
 } from './GameLogic.js';
 
 export function InitializePackets_SERVER(defs: ZapPacketDefs<ClientConn>, server: ZapServer) {
@@ -30,6 +30,7 @@ export function InitializePackets_SERVER(defs: ZapPacketDefs<ClientConn>, server
 	//## TIMER & SITUATION
 	defs.SetTimer.From_ADMIN = (pk, src) => SetTimer(getGame(src), pk, server);
 	defs.SetSituation.From_ADMIN = (pk, src) => SetSituation(getGame(src), pk, server);
+	defs.SetStat.From_ADMIN = (pk, src) => SetStat(getGame(src), pk, server);
 
 	
 	//## MISC

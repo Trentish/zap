@@ -1,7 +1,13 @@
 import {atom, getDefaultStore} from 'jotai';
 import {atomWithLocation} from 'jotai-location';
 import {E_ConnStatus, E_Endpoint, T_GameIdf} from '../../zap-shared/SystemTypes.ts';
-import {ArticleDat, SituationDat, SpotlightDat, TimerDat} from '../../zap-shared/_Dats.ts';
+import {
+	AllStatsDat,
+	ArticleDat,
+	SituationDat,
+	SpotlightDat,
+	TimerDat,
+} from '../../zap-shared/_Dats.ts';
 import {atomWithStorage, splitAtom} from 'jotai/utils';
 import {nanoid} from 'nanoid';
 import {FallbackConfig} from './configs/BaseGameConfig.ts';
@@ -14,6 +20,7 @@ import GrimvaleConfig from './configs/GrimvaleConfig.ts';
 import GoblinConfig from './configs/GoblinConfig.ts';
 import WatchTheSkiesConfig from './configs/WatchTheSkiesConfig.ts';
 import InkConfig from './configs/InkConfig.ts';
+import GenConfig from './configs/GenConfig.ts';
 
 export const $store = getDefaultStore();
 export const $connStatus = atom(E_ConnStatus.unset);
@@ -43,11 +50,14 @@ export const $timer = atom<TimerDat>({label: '', ms: 0});
 export const $timerAudioRef = atom<React.RefObject<HTMLAudioElement> | undefined>(undefined);
 
 export const $situation = atom<SituationDat>({label: '', cssClass: ''});
+export const $allStats = atom<AllStatsDat>({values: []});
 
 export const $config = atom(get => {
 	switch (get($gameIdf)) {
 		case InkConfig.gameIdf:
 			return InkConfig;
+		case GenConfig.gameIdf:
+			return GenConfig;
 		case DeephavenConfig.gameIdf:
 			return DeephavenConfig;
 		case JuntasConfig.gameIdf:

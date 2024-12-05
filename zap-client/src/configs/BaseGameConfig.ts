@@ -63,6 +63,8 @@ export class BaseGameConfig {
 	timerDefs: T_TimerDef[] = [];
 
 	situationDefs: SituationDat[] = [];
+	
+	statDefs: T_StatDef[] = [];
 
 	constructor() {
 		//
@@ -103,6 +105,13 @@ export type T_SpotlightRefs = {
 export type T_TimerDef = {
 	label?: string;
 	ms: number;
+}
+
+export type T_StatDef = {
+	label?: string;
+	// value: string;
+	icon?: string;
+	isNumber?: boolean;
 }
 
 export const FallbackConfig = new BaseGameConfig();

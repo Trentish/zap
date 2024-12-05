@@ -5,8 +5,8 @@ import {ZapDb} from './ZapDb.js';
 import {
 	ArticleDat,
 	HEADLINE_SIZE,
-	PostArticleDat,
-	SetTimerDat, SituationDat
+	PostArticleDat, SetStatDat,
+	SetTimerDat, SituationDat,
 } from '../../zap-shared/_Dats.js';
 import {RangeToRange} from '../../zap-shared/Maths.js';
 
@@ -64,7 +64,7 @@ export function DbOnLoad(game: ZapGame, server: ZapServer) {
 	game.spotlight = {
 		spotlightId: -1,
 		pendingAboveId: lastId,
-	}
+	};
 	game.spotlightIndex = lastArticleIndex;
 	game.spotlightTime = 0;
 	game.spotlightPhase = SpotlightPhase.NONE;
@@ -138,7 +138,7 @@ export function ForceSpotlight(game: ZapGame, id: number, server: ZapServer) {
 	game.spotlight = {
 		spotlightId: -1,
 		pendingAboveId: id - 1,
-	}
+	};
 	game.spotlightIndex = articleIndex - 1;
 	game.spotlightTime = 0;
 	game.spotlightPhase = SpotlightPhase.NONE;
@@ -171,7 +171,7 @@ export function SetSituation(game: ZapGame, setSituation: SituationDat, server: 
 
 const SendSituation = (
 	game: ZapGame,
-	server: ZapServer
+	server: ZapServer,
 ) => server.packets.Situation.Send(game.toAllClients, game.situation);
 
 export function AddClientToGame(game: ZapGame, client: ClientConn, server: ZapServer) {
@@ -206,9 +206,20 @@ export function AddClientToGame(game: ZapGame, client: ClientConn, server: ZapSe
 	SendTimer(game, server);
 	SendSpotlight(game, server);
 	SendInitialArticles(game, client.toSocket, server);
+	SendAllStats(game, server);
 	
 	console.log(`${game} added: ${client.label}`);
 }
+
+export function SetStat(game: ZapGame, dat: SetStatDat, server: ZapServer) {
+	game.allStats.values[dat.index] = dat.value;
+	SendAllStats(game, server);
+}
+
+const SendAllStats = (
+	game: ZapGame,
+	server: ZapServer,
+) => server.packets.AllStats.Send(game.toAllClients, game.allStats);
 
 export function RemoveClientFromGame(client: ClientConn, server: ZapServer) {
 	const game = client.game;

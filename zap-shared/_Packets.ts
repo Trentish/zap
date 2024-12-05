@@ -1,11 +1,12 @@
 import {BasePacketDefs, E_Endpoint, I_PkSource, T_GameIdf} from './SystemTypes.ts';
 import {
+	AllStatsDat, SetStatDat,
 	ArticleDat,
 	ArticleListDat,
 	PostArticleDat,
 	SetTimerDat, SituationDat,
 	SpotlightDat,
-	TimerDat
+	TimerDat,
 } from './_Dats.ts';
 
 type none = string; // no packet
@@ -40,6 +41,9 @@ export class ZapPacketDefs<TSrc extends I_PkSource> extends BasePacketDefs<TSrc>
 
 	SetSituation = this.ADMIN_to_SERVER<SituationDat>();
 	Situation = this.SERVER_to_CLIENT<SituationDat>();
+	
+	SetStat = this.ADMIN_to_SERVER<SetStatDat>();
+	AllStats = this.SERVER_to_CLIENT<AllStatsDat>();
 	
 	
 	//## MISC

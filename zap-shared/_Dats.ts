@@ -57,6 +57,15 @@ export interface SituationDat {
 	cssClass: string,
 }
 
+export interface SetStatDat {
+	index: number,
+	value: string,
+}
+
+export interface AllStatsDat {
+	values: string[],
+}
+
 //  Oath, Grudge, Triumph, Calamity, Discovery, Gossip, Doom
 // export type T_Theme = {
 // 	Idf: string,

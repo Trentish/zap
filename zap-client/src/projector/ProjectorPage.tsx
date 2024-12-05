@@ -4,6 +4,7 @@ import {atom, useAtom} from 'jotai';
 import './ProjectorPage.css';
 import React, {useEffect, useRef, useState} from 'react';
 import {
+	$allStats,
 	$config, $situation,
 	$splitArticles,
 	$spotlight,
@@ -21,9 +22,10 @@ import {
 	INTRO_MID_DEFAULT,
 	OUTRO_MID_DEFAULT,
 	T_Org,
-	T_SpotlightRefs,
+	T_SpotlightRefs, T_StatDef,
 } from '../configs/BaseGameConfig.ts';
 import {Audio} from '../components/AudioComponents.tsx';
+import {Button} from '../components/ButtonComponents.tsx';
 
 const SHOW_LAST_COUNT = 7;
 const LOG = true;
@@ -76,6 +78,10 @@ export function ProjectorPage() {
 			
 			{config.showCrawler && config.crawlerLogo && (
 				<img className={'crawler-logo'} src={config.crawlerLogo}/>
+			)}
+			
+			{config.statDefs.length && (
+				<AllStats/>
 			)}
 			
 			<Spotlight/>
@@ -359,5 +365,43 @@ function InitialClickMe() {
 			className={'initial-click-me'}
 			onClick={() => setNeedClick(false)}
 		>Click Me</div>
+	);
+}
+
+function AllStats() {
+	const [config] = useAtom($config);
+	
+	return (
+		<div className={'allStats'}>
+			{config.statDefs.map((def, index) => (
+				<StatView
+					key={`stat${index}`}
+					index={index}
+					def={def}
+				/>
+			))}
+		</div>
+	)
+}
+
+function StatView({index, def}: {
+	index: number,
+	def: T_StatDef
+}) {
+	const [allStats] = useAtom($allStats);
+	
+	const value = allStats.values[index];
+	
+	
+	return (
+		<div className={'statView'}>
+			{def.icon && (
+				<img className={'statIcon'} src={def.icon}/>
+			)}
+			{def.label && (
+				<div className={'statLabel'}>{def.label}</div>
+			)}
+			<div className={'statValue'}>{value}</div>
+		</div>
 	);
 }
