@@ -80,9 +80,9 @@ export function ProjectorPage() {
 				<img className={'crawler-logo'} src={config.crawlerLogo}/>
 			)}
 			
-			{config.statDefs.length && (
-				<AllStats/>
-			)}
+			{/*{config.statDefs.length && (*/}
+			{/*	<AllStats/>*/}
+			{/*)}*/}
 			
 			<Spotlight/>
 		</div>
