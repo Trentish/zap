@@ -104,7 +104,8 @@ export type T_SpotlightRefs = {
 
 export type T_TimerDef = {
 	label?: string;
-	ms: number;
+	ms?: number;
+	setLabelOnly?: boolean;
 }
 
 export type T_StatDef = {

@@ -49,6 +49,8 @@ export function ProjectorPage() {
 				id={'backgroundVideoLoop'}
 			/>
 			
+			<BgOverlay/>
+			
 			{config.overlayVideo && (
 				<BackgroundVideo
 					src={config.overlayVideo}
@@ -404,4 +406,12 @@ function StatView({index, def}: {
 			<div className={'statValue'}>{value}</div>
 		</div>
 	);
+}
+
+function BgOverlay() {
+	return (
+		<div id={'bgOverlay'}>
+		
+		</div>
+	)
 }

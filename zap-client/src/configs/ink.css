@@ -122,6 +122,37 @@
 }
 
 
+/* ## Situations */
+
+.ink.projector-page.attack #bgOverlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(255, 0, 0, 0);
+	animation-name: attack;
+	animation-direction: alternate;
+	animation-iteration-count: infinite;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+}
+
+@keyframes attack {
+	0% {
+		background: rgba(255, 0, 0, 0);
+		/*filter: brightness(0.6) hue-rotate(-205deg) saturate(200%);*/
+	}
+	75% {
+		/*filter: brightness(0.1) hue-rotate(-205deg) saturate(0%);*/
+	}
+	100% {
+		background: rgba(255, 0, 0, 0.35);
+		/*filter: brightness(0.1) hue-rotate(-205deg) saturate(0%);*/
+	}
+}
+
+
 /*      ##  hearsay */
 .ink.projector-page .hearsay video.intro,
 .ink.projector-page .hearsay video.outro {
@@ -264,4 +295,29 @@
 }
 .ink.projector-page .finance .spotlight-carrier .theme::after {
 	background: #000;
+}
+
+
+.ink.projector-page .statView {
+	height: 64px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin: 32px;
+}
+
+.ink.projector-page .statIcon {
+	/*width: 64px;*/
+	/*height: 64px;*/
+}
+
+.ink.projector-page .statLabel {
+	padding: 4px;
+	font-size: 92px;
+}
+
+.ink.projector-page .statValue {
+	padding-left: 16px;
+	font-size: 100px;
+	font-family: monospace;
 }
