@@ -21,6 +21,7 @@ import GoblinConfig from './configs/GoblinConfig.ts';
 import WatchTheSkiesConfig from './configs/WatchTheSkiesConfig.ts';
 import InkConfig from './configs/InkConfig.ts';
 import GenConfig from './configs/GenConfig.ts';
+import FirstContactConfig from "./configs/FirstContactConfig.ts";
 
 export const $store = getDefaultStore();
 export const $connStatus = atom(E_ConnStatus.unset);
@@ -72,6 +73,8 @@ export const $config = atom(get => {
 			return GoblinConfig;
 		case WatchTheSkiesConfig.gameIdf:
 			return WatchTheSkiesConfig;
+		case FirstContactConfig.gameIdf:
+			return FirstContactConfig;
 		default:
 			return FallbackConfig;
 	}

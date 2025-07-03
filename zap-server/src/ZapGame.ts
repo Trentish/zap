@@ -32,9 +32,6 @@ export class ZapGame {
 		label: '',
 		cssClass: '',
 	};
-	allStats: AllStatsDat = {
-		values: [],
-	};
 	tickInterval: NodeJS.Timer;
 	
 	spotlight: SpotlightDat = {
@@ -52,6 +49,7 @@ export class GamePersist {
 	idf: T_GameIdf;
 	lastId: number;
 	articles: ArticleDat[];
+	allStats: AllStatsDat;
 }
 
 export enum SpotlightPhase {

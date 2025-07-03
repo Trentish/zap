@@ -11,3 +11,12 @@
 	padding-top: var(--admin-spacing);
 	border-top: solid thin gray;
 }
+
+
+.statValueControl .statInput {
+	width: 500px;
+}
+
+.statValueControl .statInputLabel {
+	/*min-width: 200px;*/
+}

@@ -26,6 +26,7 @@ import {
 } from '../configs/BaseGameConfig.ts';
 import {Audio} from '../components/AudioComponents.tsx';
 import {Button} from '../components/ButtonComponents.tsx';
+import {TopStories} from "./TopStories.tsx";
 
 const SHOW_LAST_COUNT = 7;
 const LOG = true;
@@ -33,6 +34,7 @@ const LOG = true;
 const $spotlightOrg = atom<T_Org | null>(null);
 
 export function ProjectorPage() {
+	console.log(`rerender ProjectorPage`);
 	const client = useClient();
 	const [config] = useAtom($config);
 	const [situation] = useAtom($situation);
@@ -41,13 +43,18 @@ export function ProjectorPage() {
 	$store.set($timerAudioRef, timerAudioRef);
 	
 	return (
-		<div className={`projector-page ${client.gameIdf} ${situation.cssClass}`}>
+		<div
+			id={'projectorPage'}
+			className={`projector-page ${client.gameIdf} ${situation.cssClass}`}
+		>
 			<InitialClickMe/>
-			
-			<BackgroundVideo
-				src={config.bgVideo}
-				id={'backgroundVideoLoop'}
-			/>
+
+			{config.bgVideo && (
+				<BackgroundVideo
+					src={config.bgVideo}
+					id={'backgroundVideoLoop'}
+				/>
+			)}
 			
 			<BgOverlay/>
 			
@@ -67,9 +74,13 @@ export function ProjectorPage() {
 			/>
 			
 			<Headlines/>
-			
+
 			{config.showCrawler && (
 				<Crawler/>
+			)}
+
+			{config.showTopStories && (
+				<TopStories/>
 			)}
 
 			{/*<CompaniesCrawler/>*/}
@@ -82,9 +93,9 @@ export function ProjectorPage() {
 				<img className={'crawler-logo'} src={config.crawlerLogo}/>
 			)}
 			
-			{/*{config.statDefs.length && (*/}
-			{/*	<AllStats/>*/}
-			{/*)}*/}
+			{!!config.statDefs.length && (
+				<AllStats/>
+			)}
 			
 			<Spotlight/>
 		</div>
@@ -396,7 +407,7 @@ function StatView({index, def}: {
 	
 	
 	return (
-		<div className={'statView'}>
+		<div className={`statView ${def.className}`}>
 			{def.icon && (
 				<img className={'statIcon'} src={def.icon}/>
 			)}

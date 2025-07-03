@@ -1,0 +1,30 @@
+
+.topStories {
+    padding: 24px;
+}
+
+.topStoryGrid {
+    /*display: grid;*/
+    /*grid-template-columns: auto auto auto;*/
+    /*grid-template-columns: auto auto;*/
+    /*gap: 5px;*/
+}
+
+.topStoryTime {
+    text-align: right;
+    /*text-align: center;*/
+    align-self: center;
+    padding-right: 6px;
+    color: #5b5b5b;
+}
+
+.topStoryLabel {
+    text-align: center;
+    align-self: center;
+}
+
+.topStoryHeadline {
+    font-size: min(5vh, 5vw);
+    align-self: center;
+    margin-bottom: 16px;
+}

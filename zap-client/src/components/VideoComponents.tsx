@@ -28,6 +28,7 @@ export type P_BackgroundVideo = {
 
 export const BackgroundVideo = forwardRef(
 	function BackgroundVideo(props: P_BackgroundVideo, ref: React.ForwardedRef<HTMLVideoElement>) {
+		console.log(`rerender BackgroundVideo`);
 		return (
 			<video
 				id={props.id}

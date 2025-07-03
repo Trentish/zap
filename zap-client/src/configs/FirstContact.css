@@ -1,0 +1,299 @@
+
+#projectorPage.fc.projector-page {
+    background-color: #000000;
+    justify-content: flex-start;
+
+    padding-right: 30%;
+}
+
+
+
+/*## fc-specific-stuff */
+
+.fc.projector-page .allStats {
+    position: absolute;
+    top: 0;
+    left: 70%;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    margin-top: 64px;
+}
+
+.fc.projector-page .statView.defcon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.fc.projector-page .defcon .statLabel {
+    padding: 4px;
+    font-size: 2vmax;
+    font-weight: bold;
+    text-decoration: underline;
+    color: #ff4141;
+}
+
+.fc.projector-page .defcon .statValue {
+    padding-left: 16px;
+    font-family: monospace;
+    font-size: 2vmax;
+    text-align: center;
+    color: #d2d2d2;
+}
+
+.fc.projector-page .statView.corp {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 8px;
+    /*margin-left: 64px;*/
+    align-self: center;
+}
+
+.fc.projector-page .statView.corp.first {
+    margin-top: 32px;
+}
+
+.fc.projector-page .corp .statLabel {
+    padding: 4px;
+    font-size: 2vmax;
+    font-weight: bold;
+    /*text-decoration: underline;*/
+    color: #ffef41;
+    width: 100px;
+}
+
+.fc.projector-page .corp .statValue {
+    padding-left: 16px;
+    font-family: monospace;
+    font-size: 2vmax;
+    text-align: center;
+    color: #d2d2d2;
+    width: 32px;
+    /*text-align: right;*/
+}
+
+
+
+.fc.projector-page #backgroundVideoLoop {
+    filter: brightness(1) saturate(1);
+}
+
+.fc.projector-page.alpha #backgroundVideoLoop {
+    filter: brightness(0.5) hue-rotate(300deg);
+}
+
+.fc.projector-page.bravo #backgroundVideoLoop {
+    filter: brightness(0.3) hue-rotate(30deg);
+}
+
+.fc.projector-page.charlie #backgroundVideoLoop {
+    filter: brightness(1) hue-rotate(210deg);
+}
+
+.fc.projector-page.delta #backgroundVideoLoop {
+    filter: brightness(1) hue-rotate(182.5deg) saturate(200%);
+}
+
+.fc.projector-page.echo #backgroundVideoLoop {
+    filter: brightness(0.6) hue-rotate(155deg) saturate(200%);
+}
+
+.fc.projector-page.wolf #backgroundVideoLoop {
+    filter: brightness(1) hue-rotate(-205deg) saturate(200%);
+    animation-name: wolf;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes wolf {
+    0% {
+        filter: brightness(0.6) hue-rotate(-205deg) saturate(200%);
+    }
+    75% {
+        filter: brightness(0.1) hue-rotate(-205deg) saturate(0%);
+    }
+    100% {
+        filter: brightness(0.1) hue-rotate(-205deg) saturate(0%);
+    }
+}
+
+
+.fc.projector-page .logo {
+    /*display: block;*/
+    max-height: 20vh;
+    display: none;
+}
+
+.fc.projector-page .timer {
+    /*font-family: "Norse";*/
+    font-family: "TofinoWide-Bold";
+    font-weight: bold;
+    font-size: 12vmax !important;
+    gap: 0;
+    align-self: flex-start;
+    margin: 8px 0 0 24px;
+    display: flex;
+    align-items: center;
+}
+
+.fc.projector-page .timer .timer-label {
+    /*font-family: "Norse";*/
+    font-family: "TofinoWide-Medium";
+    font-weight: bold;
+    font-size: 7vmax !important;
+    text-transform: uppercase;
+    /*margin-bottom:7vmax;*/
+    margin-left: 64px;
+}
+
+.fc.projector-page .spotlight-carrier {
+    /*font-family: "Norse";*/
+    font-family: "TofinoWide-Medium";
+    align-items: center;
+    text-align: center;
+    /*background-image: url('../../assets/images/denofwolves/stone-background-2.jpg');*/
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    overflow: visible;
+
+    perspective: 100vw;
+
+}
+
+.fc.projector-page .gnnLateNight .theme {
+    font-size: min(4vh, 4vw) !important;
+}
+
+
+.fc.projector-page .spotlight-carrier > * {
+    /*background: #000;*/
+    /*-webkit-background-clip: text;*/
+    /*-webkit-text-fill-color: transparent;*/
+}
+
+.fc.projector-page .spotlight-carrier .headline {
+    font-size: min(13vh, 10vw);
+    text-size-adjust: auto;
+    width: 100%;
+    text-align: left;
+    /*transform: rotate3d(1, 0, 0, 55deg);*/
+}
+
+.fc.projector-page .spotlight-carrier .theme {
+    font-family: "TofinoWide-Bold";
+    text-transform: uppercase;
+    position: relative;
+    font-size: min(6vh, 6vw);
+    margin-bottom: 5vh;
+    transform: translateY(2.5vh);
+}
+
+.fc.projector-page .spotlight-carrier .theme::after {
+    background: #ffcc00;
+    position: fixed;
+    bottom: -0.2em;
+    left: 0;
+    height: 0.1em;
+    width: 100%;
+    display: block;
+    content: " ";
+    z-index: -1;
+}
+
+:root {
+    --fc--spacer-width: 15vh;
+    --fc--crawler-height: 10vh;
+    --fc--crawler-distance-from-bottom: 5vh;
+}
+/* ## crawler */
+.fc.projector-page .crawler-logo {
+    /*display: block;*/
+    position: fixed;
+    height: 10vh;
+    left: 2vw;
+    bottom: 5vh;
+}
+.fc.projector-page .crawlerHeadline {
+    /*font-family: Norse, sans-serif;*/
+    font-family: 'TofinoWide-Bold', serif;
+    text-transform: uppercase;
+    /*font-family: 'TofinoCond-Bold', serif;*/
+    position: relative;
+    padding: unset;
+    padding-right: var(--fc--spacer-width);
+}
+.fc.projector-page .crawlerHeadline::before {
+    content: "-";
+    text-align: center;
+    width: var(--fc--spacer-width);
+    display: block;
+    /*color: #013848;*/
+    color: #fc0;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.fc.projector-page .crawlGroup.anim0,
+.fc.projector-page .crawlGroup.anim1 {
+    background: transparent;
+}
+.fc.projector-page .crawlerContainer {
+    background: transparent;
+    height: var(--fc--crawler-height);
+    position: fixed;
+    bottom: var(--fc--crawler-distance-from-bottom);
+    left: 26vh;
+    width: calc(100vw - 26vh);
+    font-size: 3vh;
+    display: flex;
+    align-items: center;
+    mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,1));
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
+    mask-position: left top, left bottom;
+}
+
+.fc.projector-page .spotlight-carrier .theme {
+    /*font-size: 0 !important;*/
+    /*background-size: cover;*/
+    /*background-repeat: no-repeat;*/
+    /*display: block;*/
+    /*width: calc(410vh / 20);*/
+    /*height: calc(156vh / 20);*/
+    /*background-position: center;*/
+    /*position: fixed;*/
+    /*right: 2vw;*/
+    /*top: 5vh;*/
+
+}
+
+.fc.projector-page .spotlight-carrier {
+    align-items: start;
+    position: relative;
+}
+
+.fc.projector-page .spotlight-carrier .headline {
+    font-size: 6vmax;
+
+
+    background-size: 15%;
+    background-position: right bottom;
+    padding-right: 20%;
+    background-repeat: no-repeat;
+    /*background-image: url('../../assets/images/fc/gnn_logo.svg');*/
+}
+
+.fc.projector-page .spotlight-background {
+    filter: brightness(0.2) saturate(0%);
+}
+
+
+
+

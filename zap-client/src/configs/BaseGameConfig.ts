@@ -49,6 +49,8 @@ export class BaseGameConfig {
 	};
 	
 	showCrawler = true;
+	showTopStories = false;
+	topStoryCount = 5;
 	showLocationField = false;
 	logo = '';
 	crawlerLogo = '';
@@ -113,6 +115,7 @@ export type T_StatDef = {
 	// value: string;
 	icon?: string;
 	isNumber?: boolean;
+	className?: string;
 }
 
 export const FallbackConfig = new BaseGameConfig();

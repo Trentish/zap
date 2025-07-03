@@ -32,6 +32,7 @@ export function MakeGame(idf: T_GameIdf, server: ZapServer): ZapGame {
 	gamePersist.idf = idf;
 	gamePersist.lastId = 0;
 	gamePersist.articles = [];
+	gamePersist.allStats = {values: []};
 	
 	game.db = new ZapDb<GamePersist>(
 		gamePersist, {
@@ -56,6 +57,10 @@ export function DbOnLoad(game: ZapGame, server: ZapServer) {
 	
 	const gamePersist = game.db.current;
 	const lastArticleIndex = gamePersist.articles.length - 1;
+
+	if (!gamePersist.allStats || !gamePersist.allStats.values) {
+		gamePersist.allStats = {values: []};
+	}
 	
 	const lastId = lastArticleIndex >= 0
 		? gamePersist.articles[lastArticleIndex].id
@@ -212,14 +217,21 @@ export function AddClientToGame(game: ZapGame, client: ClientConn, server: ZapSe
 }
 
 export function SetStat(game: ZapGame, dat: SetStatDat, server: ZapServer) {
-	game.allStats.values[dat.index] = dat.value;
+	const gamePersist: GamePersist = game.db.current;
+
+	gamePersist.allStats.values[dat.index] = dat.value;
 	SendAllStats(game, server);
+
+	return game.db.Save();
 }
 
 const SendAllStats = (
 	game: ZapGame,
 	server: ZapServer,
-) => server.packets.AllStats.Send(game.toAllClients, game.allStats);
+) => {
+	const gamePersist: GamePersist = game.db.current;
+	server.packets.AllStats.Send(game.toAllClients, gamePersist.allStats);
+};
 
 export function RemoveClientFromGame(client: ClientConn, server: ZapServer) {
 	const game = client.game;
@@ -252,6 +264,7 @@ export async function ResetGame(game: ZapGame, server: ZapServer) {
 		idf: game.idf,
 		lastId: 0,
 		articles: [],
+		allStats: {values: []},
 	};
 	
 	game.lastTick = Date.now();
