@@ -1,0 +1,260 @@
+
+#projectorPage.tgid.projector-page {
+    background-color: #000000;
+    justify-content: flex-start;
+
+    padding-right: 30%;
+}
+
+
+
+/*## tgid-specific-stuff */
+
+.tgid.projector-page .allStats {
+    position: absolute;
+    top: 0;
+    left: 75%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 64px;
+}
+
+.tgid.projector-page .statView.national {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.tgid.projector-page .statView.national.first {
+    margin-top: 32px;
+}
+
+.tgid.projector-page .national .statLabel {
+    padding: 4px;
+    font-size: 2vmax;
+    font-weight: bold;
+    /*text-decoration: underline;*/
+    color: #ffef41;
+    left: 0;
+    width: 13vw;
+}
+
+.tgid.projector-page .national .statValue {
+    padding-left: 16px;
+    font-family: monospace;
+    font-size: 2vmax;
+    text-align: center;
+    color: #d2d2d2;
+    width: 32px;
+    /*text-align: right;*/
+}
+
+.tgid.projector-page .statView.corp {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 8px;
+    /*margin-left: 64px;*/
+    align-self: center;
+}
+
+.tgid.projector-page .statView.corp.first {
+    margin-top: 32px;
+}
+
+.tgid.projector-page .corp .statLabel {
+    padding: 4px;
+    font-size: 2vmax;
+    font-weight: bold;
+    /*text-decoration: underline;*/
+    color: #ffef41;
+    width: 13vw;
+}
+
+.tgid.projector-page .corp .statValue {
+    padding-left: 16px;
+    font-family: monospace;
+    font-size: 2vmax;
+    text-align: center;
+    color: #d2d2d2;
+    width: 32px;
+    /*text-align: right;*/
+}
+
+
+
+.tgid.projector-page #backgroundVideoLoop {
+    filter: brightness(1) saturate(1);
+}
+
+.tgid.projector-page.alpha #backgroundVideoLoop {
+    filter: brightness(0.5) hue-rotate(300deg);
+}
+
+.tgid.projector-page.bravo #backgroundVideoLoop {
+    filter: brightness(0.3) hue-rotate(30deg);
+}
+
+.tgid.projector-page.charlie #backgroundVideoLoop {
+    filter: brightness(1) hue-rotate(210deg);
+}
+
+.tgid.projector-page.delta #backgroundVideoLoop {
+    filter: brightness(1) hue-rotate(182.5deg) saturate(200%);
+}
+
+.tgid.projector-page.echo #backgroundVideoLoop {
+    filter: brightness(0.6) hue-rotate(155deg) saturate(200%);
+}
+
+
+.tgid.projector-page .logo {
+    /*display: block;*/
+    max-height: 20vh;
+    display: none;
+}
+
+.tgid.projector-page .timer {
+    /*font-family: "Norse";*/
+    font-family: "TofinoWide-Bold";
+    font-weight: bold;
+    font-size: 20vmax !important;
+    gap: 0;
+}
+
+.tgid.projector-page .timer .timer-label {
+    /*font-family: "Norse";*/
+    font-family: "TofinoWide-Medium";
+    font-weight: bold;
+    font-size: 7vmax !important;
+    text-transform: uppercase;
+    margin-bottom:7vmax;
+}
+
+
+.tgid.projector-page .spotlight-carrier {
+    /*font-family: "Norse";*/
+    font-family: "TofinoWide-Medium";
+    align-items: center;
+    text-align: center;
+    /*background-image: url('../../assets/images/denofwolves/stone-background-2.jpg');*/
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    overflow: visible;
+
+    perspective: 100vw;
+
+}
+
+.tgid.projector-page .spotlight-carrier .headline {
+    font-size: min(13vh, 10vw);
+    text-size-adjust: auto;
+    width: 100%;
+    text-align: left;
+    /*transform: rotate3d(1, 0, 0, 55deg);*/
+}
+
+.tgid.projector-page .spotlight-carrier .theme {
+    font-family: "TofinoWide-Bold";
+    text-transform: uppercase;
+    position: relative;
+    font-size: min(6vh, 6vw);
+    margin-bottom: 5vh;
+    transform: translateY(2.5vh);
+}
+
+.tgid.projector-page .spotlight-carrier .theme::after {
+    background: #ffcc00;
+    position: fixed;
+    bottom: -0.2em;
+    left: 0;
+    height: 0.1em;
+    width: 100%;
+    display: block;
+    content: " ";
+    z-index: -1;
+}
+
+:root {
+    --fc--spacer-width: 15vh;
+    --fc--crawler-height: 10vh;
+    --fc--crawler-distance-from-bottom: 5vh;
+}
+
+/* ## crawler */
+.tgid.projector-page .crawler-logo {
+    /*display: block;*/
+    position: fixed;
+    height: 10vh;
+    left: 2vw;
+    bottom: 5vh;
+}
+
+.tgid.projector-page .crawlerHeadline {
+    /*font-family: Norse, sans-serif;*/
+    font-family: 'TofinoWide-Bold', serif;
+    text-transform: uppercase;
+    /*font-family: 'TofinoCond-Bold', serif;*/
+    position: relative;
+    padding: unset;
+    padding-right: var(--fc--spacer-width);
+}
+
+.tgid.projector-page .crawlerHeadline::before {
+    content: "-";
+    text-align: center;
+    width: var(--fc--spacer-width);
+    display: block;
+    /*color: #013848;*/
+    color: #fc0;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.tgid.projector-page .crawlGroup.anim0,
+.tgid.projector-page .crawlGroup.anim1 {
+    background: transparent;
+}
+
+.tgid.projector-page .crawlerContainer {
+    background: transparent;
+    height: var(--fc--crawler-height);
+    position: fixed;
+    bottom: var(--fc--crawler-distance-from-bottom);
+    left: 26vh;
+    width: calc(100vw - 26vh);
+    font-size: 3vh;
+    display: flex;
+    align-items: center;
+    mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,1));
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
+    mask-position: left top, left bottom;
+}
+
+.tgid.projector-page .spotlight-carrier {
+    align-items: start;
+    position: relative;
+}
+
+.tgid.projector-page .spotlight-carrier .headline {
+    font-size: 6vmax;
+
+
+    background-size: 15%;
+    background-position: right bottom;
+    padding-right: 20%;
+    background-repeat: no-repeat;
+    /*background-image: url('../../assets/images/fc/gnn_logo.svg');*/
+}
+
+.tgid.projector-page .spotlight-background {
+    filter: brightness(0.2) saturate(0%);
+}
+
+
+
+

@@ -4,6 +4,7 @@ import {SituationDat} from "../../../zap-shared/_Dats.ts"; //## NOTE: will alway
 
 const VID = '../assets/videos/';
 const AUD = '../assets/audio/';
+const MINUTES = 60 * 1000;
 
 class DenOfWolvesConfig extends BaseGameConfig {
     gameIdf = 'denofwolves';
@@ -27,8 +28,12 @@ class DenOfWolvesConfig extends BaseGameConfig {
 	
 	timerDefs: T_TimerDef[] = [
 		{
-			label: '',
-			ms: 30 * 60 * 1000,
+			label: 'Team Time',
+			ms: 8 * MINUTES,
+		},
+        {
+			label: 'Action Phase',
+			ms: 22 * MINUTES,
 		},
 	];
     // ];

@@ -38,7 +38,7 @@ export function Timer({$timer}: {
 				{minutesText}:{secondsText}
 			</span>
 			<span className="timer-label">
-				{label}
+				&nbsp;{label}
 			</span>
 		</div>
 	);
