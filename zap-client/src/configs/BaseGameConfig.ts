@@ -34,6 +34,7 @@ export const OUTRO_MID_DEFAULT = 500;
 
 export class BaseGameConfig {
 	gameIdf: string;
+	gameDisplayName: string;
 	
 	bgVideo = '../assets/videos/box-background.mp4';
 	overlayVideo = '';

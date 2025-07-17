@@ -11,6 +11,8 @@ import {
 import {atomWithStorage, splitAtom} from 'jotai/utils';
 import {nanoid} from 'nanoid';
 import {FallbackConfig} from './configs/BaseGameConfig.ts';
+
+// TODO: import all config files instead of hardcode
 import DeephavenConfig from './configs/DeephavenConfig.ts';
 import JuntasConfig from './configs/JuntasConfig.ts';
 import JungleConfig from './configs/JungleConfig.ts';
@@ -22,6 +24,8 @@ import WatchTheSkiesConfig from './configs/WatchTheSkiesConfig.ts';
 import InkConfig from './configs/InkConfig.ts';
 import GenConfig from './configs/GenConfig.ts';
 import FirstContactConfig from "./configs/FirstContactConfig.ts";
+import GeneralissimoConfig from "./configs/GeneralissimoConfig.ts";
+import TouchedByDarknessConfig from "./configs/TouchedByDarknessConfig.ts";
 
 export const $store = getDefaultStore();
 export const $connStatus = atom(E_ConnStatus.unset);
@@ -75,6 +79,10 @@ export const $config = atom(get => {
 			return WatchTheSkiesConfig;
 		case FirstContactConfig.gameIdf:
 			return FirstContactConfig;
+		case GeneralissimoConfig.gameIdf:
+			return GeneralissimoConfig;
+		case TouchedByDarknessConfig.gameIdf:
+			return TouchedByDarknessConfig;
 		default:
 			return FallbackConfig;
 	}
