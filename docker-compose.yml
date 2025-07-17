@@ -1,5 +1,3 @@
-version: '3.8'  # Specify Docker Compose version for consistency
-
 services:
   zap-server:
     build:
