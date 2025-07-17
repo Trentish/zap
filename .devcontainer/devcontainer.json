@@ -3,7 +3,7 @@
   "dockerComposeFile": [
     "../docker-compose.yml"
   ],
-  "service": "zap-server",
+  "service": "zap-client",
   "workspaceFolder": "/workspace",
   "shutdownAction": "stopCompose",
   "customizations": {

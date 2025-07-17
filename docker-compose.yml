@@ -13,7 +13,7 @@ services:
       - "3007:3007"
     volumes:
       # ':cached' is a performance hint for Docker Desktop (Mac/Win) to prefer host changes, but allow some delay in container seeing updates.
-      - ./zap-server:/workspace:cached
+      # - ./zap-server:/workspace:cached
       # Mount shared code for both server and client
       - ./zap-shared:/workspace/zap-shared:cached
       # Store persistent data in zap-storage (relative to docker-compose.yml)
@@ -31,7 +31,7 @@ services:
     ports:
       - "5173:5173"
     volumes:
-      - ./zap-client:/workspace:cached
+      # - ./zap-client:/workspace:cached
       - ./zap-shared:/workspace/zap-shared:cached
     working_dir: /workspace
     command: npm run dev
