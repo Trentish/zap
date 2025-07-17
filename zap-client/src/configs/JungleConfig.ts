@@ -1,5 +1,5 @@
 import {BaseGameConfig, T_Org, T_SpotlightRefs, T_TimerDef} from './BaseGameConfig.ts';
-import {ArticleDat} from '../../../zap-shared/_Dats.ts';
+import {ArticleDat} from '../../zap-shared/_Dats.ts';
 import './jungle.css'; //## NOTE: will always load (regardless of gameIdf)
 
 const J_VIDS = '../assets/videos/jungle/';

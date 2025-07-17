@@ -3,7 +3,7 @@ import {Atom, useAtom} from 'jotai/index';
 import {$config, $splitArticles} from '../ClientState.ts';
 import React, {useState} from 'react';
 import {Button} from '../components/ButtonComponents.tsx';
-import {ArticleDat} from '../../../zap-shared/_Dats.ts';
+import {ArticleDat} from '../../zap-shared/_Dats.ts';
 import './HistoryPage.css';
 import './TopStories.css';
 

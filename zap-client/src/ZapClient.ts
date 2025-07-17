@@ -7,8 +7,8 @@ import {
 	T_MsgId,
 	T_Packet,
 	T_SocketMsg,
-} from '../../zap-shared/SystemTypes.ts';
-import {ZapPacketDefs} from '../../zap-shared/_Packets.ts';
+} from '../zap-shared/SystemTypes.ts';
+import {ZapPacketDefs} from '../zap-shared/_Packets.ts';
 import {I_JsonSocketCallbacks, JsonSocketClient} from './lib/JsonSocketClient.ts';
 import {InitializePackets_CLIENT} from './ClientPkHandlers.ts';
 import {
@@ -22,7 +22,7 @@ import {
 	$timer, $timerAudioRef,
 } from './ClientState.ts';
 import {nanoid} from 'nanoid';
-import {TimerDat} from "../../zap-shared/_Dats.ts";
+import {TimerDat} from "../zap-shared/_Dats.ts";
 
 
 const WS_SERVER = 'ws://localhost:3007'; // TODO: config

@@ -3,7 +3,7 @@ import {useAtom} from "jotai/index";
 import {$config} from "../ClientState.ts";
 import {Button} from "../components/ButtonComponents.tsx";
 import React from "react";
-import {SituationDat} from "../../../zap-shared/_Dats.ts";
+import {SituationDat} from "../../zap-shared/_Dats.ts";
 import './SituationControls.css';
 
 export function SituationControls() {

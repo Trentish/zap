@@ -2,7 +2,7 @@ import './CompaniesCrawler.css';
 import React, {forwardRef, useEffect, useRef} from 'react';
 import {atom, useAtom} from 'jotai';
 import {$allArticles, $store} from '../ClientState.ts';
-import {ArticleDat} from '../../../zap-shared/_Dats.ts';
+import {ArticleDat} from '../../zap-shared/_Dats.ts';
 import {PrimitiveAtom} from 'jotai/vanilla/atom';
 
 // TODO: cleanup/organize this file

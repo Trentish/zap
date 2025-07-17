@@ -1,4 +1,4 @@
-import {ZapPacketDefs} from '../../zap-shared/_Packets.js';
+import {ZapPacketDefs} from '../zap-shared/_Packets.js';
 import {ClientConn, ZapServer} from './ZapServer.js';
 import {
 	AddArticle,

@@ -1,0 +1,57 @@
+services:
+  zap-server:
+    build:
+      context: ./zap-server           # Build context is the zap-server folder
+      dockerfile: Dockerfile          # Use the Dockerfile inside zap-server
+    image: zap-server:dev             # Tag for the built image
+    container_name: zap-server        # Explicit container name
+    environment:
+      - HOST=0.0.0.0                  # Listen on all network interfaces
+      - PORT=3007                     # Port the server will run on
+      - STORAGE_PATH=/tmp/zap         # Path inside the container for storage
+    ports:
+      - "3007:3007"                   # Expose container's port 3007 to host
+    volumes:
+      # Mount shared logic/code (used by both server and client)
+      - ./zap-shared:/workspace/zap-shared:cached
+      
+      # Persist server storage for our news data
+      - ./zap-storage:/tmp/zap
+
+      # Mount the server source code into the container
+      - ./zap-server:/workspace:cached
+      
+      # Use a named volume for node_modules to avoid conflicts with host
+      - zap-server-node-modules:/workspace/node_modules
+    working_dir: /workspace           # Set working directory inside container
+    command: npm run dev              # Start server in dev mode
+
+  zap-client:
+    build:
+      context: ./zap-client           # Build context is the zap-client folder
+      dockerfile: Dockerfile          # Use the Dockerfile inside zap-client
+    image: zap-client:dev             # Tag for the built image
+    container_name: zap-client        # Explicit container name
+    environment:
+      - VITE_SERVER_URL=http://zap-server:3007  # Client will connect to server
+    ports:
+      - "5173:5173"                   # Expose client dev server (Vite, etc.)
+    volumes:
+      # Mount shared logic/code
+      - ./zap-shared:/workspace/zap-shared:cached
+      
+      # Mount the client source code into the container
+      - ./zap-client:/workspace:cached
+      
+      # Use a named volume for node_modules (same reason as server)
+      - zap-client-node-modules:/workspace/node_modules
+    working_dir: /workspace           # Set working directory
+    command: npm run dev              # Start client in dev mode (e.g., Vite)
+
+networks:
+  default:
+    name: zap-network                 # Custom name for shared service network
+
+volumes:
+  zap-server-node-modules:            # Isolated node_modules for server
+  zap-client-node-modules:            # Isolated node_modules for client

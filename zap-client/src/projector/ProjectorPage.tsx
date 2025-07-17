@@ -1,4 +1,4 @@
-import {ArticleDat} from '../../../zap-shared/_Dats.ts';
+import {ArticleDat} from '../../zap-shared/_Dats.ts';
 import {Timer} from '../displays/Timer.tsx';
 import {atom, useAtom} from 'jotai';
 import './ProjectorPage.css';
