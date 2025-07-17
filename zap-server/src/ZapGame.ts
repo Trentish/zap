@@ -1,4 +1,4 @@
-import {T_ClientId, T_GameIdf} from '../../zap-shared/SystemTypes.js';
+import {T_ClientId, T_GameIdf} from '../zap-shared/SystemTypes.js';
 import {ClientConn} from './ZapServer.js';
 import {ZapDb} from './ZapDb.js';
 import {
@@ -7,7 +7,7 @@ import {
 	SituationDat,
 	SpotlightDat,
 	TimerDat,
-} from '../../zap-shared/_Dats.js';
+} from '../zap-shared/_Dats.js';
 
 export class ZapGame {
 	idf: T_GameIdf;

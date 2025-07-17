@@ -1,6 +1,6 @@
 import {BaseGameConfig, T_Org, T_TimerDef} from './BaseGameConfig.ts';
 import './WatchTheSkies.css';
-import {SituationDat} from '../../../zap-shared/_Dats.ts'; //## NOTE: will always load (regardless of gameIdf)
+import {SituationDat} from '../../zap-shared/_Dats.ts'; //## NOTE: will always load (regardless of gameIdf)
 
 const VID = '../assets/videos/';
 const AUD = '../assets/audio/';

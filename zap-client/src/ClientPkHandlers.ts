@@ -1,4 +1,4 @@
-import {ZapPacketDefs} from '../../zap-shared/_Packets.ts';
+import {ZapPacketDefs} from '../zap-shared/_Packets.ts';
 import {ConnToServer, ZapClient} from './ZapClient.ts';
 import {
 	$allArticles,

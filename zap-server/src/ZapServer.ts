@@ -8,11 +8,11 @@ import {
 	T_MsgId,
 	T_Packet,
 	T_SocketMsg,
-} from '../../zap-shared/SystemTypes.js';
+} from '../zap-shared/SystemTypes.js';
 import {GamePersist, ZapGame} from './ZapGame.js';
 import {InitializePackets_SERVER} from './ServerPkHandlers.js';
-import {ZapPacketDefs} from '../../zap-shared/_Packets.js';
-import {ArticleDat, PostArticleDat} from '../../zap-shared/_Dats.js';
+import {ZapPacketDefs} from '../zap-shared/_Packets.js';
+import {ArticleDat, PostArticleDat} from '../zap-shared/_Dats.js';
 import {AddClientToGame, MakeGame} from './GameLogic.js';
 
 const PING_MSG = 'PING';

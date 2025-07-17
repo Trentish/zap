@@ -1,17 +1,18 @@
-# Use the official Node.js 16.14.2 image as the base
-FROM node:16.14.2
+FROM node:16-bullseye-slim
 
-# Set the working directory inside the container
-WORKDIR /workspace/zap-client
+WORKDIR /workspace
 
-# Copy package.json and package-lock.json for dependency installation
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+RUN npm install --include=dev
 
-# Copy the rest of the application code
 COPY . .
 
-# Set the default command to run the development server
+# Set permissions for the node user (optional, but good practice)
+RUN chown -R node:node /workspace
+
+USER node
+
+EXPOSE 5173
+
 CMD ["npm", "run", "dev"]
