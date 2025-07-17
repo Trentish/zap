@@ -1,3 +1,0 @@
-<component name="DependencyValidationManager">
-  <scope name="shared" pattern="file[zap]:zap-shared//*" />
-</component>

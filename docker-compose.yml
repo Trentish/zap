@@ -1,0 +1,42 @@
+services:
+  zap-server:
+    build:
+      context: ./zap-server
+      dockerfile: Dockerfile
+    image: zap-server:dev
+    container_name: zap-server
+    environment:
+      - HOST=0.0.0.0
+      - PORT=3007
+      - STORAGE_PATH=/tmp/zap
+    ports:
+      - "3007:3007"
+    volumes:
+      # Mount the host's ./zap-server directory into /workspace in the container.
+      # This is NOT a copy; changes on the host are reflected in the container and vice versa.
+      # ':cached' is a performance hint for Docker Desktop (Mac/Win) to prefer host changes, but allow some delay in container seeing updates.
+      - ./zap-server:/workspace:cached
+      # Mount shared code for both server and client
+      - ./zap-shared:/workspace/zap-shared:cached
+      # Store persistent data in zap-storage (relative to docker-compose.yml)
+      - ./zap-storage:/tmp/zap
+    working_dir: /workspace
+    command: npm run dev
+  zap-client:
+    build:
+      context: ./zap-client
+      dockerfile: Dockerfile
+    image: zap-client:dev
+    container_name: zap-client
+    environment:
+      - VITE_SERVER_URL=http://zap-server:3007
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./zap-client:/workspace/zap-client:cached
+      - ./zap-shared:/workspace/zap-shared:cached
+    working_dir: /workspace/zap-client
+    command: npm run dev
+networks:
+  default:
+    name: zap-network
