@@ -2,11 +2,11 @@ FROM node:24.4.1-bullseye-slim
 
 WORKDIR /workspace
 
-COPY package*.json ./
+COPY app/package*.json ./
 
 RUN npm install --include=dev
 
-COPY . .
+COPY app/ .
 
 # Set permissions for the node user (optional, but good practice)
 RUN chown -R node:node /workspace

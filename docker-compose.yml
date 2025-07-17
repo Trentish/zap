@@ -19,7 +19,7 @@ services:
       - ./zap-storage:/tmp/zap
 
       # Mount the server source code into the container
-      - ./zap-server:/workspace:cached
+      - ./zap-server/app:/workspace:cached
       
       # Use a named volume for node_modules to avoid conflicts with host
       - zap-server-node-modules:/workspace/node_modules
@@ -41,7 +41,7 @@ services:
       - ./zap-shared:/workspace/zap-shared:cached
       
       # Mount the client source code into the container
-      - ./zap-client:/workspace:cached
+      - ./zap-client/app:/workspace:cached
       
       # Use a named volume for node_modules (same reason as server)
       - zap-client-node-modules:/workspace/node_modules
