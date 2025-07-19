@@ -21,14 +21,6 @@ class FirstContactConfig extends BaseGameConfig {
 	timerEndSound = `${AUD}juntas_end_turn_1.mp3`;
 
 	orgs: T_Org[] = [GNN_BREAKING, GNN_OPINION, GNN_LATE_NIGHT];
-	// situationDefs: SituationDat[] = [
-	// 	{label: 'Alpha', cssClass: 'alpha'},
-	// 	{label: 'Bravo', cssClass: 'bravo'},
-	// 	{label: 'Charlie', cssClass: 'charlie'},
-	// 	{label: 'Delta', cssClass: 'delta'},
-	// 	{label: 'Echo', cssClass: 'echo'},
-	// 	{label: 'Wolf', cssClass: 'wolf'},
-	// ];
 
 	timerDefs: T_TimerDef[] = [
 		{
@@ -86,7 +78,7 @@ const GNN_BREAKING: T_Org = {
 	outroVideo: `${VID}fw_red.webm`,
 	outroAudio: ``,
 	introMidMs: 1000,
-	outroMidMs: 500,
+	outroMidMs: 600,
 	showAsRadio: true,
 };
 
@@ -100,7 +92,7 @@ const GNN_OPINION: T_Org = {
 	outroVideo: `${VID}fw_red.webm`,
 	outroAudio: ``,
 	introMidMs: 500,
-	outroMidMs: 500,
+	outroMidMs: 600,
 	showAsRadio: true,
 };
 
@@ -114,7 +106,7 @@ const GNN_LATE_NIGHT: T_Org = {
 	outroVideo: `${VID}fw_red.webm`,
 	outroAudio: ``,
 	introMidMs: 1400,
-	outroMidMs: 500,
+	outroMidMs: 600,
 	showAsRadio: true,
 };
 

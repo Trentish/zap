@@ -81,48 +81,6 @@
     filter: brightness(1) saturate(1);
 }
 
-.fc.projector-page.alpha #backgroundVideoLoop {
-    filter: brightness(0.5) hue-rotate(300deg);
-}
-
-.fc.projector-page.bravo #backgroundVideoLoop {
-    filter: brightness(0.3) hue-rotate(30deg);
-}
-
-.fc.projector-page.charlie #backgroundVideoLoop {
-    filter: brightness(1) hue-rotate(210deg);
-}
-
-.fc.projector-page.delta #backgroundVideoLoop {
-    filter: brightness(1) hue-rotate(182.5deg) saturate(200%);
-}
-
-.fc.projector-page.echo #backgroundVideoLoop {
-    filter: brightness(0.6) hue-rotate(155deg) saturate(200%);
-}
-
-.fc.projector-page.wolf #backgroundVideoLoop {
-    filter: brightness(1) hue-rotate(-205deg) saturate(200%);
-    animation-name: wolf;
-    animation-direction: alternate;
-    animation-iteration-count: infinite;
-    animation-duration: 1s;
-    animation-timing-function: ease-in-out;
-}
-
-@keyframes wolf {
-    0% {
-        filter: brightness(0.6) hue-rotate(-205deg) saturate(200%);
-    }
-    75% {
-        filter: brightness(0.1) hue-rotate(-205deg) saturate(0%);
-    }
-    100% {
-        filter: brightness(0.1) hue-rotate(-205deg) saturate(0%);
-    }
-}
-
-
 .fc.projector-page .logo {
     /*display: block;*/
     max-height: 20vh;
