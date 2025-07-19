@@ -15,4 +15,4 @@ USER node
 
 EXPOSE 3007
 
-CMD ["npm", "run", "dev"]
+# CMD ["npm", "run", "dev"]

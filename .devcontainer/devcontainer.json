@@ -1,11 +1,12 @@
 {
-  "name": "Zap Dev Environment",
+  "name": "zap-client Dev Environment",
   "dockerComposeFile": [
     "../docker-compose.yml"
   ],
   "service": "zap-client",
   "workspaceFolder": "/workspace",
   "shutdownAction": "stopCompose",
+  "overrideCommand": true,
   "customizations": {
     "vscode": {
       "extensions": [
@@ -17,6 +18,5 @@
       }
     }
   },
-  "postCreateCommand": "npm install",
   "remoteUser": "node"
 }
