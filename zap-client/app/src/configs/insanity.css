@@ -11,16 +11,6 @@
 	filter: brightness(0.25) saturate(0);
 }
 
-/* VHS distortion */
-/* .insanity.projector-page .spotlight-overlay {
-	position: fixed;
-	width: 100vw;
-	height: 100vh;
-	object-fit: cover;
-	opacity: 0.15;
-	z-index: 6;
-} */
-
 .insanity.projector-page {
 	align-items: unset;
 }
@@ -47,7 +37,7 @@
 .insanity.projector-page .timer {
 	/* 11 is on top of everything including the transition */
 	/* z-index: 11; */
-	
+
 	position: fixed;
 	right: var(--insanity--gnn-logo-offset);
 	top: 8vmin;
@@ -135,6 +125,7 @@
 .insanity.projector-page .articles:before {
 	content: "TOP STORIES THIS HOUR";
 }
+
 .insanity.projector-page .articles:after {
 	content: "";
 	width: 100%;
@@ -155,11 +146,10 @@
 .insanity.projector-page .articles span.article {
 	display: none;
 }
+
 .insanity.projector-page .articles div.article:nth-of-type(1n+4) {
 	display: none;
 }
-
-
 
 .insanity.projector-page .allStats {
 	position: absolute;
@@ -176,7 +166,7 @@
 	gap: 2vmin;
 	font-weight: bold;
 	letter-spacing: -0.02em;
-  	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .insanity.projector-page .defcon.statView {
@@ -187,13 +177,14 @@
 .insanity.projector-page .defcon-block .statLabel {
 	color: black;
 	font-size: 3vmin;
-  	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /* DEFCON 1 */
 .insanity.projector-page .defcon.defcon-1 {
 	border-color: #CC0000;
 }
+
 .insanity.projector-page .defcon-1 .statLabel {
 	background: #CC0000;
 }
@@ -202,6 +193,7 @@
 .insanity.projector-page .defcon.defcon-2 {
 	border-color: #FF6600;
 }
+
 .insanity.projector-page .defcon-2 .statLabel {
 	background: #FF6600;
 }
@@ -210,6 +202,7 @@
 .insanity.projector-page .defcon.defcon-3 {
 	border-color: #FFCC00;
 }
+
 .insanity.projector-page .defcon-3 .statLabel {
 	background: #FFCC00;
 }
@@ -219,5 +212,6 @@
 }
 
 .insanity.projector-page .corp-block {
-	display: none; /* TEMPORARY */
+	display: none;
+	/* TEMPORARY */
 }
