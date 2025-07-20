@@ -1,0 +1,47 @@
+/* Admin stat controls: compact, one-line, spaced nicely */
+.adminStatRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+}
+
+.adminStatLabel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 120px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.adminStatInput {
+    width: 120px;
+    padding: 2px 6px;
+    font-size: 1rem;
+}
+
+.adminStatStepper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.adminStatStepperInput {
+    width: 70px;
+    padding: 2px 6px;
+    font-size: 1rem;
+}
+
+.adminStatAddBtn {
+    padding: 2px 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid #bbb;
+    background: #f5f5f5;
+    transition: background 0.15s;
+}
+.adminStatAddBtn:hover {
+    background: #e0e0e0;
+}
