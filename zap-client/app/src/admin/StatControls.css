@@ -1,3 +1,22 @@
+/* Zebra striping for DEFCON table rows */
+.defconTable tr.zebra {
+  background: #ffffff66;
+}
+/* --- DEFCON TABLE RADIO BUTTONS --- */
+.defconTable input[type="radio"] {
+    appearance: radio;
+    -webkit-appearance: radio;
+    width: 18px;
+    height: 18px;
+    margin: 0 4px;
+    accent-color: #1976d2;
+    cursor: pointer;
+    vertical-align: middle;
+}
+.defconTable input[type="radio"]:checked {
+    outline: 2px solid #1976d2;
+    box-shadow: 0 0 0 2px #1976d2;
+}
 /* Admin stat controls: compact, one-line, spaced nicely */
 .adminStatRow {
     display: flex;

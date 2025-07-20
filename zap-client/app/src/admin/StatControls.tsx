@@ -9,6 +9,7 @@ import React from "react";
 export function StatControls() {
 	const client = useClient();
 	const [config] = useAtom($config);
+	const [allStats, setAllStats] = useAtom($allStats);
 
 	const setStat = (index: number, value: string) => {
 		client.packets.SetStat.Send({
@@ -17,9 +18,105 @@ export function StatControls() {
 		});
 	};
 
+	// --- Defcon Table ---
+	const defconNations = [
+		{ name: 'Algeria', code: 'DZA', flag: '🇩🇿' },
+		{ name: 'Argentina', code: 'ARG', flag: '🇦🇷' },
+		{ name: 'Australia', code: 'AUS', flag: '🇦🇺' },
+		{ name: 'Brazil', code: 'BRA', flag: '🇧🇷' },
+		{ name: 'Canada', code: 'CAN', flag: '🇨🇦' },
+		{ name: 'China', code: 'CHN', flag: '🇨🇳' },
+		{ name: 'DR Congo', code: 'COD', flag: '🇨🇩' },
+		{ name: 'Egypt', code: 'EGY', flag: '🇪🇬' },
+		{ name: 'Ethiopia', code: 'ETH', flag: '🇪🇹' },
+		{ name: 'France', code: 'FRA', flag: '🇫🇷' },
+		{ name: 'Germany', code: 'DEU', flag: '🇩🇪' },
+		{ name: 'India', code: 'IND', flag: '🇮🇳' },
+		{ name: 'Indonesia', code: 'IDN', flag: '🇮🇩' },
+		{ name: 'Iran', code: 'IRN', flag: '🇮🇷' },
+		{ name: 'Japan', code: 'JPN', flag: '🇯🇵' },
+		{ name: 'Mexico', code: 'MEX', flag: '🇲🇽' },
+		{ name: 'Nigeria', code: 'NGA', flag: '🇳🇬' },
+		{ name: 'Pakistan', code: 'PAK', flag: '🇵🇰' },
+		{ name: 'Poland', code: 'POL', flag: '🇵🇱' },
+		{ name: 'Russia', code: 'RUS', flag: '🇷🇺' },
+		{ name: 'Saudi Arabia', code: 'SAU', flag: '🇸🇦' },
+		{ name: 'South Africa', code: 'ZAF', flag: '🇿🇦' },
+		{ name: 'South Korea', code: 'KOR', flag: '🇰🇷' },
+		{ name: 'Turkey', code: 'TUR', flag: '🇹🇷' },
+		{ name: 'United Kingdom', code: 'GBR', flag: '🇬🇧' },
+		{ name: 'United States', code: 'USA', flag: '🇺🇸' },
+		{ name: 'Venezuela', code: 'VEN', flag: '🇻🇪' },
+	];
+
+	// Find defcon stat indexes
+	const defcon1Idx = config.statDefs.findIndex(d => d.className && d.className.includes('defcon-1'));
+	const defcon2Idx = config.statDefs.findIndex(d => d.className && d.className.includes('defcon-2'));
+	const defcon3Idx = config.statDefs.findIndex(d => d.className && d.className.includes('defcon-3'));
+
+// Parse CSVs into a map: { [code]: { level, trend } }
+const parseDefconCSV = (csv: string, level: 1|2|3) => {
+	const map: Record<string, { level: 1|2|3, trend: ''|'+'|'-' }> = {};
+	csv.split(',').forEach(entry => {
+		const m = entry.match(/^([A-Z]{3})([+-]?)$/);
+		if (m) {
+			map[m[1]] = { level, trend: (m[2] as ''|'+'|'-') };
+		}
+	});
+	return map;
+};
+
+	const defcon1Map = parseDefconCSV(allStats.values[defcon1Idx] || '', 1);
+	const defcon2Map = parseDefconCSV(allStats.values[defcon2Idx] || '', 2);
+	const defcon3Map = parseDefconCSV(allStats.values[defcon3Idx] || '', 3);
+
+	// Compose a single map for all nations
+	const nationDefcon: Record<string, { level: 0|1|2|3, trend: ''|'+'|'-' }> = {};
+	for (const n of defconNations) nationDefcon[n.code] = { level: 0, trend: '' };
+	for (const code in defcon1Map) nationDefcon[code] = { level: 1, trend: defcon1Map[code].trend };
+	for (const code in defcon2Map) nationDefcon[code] = { level: 2, trend: defcon2Map[code].trend };
+	for (const code in defcon3Map) nationDefcon[code] = { level: 3, trend: defcon3Map[code].trend };
+
+	// Handler to update a nation's defcon level/trend
+	function updateNationDefcon(code: string, newLevel: 0|1|2|3, newTrend: ''|'+'|'-') {
+		// Remove from all maps
+		const new1: string[] = [];
+		const new2: string[] = [];
+		const new3: string[] = [];
+		for (const n of defconNations) {
+			if (n.code === code) {
+				if (newLevel === 1) new1.push(`${code}${newTrend}`);
+				else if (newLevel === 2) new2.push(`${code}${newTrend}`);
+				else if (newLevel === 3) new3.push(`${code}${newTrend}`);
+				// else: none
+			} else {
+				if (defcon1Map[n.code]) new1.push(`${n.code}${defcon1Map[n.code].trend}`);
+				if (defcon2Map[n.code]) new2.push(`${n.code}${defcon2Map[n.code].trend}`);
+				if (defcon3Map[n.code]) new3.push(`${n.code}${defcon3Map[n.code].trend}`);
+			}
+		}
+		const newValues = [...allStats.values];
+		if (defcon1Idx >= 0) newValues[defcon1Idx] = new1.join(',');
+		if (defcon2Idx >= 0) newValues[defcon2Idx] = new2.join(',');
+		if (defcon3Idx >= 0) newValues[defcon3Idx] = new3.join(',');
+		setAllStats({ values: newValues });
+		// Also send to server
+		if (defcon1Idx >= 0) setStat(defcon1Idx, new1.join(','));
+		if (defcon2Idx >= 0) setStat(defcon2Idx, new2.join(','));
+		if (defcon3Idx >= 0) setStat(defcon3Idx, new3.join(','));
+	}
+
+	// --- END DEFCON ---
+
 	return (
 		<div className={'statControls'}>
+			<DefconControlTable
+				defconNations={defconNations}
+				nationDefcon={nationDefcon}
+				updateNationDefcon={updateNationDefcon}
+			/>
 			{config.statDefs.map((def, index) => (
+				(def.className && def.className.includes('defcon')) ? null :
 				<Stat
 					key={`stat${index}`}
 					index={index}
@@ -28,6 +125,66 @@ export function StatControls() {
 				/>
 			))}
 		</div>
+	);
+}
+
+function DefconControlTable({ defconNations, nationDefcon, updateNationDefcon }: {
+	defconNations: { name: string, code: string, flag: string }[],
+	nationDefcon: Record<string, { level: 0|1|2|3, trend: ''|'+'|'-' }>,
+	updateNationDefcon: (code: string, newLevel: 0|1|2|3, newTrend: ''|'+'|'-') => void
+}) {
+	const trendIcon = (trend: ''|'+'|'-') => trend === '+' ? '↑' : trend === '-' ? '↓' : '•';
+	return (
+		<table className="defconTable" style={{ marginBottom: 24, width: '100%' }}>
+			<thead>
+				<tr>
+					<th rowSpan={2} style={{textAlign:'left'}}>Nation</th>
+					<th colSpan={4} style={{borderBottom:'1px solid #bbb'}}>DEFCON Level</th>
+					<th colSpan={3} style={{borderBottom:'1px solid #bbb'}}>Trend</th>
+				</tr>
+				<tr>
+					<th>NONE</th>
+					<th>3</th>
+					<th>2</th>
+					<th>1</th>
+					<th>↓</th>
+					<th>•</th>
+					<th>↑</th>
+				</tr>
+			</thead>
+			<tbody>
+				{defconNations.map((nation, idx) => {
+					const { level, trend } = nationDefcon[nation.code] || { level: 0, trend: '' };
+					return (
+						<tr key={nation.code} className={(idx + 1) % 2 === 1 ? 'zebra' : ''}>
+							<td style={{textAlign:'left',fontWeight:500}}>{nation.flag} {nation.name} <span style={{color:'#888',fontSize:'0.9em'}}>({nation.code})</span></td>
+							{[0,3,2,1].map(lvl => (
+								<td key={lvl}>
+									<input
+										type="radio"
+										name={`defcon-level-${nation.code}`}
+										id={`defcon-level-${nation.code}-${lvl}`}
+										checked={level === lvl}
+										onChange={() => updateNationDefcon(nation.code, lvl as 0|1|2|3, trend)}
+									/>
+								</td>
+							))}
+							{['-','', '+'].map(tr => (
+								<td key={tr}>
+									<input
+										type="radio"
+										name={`defcon-trend-${nation.code}-level${level}`}
+										id={`defcon-trend-${nation.code}-${tr === '' ? 'nochange' : tr === '+' ? 'rising' : 'falling'}`}
+										checked={trend === tr}
+										onChange={() => updateNationDefcon(nation.code, level, tr as ''|'+'|'-')}
+									/>
+								</td>
+							))}
+						</tr>
+					);
+				})}
+			</tbody>
+		</table>
 	);
 }
 
