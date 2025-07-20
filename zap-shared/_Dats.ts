@@ -1,7 +1,7 @@
 import {T_GameIdf} from './SystemTypes.ts';
 
 export const HEADLINE_MIN_SIZE = 1;
-export const HEADLINE_MAX_SIZE = 150;
+export const HEADLINE_MAX_SIZE = 70;
 export const HEADLINE_SIZE: [number, number] = [HEADLINE_MIN_SIZE, HEADLINE_MAX_SIZE];
 
 export interface PostArticleDat {

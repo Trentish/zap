@@ -105,6 +105,7 @@ export type T_SpotlightRefs = {
 	carrierRef: React.RefObject<HTMLDivElement>,
 	themeRef: React.RefObject<HTMLDivElement>,
 	headlineRef: React.RefObject<HTMLDivElement>,
+	locationRef: React.RefObject<HTMLDivElement>,
 }
 
 export type T_TimerDef = {

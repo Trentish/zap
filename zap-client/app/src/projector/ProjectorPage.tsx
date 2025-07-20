@@ -151,6 +151,7 @@ function Spotlight() {
 	const carrierRef = useRef<HTMLDivElement>(null);
 	const themeRef = useRef<HTMLDivElement>(null);
 	const headlineRef = useRef<HTMLDivElement>(null);
+	const locationRef = useRef<HTMLDivElement>(null);
 	
 	const refs: T_SpotlightRefs = {
 		spotlightContainerRef: spotlightContainerRef,
@@ -163,6 +164,7 @@ function Spotlight() {
 		carrierRef: carrierRef,
 		themeRef: themeRef,
 		headlineRef: headlineRef,
+		locationRef: locationRef,
 	};
 	
 	if (LOG) console.log(`🔦 render: Spotlight`, article);
@@ -178,8 +180,8 @@ function Spotlight() {
 		const carrier = carrierRef.current;
 		const theme = themeRef.current;
 		const headline = headlineRef.current;
-		
-		
+		const location = locationRef.current;
+	
 		if (article) {
 			//## article ENTER
 			if (LOG) console.log(`🔦 useEffect: Spotlight,  article ENTER`, article);
@@ -197,6 +199,7 @@ function Spotlight() {
 			// SET_VID(overlay, org.overlayVideo);
 			SET_TEXT(theme, org.label);
 			SET_TEXT(headline, article.headline);
+			SET_TEXT(location, article.location || '');
 			
 			SHOW(introVideo);
 			PLAY(introVideo);
@@ -315,8 +318,8 @@ function Spotlight() {
 				ref={carrierRef}
 			>
 				<div
-					className={'theme'}
-					ref={themeRef}
+					className={'location'}
+					ref={locationRef}
 				>{''}</div>
 				<div
 					className={'headline'}
