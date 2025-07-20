@@ -22,6 +22,7 @@ import WatchTheSkiesConfig from './configs/WatchTheSkiesConfig.ts';
 import InkConfig from './configs/InkConfig.ts';
 import GenConfig from './configs/GenConfig.ts';
 import FirstContactConfig from "./configs/FirstContactConfig.ts";
+import InsanityConfig from "./configs/InsanityConfig.ts";
 
 export const $store = getDefaultStore();
 export const $connStatus = atom(E_ConnStatus.unset);
@@ -75,6 +76,8 @@ export const $config = atom(get => {
 			return WatchTheSkiesConfig;
 		case FirstContactConfig.gameIdf:
 			return FirstContactConfig;
+		case InsanityConfig.gameIdf:
+			return InsanityConfig;
 		default:
 			return FallbackConfig;
 	}

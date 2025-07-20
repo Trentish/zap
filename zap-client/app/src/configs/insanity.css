@@ -1,0 +1,144 @@
+/*## Insanity-specific stuff */
+
+:root {
+	--insanity--gnn-logo-offset: 10vmin;
+	--insanity--gnn-red: #CC0000;
+}
+
+.insanity.projector-page #backgroundVideoLoop {
+	filter: brightness(0.25) saturate(0);
+}
+
+/* VHS distortion */
+/* .insanity.projector-page .spotlight-overlay {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	object-fit: cover;
+	opacity: 0.15;
+	z-index: 6;
+} */
+
+.insanity.projector-page {
+	align-items: unset;
+}
+
+.insanity.projector-page .logo {
+	display: block;
+	position: fixed;
+	right: var(--insanity--gnn-logo-offset);
+	bottom: 5vmin;
+	max-height: 10vmin;
+
+	/* 11 is on top of everything including the transition */
+	/* z-index: 11; */
+}
+
+.insanity.projector-page .timer .timer-label {
+	font-family: "Helvetica", sans-serif;
+	font-size: 3vmin;
+	position: fixed;
+	right: var(--insanity--gnn-logo-offset);
+	top: 5vmin;
+}
+
+.insanity.projector-page .timer {
+	/* 11 is on top of everything including the transition */
+	/* z-index: 11; */
+	
+	position: fixed;
+	right: var(--insanity--gnn-logo-offset);
+	top: 8vmin;
+	font-size: 8.5vmin;
+	letter-spacing: -0.02em;
+	font-weight: bold;
+	font-family: "Helvetica", sans-serif;
+	/* text-shadow: 0.01em 0.01em 0 black, 0.02em 0.02em 0 black, 0.03em 0.03em 0 black, 0.04em 0.04em 0 black, 0.05em 0.05em 0 black,
+	0.06em 0.06em 0 black, 0.07em 0.07em 0 black, 0.08em 0.08em 0 black, 0.09em 0.09em 0 black, 0.10em 0.10em 0 black,
+	0.11em 0.11em 0 black, 0.12em 0.12em 0 black, 0.13em 0.13em 0 black, 0.14em 0.14em 0 black, 0.15em 0.15em 0 black; */
+
+}
+
+.insanity.projector-page .intro,
+.insanity.projector-page .outro {
+	filter: saturate(0%);
+}
+
+.insanity.projector-page .article.spotlight {
+	background-color: #369;
+}
+
+.insanity.projector-page .spotlight-carrier {
+	align-self: flex-start;
+	padding: 0 var(--insanity--gnn-logo-offset);
+	/*z-index: 2;*/
+	font-weight: bold;
+	/* text-shadow: 0.01em 0.01em 0 black, 0.02em 0.02em 0 black, 0.03em 0.03em 0 black, 0.04em 0.04em 0 black, 0.05em 0.05em 0 black,
+	0.06em 0.06em 0 black, 0.07em 0.07em 0 black, 0.08em 0.08em 0 black, 0.09em 0.09em 0 black, 0.10em 0.10em 0 black,
+	0.11em 0.11em 0 black, 0.12em 0.12em 0 black, 0.13em 0.13em 0 black, 0.14em 0.14em 0 black, 0.15em 0.15em 0 black; */
+	letter-spacing: -0.02em;
+	line-height: 1.1;
+	align-items: flex-start;
+	flex-direction: column;
+
+	font-size: 6vmax;
+	gap: 1vmax;
+}
+
+.insanity.projector-page .theme {
+	font-size: 3vmax;
+	display: none;
+}
+
+.insanity.projector-page .spotlight-background {
+	transform: translateX(2vw) scale(110%);
+}
+
+.insanity.projector-page .headline {
+	font-family: "Helvetica Neue", "Helvetica", sans-serif;
+	font-weight: bold;
+	font-stretch: condensed;
+	letter-spacing: -0.02em;
+}
+
+.insanity.projector-page .articles {
+	padding-left: var(--insanity--gnn-logo-offset);
+	position: relative;
+	display: flex;
+	font-size: 5vh;
+	background: none;
+	letter-spacing: -0.02em;
+	font-weight: bold;
+	font-family: "Helvetica Neue", "Helvetica", sans-serif;
+	font-stretch: condensed;
+
+	width: calc(100vw - var(--insanity--gnn-logo-offset) * 2 - 20vw);
+}
+
+.insanity.projector-page .articles:before {
+	content: "TOP STORIES THIS HOUR";
+}
+.insanity.projector-page .articles:after {
+	content: "";
+	width: 100%;
+
+	height: 0.3vh;
+	background: var(--insanity--gnn-red);
+	position: absolute;
+	top: 1.25em;
+	z-index: -1;
+
+	display: block;
+	/* box-shadow: 0.01em 0.01em 0 black, 0.02em 0.02em 0 black, 0.03em 0.03em 0 black, 0.04em 0.04em 0 black, 0.05em 0.05em 0 black,
+	0.06em 0.06em 0 black, 0.07em 0.07em 0 black, 0.08em 0.08em 0 black, 0.09em 0.09em 0 black, 0.10em 0.10em 0 black,
+	0.11em 0.11em 0 black, 0.12em 0.12em 0 black, 0.13em 0.13em 0 black, 0.14em 0.14em 0 black, 0.15em 0.15em 0 black; */
+}
+
+
+.insanity.projector-page .articles span.article {
+	display: none;
+}
+.insanity.projector-page .articles div.article:nth-of-type(1n+4) {
+	display: none;
+}
+
