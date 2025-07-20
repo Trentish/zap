@@ -13,9 +13,14 @@
     cursor: pointer;
     vertical-align: middle;
 }
-.defconTable input[type="radio"]:checked {
-    outline: 2px solid #1976d2;
-    box-shadow: 0 0 0 2px #1976d2;
+.defconTable tr > * {
+    text-align: center;
+}
+.defconTable tbody tr td:nth-child(even) {
+    background: #FFFFFF66;
+}
+.defconTable tbody tr:hover {
+    background: #FFCC00;
 }
 /* Admin stat controls: compact, one-line, spaced nicely */
 .adminStatRow {

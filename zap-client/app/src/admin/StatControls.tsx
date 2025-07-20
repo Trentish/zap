@@ -133,7 +133,6 @@ function DefconControlTable({ defconNations, nationDefcon, updateNationDefcon }:
 	nationDefcon: Record<string, { level: 0|1|2|3, trend: ''|'+'|'-' }>,
 	updateNationDefcon: (code: string, newLevel: 0|1|2|3, newTrend: ''|'+'|'-') => void
 }) {
-	const trendIcon = (trend: ''|'+'|'-') => trend === '+' ? '↑' : trend === '-' ? '↓' : '•';
 	return (
 		<table className="defconTable" style={{ marginBottom: 24, width: '100%' }}>
 			<thead>

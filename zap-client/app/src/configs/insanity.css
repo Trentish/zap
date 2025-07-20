@@ -164,3 +164,7 @@
 	right: var(--insanity--gnn-logo-offset);
 	text-align: right;
 }
+
+.insanity.projector-page .allStats .defcon {
+	border: solid thick white;
+}
