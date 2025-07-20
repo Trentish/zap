@@ -6,38 +6,6 @@ import {Button} from '../components/ButtonComponents.tsx';
 import {Input, NumberInput, T_Input} from '../components/InputComponents.tsx';
 import React from "react";
 
-// HACK for now
-// const $stat0 = atom(get => get($allStats).values[0], (get, set, val: string) => {
-// 	const array = get($allStats).values;
-// 	array[0] = val;
-// 	set($allStats, {values: array})
-// });
-// const $stat1 = atom(get => get($allStats).values[1], (get, set, val: string) => {
-// 	const array = get($allStats).values;
-// 	array[1] = val;
-// 	set($allStats, {values: array})
-// });
-// const $stat2 = atom(get => get($allStats).values[2], (get, set, val: string) => {
-// 	const array = get($allStats).values;
-// 	array[2] = val;
-// 	set($allStats, {values: array})
-// });
-// const $stat3 = atom(get => get($allStats).values[3]);
-// const $stat4 = atom('');
-// const $stat5 = atom('');
-// const statAtoms = [$stat0, $stat1, $stat2, $stat3, $stat4, $stat5];
-
-/*
-
-NOTE: abandoned this feature but it's very close
-- networking stuff is all good
-- missing admin front end
-- not sure what to do about NumberInput taking an atom
-
-
- */
-
-
 export function StatControls() {
 	const client = useClient();
 	const [config] = useAtom($config);
@@ -79,11 +47,6 @@ function Stat({index, def, setStat}: {
 
 	const value = allStats.values[index];
 
-	// const $stat = allStats.values[index];
-	// const value = allStats.values[index];
-
-	// const numValue = def.isNumber ? parseInt(value) || 0 : 0;
-
 	return (
 		<div className={'statValueControl'}>
 
@@ -93,37 +56,8 @@ function Stat({index, def, setStat}: {
 					value={value}
 					onChange={onChange}
 					className={'statInput'}
-					// type={props.type}
-					// placeholder={props.placeholder}
-					// maxLength={props.maxLength}
-
-					// className={props.inputClass}
-					// style={props.inputStyle}
 				/>
 			</label>
-			{/*index: {index}, value: {value}, label: {def.label}, icon: {def.icon}*/}
-
-			{/*{def.isNumber ? (*/}
-			{/*	<>*/}
-			{/*		/!*<NumberInput label={def.label || `stat ${index}`} $value={statAtoms[index]}/>*!/*/}
-			{/*		<Button label={'+'} onClick={() => setStat(index, `${numValue + 1}`)}/>*/}
-			{/*		<Button label={'-'} onClick={() => setStat(index, `${numValue - 1}`)}/>*/}
-			{/*	</>*/}
-			{/*) : (*/}
-			{/*	<>*/}
-			{/*		<input*/}
-			{/*			value={valueText}*/}
-			{/*			onChange={onChange}*/}
-			{/*			type={props.type}*/}
-			{/*			placeholder={props.placeholder}*/}
-			{/*			maxLength={props.maxLength}*/}
-
-			{/*			className={props.inputClass}*/}
-			{/*			style={props.inputStyle}*/}
-			{/*			{...props.inputProps}*/}
-			{/*		/>*/}
-			{/*	</>*/}
-			{/*)}*/}
 		</div>
 	);
 }
