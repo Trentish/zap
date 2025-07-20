@@ -266,6 +266,32 @@ function Stat({index, def, setStat}: {
 		}
 	};
 
+	// Simple sparkline for corp stats
+	function CorpSparkline({ csv }: { csv: string }) {
+		if (!csv) return null;
+		const nums = csv.split(',').map(s => parseFloat(s)).filter(n => !isNaN(n));
+		if (nums.length < 2) return null;
+		// Normalize to 0-1 for y, left-to-right for x
+		const min = Math.min(...nums);
+		const max = Math.max(...nums);
+		const range = max - min || 1;
+		const points = nums.map((n, i) => [
+			(i / (nums.length - 1)) * 60, // width 60px
+			18 - ((n - min) / range) * 16 // height 18px, invert y
+		]);
+		const d = points.map((p, i) => (i === 0 ? `M${p[0]},${p[1]}` : `L${p[0]},${p[1]}`)).join(' ');
+		return (
+			<svg width={64} height={20} viewBox="0 0 64 20" style={{marginLeft:8, verticalAlign:'middle'}}>
+				<polyline
+					fill="none"
+					stroke="#1976d2"
+					strokeWidth={2}
+					points={points.map(p => p.join(",")).join(" ")}
+				/>
+			</svg>
+		);
+	}
+
 	return (
 		<div className={'statValueControl adminStatRow'}>
 			<label className={'statInputLabel adminStatLabel'}>
@@ -278,6 +304,7 @@ function Stat({index, def, setStat}: {
 				/>
 			</label>
 			{isCorp && (
+				<>
 				<div className="adminStatStepper">
 					<input
 						type="number"
@@ -290,6 +317,8 @@ function Stat({index, def, setStat}: {
 					/>
 					<button type="button" onClick={addStepperValue} className="adminStatAddBtn">Add</button>
 				</div>
+				<CorpSparkline csv={value} />
+				</>
 			)}
 		</div>
 	);
