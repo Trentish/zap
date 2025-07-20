@@ -19,35 +19,35 @@ export function StatControls() {
 	};
 
 	// --- Defcon Table ---
-	const defconNations = [
-		{ name: 'Algeria', code: 'DZA', flag: '🇩🇿' },
-		{ name: 'Argentina', code: 'ARG', flag: '🇦🇷' },
-		{ name: 'Australia', code: 'AUS', flag: '🇦🇺' },
-		{ name: 'Brazil', code: 'BRA', flag: '🇧🇷' },
-		{ name: 'Canada', code: 'CAN', flag: '🇨🇦' },
-		{ name: 'China', code: 'CHN', flag: '🇨🇳' },
-		{ name: 'DR Congo', code: 'COD', flag: '🇨🇩' },
-		{ name: 'Egypt', code: 'EGY', flag: '🇪🇬' },
-		{ name: 'Ethiopia', code: 'ETH', flag: '🇪🇹' },
-		{ name: 'France', code: 'FRA', flag: '🇫🇷' },
-		{ name: 'Germany', code: 'DEU', flag: '🇩🇪' },
-		{ name: 'India', code: 'IND', flag: '🇮🇳' },
-		{ name: 'Indonesia', code: 'IDN', flag: '🇮🇩' },
-		{ name: 'Iran', code: 'IRN', flag: '🇮🇷' },
-		{ name: 'Japan', code: 'JPN', flag: '🇯🇵' },
-		{ name: 'Mexico', code: 'MEX', flag: '🇲🇽' },
-		{ name: 'Nigeria', code: 'NGA', flag: '🇳🇬' },
-		{ name: 'Pakistan', code: 'PAK', flag: '🇵🇰' },
-		{ name: 'Poland', code: 'POL', flag: '🇵🇱' },
-		{ name: 'Russia', code: 'RUS', flag: '🇷🇺' },
-		{ name: 'Saudi Arabia', code: 'SAU', flag: '🇸🇦' },
-		{ name: 'South Africa', code: 'ZAF', flag: '🇿🇦' },
-		{ name: 'South Korea', code: 'KOR', flag: '🇰🇷' },
-		{ name: 'Turkey', code: 'TUR', flag: '🇹🇷' },
-		{ name: 'United Kingdom', code: 'GBR', flag: '🇬🇧' },
-		{ name: 'United States', code: 'USA', flag: '🇺🇸' },
-		{ name: 'Venezuela', code: 'VEN', flag: '🇻🇪' },
-	];
+const defconNations = [
+	{ name: 'Algeria', code: 'DZA', flag: '🇩🇿' },
+	{ name: 'Argentina', code: 'ARG', flag: '🇦🇷' },
+	{ name: 'Australia', code: 'AUS', flag: '🇦🇺' },
+	{ name: 'Brazil', code: 'BRA', flag: '🇧🇷' },
+	{ name: 'Canada', code: 'CAN', flag: '🇨🇦' },
+	{ name: 'China', code: 'CHN', flag: '🇨🇳' },
+	{ name: 'DR Congo', code: 'COD', flag: '🇨🇩' },
+	{ name: 'Egypt', code: 'EGY', flag: '🇪🇬' },
+	{ name: 'Ethiopia', code: 'ETH', flag: '🇪🇹' },
+	{ name: 'France', code: 'FRA', flag: '🇫🇷' },
+	{ name: 'Germany', code: 'DEU', flag: '🇩🇪' },
+	{ name: 'India', code: 'IND', flag: '🇮🇳' },
+	{ name: 'Indonesia', code: 'IDN', flag: '🇮🇩' },
+	{ name: 'Iran', code: 'IRN', flag: '🇮🇷' },
+	{ name: 'Japan', code: 'JPN', flag: '🇯🇵' },
+	{ name: 'Mexico', code: 'MEX', flag: '🇲🇽' },
+	{ name: 'Nigeria', code: 'NGA', flag: '🇳🇬' },
+	{ name: 'Pakistan', code: 'PAK', flag: '🇵🇰' },
+	{ name: 'Poland', code: 'POL', flag: '🇵🇱' },
+	{ name: 'Russia', code: 'RUS', flag: '🇷🇺' },
+	{ name: 'Saudi Arabia', code: 'SAU', flag: '🇸🇦' },
+	{ name: 'South Africa', code: 'ZAF', flag: '🇿🇦' },
+	{ name: 'South Korea', code: 'KOR', flag: '🇰🇷' },
+	{ name: 'Turkey', code: 'TUR', flag: '🇹🇷' },
+	{ name: 'United Kingdom', code: 'GBR', flag: '🇬🇧' },
+	{ name: 'United States', code: 'USA', flag: '🇺🇸' },
+	{ name: 'Venezuela', code: 'VEN', flag: '🇻🇪' },
+];
 
 	// Find defcon stat indexes
 	const defcon1Idx = config.statDefs.findIndex(d => d.className && d.className.includes('defcon-1'));
@@ -137,7 +137,7 @@ function DefconControlTable({ defconNations, nationDefcon, updateNationDefcon }:
 		<table className="defconTable" style={{ marginBottom: 24, width: '100%' }}>
 			<thead>
 				<tr>
-					<th rowSpan={2} style={{textAlign:'left'}}>Nation</th>
+					<th rowSpan={2}></th>
 					<th colSpan={4} style={{borderBottom:'1px solid #bbb'}}>DEFCON Level</th>
 					<th colSpan={3} style={{borderBottom:'1px solid #bbb'}}>Trend</th>
 				</tr>
@@ -147,7 +147,7 @@ function DefconControlTable({ defconNations, nationDefcon, updateNationDefcon }:
 					<th>2</th>
 					<th>1</th>
 					<th>↓</th>
-					<th>•</th>
+					<th>-</th>
 					<th>↑</th>
 				</tr>
 			</thead>
@@ -156,33 +156,57 @@ function DefconControlTable({ defconNations, nationDefcon, updateNationDefcon }:
 					const { level, trend } = nationDefcon[nation.code] || { level: 0, trend: '' };
 					return (
 						<tr key={nation.code} className={(idx + 1) % 2 === 1 ? 'zebra' : ''}>
-							<td style={{textAlign:'left',fontWeight:500}}>{nation.flag} {nation.name} <span style={{color:'#888',fontSize:'0.9em'}}>({nation.code})</span></td>
+							<td className="nation-cell"><span className="flag-emoji">{nation.flag}</span> {nation.name} <span className="iso-code">({nation.code})</span></td>
 							{[0,3,2,1].map(lvl => (
-								<td key={lvl}>
-									<input
-										type="radio"
-										name={`defcon-level-${nation.code}`}
-										id={`defcon-level-${nation.code}-${lvl}`}
-										checked={level === lvl}
-										onChange={() => updateNationDefcon(nation.code, lvl as 0|1|2|3, trend)}
-									/>
+								<td key={lvl} style={{cursor:'pointer', padding:0}}>
+									<label style={{display:'block', width:'100%', height:'100%', padding:'8px 0', cursor:'pointer'}}>
+										<input
+											type="radio"
+											name={`defcon-level-${nation.code}`}
+											id={`defcon-level-${nation.code}-${lvl}`}
+											checked={level === lvl}
+											onChange={() => updateNationDefcon(nation.code, lvl as 0|1|2|3, trend)}
+											style={{margin:'0 auto', display:'inline-block'}}
+										/>
+									</label>
 								</td>
 							))}
 							{['-','', '+'].map(tr => (
-								<td key={tr}>
-									<input
-										type="radio"
-										name={`defcon-trend-${nation.code}-level${level}`}
-										id={`defcon-trend-${nation.code}-${tr === '' ? 'nochange' : tr === '+' ? 'rising' : 'falling'}`}
-										checked={trend === tr}
-										onChange={() => updateNationDefcon(nation.code, level, tr as ''|'+'|'-')}
-									/>
+								<td key={tr} style={{cursor:'pointer', padding:0}}>
+									<label style={{display:'block', width:'100%', height:'100%', padding:'8px 0', cursor:'pointer'}}>
+										<input
+											type="radio"
+											name={`defcon-trend-${nation.code}-level${level}`}
+											id={`defcon-trend-${nation.code}-${tr === '' ? 'nochange' : tr === '+' ? 'rising' : 'falling'}`}
+											checked={trend === tr}
+											onChange={() => updateNationDefcon(nation.code, level, tr as ''|'+'|'-')}
+											style={{margin:'0 auto', display:'inline-block'}}
+											disabled={level === 0}
+										/>
+									</label>
 								</td>
 							))}
 						</tr>
 					);
 				})}
 			</tbody>
+			<tfoot>
+				<tr>
+					<th></th>
+					<th>NONE</th>
+					<th>3</th>
+					<th>2</th>
+					<th>1</th>
+					<th>↓</th>
+					<th>•</th>
+					<th>↑</th>
+				</tr>
+				<tr>
+					<th></th>
+					<th colSpan={4} style={{borderBottom:'1px solid #bbb'}}>DEFCON Level</th>
+					<th colSpan={3} style={{borderBottom:'1px solid #bbb'}}>Trend</th>
+				</tr>
+			</tfoot>
 		</table>
 	);
 }

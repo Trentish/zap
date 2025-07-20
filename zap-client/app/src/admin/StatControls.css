@@ -1,3 +1,24 @@
+/* DEFCON table flag emoji styling */
+.defconTable .nation-cell {
+  position: relative;
+  text-align: left;
+  padding-left: 4em;
+}
+.defconTable .flag-emoji {
+  position: absolute;
+  left: 0.5em;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2em;
+  line-height: 1;
+  width: 1.5em;
+  height: 1em;
+}
+/* DEFCON table nation cell and ISO code styling */
+.defconTable .iso-code {
+  color: #888;
+  font-size: 0.9em;
+}
 /* Zebra striping for DEFCON table rows */
 .defconTable tr.zebra {
   background: #ffffff66;
