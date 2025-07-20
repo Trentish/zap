@@ -386,18 +386,36 @@ function InitialClickMe() {
 
 function AllStats() {
 	const [config] = useAtom($config);
-	
+
+	// Separate statDefs into defcon and corp
+const defconStats: { def: T_StatDef; index: number }[] = [];
+const corpStats: { def: T_StatDef; index: number }[] = [];
+	config.statDefs.forEach((def, index) => {
+		if (def.className && def.className.includes('defcon')) {
+			defconStats.push({ def, index });
+		} else {
+			corpStats.push({ def, index });
+		}
+	});
+
 	return (
 		<div className={'allStats'}>
-			{config.statDefs.map((def, index) => (
-				<StatView
-					key={`stat${index}`}
-					index={index}
-					def={def}
-				/>
-			))}
+			{!!defconStats.length && (
+				<div className={'defcon'}>
+					{defconStats.map(({ def, index }) => (
+						<StatView key={`stat${index}`} index={index} def={def} />
+					))}
+				</div>
+			)}
+			{!!corpStats.length && (
+				<div className={'corp'}>
+					{corpStats.map(({ def, index }) => (
+						<StatView key={`stat${index}`} index={index} def={def} />
+					))}
+				</div>
+			)}
 		</div>
-	)
+	);
 }
 
 function StatView({index, def}: {
