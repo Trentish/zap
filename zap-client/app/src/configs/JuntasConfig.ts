@@ -92,7 +92,7 @@ class JuntasConfig extends BaseGameConfig {
 const BBC: T_Org = {
     id: 'bbc',
     label: 'BBC',
-    bgVideo: `${J_VIDS}juntas_1_veryLargeAndGitIgnored.mp4`,
+    bgVideo: `${J_VIDS}juntas_1.mp4`,
     // overlayVideo: `${J_VIDS}vhs.mp4`,
     introVideo: `${J_VIDS}cnn-transition-1.webm`,
     introAudio: `${J_AUDIO}news1.mp3`, // TODO
@@ -103,7 +103,7 @@ const BBC: T_Org = {
 const CNN: T_Org = {
     id: 'cnn',
     label: 'CNN',
-    bgVideo: `${J_VIDS}juntas_1_veryLargeAndGitIgnored.mp4`,
+    bgVideo: `${J_VIDS}juntas_1.mp4`,
     // overlayVideo: `${J_VIDS}vhs.mp4`,
     introVideo: `${J_VIDS}cnn-transition-1.webm`,
     introAudio: `${J_AUDIO}news3.mp3`, // TODO
@@ -115,7 +115,7 @@ const CNN: T_Org = {
 const PBS: T_Org = {
     id: 'pbs',
     label: 'PBS',
-    bgVideo: `${J_VIDS}juntas_1_veryLargeAndGitIgnored.mp4`,
+    bgVideo: `${J_VIDS}juntas_1.mp4`,
     // overlayVideo: `${J_VIDS}vhs.mp4`,
     introVideo: `${J_VIDS}cnn-transition-1.webm`,
     introAudio: `${J_AUDIO}news1.mp3`, // TODO
