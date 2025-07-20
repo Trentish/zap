@@ -1,9 +1,10 @@
-import {BaseGameConfig, T_Org, T_SpotlightRefs, T_TimerDef} from './BaseGameConfig.ts';
+import {BaseGameConfig, T_Org, T_StatDef, T_SpotlightRefs, T_TimerDef} from './BaseGameConfig.ts';
 import {ArticleDat, SituationDat} from '../../zap-shared/_Dats.ts';
 import './insanity.css'; //## NOTE: will always load (regardless of gameIdf)
 
 const J_VIDS = '../assets/videos/insanity/';
 const J_AUDIO = '../assets/audio/';
+const MINUTES = 60 * 1000;
 
 class InsanityConfig extends BaseGameConfig {
     gameIdf = 'insanity';
@@ -25,9 +26,40 @@ class InsanityConfig extends BaseGameConfig {
     timerDefs: T_TimerDef[] = [
         {
             label: '',
-            ms: 30 * 60 * 1000,
+            ms: 40 * MINUTES,
+        },
+        {
+            label: 'Team',
+            ms: 10 * MINUTES,
+        },
+        {
+            label: 'Action',
+            ms: 15 * MINUTES,
+        },
+        {
+            label: 'Diplomacy',
+            ms: 10 * MINUTES,
+        },
+        {
+            label: 'End of Turn',
+            ms: 5 * MINUTES,
         },
     ];
+
+	statDefs: T_StatDef[] = [
+		{label: 'DEFCON 1', className: 'defcon defcon-1'},
+		{label: 'DEFCON 2', className: 'defcon defcon-2'},
+		{label: 'DEFCON 3', className: 'defcon defcon-3'},
+
+		{label: 'AFC', className: 'corp corp-AFC'},
+		{label: 'ANE', className: 'corp corp-ANE'},
+		{label: 'AST', className: 'corp corp-AST'},
+		{label: 'CH',  className: 'corp corp-CH'},
+		{label: 'GRO', className: 'corp corp-GRO'},
+		{label: 'KAS', className: 'corp corp-KAS'},
+		{label: 'KC',  className: 'corp corp-KC'},
+		{label: 'WUB', className: 'corp corp-WUB'},
+	]
     // situationDefs: SituationDat[] = [
     //     {label: 'Test Situation', cssClass: 'test-situation'}
     // ];

@@ -85,10 +85,6 @@
 	gap: 1vmax;
 }
 
-.insanity.projector-page .spotlight-container {
-	
-}
-
 .insanity.projector-page .spotlight-container.headline {
 	font-family: "Helvetica Neue", "Helvetica", sans-serif;
 	font-weight: bold;
@@ -161,3 +157,10 @@
 	display: none;
 }
 
+
+
+.insanity.projector-page .allStats {
+	position: absolute;
+	right: var(--insanity--gnn-logo-offset);
+	text-align: right;
+}
