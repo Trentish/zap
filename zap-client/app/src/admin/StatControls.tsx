@@ -2,8 +2,8 @@ import {useClient} from '../ClientContext.ts';
 import {$allStats, $config} from '../ClientState.ts';
 import {atom, useAtom} from 'jotai';
 import {T_StatDef} from '../configs/BaseGameConfig.ts';
-import {Button} from '../components/ButtonComponents.tsx';
-import {Input, NumberInput, T_Input} from '../components/InputComponents.tsx';
+import {T_Input} from '../components/InputComponents.tsx';
+import './StatControls.css';
 import React from "react";
 
 export function StatControls() {
@@ -37,27 +37,80 @@ function Stat({index, def, setStat}: {
 	setStat: (index: number, value: string) => void
 }) {
 	const [allStats, setAllStats] = useAtom($allStats);
+	const [stepperValue, setStepperValue] = React.useState('');
+
+	const STEPPER_MIN = 0;
+	const STEPPER_MAX = 300;
+
+	const isCorp = def.className && def.className.includes('corp');
+
+	// Only allow numbers and commas in corp stat input
+	const filterCorpInput = (input: string) => input.replace(/[^0-9,]/g, '');
 
 	const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-		const array = allStats.values;
-		array[index] = evt.target.value;
+		let newValue = evt.target.value;
+		if (isCorp) {
+			newValue = filterCorpInput(newValue);
+		}
+		const array = [...allStats.values];
+		array[index] = newValue;
 		setAllStats({values: array});
-		setStat(index, evt.target.value);
-	}
+		setStat(index, newValue);
+	};
 
 	const value = allStats.values[index];
 
-	return (
-		<div className={'statValueControl'}>
+	// Helper to add a new number to the CSV string
+	const addStepperValue = () => {
+		if (stepperValue.trim() === '') return;
+		const num = stepperValue.trim();
+		// Only allow valid numbers
+		if (isNaN(Number(num))) return;
+		let arr: string[] = [];
+		if (value && value.trim().length > 0) {
+			arr = value.split(',').map(s => s.trim()).filter(s => s.length > 0);
+		}
+		arr.push(num);
+		if (arr.length > 10) arr = arr.slice(arr.length - 10);
+		const newCsv = arr.join(',');
+		const array = [...allStats.values];
+		array[index] = newCsv;
+		setAllStats({values: array});
+		setStat(index, newCsv);
+		setStepperValue('');
+	};
 
-			<label className={'statInputLabel'}>
-				{def.label}
+	const onStepperKeyDown = (evt: React.KeyboardEvent<HTMLInputElement>) => {
+		if (evt.key === 'Enter') {
+			addStepperValue();
+		}
+	};
+
+	return (
+		<div className={'statValueControl adminStatRow'}>
+			<label className={'statInputLabel adminStatLabel'}>
+				<div className="adminStatLabelText">{def.label}</div>
 				<input
 					value={value}
 					onChange={onChange}
-					className={'statInput'}
+					className={'statInput adminStatInput'}
+					{...(isCorp ? { pattern: '[0-9,]*', inputMode: 'numeric' } : {})}
 				/>
 			</label>
+			{isCorp && (
+				<div className="adminStatStepper">
+					<input
+						type="number"
+						min={STEPPER_MIN}
+						max={STEPPER_MAX}
+						value={stepperValue}
+						onChange={e => setStepperValue(e.target.value)}
+						onKeyDown={onStepperKeyDown}
+						className="adminStatStepperInput"
+					/>
+					<button type="button" onClick={addStepperValue} className="adminStatAddBtn">Add</button>
+				</div>
+			)}
 		</div>
 	);
 }
