@@ -69,15 +69,21 @@ export function StatControls() {
     newLevel: 0 | 1 | 2 | 3,
     newTrend: "" | "▲" | "▼"
   ) {
+    // If the level is changing, reset trend to neutral
+    const prev = nationDefcon[code];
+    let trendToSet = newTrend;
+    if (prev && prev.level !== newLevel) {
+      trendToSet = "";
+    }
     // Remove from all maps
     const new1: string[] = [];
     const new2: string[] = [];
     const new3: string[] = [];
     for (const n of defconNations) {
       if (n.code === code) {
-        if (newLevel === 1) new1.push(`${code}${newTrend}`);
-        else if (newLevel === 2) new2.push(`${code}${newTrend}`);
-        else if (newLevel === 3) new3.push(`${code}${newTrend}`);
+        if (newLevel === 1) new1.push(`${code}${trendToSet}`);
+        else if (newLevel === 2) new2.push(`${code}${trendToSet}`);
+        else if (newLevel === 3) new3.push(`${code}${trendToSet}`);
         // else: none
       } else {
         if (defcon1Map[n.code])
@@ -198,33 +204,43 @@ function DefconControlTable({
                   </label>
                 </td>
               ))}
-              {["▼", "", "▲"].map((tr) => (
-                <td key={tr} className="defcon-radio-cell">
-                  <label className="defcon-radio-label">
-                    <input
-                      type="radio"
-                      name={`defcon-trend-${nation.code}-level${level}`}
-                      id={`defcon-trend-${nation.code}-${
-                        tr === ""
-                          ? "nochange"
-                          : tr === "▲"
-                          ? "rising"
-                          : "falling"
-                      }`}
-                      checked={trend === tr}
-                      onChange={() =>
-                        updateNationDefcon(
-                          nation.code,
-                          level,
-                          tr as "" | "▲" | "▼"
-                        )
-                      }
-                      className="defcon-radio-input"
-                      disabled={level === 0}
-                    />
-                  </label>
-                </td>
-              ))}
+              {["▼", "", "▲"].map((tr) => {
+                // If DEFCON is none (0), all trend cells are blank
+                if (level === 0) {
+                  return <td key={tr} className="defcon-radio-cell"></td>;
+                }
+                // Hide 'trend down' for DEFCON 3, and 'trend up' for DEFCON 1, but keep cell for spacing
+                if ((level === 3 && tr === "▼") || (level === 1 && tr === "▲")) {
+                  return <td key={tr} className="defcon-radio-cell"></td>;
+                }
+                return (
+                  <td key={tr} className="defcon-radio-cell">
+                    <label className="defcon-radio-label">
+                      <input
+                        type="radio"
+                        name={`defcon-trend-${nation.code}-level${level}`}
+                        id={`defcon-trend-${nation.code}-${
+                          tr === ""
+                            ? "nochange"
+                            : tr === "▲"
+                            ? "rising"
+                            : "falling"
+                        }`}
+                        checked={trend === tr}
+                        onChange={() =>
+                          updateNationDefcon(
+                            nation.code,
+                            level,
+                            tr as "" | "▲" | "▼"
+                          )
+                        }
+                        className="defcon-radio-input"
+                        disabled={level === 0}
+                      />
+                    </label>
+                  </td>
+                );
+              })}
             </tr>
           );
         })}
