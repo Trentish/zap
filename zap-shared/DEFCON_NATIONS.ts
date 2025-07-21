@@ -10,6 +10,7 @@ export const DEFCON_NATIONS = [
   { name: "DR Congo", code: "COD", flag: "🇨🇩" },
   { name: "Egypt", code: "EGY", flag: "🇪🇬" },
   { name: "Ethiopia", code: "ETH", flag: "🇪🇹" },
+  { name: "European Union", code: "EUR", flag: "🇪🇺" },
   { name: "France", code: "FRA", flag: "🇫🇷" },
   { name: "Germany", code: "DEU", flag: "🇩🇪" },
   { name: "India", code: "IND", flag: "🇮🇳" },
@@ -27,6 +28,7 @@ export const DEFCON_NATIONS = [
   { name: "Turkey", code: "TUR", flag: "🇹🇷" },
   { name: "United Kingdom", code: "GBR", flag: "🇬🇧" },
   { name: "United States", code: "USA", flag: "🇺🇸" },
+  { name: "Vatican City", code: "VAT", flag: "🇻🇦" },
   { name: "Venezuela", code: "VEN", flag: "🇻🇪" },
 
 
