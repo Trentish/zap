@@ -406,11 +406,15 @@ function StatView({ index, def }: { index: number; def: T_StatDef }) {
       let className = "individual-stat-block";
       let codeClass = "";
 
+      let arrow = "";
+
       if (str.includes("▼")) {
         str = str.replace("▼", "").trim();
+        arrow = "▼";
         className += " trending-down";
       } else if (str.includes("▲")) {
         str = str.replace("▲", "").trim();
+        arrow = "▲";
         className += " trending-up";
       }
 
@@ -418,14 +422,17 @@ function StatView({ index, def }: { index: number; def: T_StatDef }) {
       const codeMatch = str.match(/^[A-Z]{3}$/i);
       if (codeMatch) {
         const code = str.toUpperCase();
-        const nation = DEFCON_NATIONS.find(n => n.code === code);
+        const nation = DEFCON_NATIONS.find((n) => n.code === code);
         if (nation) {
           codeClass = ` country-code-${code.toLowerCase()}`;
           str = nation.flag;
         }
       }
       return (
-        <span key={i} className={className + codeClass}>{str}</span>
+        <span key={i} className={className + codeClass}>
+          {str}
+          {arrow && <span className={`arrow`}>{arrow}</span>}
+        </span>
       );
     });
   }
