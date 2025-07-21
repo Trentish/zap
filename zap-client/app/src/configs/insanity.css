@@ -212,7 +212,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 1vmin;
+	gap: 2vmin;
 
 	/* If we're showing flags, we use the following, otherwise comment it out */
 	font-size: 5vmin;
@@ -223,10 +223,31 @@
 	justify-content: center;
 }
 
-.insanity.projector-page .trending-up{
-	
+.insanity.projector-page .defcon-block .individual-stat-block {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 0.5vmin;
 }
 
+.insanity.projector-page .defcon-block .arrow {
+	font-size: 0.5em;
+}
+
+
+/* .insanity.projector-page .trending-up::after {
+  content: "▲";
+  font-size: 0.9em;
+  margin-left: 0.5vmin;
+  vertical-align: middle;
+}
+
+.insanity.projector-page .trending-down::after {
+  content: "▼";
+  font-size: 0.9em;
+  margin-left: 0.5vmin;
+  vertical-align: middle;
+} */
 
 .insanity.projector-page .corp-block {
 	display: none;
