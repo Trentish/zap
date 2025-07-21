@@ -266,6 +266,7 @@
   font-size: 0.5em; /* adjust as needed */
 }
 
+
 .insanity.projector-page .defcon-block .individual-stat-block {
 	display: flex;
 	flex-direction: row;
@@ -274,9 +275,50 @@
 }
 
 .insanity.projector-page .defcon-block .arrow {
-	font-size: 0.5em;
+  font-size: 0.5em;
 }
 
+.insanity.projector-page .defcon-block .trending-down-group::before,
+.insanity.projector-page .defcon-block .trending-down-group::after {
+  animation: down-arrow-pulse 2s cubic-bezier(0.4,0,0.2,1) infinite;
+  transform: translateY(-1vmin);
+}
+
+@keyframes down-arrow-pulse {
+  0% {
+	opacity: 0;
+  	transform: translateY(-1vmin);
+  }
+  90% {
+	opacity: 1;
+  	transform: translateY(1vmin);
+  }
+  100% {
+	opacity: 0;
+  	transform: translateY(1vmin);
+  }
+}
+
+.insanity.projector-page .defcon-block .trending-up-group::before,
+.insanity.projector-page .defcon-block .trending-up-group::after {
+  animation: up-arrow-pulse 2s cubic-bezier(0.4,0,0.2,1) infinite;
+  transform: translateY(1vmin);
+}
+
+@keyframes up-arrow-pulse {
+  0% {
+	opacity: 0;
+  	transform: translateY(1vmin);
+  }
+  90% {
+	opacity: 1;
+  	transform: translateY(-1vmin);
+  }
+  100% {
+	opacity: 0;
+  	transform: translateY(-1vmin);
+  }
+}
 
 /* .insanity.projector-page .defcon-block .defcon-1 .stat-group.trending-down-group,
 .insanity.projector-page .defcon-block .defcon-3 .stat-group.trending-up-group {
