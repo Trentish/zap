@@ -397,25 +397,30 @@ function StatView({ index, def }: { index: number; def: T_StatDef }) {
 
   const value = allStats.values[index];
 
-  let statContent = null;
+  // Group stat elements by trending up, neutral, and trending down
+  const trendingUp: JSX.Element[] = [];
+  const neutral: JSX.Element[] = [];
+  const trendingDown: JSX.Element[] = [];
 
   if (value !== undefined && value !== null && value !== "") {
     const values = typeof value === "string" ? value.split(",") : [value];
-    statContent = values.map((v, i) => {
+    values.forEach((v, i) => {
       let str = String(v).trim();
       let className = "individual-stat-block";
       let codeClass = "";
-
       let arrow = "";
+      let trendType: "up" | "down" | "neutral" = "neutral";
 
       if (str.includes("▼")) {
         str = str.replace("▼", "").trim();
         arrow = "▼";
         className += " trending-down";
+        trendType = "down";
       } else if (str.includes("▲")) {
         str = str.replace("▲", "").trim();
         arrow = "▲";
         className += " trending-up";
+        trendType = "up";
       }
 
       // Check for country code (3 uppercase letters)
@@ -428,12 +433,19 @@ function StatView({ index, def }: { index: number; def: T_StatDef }) {
           str = nation.flag;
         }
       }
-      return (
+      const el = (
         <span key={i} className={className + codeClass}>
           {str}
-          {arrow && <span className={`arrow`}>{arrow}</span>}
+          {/* {arrow && <span className={`arrow`}>{arrow}</span>} */}
         </span>
       );
+      if (trendType === "up") {
+        trendingUp.push(el);
+      } else if (trendType === "down") {
+        trendingDown.push(el);
+      } else {
+        neutral.push(el);
+      }
     });
   }
 
@@ -441,7 +453,17 @@ function StatView({ index, def }: { index: number; def: T_StatDef }) {
     <div className={`statView ${def.className}`}>
       {def.icon && <img className={"statIcon"} src={def.icon} />}
       {def.label && <div className={"statLabel"}>{def.label}</div>}
-      <div className={"statValue"}>{statContent}</div>
+      <div className={"statValue"}>
+        {trendingUp.length > 0 && (
+          <div className="stat-group trending-up-group">{trendingUp}</div>
+        )}
+        {neutral.length > 0 && (
+          <div className="stat-group neutral-group">{neutral}</div>
+        )}
+        {trendingDown.length > 0 && (
+          <div className="stat-group trending-down-group">{trendingDown}</div>
+        )}
+      </div>
     </div>
   );
 }
