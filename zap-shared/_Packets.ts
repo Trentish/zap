@@ -6,7 +6,7 @@ import {
 	PostArticleDat,
 	SetTimerDat, SituationDat,
 	SpotlightDat,
-	TimerDat,
+	TimerDat, PhaseOptionsDat,
 } from './_Dats.ts';
 
 type none = string; // no packet
@@ -38,6 +38,7 @@ export class ZapPacketDefs<TSrc extends I_PkSource> extends BasePacketDefs<TSrc>
 	//## TIMER & SITUATION
 	SetTimer = this.ADMIN_to_SERVER<SetTimerDat>();
 	TimerTick = this.SERVER_to_CLIENT<TimerDat>();
+	SetPhaseOptions = this.ADMIN_to_SERVER<PhaseOptionsDat>();
 
 	SetSituation = this.ADMIN_to_SERVER<SituationDat>();
 	Situation = this.SERVER_to_CLIENT<SituationDat>();

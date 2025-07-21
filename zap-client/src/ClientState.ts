@@ -51,7 +51,7 @@ export const $crawlerArticles = atom<ArticleDat[]>([]);
 
 export const $author = atomWithStorage('ZAP_AUTHOR', '');
 
-export const $timer = atom<TimerDat>({label: '', ms: 0});
+export const $timer = atom<TimerDat>({label: '', ms: 0, phaseIndex: -1});
 export const $timerAudioRef = atom<React.RefObject<HTMLAudioElement> | undefined>(undefined);
 
 export const $situation = atom<SituationDat>({label: '', cssClass: ''});

@@ -14,6 +14,7 @@ const $seconds = atom(0);
 
 export function TimerControls() {
 	const client = useClient();
+	const [config] = useAtom($config);
 	
 	const sendTimer = () => {
 		const label = $store.get($label);
@@ -43,10 +44,24 @@ export function TimerControls() {
 		});
 	};
 	
+	const sendTimerKeepPhase = () => {
+		const timerDat = $store.get($timer);
+		const minutes = $store.get($minutes);
+		const seconds = $store.get($seconds);
+		
+		const ms = toMilliseconds(minutes, seconds);
+		client.packets.SetTimer.Send({
+			label: timerDat.label,
+			ms: ms,
+			keepPhase: true,
+		});
+	}
+	
 	return (
 		<div className={'control-group control-group-vertical timerControls'}>
 			<Timer
 				$timer={$timer}
+				isAdminPage
 			/>
 			
 			<div className={'control-group timerLabelControls'}>
@@ -85,9 +100,19 @@ export function TimerControls() {
 					label={'New Timer'}
 					onClick={sendTimer}
 				/>
+				
+				{config.phaseDefs.length > 0 && (
+					<Button
+						label={'Set Time (keep Phase)'}
+						onClick={sendTimerKeepPhase}
+					/>
+				)}
 			</div>
 			
 			<TimerDefs/>
+			{config.phaseDefs.length > 0 && (
+				<PhaseDefs/>
+			)}
 		</div>
 	);
 }
@@ -129,6 +154,47 @@ export function TimerDefs() {
 						label={buttonLabel}
 						onClick={sendTimer}
 						className={'timer-def-button'}
+					/>
+				);
+			})}
+		</div>
+	);
+}
+
+export function PhaseDefs() {
+	const client = useClient();
+	const [config] = useAtom($config);
+
+	return (
+		<div className={'phase-defs'}>
+			<span className={'phasesRow-label'}>Phases:</span>
+			
+			{config.phaseDefs.map((phaseDef, index) => {
+				const ms = phaseDef.ms;
+				const [minutes, seconds] = toMinutesSeconds(ms !== undefined ? ms : 0);
+
+				const timerLabel = phaseDef.label || '';
+				const buttonLabel = (
+					`${index+1}. ${timerLabel}`
+					+ ` (`
+					+ `${minutes > 0 ? `${minutes}m` : ''}`
+					+ `${seconds > 0 ? ` ${seconds}s` : ''}`
+					+ `)`
+				).trim();
+
+				const sendPhaseOptions = () => {
+					client.packets.SetPhaseOptions.Send({
+						phases: config.phaseDefs,
+						index: index,
+					});
+				};
+
+				return (
+					<Button
+						key={`${index}_${phaseDef.label}`}
+						label={buttonLabel}
+						onClick={sendPhaseOptions}
+						className={'phase-def-button'}
 					/>
 				);
 			})}

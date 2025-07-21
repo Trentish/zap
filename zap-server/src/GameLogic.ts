@@ -4,15 +4,17 @@ import {E_Endpoint, T_GameIdf} from '../../zap-shared/SystemTypes.js';
 import {ZapDb} from './ZapDb.js';
 import {
 	ArticleDat,
-	HEADLINE_SIZE,
+	HEADLINE_SIZE, PhaseOptionsDat,
 	PostArticleDat, SetStatDat,
 	SetTimerDat, SituationDat,
 } from '../../zap-shared/_Dats.js';
 import {RangeToRange} from '../../zap-shared/Maths.js';
 
-const TICK_RATE_MS = 1000;
+// const TICK_RATE_MS = 1000;
+const TICK_RATE_MS = 200;
 const STARTING_TIMER_LABEL = 'Game Turn';
 const STARTING_TIMER_MS = 30 * 60 * 1000;
+const PHASE_WAIT_AT_ZERO_MS = 2900;
 const DB_BACKUP_MS = 5 * 60 * 1000;
 const ARTICLE_COUNT_INITIAL_SEND = 12; // TODO: config/elsewhere
 /** will be affected by tick rate */
@@ -44,6 +46,7 @@ export function MakeGame(idf: T_GameIdf, server: ZapServer): ZapGame {
 	game.timer = {
 		label: STARTING_TIMER_LABEL,
 		ms: STARTING_TIMER_MS,
+		phaseIndex: -1,
 	};
 	game.lastTick = Date.now();
 	game.tickInterval = setInterval(() => TickGame(game, server), TICK_RATE_MS);
@@ -57,7 +60,7 @@ export function DbOnLoad(game: ZapGame, server: ZapServer) {
 	
 	const gamePersist = game.db.current;
 	const lastArticleIndex = gamePersist.articles.length - 1;
-
+	
 	if (!gamePersist.allStats || !gamePersist.allStats.values) {
 		gamePersist.allStats = {values: []};
 	}
@@ -86,6 +89,20 @@ export function TickGame(game: ZapGame, server: ZapServer) {
 	
 	game.timer.ms = game.timer.ms - deltaTime;
 	SendTimer(game, server);
+	
+	if (game.timer.ms <= -PHASE_WAIT_AT_ZERO_MS) {
+		if (game.phaseOptions.index >= 0) {
+			game.phaseOptions.index += 1;
+			if (game.phaseOptions.index >= game.phaseOptions.phases.length) {
+				game.phaseOptions.index = 0;
+			}
+			
+			const phaseDat = game.phaseOptions.phases[game.phaseOptions.index];
+			game.timer.label = phaseDat.label || '';
+			game.timer.ms = phaseDat.ms || 0;
+			SendTimer(game, server);
+		}
+	}
 	
 	TickSpotlight(game, server, deltaTime);
 }
@@ -156,13 +173,36 @@ export function SetTimer(game: ZapGame, setTimerDat: SetTimerDat, server: ZapSer
 		game.timer.ms = setTimerDat.ms || 0;
 		game.lastTick = Date.now();
 	}
+	if (!setTimerDat.keepPhase) {
+		game.phaseOptions.index = -1;
+	}
 	SendTimer(game, server);
 }
 
-const SendTimer = (
+function SendTimer(
 	game: ZapGame,
 	server: ZapServer,
-) => server.packets.TimerTick.Send(game.toAllClients, game.timer);
+) {
+	game.timer.phaseIndex = game.phaseOptions.index; // I guess
+	server.packets.TimerTick.Send(game.toAllClients, game.timer);
+}
+
+export function SetPhaseOptions(
+	game: ZapGame,
+	phaseOptionsDat: PhaseOptionsDat,
+	server: ZapServer,
+) {
+	game.phaseOptions = phaseOptionsDat;
+	if (game.phaseOptions.phases.length === 0) {
+		game.phaseOptions.index = -1; // no phases/phasing
+	}
+	else {
+		const phaseDat = game.phaseOptions.phases[game.phaseOptions.index];
+		game.timer.label = phaseDat.label || '';
+		game.timer.ms = phaseDat.ms + 500; // HACK: rounding adjustment
+	}
+	SendTimer(game, server);
+}
 
 const SendSpotlight = (
 	game: ZapGame,
@@ -218,10 +258,10 @@ export function AddClientToGame(game: ZapGame, client: ClientConn, server: ZapSe
 
 export function SetStat(game: ZapGame, dat: SetStatDat, server: ZapServer) {
 	const gamePersist: GamePersist = game.db.current;
-
+	
 	gamePersist.allStats.values[dat.index] = dat.value;
 	SendAllStats(game, server);
-
+	
 	return game.db.Save();
 }
 
@@ -271,6 +311,7 @@ export async function ResetGame(game: ZapGame, server: ZapServer) {
 	game.timer = {
 		label: STARTING_TIMER_LABEL,
 		ms: STARTING_TIMER_MS,
+		phaseIndex: -1,
 	};
 	
 	game.spotlight = {

@@ -6,14 +6,16 @@ import {$config} from "../ClientState.ts";
 import {toMinutesSeconds} from "../lib/TimeUtils.ts";
 
 
-export function Timer({$timer}: {
+export function Timer({$timer, isAdminPage}: {
 	$timer: PrimitiveAtom<TimerDat>,
+	isAdminPage?: boolean,
 }) {
 	const [timer] = useAtom($timer);
 	const [config] = useAtom($config);
 	
 	const label = timer.label;
 	const ms = timer.ms > 0 ? timer.ms : 0;
+	const showPhasing = isAdminPage && timer.phaseIndex >= 0;
 
 	const [minutes, seconds] = toMinutesSeconds(ms);
 
@@ -40,6 +42,9 @@ export function Timer({$timer}: {
 			<span className="timer-label">
 				&nbsp;{label}
 			</span>
+			{showPhasing && (
+				<span className={"timer-showPhasing"}>🕐 will auto advance to next phase</span>
+			)}
 		</div>
 	);
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {ArticleDat, SituationDat} from '../../../zap-shared/_Dats.ts';
+import {ArticleDat, PhaseDat, SituationDat} from '../../../zap-shared/_Dats.ts';
 import {useAtom} from 'jotai/index';
 import {$config} from '../ClientState.ts';
 
@@ -64,6 +64,8 @@ export class BaseGameConfig {
 	timerEndSoundStartMs = 0;
 	timerEndSoundVolume = 1;
 	timerDefs: T_TimerDef[] = [];
+	
+	phaseDefs: PhaseDat[] = [];
 
 	situationDefs: SituationDat[] = [];
 	

@@ -151,6 +151,11 @@
 	font-size: 5vmax;
 }
 
+.timer .timer-showPhasing {
+	font-size: 24px;
+	margin-left: 48px;
+}
+
 
 .projector-page .initial-click-me {
 	display: flex;

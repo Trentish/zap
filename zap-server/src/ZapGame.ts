@@ -3,7 +3,7 @@ import {ClientConn} from './ZapServer.js';
 import {ZapDb} from './ZapDb.js';
 import {
 	AllStatsDat,
-	ArticleDat,
+	ArticleDat, PhaseOptionsDat,
 	SituationDat,
 	SpotlightDat,
 	TimerDat,
@@ -27,6 +27,11 @@ export class ZapGame {
 	timer: TimerDat = {
 		label: '',
 		ms: 0,
+		phaseIndex: -1,
+	};
+	phaseOptions: PhaseOptionsDat = {
+		phases: [],
+		index: -1,
 	};
 	situation: SituationDat = {
 		label: '',
@@ -42,7 +47,9 @@ export class ZapGame {
 	spotlightTime: number = 0;
 	spotlightPhase: SpotlightPhase = SpotlightPhase.NONE;
 	
-	public toString(): string {return `game(${this.idf}, clients: ${this.allClients.size})`;}
+	public toString(): string {
+		return `game(${this.idf}, clients: ${this.allClients.size})`;
+	}
 }
 
 export class GamePersist {

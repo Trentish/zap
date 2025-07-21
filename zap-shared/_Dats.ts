@@ -43,12 +43,24 @@ export interface SetTimerDat {
 	label?: string,
 	ms?: number,
 	setLabelOnly?: boolean,
+	keepPhase?: boolean,
 }
 
 // TODO: 'tick' messages could be optimized later
 export interface TimerDat {
 	label: string,
 	/** set to -1 to ignore this field (i.e. change label only) */
+	ms: number,
+	phaseIndex: number,
+}
+
+export interface PhaseOptionsDat {
+	phases: PhaseDat[],
+	index: number,
+}
+
+export interface PhaseDat {
+	label: string,
 	ms: number,
 }
 
