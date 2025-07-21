@@ -119,7 +119,7 @@
 	font-family: "Helvetica Neue", "Helvetica", sans-serif;
 	font-stretch: condensed;
 
-	width: calc(100vw - var(--insanity--gnn-logo-offset) * 2 - 20vw);
+	width: calc(100vw - var(--insanity--gnn-logo-offset) * 3 - 20vw);
 }
 
 .insanity.projector-page .articles:before {
@@ -158,7 +158,7 @@
 }
 
 .insanity.projector-page .defcon-block {
-	width: var(--insanity--gnn-logo-width);
+	width: calc(var(--insanity--gnn-logo-width) * 2);
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
@@ -245,20 +245,24 @@
 	width: 100%;
 }
 
-.insanity.projector-page .defcon-block .stat-group.trending-up-group::before {
-  content: "▲▲▲";
+.insanity.projector-page .defcon-block .stat-group.trending-up-group::before,
+.insanity.projector-page .defcon-block .stat-group.trending-up-group::after {
+  content: "▲";
   display: block;
-  width: 100%;
+  /* width: 100%; */
   text-align: center;
   font-size: 0.5em; /* adjust as needed */
 }
 .insanity.projector-page .defcon-block .stat-group.neutral-group {
 	/* background: none; */
 }
+
+/* .insanity.projector-page .defcon-block .stat-group.trending-down-group::before */
+.insanity.projector-page .defcon-block .stat-group.trending-down-group::before, 
 .insanity.projector-page .defcon-block .stat-group.trending-down-group::after {
-  content: "▼▼▼";
+  content: "▼";
   display: block;
-  width: 100%;
+  /* width: 100%; */
   text-align: center;
   font-size: 0.5em; /* adjust as needed */
 }
