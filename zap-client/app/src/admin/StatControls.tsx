@@ -235,7 +235,6 @@ function DefconControlTable({
                           )
                         }
                         className="defcon-radio-input"
-                        disabled={level === 0}
                       />
                     </label>
                   </td>
