@@ -212,6 +212,15 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	gap: 1vmin;
+
+	/* If we're showing flags, we use the following, otherwise comment it out */
+	font-size: 5vmin;
+	line-height: 1em;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
 }
 
 .insanity.projector-page .trending-up{
