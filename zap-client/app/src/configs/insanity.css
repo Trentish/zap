@@ -212,15 +212,29 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 2vmin;
+	/* gap: 2vmin; */
 
 	/* If we're showing flags, we use the following, otherwise comment it out */
 	font-size: 5vmin;
 	line-height: 1em;
+	/* flex-direction: row;
+	flex-wrap: wrap; */
+	align-items: center;
+	justify-content: center;
+}
+
+.insanity.projector-page .defcon-block .stat-group {
+	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 	align-items: center;
-	justify-content: center;
+	gap: 1vmin;
+}
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1vmin;
 }
 
 .insanity.projector-page .defcon-block .individual-stat-block {
@@ -233,6 +247,18 @@
 .insanity.projector-page .defcon-block .arrow {
 	font-size: 0.5em;
 }
+
+/* .individual-stat-block {
+  order: 1; 
+}
+
+.trending-up {
+  order: 0; 
+}
+
+.trending-down {
+  order: 2;
+} */
 
 
 /* .insanity.projector-page .trending-up::after {
