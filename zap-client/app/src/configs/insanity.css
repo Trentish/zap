@@ -209,7 +209,15 @@
 
 .insanity.projector-page .defcon-block .statValue {
 	padding: 1vmin;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
+
+.insanity.projector-page .trending-up{
+	
+}
+
 
 .insanity.projector-page .corp-block {
 	display: none;

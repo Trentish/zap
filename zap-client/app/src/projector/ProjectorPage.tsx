@@ -400,11 +400,20 @@ function StatView({ index, def }: { index: number; def: T_StatDef }) {
 
   if (value !== undefined && value !== null && value !== "") {
     const values = typeof value === "string" ? value.split(",") : [value];
-    statContent = values.map((v, i) => (
-      <span key={i} className="individual-stat-block">
-        {String(v).trim()}
-      </span>
-    ));
+    statContent = values.map((v, i) => {
+      let str = String(v).trim();
+      let className = "individual-stat-block";
+      if (str.includes("▼")) {
+        str = str.replace("▼", "").trim();
+        className += " trending-down";
+      } else if (str.includes("▲")) {
+        str = str.replace("▲", "").trim();
+        className += " trending-up";
+      }
+      return (
+        <span key={i} className={className}>{str}</span>
+      );
+    });
   }
 
   return (
