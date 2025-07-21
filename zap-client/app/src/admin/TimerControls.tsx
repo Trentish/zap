@@ -102,22 +102,9 @@ export function TimerDefs() {
         return (
           <Button
             key={`${index}_${timerDef.label}`}
-            label={
-              <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <span
-                  style={{
-                    display: "inline-block",
-                    width: 14,
-                    height: 14,
-                    borderRadius: "50%",
-                    background: timerDef.color || "#888",
-                    border: "1px solid #444",
-                  }}
-                />
-                {buttonLabel}
-              </span>
-            }
+            label={buttonLabel}
             onClick={sendTimer}
+			buttonStyle={{ backgroundColor: timerDef.color }}
             className={"timer-def-button"}
           />
         );
