@@ -2,6 +2,7 @@ import { ArticleDat } from "../../zap-shared/_Dats.ts";
 import { Timer } from "../displays/Timer.tsx";
 import { atom, useAtom } from "jotai";
 import "./ProjectorPage.css";
+import { DEFCON_NATIONS } from "../../zap-shared/DEFCON_NATIONS";
 import React, { useEffect, useRef, useState } from "react";
 import {
   $allStats,
@@ -403,6 +404,8 @@ function StatView({ index, def }: { index: number; def: T_StatDef }) {
     statContent = values.map((v, i) => {
       let str = String(v).trim();
       let className = "individual-stat-block";
+      let codeClass = "";
+
       if (str.includes("▼")) {
         str = str.replace("▼", "").trim();
         className += " trending-down";
@@ -410,8 +413,19 @@ function StatView({ index, def }: { index: number; def: T_StatDef }) {
         str = str.replace("▲", "").trim();
         className += " trending-up";
       }
+
+      // Check for country code (3 uppercase letters)
+      const codeMatch = str.match(/^[A-Z]{3}$/i);
+      if (codeMatch) {
+        const code = str.toUpperCase();
+        const nation = DEFCON_NATIONS.find(n => n.code === code);
+        if (nation) {
+          codeClass = ` country-code-${code.toLowerCase()}`;
+          str = nation.flag;
+        }
+      }
       return (
-        <span key={i} className={className}>{str}</span>
+        <span key={i} className={className + codeClass}>{str}</span>
       );
     });
   }
