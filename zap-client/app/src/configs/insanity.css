@@ -1,10 +1,48 @@
 /*## Insanity-specific stuff */
 
+/* ===============================
+   DEBUG GRID BORDERS (NUKE ME LATER)
+   =============================== */
+/* :root {
+	--insanity--border-timeline: 2px solid #369;
+	--insanity--border-articles: 2px solid #FF6600;
+	--insanity--border-allStats: 2px solid #FFCC00;
+	--insanity--border-logo: 2px dashed #cc0000;
+}
+
+.insanity.projector-page .timer {
+	border: var(--insanity--border-timeline);
+}
+.insanity.projector-page .articles {
+	border: var(--insanity--border-articles);
+}
+.insanity.projector-page .allStats {
+	border: var(--insanity--border-allStats);
+}
+.insanity.projector-page .logo {
+	border: var(--insanity--border-logo);
+} */
+/* =============================== */
+
 :root {
 	--insanity--gnn-logo-offset: 10vmin;
 	--insanity--gnn-red: #CC0000;
 	--insanity--gnn-logo-width: 20vmin;
 	--insanity--vertical-edge-distance: 5vmin;
+	--insanity--font-main: "Helvetica Neue", "Helvetica", sans-serif;
+	--insanity--font-secondary: "Helvetica", sans-serif;
+	--insanity--font-size-label: 3vmin;
+	--insanity--font-size-timer: 8.5vmin;
+	--insanity--font-size-articles: 5vh;
+	--insanity--font-weight-bold: bold;
+	--insanity--letter-spacing: -0.02em;
+
+	--insanity--horiz-gap: 10vmin;
+	--insanity--vert-gap: 5vmin;
+	--insanity--horiz-gap-inner: var(--insanity--vert-gap);
+	--insanity--vert-gap-inner: var(--insanity--vert-gap);
+
+	--insanity--margin-logo: var(--insanity--horiz-gap);
 }
 
 .insanity.projector-page #backgroundVideoLoop {
@@ -12,43 +50,48 @@
 }
 
 .insanity.projector-page {
-	align-items: unset;
+	display: grid;
+	grid-template-areas:
+		"timeline timeline allStats"
+		"articles articles allStats";
+	grid-template-columns: 1fr 1fr auto;
+	grid-template-rows: minmax(8vmin, auto) auto;	
+	align-items: stretch;
+	position: relative;
+	background: none;
+	column-gap: var(--insanity--horiz-gap-inner);
+	row-gap: var(--insanity--vert-gap-inner);
+	padding: var(--insanity--vert-gap) var(--insanity--horiz-gap);
 }
 
 .insanity.projector-page .logo {
 	display: block;
-	position: fixed;
-	right: var(--insanity--gnn-logo-offset);
-	bottom: var(--insanity--vertical-edge-distance);
 	width: var(--insanity--gnn-logo-width);
-
-	/* 11 is on top of everything including the transition */
-	/* z-index: 11; */
-}
-
-.insanity.projector-page .timer .timer-label {
-	font-family: "Helvetica", sans-serif;
-	font-size: 3vmin;
-	position: fixed;
-	right: var(--insanity--gnn-logo-offset);
-	top: var(--insanity--vertical-edge-distance)
+	grid-area: articles;
+	/* margin-top: var(--insanity--margin-logo);
+	margin-left: var(--insanity--margin-logo);
+	align-self: start;
+	justify-self: start; */
+	display: none;
 }
 
 .insanity.projector-page .timer {
-	/* 11 is on top of everything including the transition */
-	/* z-index: 11; */
+	grid-area: timeline;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	font-family: var(--insanity--font-secondary);
+	font-size: var(--insanity--font-size-timer);
+	font-weight: var(--insanity--font-weight-bold);
+	letter-spacing: var(--insanity--letter-spacing);
+	gap: 0.5vmin;
+}
 
-	position: fixed;
-	right: var(--insanity--gnn-logo-offset);
-	top: 8vmin;
-	font-size: 8.5vmin;
-	letter-spacing: -0.02em;
-	font-weight: bold;
-	font-family: "Helvetica", sans-serif;
-	/* text-shadow: 0.01em 0.01em 0 black, 0.02em 0.02em 0 black, 0.03em 0.03em 0 black, 0.04em 0.04em 0 black, 0.05em 0.05em 0 black,
-	0.06em 0.06em 0 black, 0.07em 0.07em 0 black, 0.08em 0.08em 0 black, 0.09em 0.09em 0 black, 0.10em 0.10em 0 black,
-	0.11em 0.11em 0 black, 0.12em 0.12em 0 black, 0.13em 0.13em 0 black, 0.14em 0.14em 0 black, 0.15em 0.15em 0 black; */
-
+.insanity.projector-page .timer .timer-label {
+	font-size: var(--insanity--font-size-label);
+	font-weight: normal;
+	margin-bottom: 0.5vmin;
 }
 
 .insanity.projector-page .intro,
@@ -109,37 +152,18 @@
 }
 
 .insanity.projector-page .articles {
-	padding-left: var(--insanity--gnn-logo-offset);
-	position: relative;
+	grid-area: articles;
 	display: flex;
-	font-size: 5vh;
+	flex-direction: column;
+	gap: var(--insanity--vert-gap);
+	font-size: var(--insanity--font-size-articles);
 	background: none;
-	letter-spacing: -0.02em;
-	font-weight: bold;
-	font-family: "Helvetica Neue", "Helvetica", sans-serif;
+	letter-spacing: var(--insanity--letter-spacing);
+	font-weight: var(--insanity--font-weight-bold);
+	font-family: var(--insanity--font-main);
 	font-stretch: condensed;
-
-	width: calc(100vw - var(--insanity--gnn-logo-offset) * 3 - 20vw);
-}
-
-.insanity.projector-page .articles:before {
-	content: "TOP STORIES THIS HOUR";
-}
-
-.insanity.projector-page .articles:after {
-	content: "";
 	width: 100%;
-
-	height: 0.3vh;
-	background: var(--insanity--gnn-red);
-	position: absolute;
-	top: 1.25em;
-	z-index: -1;
-
-	display: block;
-	/* box-shadow: 0.01em 0.01em 0 black, 0.02em 0.02em 0 black, 0.03em 0.03em 0 black, 0.04em 0.04em 0 black, 0.05em 0.05em 0 black,
-	0.06em 0.06em 0 black, 0.07em 0.07em 0 black, 0.08em 0.08em 0 black, 0.09em 0.09em 0 black, 0.10em 0.10em 0 black,
-	0.11em 0.11em 0 black, 0.12em 0.12em 0 black, 0.13em 0.13em 0 black, 0.14em 0.14em 0 black, 0.15em 0.15em 0 black; */
+	position: relative;
 }
 
 
@@ -152,9 +176,13 @@
 }
 
 .insanity.projector-page .allStats {
-	position: absolute;
-	right: var(--insanity--gnn-logo-offset);
+	grid-area: allStats;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	justify-content: flex-start;
 	text-align: right;
+	height: 100%;
 }
 
 .insanity.projector-page .defcon-block {
@@ -226,7 +254,7 @@
 	row-gap: 0.3vmin;
 
 	/* If we're showing flags, we use the following, otherwise comment it out */
-	font-size: 5vmin;
+	font-size: 6vmin;
 	line-height: 1em;
 	/* flex-direction: row;
 	flex-wrap: wrap; */
@@ -287,15 +315,15 @@
 @keyframes down-arrow-pulse {
   0% {
 	opacity: 0;
-  	transform: translateY(-1vmin);
+	transform: translateY(-1vmin);
   }
   90% {
 	opacity: 1;
-  	transform: translateY(1vmin);
+	transform: translateY(1vmin);
   }
   100% {
 	opacity: 0;
-  	transform: translateY(1vmin);
+	transform: translateY(1vmin);
   }
 }
 
@@ -308,15 +336,15 @@
 @keyframes up-arrow-pulse {
   0% {
 	opacity: 0;
-  	transform: translateY(1vmin);
+	transform: translateY(1vmin);
   }
   90% {
 	opacity: 1;
-  	transform: translateY(-1vmin);
+	transform: translateY(-1vmin);
   }
   100% {
 	opacity: 0;
-  	transform: translateY(-1vmin);
+	transform: translateY(-1vmin);
   }
 }
 
