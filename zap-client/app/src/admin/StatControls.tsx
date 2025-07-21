@@ -267,21 +267,21 @@ function DefconControlTable({
       </tbody>
       <tfoot>
         <tr>
-          <th>▼</th>
-          <th>•</th>
-          <th>▲</th>
+          <th></th>
+          <th>NONE</th>
+          <th>3</th>
           <th>2</th>
           <th>1</th>
           <th>↓</th>
-          <th>•</th>
+          <th>-</th>
           <th>↑</th>
         </tr>
         <tr>
           <th></th>
-          <th colSpan={4} style={{ borderBottom: "1px solid #bbb" }}>
+          <th colSpan={4} style={{ borderTop: "1px solid #bbb" }}>
             DEFCON Level
           </th>
-          <th colSpan={3} style={{ borderBottom: "1px solid #bbb" }}>
+          <th colSpan={3} style={{ borderTop: "1px solid #bbb" }}>
             Trend
           </th>
         </tr>
