@@ -183,36 +183,47 @@
 /* DEFCON 1 */
 .insanity.projector-page .defcon.defcon-1 {
 	border-color: #CC0000;
+	color: #CC0000;
 }
 
 .insanity.projector-page .defcon-1 .statLabel {
 	background: #CC0000;
 }
+.insanity.projector-page .defcon-1 .stat-group {
+	background: #cc000066;
+}
 
 /* DEFCON 2 */
 .insanity.projector-page .defcon.defcon-2 {
 	border-color: #FF6600;
+	color: #FF6600;
 }
 
 .insanity.projector-page .defcon-2 .statLabel {
 	background: #FF6600;
 }
+.insanity.projector-page .defcon-2 .stat-group {
+	background: #FF660066;
+}
 
 /* DEFCON 3 */
 .insanity.projector-page .defcon.defcon-3 {
 	border-color: #FFCC00;
+	color: #FFCC00;
 }
 
 .insanity.projector-page .defcon-3 .statLabel {
 	background: #FFCC00;
 }
+.insanity.projector-page .defcon-3 .stat-group {
+	background: #ffcc0066;
+}
 
 .insanity.projector-page .defcon-block .statValue {
-	padding: 1vmin;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	/* gap: 2vmin; */
+	row-gap: 0.3vmin;
 
 	/* If we're showing flags, we use the following, otherwise comment it out */
 	font-size: 5vmin;
@@ -228,13 +239,28 @@
 	flex-direction: row;
 	flex-wrap: wrap;
 	align-items: center;
+	justify-content: center;
 	gap: 1vmin;
+	padding: 1vmin;
+	width: 100%;
 }
 
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 1vmin;
+.insanity.projector-page .defcon-block .stat-group.trending-up-group::before {
+  content: "▲▲▲";
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 0.5em; /* adjust as needed */
+}
+.insanity.projector-page .defcon-block .stat-group.neutral-group {
+	/* background: none; */
+}
+.insanity.projector-page .defcon-block .stat-group.trending-down-group::after {
+  content: "▼▼▼";
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 0.5em; /* adjust as needed */
 }
 
 .insanity.projector-page .defcon-block .individual-stat-block {
