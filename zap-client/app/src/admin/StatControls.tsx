@@ -162,14 +162,20 @@ function DefconControlTable({
   ) => void;
 }) {
   return (
-    <table className="defconTable" style={{ marginBottom: 24, width: "100%" }}>
+    <table className="defconTable stat-defcon-table">
       <thead>
         <tr>
           <th rowSpan={2}></th>
-          <th colSpan={4} style={{ borderBottom: "1px solid #bbb" }}>
+          <th
+            colSpan={4}
+            className="defcon-col-header defcon-col-header-bottom"
+          >
             DEFCON Level
           </th>
-          <th colSpan={3} style={{ borderBottom: "1px solid #bbb" }}>
+          <th
+            colSpan={3}
+            className="defcon-col-header defcon-col-header-bottom"
+          >
             Trend
           </th>
         </tr>
@@ -199,16 +205,8 @@ function DefconControlTable({
                 <span className="iso-code">({nation.code})</span>
               </td>
               {[0, 3, 2, 1].map((lvl) => (
-                <td key={lvl} style={{ cursor: "pointer", padding: 0 }}>
-                  <label
-                    style={{
-                      display: "block",
-                      width: "100%",
-                      height: "100%",
-                      padding: "8px 0",
-                      cursor: "pointer",
-                    }}
-                  >
+                <td key={lvl} className="defcon-radio-cell">
+                  <label className="defcon-radio-label">
                     <input
                       type="radio"
                       name={`defcon-level-${nation.code}`}
@@ -221,22 +219,14 @@ function DefconControlTable({
                           trend
                         )
                       }
-                      style={{ margin: "0 auto", display: "inline-block" }}
+                      className="defcon-radio-input"
                     />
                   </label>
                 </td>
               ))}
               {["▼", "", "▲"].map((tr) => (
-                <td key={tr} style={{ cursor: "pointer", padding: 0 }}>
-                  <label
-                    style={{
-                      display: "block",
-                      width: "100%",
-                      height: "100%",
-                      padding: "8px 0",
-                      cursor: "pointer",
-                    }}
-                  >
+                <td key={tr} className="defcon-radio-cell">
+                  <label className="defcon-radio-label">
                     <input
                       type="radio"
                       name={`defcon-trend-${nation.code}-level${level}`}
@@ -255,7 +245,7 @@ function DefconControlTable({
                           tr as "" | "▲" | "▼"
                         )
                       }
-                      style={{ margin: "0 auto", display: "inline-block" }}
+                      className="defcon-radio-input"
                       disabled={level === 0}
                     />
                   </label>
@@ -278,10 +268,10 @@ function DefconControlTable({
         </tr>
         <tr>
           <th></th>
-          <th colSpan={4} style={{ borderTop: "1px solid #bbb" }}>
+          <th colSpan={4} className="defcon-col-header defcon-col-header-top">
             DEFCON Level
           </th>
-          <th colSpan={3} style={{ borderTop: "1px solid #bbb" }}>
+          <th colSpan={3} className="defcon-col-header defcon-col-header-top">
             Trend
           </th>
         </tr>
@@ -376,7 +366,7 @@ function Stat({
         width={64}
         height={20}
         viewBox="0 0 64 20"
-        style={{ marginLeft: 8, verticalAlign: "middle" }}
+        className="adminStatSparkline"
       >
         <polyline
           fill="none"
