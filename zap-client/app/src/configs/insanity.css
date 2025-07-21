@@ -158,7 +158,7 @@
 }
 
 .insanity.projector-page .defcon-block {
-	width: calc(var(--insanity--gnn-logo-width) * 2);
+	width: calc(var(--insanity--gnn-logo-width) * 1.5);
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
