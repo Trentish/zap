@@ -396,11 +396,22 @@ function StatView({ index, def }: { index: number; def: T_StatDef }) {
 
   const value = allStats.values[index];
 
+  let statContent = null;
+
+  if (value !== undefined && value !== null && value !== "") {
+    const values = typeof value === "string" ? value.split(",") : [value];
+    statContent = values.map((v, i) => (
+      <span key={i} className="individual-stat-block">
+        {String(v).trim()}
+      </span>
+    ));
+  }
+
   return (
     <div className={`statView ${def.className}`}>
       {def.icon && <img className={"statIcon"} src={def.icon} />}
       {def.label && <div className={"statLabel"}>{def.label}</div>}
-      <div className={"statValue"}>{value}</div>
+      <div className={"statValue"}>{statContent}</div>
     </div>
   );
 }
