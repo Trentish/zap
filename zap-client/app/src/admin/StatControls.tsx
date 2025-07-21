@@ -3,6 +3,8 @@ import { $allStats, $config } from "../ClientState.ts";
 import { atom, useAtom } from "jotai";
 import { T_StatDef } from "../configs/BaseGameConfig.ts";
 import { T_Input } from "../components/InputComponents.tsx";
+
+import { DEFCON_NATIONS } from "../../zap-shared/DEFCON_NATIONS";
 import "./StatControls.css";
 import React from "react";
 
@@ -19,35 +21,7 @@ export function StatControls() {
   };
 
   // --- Defcon Table ---
-  const defconNations = [
-    { name: "Algeria", code: "DZA", flag: "🇩🇿" },
-    { name: "Argentina", code: "ARG", flag: "🇦🇷" },
-    { name: "Australia", code: "AUS", flag: "🇦🇺" },
-    { name: "Brazil", code: "BRA", flag: "🇧🇷" },
-    { name: "Canada", code: "CAN", flag: "🇨🇦" },
-    { name: "China", code: "CHN", flag: "🇨🇳" },
-    { name: "DR Congo", code: "COD", flag: "🇨🇩" },
-    { name: "Egypt", code: "EGY", flag: "🇪🇬" },
-    { name: "Ethiopia", code: "ETH", flag: "🇪🇹" },
-    { name: "France", code: "FRA", flag: "🇫🇷" },
-    { name: "Germany", code: "DEU", flag: "🇩🇪" },
-    { name: "India", code: "IND", flag: "🇮🇳" },
-    { name: "Indonesia", code: "IDN", flag: "🇮🇩" },
-    { name: "Iran", code: "IRN", flag: "🇮🇷" },
-    { name: "Japan", code: "JPN", flag: "🇯🇵" },
-    { name: "Mexico", code: "MEX", flag: "🇲🇽" },
-    { name: "Nigeria", code: "NGA", flag: "🇳🇬" },
-    { name: "Pakistan", code: "PAK", flag: "🇵🇰" },
-    { name: "Poland", code: "POL", flag: "🇵🇱" },
-    { name: "Russia", code: "RUS", flag: "🇷🇺" },
-    { name: "Saudi Arabia", code: "SAU", flag: "🇸🇦" },
-    { name: "South Africa", code: "ZAF", flag: "🇿🇦" },
-    { name: "South Korea", code: "KOR", flag: "🇰🇷" },
-    { name: "Turkey", code: "TUR", flag: "🇹🇷" },
-    { name: "United Kingdom", code: "GBR", flag: "🇬🇧" },
-    { name: "United States", code: "USA", flag: "🇺🇸" },
-    { name: "Venezuela", code: "VEN", flag: "🇻🇪" },
-  ];
+  const defconNations = DEFCON_NATIONS;
 
   // Find defcon stat indexes
   const defcon1Idx = config.statDefs.findIndex(
