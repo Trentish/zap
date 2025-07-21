@@ -1,8 +1,11 @@
+
+/* =====================
+   DEFCON TABLE STYLES
+   ===================== */
 .stat-defcon-table {
     margin-bottom: 24px;
     width: 100%;
 }
-
 .defcon-col-header.defcon-col-header-bottom {
     border-bottom: 1px solid #bbb;
 }
@@ -27,11 +30,6 @@
 .defcon-radio-input {
     margin: 0 auto;
     display: inline-block;
-}
-
-.adminStatSparkline {
-    margin-left: 8px;
-    vertical-align: middle;
 }
 
 /* DEFCON table flag emoji styling */
@@ -134,4 +132,13 @@
 
 .adminStatAddBtn:hover {
     background: #e0e0e0;
+}
+
+/* =====================
+   CORP/STAT CONTROLS
+   ===================== */
+
+.adminStatSparkline {
+    margin-left: 8px;
+    vertical-align: middle;
 }
