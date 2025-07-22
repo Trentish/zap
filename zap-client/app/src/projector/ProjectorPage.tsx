@@ -404,9 +404,83 @@ function CorpBlock() {
   return (
     <div className={"corp-block"}>
       {visibleCorpStats.map(({ def, index }) => (
-        <StatView key={`stat${index}`} index={index} def={def} />
+        <CorpSparklineView key={`corp${index}`} index={index} def={def} />
       ))}
     </div>
+  );
+}
+
+function CorpSparklineView({ index, def }: { index: number; def: T_StatDef }) {
+  const [allStats] = useAtom($allStats);
+
+  const value = allStats.values[index];
+  if (!value || typeof value !== "string") return null;
+
+  // Parse CSV to get numeric values
+  const nums = value
+    .split(",")
+    .map((s) => parseFloat(s.trim()))
+    .filter((n) => !isNaN(n));
+
+  if (nums.length === 0) return null;
+
+  const latestPrice = nums[nums.length - 1];
+  
+  // Determine trend
+  let trendClass = "no-trend";
+  let trendSymbol = "";
+  if (nums.length >= 2) {
+    const previousPrice = nums[nums.length - 2];
+    if (latestPrice > previousPrice) {
+      trendClass = "trending-up";
+      trendSymbol = "▲";
+    } else if (latestPrice < previousPrice) {
+      trendClass = "trending-down";
+      trendSymbol = "▼";
+    }
+  }
+
+  return (
+    <div className={`corp-sparkline-stat ${trendClass}`}>
+      <div className="corp-label">{def.label}</div>
+      <div className="corp-price">{latestPrice.toFixed(2)}</div>
+      {trendSymbol && <div className="corp-trend">{trendSymbol}</div>}
+      <CorpSparkline csv={value} />
+    </div>
+  );
+}
+
+function CorpSparkline({ csv }: { csv: string }) {
+  if (!csv) return null;
+  const nums = csv
+    .split(",")
+    .map((s) => parseFloat(s))
+    .filter((n) => !isNaN(n));
+  if (nums.length < 2) return null;
+  
+  // Normalize to 0-1 for y, left-to-right for x
+  const min = Math.min(...nums);
+  const max = Math.max(...nums);
+  const range = max - min || 1;
+  const points = nums.map((n, i) => [
+    (i / (nums.length - 1)) * 60, // width 60px
+    18 - ((n - min) / range) * 16, // height 18px, invert y
+  ]);
+  
+  return (
+    <svg
+      width={64}
+      height={20}
+      viewBox="0 0 64 20"
+      className="corp-sparkline-svg"
+    >
+      <polyline
+        fill="none"
+        stroke="#1976d2"
+        strokeWidth={2}
+        points={points.map((p) => p.join(",")).join(" ")}
+      />
+    </svg>
   );
 }
 

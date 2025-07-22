@@ -4,26 +4,23 @@
    DEBUG GRID BORDERS (NUKE ME LATER)
    =============================== */
 :root {
-    --insanity--border-timeline: 2px solid #369;
-    --insanity--border-articles: 2px solid #FF6600;
-    --insanity--border-allStats: 2px solid #FFCC00;
-    --insanity--border-logo: 2px dashed #cc0000;
+    --insanity--border-debug: 2px dashed #cc0000;
 }
 
 .insanity.projector-page .timer {
-    border: var(--insanity--border-timeline);
+    border: var(--insanity--border-debug);
 }
 .insanity.projector-page .articles {
-    border: var(--insanity--border-articles);
+    border: var(--insanity--border-debug);
 }
-.insanity.projector-page .allStats {
-    border: var(--insanity--border-allStats);
+.insanity.projector-page .defcon-block {
+    border: var(--insanity--border-debug);
 }
 .insanity.projector-page .logo {
-    border: var(--insanity--border-logo);
+    border: var(--insanity--border-debug);
 }
-.insanity.projector-page .corps {
-    border: var(--insanity--border-logo);
+.insanity.projector-page .corp-block {
+    border: var(--insanity--border-debug);
 }
 /* =============================== */
 
@@ -406,4 +403,61 @@
 
 .insanity.projector-page .corp-block {
 	grid-area: corps;
+}
+
+/* ===============================
+   CORP SPARKLINES
+   =============================== */
+
+.insanity.projector-page .corp-sparkline-stat {
+    display: flex;
+    align-items: center;
+    gap: 1vmin;
+    margin-bottom: 1vmin;
+    font-family: var(--insanity--font-main);
+    font-weight: var(--insanity--font-weight-bold);
+    letter-spacing: var(--insanity--letter-spacing);
+}
+
+.insanity.projector-page .corp-label {
+    font-size: 3vmin;
+    min-width: 8vmin;
+    text-align: left;
+}
+
+.insanity.projector-page .corp-price {
+    font-size: 3vmin;
+    min-width: 6vmin;
+    text-align: right;
+}
+
+.insanity.projector-page .corp-trend {
+    font-size: 2.5vmin;
+    min-width: 2vmin;
+    text-align: center;
+}
+
+.insanity.projector-page .corp-sparkline-svg {
+    flex-shrink: 0;
+}
+
+/* Trend-specific styling */
+.insanity.projector-page .corp-sparkline-stat.trending-up .corp-trend {
+    color: #4CAF50;
+}
+
+.insanity.projector-page .corp-sparkline-stat.trending-down .corp-trend {
+    color: #F44336;
+}
+
+.insanity.projector-page .corp-sparkline-stat.trending-up .corp-sparkline-svg polyline {
+    stroke: #4CAF50;
+}
+
+.insanity.projector-page .corp-sparkline-stat.trending-down .corp-sparkline-svg polyline {
+    stroke: #F44336;
+}
+
+.insanity.projector-page .corp-sparkline-stat.no-trend .corp-sparkline-svg polyline {
+    stroke: #666;
 }
