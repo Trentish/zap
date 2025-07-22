@@ -247,6 +247,10 @@
 	background: #ffcc0066;
 }
 
+.insanity.projector-page .defcon-block .flag-img {
+	height: 6vmin;
+}
+
 .insanity.projector-page .defcon-block .statValue {
 	display: flex;
 	flex-direction: column;
@@ -271,14 +275,33 @@
 	gap: 1vmin;
 	padding: 1vmin;
 	width: 100%;
+	position: relative
 }
+.insanity.projector-page .defcon-block .trending-up-group,
+.insanity.projector-page .defcon-block .trending-down-group {
+	padding-left: 3vmin; /* Half img height */
+	padding-right: 3vmin; /* Half img height */
+}
+
+.insanity.projector-page .defcon-block .stat-group::before,
+.insanity.projector-page .defcon-block .stat-group::after {
+  display: block;
+  text-align: center;
+  font-size: 3vmin; /* adjust as needed */
+  position: absolute;
+  color: #00000066;
+}
+
+.insanity.projector-page .defcon-block .stat-group::before {
+	left: 0.9vmin;
+}
+.insanity.projector-page .defcon-block .stat-group::after {
+	right: 0.9vmin;
+}
+
 .insanity.projector-page .defcon-block .stat-group.trending-up-group::before,
 .insanity.projector-page .defcon-block .stat-group.trending-up-group::after {
-  content: "▲";
-  display: block;
-  /* width: 100%; */
-  text-align: center;
-  font-size: 0.5em; /* adjust as needed */
+  content: "▲";  
 }
 .insanity.projector-page .defcon-block .stat-group.neutral-group {
 	/* background: none; */
@@ -288,10 +311,6 @@
 .insanity.projector-page .defcon-block .stat-group.trending-down-group::before, 
 .insanity.projector-page .defcon-block .stat-group.trending-down-group::after {
   content: "▼";
-  display: block;
-  /* width: 100%; */
-  text-align: center;
-  font-size: 0.5em; /* adjust as needed */
 }
 
 

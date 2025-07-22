@@ -14,7 +14,7 @@ const MINUTES = 60 * 1000;
 
 class InsanityConfig extends BaseGameConfig {
   gameIdf = "insanity";
-
+  gameImagePath = "../assets/images/insanity/";
   bgVideo = `${J_VIDS}blue2.mp4`;
   // overlayVideo = `${J_VIDS}vhs.mp4`;
 

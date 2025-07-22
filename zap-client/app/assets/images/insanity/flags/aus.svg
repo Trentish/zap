@@ -1,1 +1,56 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><mask id="a"><circle cx="256" cy="256" r="256" fill="#fff"/></mask><g mask="url(#a)"><path fill="#0052b4" d="M0 0h512v512H0z"/><path fill="#eee" d="m154 300 14 30 32-8-14 30 25 20-32 7 1 33-26-21-26 21 1-33-33-7 26-20-14-30 32 8zm222-27h47l-38 27 15-44 14 44zm7-162 7 15 16-4-7 15 12 10-15 3v17l-13-11-13 11v-17l-15-3 12-10-7-15 16 4zm57 67 7 15 16-4-7 15 12 10-15 3v16l-13-10-13 11v-17l-15-3 12-10-7-15 16 4zm-122 22 7 15 16-4-7 15 12 10-15 3v16l-13-10-13 11v-17l-15-3 12-10-7-15 16 4zm65 156 7 15 16-4-7 15 12 10-15 3v17l-13-11-13 11v-17l-15-3 12-10-7-15 16 4zM0 0v32l32 32L0 96v160h32l32-32 32 32h32v-83l83 83h45l-8-16 8-15v-14l-83-83h83V96l-32-32 32-32V0H96L64 32 32 0Z"/><path fill="#d80027" d="M32 0v32H0v64h32v160h64V96h160V32H96V0Zm96 128 128 128v-31l-97-97z"/></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg835"
+   sodipodi:docname="aus.svg"
+   inkscape:version="1.1.1 (c3084ef, 2021-09-22)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs839" />
+  <sodipodi:namedview
+     id="namedview837"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="1.0288956"
+     inkscape:cx="337.74077"
+     inkscape:cy="413.55021"
+     inkscape:window-width="1728"
+     inkscape:window-height="1051"
+     inkscape:window-x="0"
+     inkscape:window-y="38"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g833" />
+  <mask
+     id="a">
+    <circle
+       cx="256"
+       cy="256"
+       r="256"
+       fill="#fff"
+       id="circle824" />
+  </mask>
+  <g
+     mask="url(#a)"
+     id="g833">
+    <path
+       fill="#0052b4"
+       d="M0 0h512v512H0z"
+       id="path827" />
+    <path
+       fill="#eeeeee"
+       d="m 128,140 14,30 32,-8 -14,30 25,20 -32,7 1,33 -26,-21 -26,21 1,-33 -33,-7 26,-20 -14,-30 32,8 z m 222,133 h 47 l -38,27 15,-44 14,44 z m 7,-162 7,15 16,-4 -7,15 12,10 -15,3 v 17 l -13,-11 -13,11 v -17 l -15,-3 12,-10 -7,-15 16,4 z m 57,67 7,15 16,-4 -7,15 12,10 -15,3 v 16 l -13,-10 -13,11 v -17 l -15,-3 12,-10 -7,-15 16,4 z m -128,22 7,15 16,-4 -7,15 12,10 -15,3 v 16 l -13,-10 -13,11 v -17 l -15,-3 12,-10 -7,-15 16,4 z m 71,156 7,15 16,-4 -7,15 12,10 -15,3 v 17 l -13,-11 -13,11 v -17 l -15,-3 12,-10 -7,-15 16,4 z"
+       id="path829"
+       sodipodi:nodetypes="ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc" />
+  </g>
+</svg>

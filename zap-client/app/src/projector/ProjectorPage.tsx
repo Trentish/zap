@@ -394,6 +394,7 @@ function AllStats() {
 
 function StatView({ index, def }: { index: number; def: T_StatDef }) {
   const [allStats] = useAtom($allStats);
+  const [config] = useAtom($config);
 
   const value = allStats.values[index];
 
@@ -408,17 +409,17 @@ function StatView({ index, def }: { index: number; def: T_StatDef }) {
       let str = String(v).trim();
       let className = "individual-stat-block";
       let codeClass = "";
-      let arrow = "";
+      //   let arrow = "";
       let trendType: "up" | "down" | "neutral" = "neutral";
 
       if (str.includes("▼")) {
         str = str.replace("▼", "").trim();
-        arrow = "▼";
+        // arrow = "▼";
         className += " trending-down";
         trendType = "down";
       } else if (str.includes("▲")) {
         str = str.replace("▲", "").trim();
-        arrow = "▲";
+        // arrow = "▲";
         className += " trending-up";
         trendType = "up";
       }
@@ -430,9 +431,28 @@ function StatView({ index, def }: { index: number; def: T_StatDef }) {
         const nation = DEFCON_NATIONS.find((n) => n.code === code);
         if (nation) {
           codeClass = ` country-code-${code.toLowerCase()}`;
-          str = nation.flag;
+          // Instead of emoji, show flag image
+          const flagImgSrc = `${config.gameImagePath}flags/${code.toLowerCase()}.svg`;
+          const el = (
+            <span key={i} className={className + codeClass}>
+              <img
+                src={flagImgSrc}
+                alt={code}
+                className="flag-img"
+              />
+            </span>
+          );
+          if (trendType === "up") {
+            trendingUp.push(el);
+          } else if (trendType === "down") {
+            trendingDown.push(el);
+          } else {
+            neutral.push(el);
+          }
+          return; // skip emoji rendering
         }
       }
+      // Default rendering (no flag image)
       const el = (
         <span key={i} className={className + codeClass}>
           {str}
@@ -449,19 +469,27 @@ function StatView({ index, def }: { index: number; def: T_StatDef }) {
     });
   }
 
+  // Helper to get odd/even and count classes
+  function getGroupClass(base: string, arr: JSX.Element[]) {
+    const count = arr.length;
+    const oddEven = count % 2 === 0 ? "contains-even" : "contains-odd";
+    const countClass = `contains-${count}`;
+    return `${base} ${oddEven} ${countClass}`;
+  }
+
   return (
     <div className={`statView ${def.className}`}>
       {def.icon && <img className={"statIcon"} src={def.icon} />}
       {def.label && <div className={"statLabel"}>{def.label}</div>}
       <div className={"statValue"}>
         {trendingUp.length > 0 && (
-          <div className="stat-group trending-up-group">{trendingUp}</div>
+          <div className={getGroupClass("stat-group trending-up-group", trendingUp)}>{trendingUp}</div>
         )}
         {neutral.length > 0 && (
-          <div className="stat-group neutral-group">{neutral}</div>
+          <div className={getGroupClass("stat-group neutral-group", neutral)}>{neutral}</div>
         )}
         {trendingDown.length > 0 && (
-          <div className="stat-group trending-down-group">{trendingDown}</div>
+          <div className={getGroupClass("stat-group trending-down-group", trendingDown)}>{trendingDown}</div>
         )}
       </div>
     </div>
