@@ -170,6 +170,7 @@ export function TimerDefs() {
                         buttonStyle={{backgroundColor: timerDef.color}}
                         className={"timer-def-button"}
                     />
+                );
             })}
         </div>
     );
