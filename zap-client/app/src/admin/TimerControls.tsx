@@ -153,20 +153,21 @@ export function TimerDefs() {
                         key={`${index}_${timerDef.label}`}
                         label={
                             <span style={{display: "flex", alignItems: "center", gap: 8}}>
-                <span
-                    style={{
-                        display: "inline-block",
-                        width: 14,
-                        height: 14,
-                        borderRadius: "50%",
-                        background: timerDef.color || "#888",
-                        border: "1px solid #444",
-                    }}
-                />
+                                <span
+                                    style={{
+                                        display: "inline-block",
+                                        width: 14,
+                                        height: 14,
+                                        borderRadius: "50%",
+                                        background: timerDef.color || "#888",
+                                        border: "1px solid #444",
+                                    }}
+                                />
                                 {buttonLabel}
-              </span>
+                            </span>
                         }
                         onClick={sendTimer}
+                        buttonStyle={{backgroundColor: timerDef.color}}
                         className={"timer-def-button"}
                     />
             })}
@@ -175,42 +176,42 @@ export function TimerDefs() {
 }
 
 export function PhaseDefs() {
-	const client = useClient();
-	const [config] = useAtom($config);
+    const client = useClient();
+    const [config] = useAtom($config);
 
-	return (
-		<div className={'phase-defs'}>
-			<span className={'phasesRow-label'}>Phases:</span>
+    return (
+        <div className={'phase-defs'}>
+            <span className={'phasesRow-label'}>Phases:</span>
 
-			{config.phaseDefs.map((phaseDef, index) => {
-				const ms = phaseDef.ms;
-				const [minutes, seconds] = toMinutesSeconds(ms !== undefined ? ms : 0);
+            {config.phaseDefs.map((phaseDef, index) => {
+                const ms = phaseDef.ms;
+                const [minutes, seconds] = toMinutesSeconds(ms !== undefined ? ms : 0);
 
-				const timerLabel = phaseDef.label || '';
-				const buttonLabel = (
-					`${index+1}. ${timerLabel}`
-					+ ` (`
-					+ `${minutes > 0 ? `${minutes}m` : ''}`
-					+ `${seconds > 0 ? ` ${seconds}s` : ''}`
-					+ `)`
-				).trim();
+                const timerLabel = phaseDef.label || '';
+                const buttonLabel = (
+                    `${index + 1}. ${timerLabel}`
+                    + ` (`
+                    + `${minutes > 0 ? `${minutes}m` : ''}`
+                    + `${seconds > 0 ? ` ${seconds}s` : ''}`
+                    + `)`
+                ).trim();
 
-				const sendPhaseOptions = () => {
-					client.packets.SetPhaseOptions.Send({
-						phases: config.phaseDefs,
-						index: index,
-					});
-				};
+                const sendPhaseOptions = () => {
+                    client.packets.SetPhaseOptions.Send({
+                        phases: config.phaseDefs,
+                        index: index,
+                    });
+                };
 
-				return (
-					<Button
-						key={`${index}_${phaseDef.label}`}
-						label={buttonLabel}
-						onClick={sendPhaseOptions}
-						className={'phase-def-button'}
-					/>
-				);
-			})}
-		</div>
-	);
+                return (
+                    <Button
+                        key={`${index}_${phaseDef.label}`}
+                        label={buttonLabel}
+                        onClick={sendPhaseOptions}
+                        className={'phase-def-button'}
+                    />
+                );
+            })}
+        </div>
+    );
 }
