@@ -109,10 +109,11 @@ export type T_SpotlightRefs = {
 }
 
 export type T_TimerDef = {
-	label?: string;
-	ms?: number;
-	setLabelOnly?: boolean;
-}
+    label?: string;
+    ms?: number;
+    setLabelOnly?: boolean;
+    color?: string; // Added for phase color support
+};
 
 export type T_StatDef = {
 	label?: string;
