@@ -3,284 +3,293 @@
 /* ===============================
    DEBUG GRID BORDERS (NUKE ME LATER)
    =============================== */
-/* :root {
-	--insanity--border-timeline: 2px solid #369;
-	--insanity--border-articles: 2px solid #FF6600;
-	--insanity--border-allStats: 2px solid #FFCC00;
-	--insanity--border-logo: 2px dashed #cc0000;
+:root {
+    --insanity--border-timeline: 2px solid #369;
+    --insanity--border-articles: 2px solid #FF6600;
+    --insanity--border-allStats: 2px solid #FFCC00;
+    --insanity--border-logo: 2px dashed #cc0000;
 }
 
 .insanity.projector-page .timer {
-	border: var(--insanity--border-timeline);
+    border: var(--insanity--border-timeline);
 }
 .insanity.projector-page .articles {
-	border: var(--insanity--border-articles);
+    border: var(--insanity--border-articles);
 }
 .insanity.projector-page .allStats {
-	border: var(--insanity--border-allStats);
+    border: var(--insanity--border-allStats);
 }
 .insanity.projector-page .logo {
-	border: var(--insanity--border-logo);
-} */
+    border: var(--insanity--border-logo);
+}
+.insanity.projector-page .corps {
+    border: var(--insanity--border-logo);
+}
 /* =============================== */
 
+/* ===============================
+   GENERAL STYLES & VARIABLES
+   =============================== */
 :root {
-	--insanity--gnn-logo-offset: 10vmin;
-	--insanity--gnn-red: #CC0000;
-	--insanity--gnn-logo-width: 20vmin;
-	--insanity--vertical-edge-distance: 5vmin;
-	--insanity--font-main: "Helvetica Neue", "Helvetica", sans-serif;
-	--insanity--font-secondary: "Helvetica", sans-serif;
-	--insanity--font-size-label: 3vmin;
-	--insanity--font-size-timer: 8.5vmin;
-	--insanity--font-size-articles: 5vh;
-	--insanity--font-weight-bold: bold;
-	--insanity--letter-spacing: -0.02em;
+    --insanity--gnn-logo-offset: 10vmin;
+    --insanity--gnn-red: #CC0000;
+    --insanity--gnn-logo-width: 20vmin;
+    --insanity--vertical-edge-distance: 5vmin;
+    --insanity--font-main: "Helvetica Neue", "Helvetica", sans-serif;
+    --insanity--font-secondary: "Helvetica", sans-serif;
+    --insanity--font-size-label: 3vmin;
+    --insanity--font-size-timer: 8.5vmin;
+    --insanity--font-size-articles: 5vh;
+    --insanity--font-weight-bold: bold;
+    --insanity--letter-spacing: -0.02em;
 
-	--insanity--horiz-gap: 10vmin;
-	--insanity--vert-gap: 5vmin;
-	--insanity--horiz-gap-inner: var(--insanity--vert-gap);
-	--insanity--vert-gap-inner: var(--insanity--vert-gap);
+    --insanity--horiz-gap: 10vmin;
+    --insanity--vert-gap: 5vmin;
+    --insanity--horiz-gap-inner: var(--insanity--vert-gap);
+    --insanity--vert-gap-inner: var(--insanity--vert-gap);
 
-	--insanity--margin-logo: var(--insanity--horiz-gap);
+    --insanity--margin-logo: var(--insanity--horiz-gap);
 }
 
 .insanity.projector-page #backgroundVideoLoop {
-	filter: brightness(0.25) saturate(0);
+    filter: brightness(0.25) saturate(0);
 }
 
 .insanity.projector-page {
-	display: grid;
-	grid-template-areas:
-		"timeline timeline allStats"
-		"articles articles allStats";
-	grid-template-columns: 1fr 1fr auto;
-	grid-template-rows: minmax(8vmin, auto) auto;	
-	align-items: stretch;
-	position: relative;
-	background: none;
-	column-gap: var(--insanity--horiz-gap-inner);
-	row-gap: var(--insanity--vert-gap-inner);
-	padding: var(--insanity--vert-gap) var(--insanity--horiz-gap);
-}
-
-.insanity.projector-page .logo {
-	display: block;
-	width: var(--insanity--gnn-logo-width);
-	grid-area: articles;
-	/* margin-top: var(--insanity--margin-logo);
-	margin-left: var(--insanity--margin-logo);
-	align-self: start;
-	justify-self: start; */
-	display: none;
-}
-
-.insanity.projector-page .timer {
-	grid-area: timeline;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	justify-content: center;
-	font-family: var(--insanity--font-secondary);
-	font-size: var(--insanity--font-size-timer);
-	font-weight: var(--insanity--font-weight-bold);
-	letter-spacing: var(--insanity--letter-spacing);
-	gap: 0.5vmin;
-}
-
-.insanity.projector-page .timer .timer-label {
-	font-size: var(--insanity--font-size-label);
-	font-weight: normal;
-	margin-bottom: 0.5vmin;
+    display: grid;
+    grid-template-areas:
+        "timeline timeline allStats"
+        "articles articles allStats"
+        "corps corps corps";
+    grid-template-columns: 1fr 1fr auto;
+    grid-template-rows: minmax(8vmin, auto) auto auto;	
+    align-items: stretch;
+    position: relative;
+    background: none;
+    column-gap: var(--insanity--horiz-gap-inner);
+    row-gap: var(--insanity--vert-gap-inner);
+    padding: var(--insanity--vert-gap) var(--insanity--horiz-gap);
 }
 
 .insanity.projector-page .intro,
 .insanity.projector-page .outro {
-	filter: saturate(0%);
-}
-
-.insanity.projector-page .article.spotlight {
-	background-color: #369;
-}
-
-.insanity.projector-page .spotlight-carrier {
-	align-self: flex-start;
-	padding: 0 var(--insanity--gnn-logo-offset);
-	/*z-index: 2;*/
-	font-weight: bold;
-	/* text-shadow: 0.01em 0.01em 0 black, 0.02em 0.02em 0 black, 0.03em 0.03em 0 black, 0.04em 0.04em 0 black, 0.05em 0.05em 0 black,
-	0.06em 0.06em 0 black, 0.07em 0.07em 0 black, 0.08em 0.08em 0 black, 0.09em 0.09em 0 black, 0.10em 0.10em 0 black,
-	0.11em 0.11em 0 black, 0.12em 0.12em 0 black, 0.13em 0.13em 0 black, 0.14em 0.14em 0 black, 0.15em 0.15em 0 black; */
-	letter-spacing: -0.02em;
-	line-height: 1.1;
-	align-items: flex-start;
-	flex-direction: column;
-
-	font-size: 6vmax;
-	gap: 1vmax;
-}
-
-.insanity.projector-page .spotlight-container.headline {
-	font-family: "Helvetica Neue", "Helvetica", sans-serif;
-	font-weight: bold;
-	font-stretch: condensed;
-	letter-spacing: -0.02em;
-	text-transform: capitalize;
-	background: white;
-	padding: 1vmin;
-	text-align: left;
-	width: 100vw;
-	color: black;
-}
-
-.insanity.projector-page .theme {
-	font-size: 3vmax;
-	display: none;
-}
-
-.insanity.projector-page .spotlight-container .spotlight-background {
-	transform: translateX(2vw) scale(110%);
-	/* display: none; */
+    filter: saturate(0%);
 }
 
 .insanity.projector-page .headline {
-	font-family: "Helvetica Neue", "Helvetica", sans-serif;
-	font-weight: bold;
-	font-stretch: condensed;
-	letter-spacing: -0.02em;
-	text-transform: capitalize;
+    font-family: "Helvetica Neue", "Helvetica", sans-serif;
+    font-weight: bold;
+    font-stretch: condensed;
+    letter-spacing: -0.02em;
+    text-transform: capitalize;
+}
+
+/* ===============================
+   TIMELINE AREA (TIMER)
+   =============================== */
+.insanity.projector-page .timer {
+    grid-area: timeline;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    font-family: var(--insanity--font-secondary);
+    font-size: var(--insanity--font-size-timer);
+    font-weight: var(--insanity--font-weight-bold);
+    letter-spacing: var(--insanity--letter-spacing);
+    gap: 0.5vmin;
+}
+
+.insanity.projector-page .timer .timer-label {
+    font-size: var(--insanity--font-size-label);
+    font-weight: normal;
+    margin-bottom: 0.5vmin;
+}
+
+/* ===============================
+   ARTICLES AREA
+   =============================== */
+.insanity.projector-page .logo {
+    display: block;
+    width: var(--insanity--gnn-logo-width);
+    grid-area: articles;
+    /* margin-top: var(--insanity--margin-logo);
+    margin-left: var(--insanity--margin-logo);
+    align-self: start;
+    justify-self: start; */
+    /* display: none; */
 }
 
 .insanity.projector-page .articles {
-	grid-area: articles;
-	display: flex;
-	flex-direction: column;
-	gap: var(--insanity--vert-gap);
-	font-size: var(--insanity--font-size-articles);
-	background: none;
-	letter-spacing: var(--insanity--letter-spacing);
-	font-weight: var(--insanity--font-weight-bold);
-	font-family: var(--insanity--font-main);
-	font-stretch: condensed;
-	width: 100%;
-	position: relative;
+    grid-area: articles;
+    display: flex;
+    flex-direction: column;
+    gap: var(--insanity--vert-gap);
+    font-size: var(--insanity--font-size-articles);
+    background: none;
+    letter-spacing: var(--insanity--letter-spacing);
+    font-weight: var(--insanity--font-weight-bold);
+    font-family: var(--insanity--font-main);
+    font-stretch: condensed;
+    width: 100%;
+    position: relative;
 }
 
-
 .insanity.projector-page .articles span.article {
-	display: none;
+    display: none;
 }
 
 .insanity.projector-page .articles div.article:nth-of-type(1n+4) {
-	display: none;
+    display: none;
 }
 
-.insanity.projector-page .allStats {
-	grid-area: allStats;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-end;
-	justify-content: flex-start;
-	text-align: right;
-	height: 100%;
+.insanity.projector-page .article.spotlight {
+    background-color: #369;
 }
+
+.insanity.projector-page .spotlight-carrier {
+    align-self: flex-start;
+    padding: 0 var(--insanity--gnn-logo-offset);
+    /*z-index: 2;*/
+    font-weight: bold;
+    /* text-shadow: 0.01em 0.01em 0 black, 0.02em 0.02em 0 black, 0.03em 0.03em 0 black, 0.04em 0.04em 0 black, 0.05em 0.05em 0 black,
+    0.06em 0.06em 0 black, 0.07em 0.07em 0 black, 0.08em 0.08em 0 black, 0.09em 0.09em 0 black, 0.10em 0.10em 0 black,
+    0.11em 0.11em 0 black, 0.12em 0.12em 0 black, 0.13em 0.13em 0 black, 0.14em 0.14em 0 black, 0.15em 0.15em 0 black; */
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    align-items: flex-start;
+    flex-direction: column;
+
+    font-size: 6vmax;
+    gap: 1vmax;
+}
+
+.insanity.projector-page .spotlight-container.headline {
+    font-family: "Helvetica Neue", "Helvetica", sans-serif;
+    font-weight: bold;
+    font-stretch: condensed;
+    letter-spacing: -0.02em;
+    text-transform: capitalize;
+    background: white;
+    padding: 1vmin;
+    text-align: left;
+    width: 100vw;
+    color: black;
+}
+
+.insanity.projector-page .theme {
+    font-size: 3vmax;
+    display: none;
+}
+
+.insanity.projector-page .spotlight-container .spotlight-background {
+    transform: translateX(2vw) scale(110%);
+    /* display: none; */
+}
+
+/* ===============================
+   DEFCON AREA (ALL STATS)
+   =============================== */
 
 .insanity.projector-page .defcon-block {
-	width: calc(var(--insanity--gnn-logo-width) * 1.5);
-	display: flex;
-	flex-direction: column;
-	align-items: stretch;
-	text-align: center;
-	gap: 2vmin;
-	font-weight: bold;
-	letter-spacing: -0.02em;
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    grid-area: allStats;
+    height: 100%;
+
+    width: calc(var(--insanity--gnn-logo-width) * 1.5);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    gap: 2vmin;
+    font-weight: bold;
+    letter-spacing: -0.02em;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .insanity.projector-page .defcon.statView {
-	border: solid 0.3vmin black;
-	border-radius: 0.2vmin;
+    border: solid 0.3vmin black;
+    border-radius: 0.2vmin;
 }
 
 .insanity.projector-page .defcon-block .statLabel {
-	color: black;
-	font-size: 3vmin;
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: black;
+    font-size: 3vmin;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /* DEFCON 1 */
 .insanity.projector-page .defcon.defcon-1 {
-	border-color: #CC0000;
-	color: #CC0000;
+    border-color: #CC0000;
+    color: #CC0000;
 }
 
 .insanity.projector-page .defcon-1 .statLabel {
-	background: #CC0000;
+    background: #CC0000;
 }
 .insanity.projector-page .defcon-1 .stat-group {
-	background: #cc000066;
+    background: #cc000066;
 }
 
 /* DEFCON 2 */
 .insanity.projector-page .defcon.defcon-2 {
-	border-color: #FF6600;
-	color: #FF6600;
+    border-color: #FF6600;
+    color: #FF6600;
 }
 
 .insanity.projector-page .defcon-2 .statLabel {
-	background: #FF6600;
+    background: #FF6600;
 }
 .insanity.projector-page .defcon-2 .stat-group {
-	background: #FF660066;
+    background: #FF660066;
 }
 
 /* DEFCON 3 */
 .insanity.projector-page .defcon.defcon-3 {
-	border-color: #FFCC00;
-	color: #FFCC00;
+    border-color: #FFCC00;
+    color: #FFCC00;
 }
 
 .insanity.projector-page .defcon-3 .statLabel {
-	background: #FFCC00;
+    background: #FFCC00;
 }
 .insanity.projector-page .defcon-3 .stat-group {
-	background: #ffcc0066;
+    background: #ffcc0066;
 }
 
 .insanity.projector-page .defcon-block .flag-img {
-	height: 6vmin;
+    height: 6vmin;
 }
 
 .insanity.projector-page .defcon-block .statValue {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	row-gap: 0.3vmin;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 0.3vmin;
 
-	/* If we're showing flags, we use the following, otherwise comment it out */
-	font-size: 6vmin;
-	line-height: 1em;
-	/* flex-direction: row;
-	flex-wrap: wrap; */
-	align-items: center;
-	justify-content: center;
+    /* If we're showing flags, we use the following, otherwise comment it out */
+    font-size: 6vmin;
+    line-height: 1em;
+    /* flex-direction: row;
+    flex-wrap: wrap; */
+    align-items: center;
+    justify-content: center;
 }
 
 .insanity.projector-page .defcon-block .stat-group {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: center;
-	gap: 1vmin;
-	padding: 1vmin;
-	width: 100%;
-	position: relative
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1vmin;
+    padding: 1vmin;
+    width: 100%;
+    position: relative
 }
 .insanity.projector-page .defcon-block .trending-up-group,
 .insanity.projector-page .defcon-block .trending-down-group {
-	padding-left: 3vmin; /* Half img height */
-	padding-right: 3vmin; /* Half img height */
+    padding-left: 3vmin; /* Half img height */
+    padding-right: 3vmin; /* Half img height */
 }
 
 .insanity.projector-page .defcon-block .stat-group::before,
@@ -293,18 +302,15 @@
 }
 
 .insanity.projector-page .defcon-block .stat-group::before {
-	left: 0.9vmin;
+    left: 0.9vmin;
 }
 .insanity.projector-page .defcon-block .stat-group::after {
-	right: 0.9vmin;
+    right: 0.9vmin;
 }
 
 .insanity.projector-page .defcon-block .stat-group.trending-up-group::before,
 .insanity.projector-page .defcon-block .stat-group.trending-up-group::after {
   content: "▲";  
-}
-.insanity.projector-page .defcon-block .stat-group.neutral-group {
-	/* background: none; */
 }
 
 /* .insanity.projector-page .defcon-block .stat-group.trending-down-group::before */
@@ -313,12 +319,11 @@
   content: "▼";
 }
 
-
 .insanity.projector-page .defcon-block .individual-stat-block {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 0.5vmin;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5vmin;
 }
 
 .insanity.projector-page .defcon-block .arrow {
@@ -333,16 +338,16 @@
 
 @keyframes down-arrow-pulse {
   0% {
-	opacity: 0;
-	transform: translateY(-1vmin);
+    opacity: 0;
+    transform: translateY(-1vmin);
   }
   90% {
-	opacity: 1;
-	transform: translateY(1vmin);
+    opacity: 1;
+    transform: translateY(1vmin);
   }
   100% {
-	opacity: 0;
-	transform: translateY(1vmin);
+    opacity: 0;
+    transform: translateY(1vmin);
   }
 }
 
@@ -354,33 +359,32 @@
 
 @keyframes up-arrow-pulse {
   0% {
-	opacity: 0;
-	transform: translateY(1vmin);
+    opacity: 0;
+    transform: translateY(1vmin);
   }
   90% {
-	opacity: 1;
-	transform: translateY(-1vmin);
+    opacity: 1;
+    transform: translateY(-1vmin);
   }
   100% {
-	opacity: 0;
-	transform: translateY(-1vmin);
+    opacity: 0;
+    transform: translateY(-1vmin);
   }
 }
 
 /* .insanity.projector-page .defcon-block .defcon-1 .stat-group.trending-down-group,
 .insanity.projector-page .defcon-block .defcon-3 .stat-group.trending-up-group {
-	background: #ff660066;
-	color: #ff6600;
+    background: #ff660066;
+    color: #ff6600;
 }
 .insanity.projector-page .defcon-block .defcon-2 .stat-group.trending-up-group {
-	background: #cc000066;
-	color: #cc0000;
+    background: #cc000066;
+    color: #cc0000;
 }
 .insanity.projector-page .defcon-block .defcon-2 .stat-group.trending-down-group {
-	background: #ffcc0066;
-	color: #ffcc00;
+    background: #ffcc0066;
+    color: #ffcc00;
 } */
-
 
 /* .insanity.projector-page .trending-up::after {
   content: "▲";
@@ -396,7 +400,10 @@
   vertical-align: middle;
 } */
 
+/* ===============================
+   CORPS AREA (ALL STATS)
+   =============================== */
+
 .insanity.projector-page .corp-block {
-	display: none;
-	/* TEMPORARY */
+	grid-area: corps;
 }

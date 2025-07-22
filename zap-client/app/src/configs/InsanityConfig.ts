@@ -25,8 +25,8 @@ class InsanityConfig extends BaseGameConfig {
 
   orgs: T_Org[] = [GNN];
 
-  timerEndSound = `${J_AUDIO}PMY_PMY_0041_01401.mp3`;
-  timerEndSoundStartMs = 27 * 1000; // 27 seconds
+  timerEndSound = `${J_AUDIO}PMY_PMY_0041_01401.ogg`;
+  timerEndSoundStartMs = 28 * 1000; // 28 seconds
   timerEndSoundVolume = 1;
   timerDefs: T_TimerDef[] = [
     {
@@ -55,7 +55,7 @@ class InsanityConfig extends BaseGameConfig {
     { label: "ACTION PHASE", ms: 30 * MINUTES },
     { label: "GO TO TEAM", ms: 2 * MINUTES },
     { label: "TEAM PHASE", ms: 11 * MINUTES },
-    { label: "GO TO ACTION", ms: 1 * MINUTES },
+    { label: "GO TO ACTION", ms: 2 * MINUTES },
   ];
 
   statDefs: T_StatDef[] = [

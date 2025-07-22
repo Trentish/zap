@@ -85,7 +85,9 @@ export function ProjectorPage() {
         <img className={"crawler-logo"} src={config.crawlerLogo} />
       )}
 
-      {!!config.statDefs.length && <AllStats />}
+      {!!config.statDefs.length && <DefconBlock />}
+
+      {!!config.statDefs.length && <CorpBlock />}
 
       <Spotlight />
     </div>
@@ -350,21 +352,17 @@ function InitialClickMe() {
   );
 }
 
-function AllStats() {
+function DefconBlock() {
   const [config] = useAtom($config);
+  const [allStats] = useAtom($allStats);
 
-  // Separate statDefs into defcon and corp
+  // Get defcon stats
   const defconStats: { def: T_StatDef; index: number }[] = [];
-  const corpStats: { def: T_StatDef; index: number }[] = [];
   config.statDefs.forEach((def, index) => {
     if (def.className && def.className.includes("defcon")) {
       defconStats.push({ def, index });
-    } else {
-      corpStats.push({ def, index });
     }
   });
-
-  const [allStats] = useAtom($allStats);
 
   // Only show defcon stats with non-empty values
   const visibleDefconStats = defconStats.filter(({ index }) => {
@@ -372,22 +370,42 @@ function AllStats() {
     return value !== undefined && value !== null && value !== "";
   });
 
+  if (!visibleDefconStats.length) return null;
+
   return (
-    <div className={"allStats"}>
-      {!!visibleDefconStats.length && (
-        <div className={"defcon-block"}>
-          {visibleDefconStats.map(({ def, index }) => (
-            <StatView key={`stat${index}`} index={index} def={def} />
-          ))}
-        </div>
-      )}
-      {!!corpStats.length && (
-        <div className={"corp-block"}>
-          {corpStats.map(({ def, index }) => (
-            <StatView key={`stat${index}`} index={index} def={def} />
-          ))}
-        </div>
-      )}
+    <div className={"defcon-block"}>
+      {visibleDefconStats.map(({ def, index }) => (
+        <StatView key={`stat${index}`} index={index} def={def} />
+      ))}
+    </div>
+  );
+}
+
+function CorpBlock() {
+  const [config] = useAtom($config);
+  const [allStats] = useAtom($allStats);
+
+  // Get corp stats
+  const corpStats: { def: T_StatDef; index: number }[] = [];
+  config.statDefs.forEach((def, index) => {
+    if (!def.className || !def.className.includes("defcon")) {
+      corpStats.push({ def, index });
+    }
+  });
+
+  // Filter for corp stats with non-empty values
+  const visibleCorpStats = corpStats.filter(({ index }) => {
+    const value = allStats.values[index];
+    return value !== undefined && value !== null && value !== "";
+  });
+
+  if (!visibleCorpStats.length) return null;
+
+  return (
+    <div className={"corp-block"}>
+      {visibleCorpStats.map(({ def, index }) => (
+        <StatView key={`stat${index}`} index={index} def={def} />
+      ))}
     </div>
   );
 }
