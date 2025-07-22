@@ -1,6 +1,6 @@
 import {BaseGameConfig, T_Org, T_StatDef, T_TimerDef} from './BaseGameConfig.ts';
 import './FirstContact.css'; //## NOTE: will always load (regardless of gameIdf)
-import {PhaseDat, SituationDat} from '../../../zap-shared/_Dats.ts';
+import {PhaseDat, SituationDat} from '../../zap-shared/_Dats.ts';
 
 const VID = '../assets/videos/';
 const AUD = '../assets/audio/';
@@ -52,7 +52,7 @@ class FirstContactConfig extends BaseGameConfig {
 			ms: 5 * MINUTES,
 		},
 	];
-	
+
 	phaseDefs: PhaseDat[] = [
 		{ label: 'Action', ms: 30 * MINUTES },
 		{ label: 'Go to Team', ms: 2 * MINUTES },

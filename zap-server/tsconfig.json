@@ -20,14 +20,15 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
     "strictPropertyInitialization": false,
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "noEmit": true
   },
   "ts-node": {
     "esm": true
   },
   "references": [
     {
-      "path": "../zap-shared"
+      "path": "zap-shared"
     }
   ]
   //  "compilerOptions": {

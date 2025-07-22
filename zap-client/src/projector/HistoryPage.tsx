@@ -3,7 +3,7 @@ import {Atom, useAtom} from 'jotai/index';
 import {$config, $splitArticles, $spotlight} from '../ClientState.ts';
 import React, {useState} from 'react';
 import {Button} from '../components/ButtonComponents.tsx';
-import {ArticleDat} from '../../../zap-shared/_Dats.ts';
+import {ArticleDat} from '../../zap-shared/_Dats.ts';
 import './HistoryPage.css';
 
 const DEFAULT_SHOW_COUNT = 10;

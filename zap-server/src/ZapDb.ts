@@ -1,7 +1,7 @@
 import {access, mkdir, opendir, readFile, rename, stat, writeFile} from 'fs/promises';
 import {vow} from '../lib/vow.js';
 import {constants} from 'fs';
-import {T_SerialFromJsonObj, T_Serials, T_SerialToJsonObj} from '../../zap-shared/SystemTypes.js';
+import {T_SerialFromJsonObj, T_Serials, T_SerialToJsonObj} from '../zap-shared/SystemTypes.js';
 
 type T_Options<T> = {
 	folderPath: string;

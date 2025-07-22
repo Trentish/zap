@@ -5,7 +5,7 @@ import React from 'react';
 import {atom, useAtom} from 'jotai';
 import {Button, Radios, T_RadioOption} from '../components/ButtonComponents.tsx';
 import {$author, $config, $store, $uuid} from '../ClientState.ts';
-import {HEADLINE_MAX_SIZE, HEADLINE_MIN_SIZE} from '../../../zap-shared/_Dats.ts';
+import {HEADLINE_MAX_SIZE, HEADLINE_MIN_SIZE} from '../../zap-shared/_Dats.ts';
 import './HeadlineControls.css';
 import {T_Org} from '../configs/BaseGameConfig.ts';
 

@@ -1,13 +1,13 @@
 import {atom, getDefaultStore} from 'jotai';
 import {atomWithLocation} from 'jotai-location';
-import {E_ConnStatus, E_Endpoint, T_GameIdf} from '../../zap-shared/SystemTypes.ts';
+import {E_ConnStatus, E_Endpoint, T_GameIdf} from '../zap-shared/SystemTypes.ts';
 import {
 	AllStatsDat,
 	ArticleDat,
 	SituationDat,
 	SpotlightDat,
 	TimerDat,
-} from '../../zap-shared/_Dats.ts';
+} from '../zap-shared/_Dats.ts';
 import {atomWithStorage, splitAtom} from 'jotai/utils';
 import {nanoid} from 'nanoid';
 import {FallbackConfig} from './configs/BaseGameConfig.ts';

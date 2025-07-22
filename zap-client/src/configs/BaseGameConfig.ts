@@ -1,5 +1,5 @@
 import React from 'react';
-import {ArticleDat, PhaseDat, SituationDat} from '../../../zap-shared/_Dats.ts';
+import {ArticleDat, PhaseDat, SituationDat} from '../../zap-shared/_Dats.ts';
 import {useAtom} from 'jotai/index';
 import {$config} from '../ClientState.ts';
 
@@ -35,7 +35,7 @@ export const OUTRO_MID_DEFAULT = 500;
 export class BaseGameConfig {
 	gameIdf: string;
 	gameDisplayName: string;
-	
+
 	bgVideo = '../assets/videos/box-background.mp4';
 	overlayVideo = '';
 	
@@ -64,7 +64,7 @@ export class BaseGameConfig {
 	timerEndSoundStartMs = 0;
 	timerEndSoundVolume = 1;
 	timerDefs: T_TimerDef[] = [];
-	
+
 	phaseDefs: PhaseDat[] = [];
 
 	situationDefs: SituationDat[] = [];

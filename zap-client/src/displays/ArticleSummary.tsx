@@ -1,5 +1,5 @@
 import {useAtom} from 'jotai/index';
-import {ArticleDat} from '../../../zap-shared/_Dats.ts';
+import {ArticleDat} from '../../zap-shared/_Dats.ts';
 import {Atom} from 'jotai';
 import React, {useState} from 'react';
 import {$config, $splitArticles, $spotlight} from '../ClientState.ts';

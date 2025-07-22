@@ -1,7 +1,7 @@
 import {PrimitiveAtom} from 'jotai/vanilla/atom';
 import {useAtom} from 'jotai';
 import {clsx} from 'clsx';
-import {TimerDat} from '../../../zap-shared/_Dats.ts';
+import {TimerDat} from '../../zap-shared/_Dats.ts';
 import {$config} from "../ClientState.ts";
 import {toMinutesSeconds} from "../lib/TimeUtils.ts";
 

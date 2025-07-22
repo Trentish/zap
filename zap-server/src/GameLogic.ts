@@ -1,14 +1,14 @@
 import {GamePersist, SpotlightPhase, ZapGame} from './ZapGame.js';
 import {ClientConn, ZapServer} from './ZapServer.js';
-import {E_Endpoint, T_GameIdf} from '../../zap-shared/SystemTypes.js';
+import {E_Endpoint, T_GameIdf} from '../zap-shared/SystemTypes.js';
 import {ZapDb} from './ZapDb.js';
 import {
 	ArticleDat,
 	HEADLINE_SIZE, PhaseOptionsDat,
 	PostArticleDat, SetStatDat,
 	SetTimerDat, SituationDat,
-} from '../../zap-shared/_Dats.js';
-import {RangeToRange} from '../../zap-shared/Maths.js';
+} from '../zap-shared/_Dats.js';
+import {RangeToRange} from '../zap-shared/Maths.js';
 
 // const TICK_RATE_MS = 1000;
 const TICK_RATE_MS = 200;
