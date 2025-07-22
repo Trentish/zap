@@ -26,6 +26,7 @@ import GenConfig from './configs/GenConfig.ts';
 import FirstContactConfig from "./configs/FirstContactConfig.ts";
 import GeneralissimoConfig from "./configs/GeneralissimoConfig.ts";
 import TouchedByDarknessConfig from "./configs/TouchedByDarknessConfig.ts";
+import InsanityConfig from "./configs/InsanityConfig.ts";
 
 export const $store = getDefaultStore();
 export const $connStatus = atom(E_ConnStatus.unset);
@@ -83,6 +84,8 @@ export const $config = atom(get => {
 			return GeneralissimoConfig;
 		case TouchedByDarknessConfig.gameIdf:
 			return TouchedByDarknessConfig;
+		case InsanityConfig.gameIdf:
+			return InsanityConfig;
 		default:
 			return FallbackConfig;
 	}
