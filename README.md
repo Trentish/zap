@@ -1,3 +1,26 @@
+## Usage (with Docker Compose)
+
+1. Make sure you have [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/) installed.
+2. In the project root, run:
+
+   ```sh
+   docker-compose up --build
+   ```
+
+   This will start both the server and client, with shared code mounted automatically.
+
+3. Access the client in your browser at: [http://localhost:5173](http://localhost:5173)
+
+4. Data is stored in the `zap-storage/` folder (created automatically, and ignored by git).
+
+5. To stop the app, press `Ctrl+C` in the terminal, or run:
+
+   ```sh
+   docker-compose down
+   ```
+
+---
+
 # Zap Purpose
 Zap is a networked web app for megagames. It's primary purpose is to display:
 1. Turn clock/timer

@@ -1,0 +1,22 @@
+{
+  "name": "Zap Dev Environment",
+  "dockerComposeFile": [
+    "../docker-compose.yml"
+  ],
+  "service": "zap-server",
+  "workspaceFolder": "/workspace",
+  "shutdownAction": "stopCompose",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh"
+      }
+    }
+  },
+  "postCreateCommand": "npm install",
+  "remoteUser": "node"
+}
