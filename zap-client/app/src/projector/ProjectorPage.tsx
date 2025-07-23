@@ -135,6 +135,12 @@ const SET_TEXT = (element: HTMLDivElement | null, text: string) => {
   if (element) element.innerText = text;
 };
 
+// Add realistic random cents to a price for display
+function addRandomCents(price: number): string {
+  const cents = Math.floor(Math.random() * 100);
+  return price.toFixed(0) + "." + cents.toString().padStart(2, "0");
+}
+
 function Spotlight() {
   const [article] = useAtom($spotlightArticle);
   const [config] = useAtom($config);
@@ -428,7 +434,7 @@ function CorpSparklineView({ index, def }: { index: number; def: T_StatDef }) {
   
   // Determine trend
   let trendClass = "no-trend";
-  let trendSymbol = "";
+  let trendSymbol = "▶"; // Default neutral arrow
   if (nums.length >= 2) {
     const previousPrice = nums[nums.length - 2];
     if (latestPrice > previousPrice) {
@@ -443,8 +449,8 @@ function CorpSparklineView({ index, def }: { index: number; def: T_StatDef }) {
   return (
     <div className={`corp-sparkline-stat ${trendClass}`}>
       <div className="corp-label">{def.label}</div>
-      <div className="corp-price">{latestPrice.toFixed(2)}</div>
-      {trendSymbol && <div className="corp-trend">{trendSymbol}</div>}
+      <div className="corp-price">{addRandomCents(latestPrice)}</div>
+      <div className="corp-trend">{trendSymbol}</div>
       <CorpSparkline csv={value} />
     </div>
   );

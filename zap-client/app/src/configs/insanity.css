@@ -450,6 +450,10 @@
     color: #F44336;
 }
 
+.insanity.projector-page .corp-sparkline-stat.no-trend .corp-trend {
+    color: #FFFFFF99;
+}
+
 .insanity.projector-page .corp-sparkline-stat.trending-up .corp-sparkline-svg polyline {
     stroke: #4CAF50;
 }
@@ -459,5 +463,5 @@
 }
 
 .insanity.projector-page .corp-sparkline-stat.no-trend .corp-sparkline-svg polyline {
-    stroke: #666;
+    stroke: #FFFFFF99;
 }
