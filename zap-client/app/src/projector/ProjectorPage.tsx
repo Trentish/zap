@@ -446,17 +446,24 @@ function CorpSparklineView({ index, def }: { index: number; def: T_StatDef }) {
     }
   }
 
+  // Toggle between spiky and accurate sparklines
+  const useSpikySparklines = true; // Set to false for accurate/linear sparklines
+
   return (
     <div className={`corp-sparkline-stat ${trendClass}`}>
       <div className="corp-label">{def.label}</div>
       <div className="corp-price">{addRandomCents(latestPrice)}</div>
       <div className="corp-trend">{trendSymbol}</div>
-      <CorpSparkline csv={value} />
+      {useSpikySparklines ? (
+        <CorpSparklineSpiky csv={value} />
+      ) : (
+        <CorpSparklineAccurate csv={value} />
+      )}
     </div>
   );
 }
 
-function CorpSparkline({ csv }: { csv: string }) {
+function CorpSparklineAccurate({ csv }: { csv: string }) {
   if (!csv) return null;
   const nums = csv
     .split(",")
@@ -464,24 +471,109 @@ function CorpSparkline({ csv }: { csv: string }) {
     .filter((n) => !isNaN(n));
   if (nums.length < 2) return null;
   
-  // Normalize to 0-1 for y, left-to-right for x
+  // SVG dimensions - the sparkline will fill this entire area edge-to-edge
+  const svgWidth = 192;
+  const svgHeight = 20;
+  const lineWidth = 3;
+  
+  // Calculate available drawing area (account for line width to prevent clipping)
+  const halfLineWidth = lineWidth / 2;
+  const drawWidth = svgWidth - lineWidth; // Leave space for stroke on both edges
+  const drawHeight = svgHeight - lineWidth; // Leave space for stroke on top/bottom
+  const offsetX = halfLineWidth; // Start drawing offset from left edge
+  const offsetY = halfLineWidth; // Start drawing offset from top edge
+  
+  // Normalize data points to fit the drawing area exactly
   const min = Math.min(...nums);
   const max = Math.max(...nums);
   const range = max - min || 1;
+  
   const points = nums.map((n, i) => [
-    (i / (nums.length - 1)) * 180, // width 180px in viewBox (3x original)
-    18 - ((n - min) / range) * 16, // height 18px in viewBox, invert y
+    offsetX + (i / (nums.length - 1)) * drawWidth, // X: spread across safe drawing width
+    offsetY + drawHeight - ((n - min) / range) * drawHeight, // Y: full safe height, inverted
   ]);
   
   return (
     <svg
-      viewBox="0 0 192 20"
+      viewBox={`0 0 ${svgWidth} ${svgHeight}`}
       className="corp-sparkline-svg"
       preserveAspectRatio="xMidYMid meet"
     >
       <polyline
         fill="none"
-        strokeWidth={2}
+        strokeWidth={lineWidth}
+        points={points.map((p) => p.join(",")).join(" ")}
+      />
+    </svg>
+  );
+}
+
+function CorpSparklineSpiky({ csv }: { csv: string }) {
+  if (!csv) return null;
+  const nums = csv
+    .split(",")
+    .map((s) => parseFloat(s))
+    .filter((n) => !isNaN(n));
+  if (nums.length < 2) return null;
+  
+  // SVG dimensions - the sparkline will fill this entire area edge-to-edge
+  const svgWidth = 192;
+  const svgHeight = 20;
+  const lineWidth = 3;
+  const intermediateCount = 5; // Number of spiky points between each pair of actual data points
+  
+  // Generate spiky intermediate points between each pair of actual data points
+  const spikyNums: number[] = [];
+  
+  for (let i = 0; i < nums.length; i++) {
+    spikyNums.push(nums[i]); // Add the actual data point
+    
+    // Add intermediate spiky points (except after the last point)
+    if (i < nums.length - 1) {
+      const current = nums[i];
+      const next = nums[i + 1];
+      const trend = next - current; // Overall trend between these points
+      const trendStep = trend / (intermediateCount + 1); // How much trend per step
+      
+      for (let j = 1; j <= intermediateCount; j++) {
+        // Calculate base interpolated value following the trend
+        const baseValue = current + (trendStep * j);
+        
+        // Add random spikiness (±20% of the trend magnitude, or ±5% of current value if trend is small)
+        const spikeRange = Math.max(Math.abs(trend) * 0.2, Math.abs(current) * 0.05);
+        const spike = (Math.random() - 0.5) * 2 * spikeRange;
+        
+        spikyNums.push(baseValue + spike);
+      }
+    }
+  }
+  
+  // Calculate available drawing area (account for line width to prevent clipping)
+  const halfLineWidth = lineWidth / 2;
+  const drawWidth = svgWidth - lineWidth; // Leave space for stroke on both edges
+  const drawHeight = svgHeight - lineWidth; // Leave space for stroke on top/bottom
+  const offsetX = halfLineWidth; // Start drawing offset from left edge
+  const offsetY = halfLineWidth; // Start drawing offset from top edge
+  
+  // Normalize spiky data points to fit the drawing area exactly
+  const min = Math.min(...spikyNums);
+  const max = Math.max(...spikyNums);
+  const range = max - min || 1;
+  
+  const points = spikyNums.map((n, i) => [
+    offsetX + (i / (spikyNums.length - 1)) * drawWidth, // X: spread across safe drawing width
+    offsetY + drawHeight - ((n - min) / range) * drawHeight, // Y: full safe height, inverted
+  ]);
+  
+  return (
+    <svg
+      viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+      className="corp-sparkline-svg"
+      preserveAspectRatio="xMidYMid meet"
+    >
+      <polyline
+        fill="none"
+        strokeWidth={lineWidth}
         points={points.map((p) => p.join(",")).join(" ")}
       />
     </svg>
