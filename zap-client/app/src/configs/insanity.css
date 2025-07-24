@@ -3,7 +3,7 @@
 /* ===============================
    DEBUG GRID BORDERS (NUKE ME LATER)
    =============================== */
-:root {
+/* :root {
     --insanity--border-debug: 2px dashed #cc0000;
 }
 
@@ -21,7 +21,7 @@
 }
 .insanity.projector-page .corp-block {
     border: var(--insanity--border-debug);
-}
+} */
 /* =============================== */
 
 /* ===============================
@@ -40,10 +40,11 @@
     --insanity--font-weight-bold: bold;
     --insanity--letter-spacing: -0.02em;
 
+    /* Main grid layout variables */
     --insanity--horiz-gap: 10vmin;
     --insanity--vert-gap: 5vmin;
-    --insanity--horiz-gap-inner: var(--insanity--vert-gap);
-    --insanity--vert-gap-inner: var(--insanity--vert-gap);
+    --insanity--grid-column-gap: 1vmin;
+    --insanity--grid-row-gap: var(--insanity--vert-gap);
 
     --insanity--margin-logo: var(--insanity--horiz-gap);
 }
@@ -55,16 +56,16 @@
 .insanity.projector-page {
     display: grid;
     grid-template-areas:
-        "timeline timeline allStats"
-        "articles articles allStats"
-        "corps corps corps";
-    grid-template-columns: 1fr 1fr auto;
+        "timeline timeline timeline allStats"
+        "articles articles articles allStats"
+        "corps corps corps corps";
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: minmax(8vmin, auto) 1fr min-content;	
     align-items: stretch;
     position: relative;
     background: none;
-    column-gap: var(--insanity--horiz-gap-inner);
-    row-gap: var(--insanity--vert-gap-inner);
+    column-gap: var(--insanity--grid-column-gap);
+    row-gap: var(--insanity--grid-row-gap);
     padding: var(--insanity--vert-gap) var(--insanity--horiz-gap) 0;
     height: 100vh;
     box-sizing: border-box;
@@ -194,7 +195,7 @@
     grid-area: allStats;
     height: 100%;
 
-    width: calc(var(--insanity--gnn-logo-width) * 1.5);
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -502,10 +503,10 @@
     --corp-card-height: 5vmin;
     --corp-card-border-radius: 0.5vmin;
     
-    /* Corp layout variables */
+    /* Corp layout variables - inherit from parent grid */
     --corp-container-padding: 0;
     --corp-block-padding: 1.5vmin;
-    --corp-gap-between-blocks: 1vmin;
+    --corp-gap-between-blocks: var(--insanity--grid-column-gap);
     --corp-gap-within-block: 1vmin;
     
     /* Corp component widths */
