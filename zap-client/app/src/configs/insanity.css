@@ -409,59 +409,130 @@
    CORP SPARKLINES
    =============================== */
 
+:root {
+    /* Corp layout variables */
+    --corp--block-width: 25%; /* Each corp takes exactly 25% width */
+    --corp--container-padding: 0;
+    --corp--block-padding: 1.5vmin;
+    --corp--gap-between-blocks: 1vmin;
+    --corp--gap-within-block: 1vmin;
+    
+    /* Corp component widths */
+    --corp--symbol-width: 8vmin;
+    --corp--price-width: 7vmin;
+    --corp--trend-width: 2.5vmin;
+    --corp--sparkline-width: 8vmin;
+    
+    /* Corp typography */
+    --corp--font-family: var(--insanity--font-main);
+    --corp--font-weight: var(--insanity--font-weight-bold);
+    --corp--font-size: 2.5vmin;
+    --corp--letter-spacing: var(--insanity--letter-spacing);
+    
+    /* Corp colors */
+    --corp--color-trending-up: #4CAF50;
+    --corp--color-trending-down: #F44336;
+    --corp--color-neutral: #FFFFFF99;
+    --corp--sparkline-color-up: var(--corp--color-trending-up);
+    --corp--sparkline-color-down: var(--corp--color-trending-down);
+    --corp--sparkline-color-neutral: var(--corp--color-neutral);
+    
+    /* Corp backgrounds */
+    --corp--bg-default: #99999933;
+    --corp--bg-trending-up: #00FF3333;
+    --corp--bg-trending-down: #cc000033;
+    --corp--bg-neutral: var(--corp--bg-default);
+}
+
+.insanity.projector-page .corp-block {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: var(--corp--gap-between-blocks);
+    padding: var(--corp--container-padding);
+    width: 100%;
+}
+
 .insanity.projector-page .corp-sparkline-stat {
     display: flex;
     align-items: center;
-    gap: 1vmin;
-    margin-bottom: 1vmin;
-    font-family: var(--insanity--font-main);
-    font-weight: var(--insanity--font-weight-bold);
-    letter-spacing: var(--insanity--letter-spacing);
+    gap: var(--corp--gap-within-block);
+    padding: var(--corp--block-padding);
+    font-family: var(--corp--font-family);
+    font-weight: var(--corp--font-weight);
+    font-size: var(--corp--font-size);
+    letter-spacing: var(--corp--letter-spacing);
+    background: var(--corp--bg-default);
+    border-radius: 0.5vmin;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .insanity.projector-page .corp-label {
-    font-size: 3vmin;
-    min-width: 8vmin;
+    width: var(--corp--symbol-width);
     text-align: left;
-}
-
-.insanity.projector-page .corp-price {
-    font-size: 3vmin;
-    min-width: 6vmin;
-    text-align: right;
-}
-
-.insanity.projector-page .corp-trend {
-    font-size: 2.5vmin;
-    min-width: 2vmin;
-    text-align: center;
-}
-
-.insanity.projector-page .corp-sparkline-svg {
     flex-shrink: 0;
 }
 
+.insanity.projector-page .corp-price {
+    width: var(--corp--price-width);
+    text-align: right;
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+}
+
+.insanity.projector-page .corp-trend {
+    width: var(--corp--trend-width);
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.insanity.projector-page .corp-sparkline-svg {
+    flex: 1;
+    height: 2.5vmin;
+    min-width: 0;
+    
+    /*
+        Calculate available space for sparkline by subtracting fixed element widths and gaps
+        We have 4 elements (symbol, price, trend, sparkline) with 3 gaps between them
+        Hence: 3 * gap-within-block for the gaps between symbol→price, price→trend, trend→sparkline
+    */
+    max-width: calc(100% - var(--corp--symbol-width) - var(--corp--price-width) - var(--corp--trend-width) - (3 * var(--corp--gap-within-block)));
+}
+
 /* Trend-specific styling */
+.insanity.projector-page .corp-sparkline-stat.trending-up {
+    background: var(--corp--bg-trending-up);
+}
+
+.insanity.projector-page .corp-sparkline-stat.trending-down {
+    background: var(--corp--bg-trending-down);
+}
+
+.insanity.projector-page .corp-sparkline-stat.no-trend {
+    background: var(--corp--bg-neutral);
+}
+
 .insanity.projector-page .corp-sparkline-stat.trending-up .corp-trend {
-    color: #4CAF50;
+    color: var(--corp--color-trending-up);
 }
 
 .insanity.projector-page .corp-sparkline-stat.trending-down .corp-trend {
-    color: #F44336;
+    color: var(--corp--color-trending-down);
 }
 
 .insanity.projector-page .corp-sparkline-stat.no-trend .corp-trend {
-    color: #FFFFFF99;
+    color: var(--corp--color-neutral);
 }
 
 .insanity.projector-page .corp-sparkline-stat.trending-up .corp-sparkline-svg polyline {
-    stroke: #4CAF50;
+    stroke: var(--corp--sparkline-color-up);
 }
 
 .insanity.projector-page .corp-sparkline-stat.trending-down .corp-sparkline-svg polyline {
-    stroke: #F44336;
+    stroke: var(--corp--sparkline-color-down);
 }
 
 .insanity.projector-page .corp-sparkline-stat.no-trend .corp-sparkline-svg polyline {
-    stroke: #FFFFFF99;
+    stroke: var(--corp--sparkline-color-neutral);
 }

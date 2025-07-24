@@ -469,20 +469,18 @@ function CorpSparkline({ csv }: { csv: string }) {
   const max = Math.max(...nums);
   const range = max - min || 1;
   const points = nums.map((n, i) => [
-    (i / (nums.length - 1)) * 60, // width 60px
-    18 - ((n - min) / range) * 16, // height 18px, invert y
+    (i / (nums.length - 1)) * 180, // width 180px in viewBox (3x original)
+    18 - ((n - min) / range) * 16, // height 18px in viewBox, invert y
   ]);
   
   return (
     <svg
-      width={64}
-      height={20}
-      viewBox="0 0 64 20"
+      viewBox="0 0 192 20"
       className="corp-sparkline-svg"
+      preserveAspectRatio="xMidYMid meet"
     >
       <polyline
         fill="none"
-        stroke="#1976d2"
         strokeWidth={2}
         points={points.map((p) => p.join(",")).join(" ")}
       />
