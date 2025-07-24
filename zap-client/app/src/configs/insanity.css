@@ -41,6 +41,9 @@
     --insanity--font-weight-bold: bold;
     --insanity--letter-spacing: -0.02em;
 
+    /* Border radius master variable */
+    --insanity--border-radius: 0.5vmin;
+
     /* Main grid layout variables */
     --insanity--horiz-gap: 10vmin;
     --insanity--vert-gap: 5vmin;
@@ -208,8 +211,8 @@
 }
 
 .insanity.projector-page .defcon.statView {
-    border: solid 0.3vmin black;
-    border-radius: 0.2vmin;
+    border-radius: var(--insanity--defcon-border-radius);
+    overflow: hidden;
 }
 
 .insanity.projector-page .defcon-block .statLabel {
@@ -507,7 +510,7 @@
     
     /* Corp card dimensions */
     --corp-card-height: 5vmin;
-    --corp-card-border-radius: 0.5vmin;
+    --corp-card-border-radius: var(--insanity--border-radius);
     
     /* Corp layout variables - inherit from parent grid */
     --corp-container-padding: 0;
@@ -536,6 +539,9 @@
     --corp-bg-default: #99999933;
     --corp-bg-trending-up: #00FF3333;
     --corp-bg-trending-down: #cc000033;
+
+    /* DEFCON specific variables */
+    --insanity--defcon-border-radius: var(--insanity--border-radius);
 
     /* Corp backgrounds - subtle diagonal gradients */
     /* --corp-bg-default: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
