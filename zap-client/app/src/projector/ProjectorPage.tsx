@@ -407,11 +407,61 @@ function CorpBlock() {
 
   if (!visibleCorpStats.length) return null;
 
+  // Ensure we have at least 8 corp stats for the flip animation
+  // If we have fewer, we'll cycle through them
+  const ensureMinimumStats = (stats: typeof visibleCorpStats) => {
+    while (stats.length < 8) {
+      stats = [...stats, ...stats.slice(0, Math.min(8 - stats.length, stats.length))];
+    }
+    return stats.slice(0, 8);
+  };
+
+  const paddedStats = ensureMinimumStats(visibleCorpStats);
+
   return (
-    <div className={"corp-block"}>
-      {visibleCorpStats.map(({ def, index }) => (
-        <CorpSparklineView key={`corp${index}`} index={index} def={def} />
+    <div className={"corp-block corp-flip-container"}>
+      {/* 4 flip cards, each showing 2 corp stats (front/back faces) */}
+      {[0, 1, 2, 3].map(boxIndex => (
+        <CorpFlipCard
+          key={`flip-card-${boxIndex}`}
+          boxIndex={boxIndex}
+          frontCorpStat={paddedStats[boxIndex]} // Corps 1-4
+          backCorpStat={paddedStats[boxIndex + 4]} // Corps 5-8
+        />
       ))}
+    </div>
+  );
+}
+
+function CorpFlipCard({ 
+  boxIndex, 
+  frontCorpStat, 
+  backCorpStat 
+}: { 
+  boxIndex: number; 
+  frontCorpStat: { def: T_StatDef; index: number }; 
+  backCorpStat: { def: T_StatDef; index: number }; 
+}) {
+  // Pure CSS animation - no JavaScript state or timing needed!
+  return (
+    <div className={`corp-flip-card corp-flip-card-${boxIndex}`}>
+      <div className="corp-flip-inner">
+        {/* Front face (Corps 1-4) */}
+        <div className="corp-flip-face corp-flip-front">
+          <CorpSparklineView 
+            index={frontCorpStat.index} 
+            def={frontCorpStat.def} 
+          />
+        </div>
+        
+        {/* Back face (Corps 5-8) */}
+        <div className="corp-flip-face corp-flip-back">
+          <CorpSparklineView 
+            index={backCorpStat.index} 
+            def={backCorpStat.def} 
+          />
+        </div>
+      </div>
     </div>
   );
 }

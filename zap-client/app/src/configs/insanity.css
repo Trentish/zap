@@ -59,7 +59,7 @@
         "articles articles allStats"
         "corps corps corps";
     grid-template-columns: 1fr 1fr auto;
-    grid-template-rows: minmax(8vmin, auto) auto auto;	
+    grid-template-rows: minmax(8vmin, auto) auto min-content;	
     align-items: stretch;
     position: relative;
     background: none;
@@ -406,6 +406,106 @@
 }
 
 /* ===============================
+   CORP FLIP ANIMATION (CARDS)
+   =============================== */
+
+.insanity.projector-page .corp-flip-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    gap: var(--corp--gap-between-blocks);
+    padding: var(--corp--container-padding);
+    width: 100%;
+    perspective: 1000px; /* Enable 3D perspective for child elements */
+    min-height: 5vmin; /* Ensure consistent minimum height */
+    /* Ensure no extra space at bottom */
+    align-items: stretch;
+    align-self: start; /* Prevent grid area from expanding unnecessarily */
+}
+
+.insanity.projector-page .corp-flip-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* Ensure all cards have the same height */
+    min-height: 5vmin;
+    max-height: 5vmin;
+}
+
+.insanity.projector-page .corp-flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    /* Pure CSS animation - continuous flip every 5 seconds */
+    animation: flip-cycle 20s infinite linear;
+}
+
+/* Cascade delays for each card */
+.insanity.projector-page .corp-flip-card-0 .corp-flip-inner {
+    animation-delay: 0ms;
+}
+
+.insanity.projector-page .corp-flip-card-1 .corp-flip-inner {
+    animation-delay: 125ms;
+}
+
+.insanity.projector-page .corp-flip-card-2 .corp-flip-inner {
+    animation-delay: 250ms;
+}
+
+.insanity.projector-page .corp-flip-card-3 .corp-flip-inner {
+    animation-delay: 375ms;
+}
+
+/* CSS Animation keyframes for continuous flipping */
+@keyframes flip-cycle {
+    0% {
+        transform: rotateX(0deg);
+    }
+    48% {
+        transform: rotateX(0deg);
+    }
+    50% {
+        transform: rotateX(-180deg);
+    }
+    98% {
+        transform: rotateX(-180deg);
+    }
+    100% {
+        transform: rotateX(-360deg); /* Full rotation back to start */
+    }
+}
+
+.insanity.projector-page .corp-flip-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 0.5vmin;
+    /* Ensure content fits within card */
+    overflow: hidden;
+}
+
+.insanity.projector-page .corp-flip-front {
+    /* Front face - default position */
+    z-index: 2;
+}
+
+.insanity.projector-page .corp-flip-back {
+    /* Back face - rotated 180 degrees */
+    transform: rotateX(180deg);
+}
+
+/* Ensure sparkline content fits properly in cards */
+.insanity.projector-page .corp-flip-face .corp-sparkline-stat {
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+
+/* ===============================
    CORP SPARKLINES
    =============================== */
 
@@ -442,15 +542,6 @@
     --corp--bg-trending-up: #00FF3333;
     --corp--bg-trending-down: #cc000033;
     --corp--bg-neutral: var(--corp--bg-default);
-}
-
-.insanity.projector-page .corp-block {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: var(--corp--gap-between-blocks);
-    padding: var(--corp--container-padding);
-    width: 100%;
 }
 
 .insanity.projector-page .corp-sparkline-stat {
@@ -491,7 +582,7 @@
     flex: 1;
     height: 2.5vmin;
     min-width: 0;
-    
+
     /*
         Calculate available space for sparkline by subtracting fixed element widths and gaps
         We have 4 elements (symbol, price, trend, sparkline) with 3 gaps between them

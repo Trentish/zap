@@ -26,7 +26,7 @@ class InsanityConfig extends BaseGameConfig {
   orgs: T_Org[] = [GNN];
 
   timerEndSound = `${J_AUDIO}PMY_PMY_0041_01401.ogg`;
-  timerEndSoundStartMs = 28 * 1000; // 28 seconds
+  timerEndSoundStartMs = 27 * 1000; // 27 seconds
   timerEndSoundVolume = 1;
   timerDefs: T_TimerDef[] = [
     {
