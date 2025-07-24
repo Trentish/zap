@@ -34,6 +34,7 @@
     --insanity--vertical-edge-distance: 5vmin;
     --insanity--font-main: "Helvetica Neue", "Helvetica", sans-serif;
     --insanity--font-secondary: "Helvetica", sans-serif;
+    --insanity--font-arrows: Monaco, "Courier New", monospace; /* Monospace font for consistent arrow sizing */
     --insanity--font-size-label: 3vmin;
     --insanity--font-size-timer: 8.5vmin;
     --insanity--font-size-articles: 5vh;
@@ -299,6 +300,11 @@
   font-size: 3vmin; /* adjust as needed */
   position: absolute;
   color: #00000066;
+  font-feature-settings: "kern" 0; /* Disable kerning */
+  line-height: 1;
+  width: 3vmin;
+  font-variant-numeric: normal;
+  font-family: var(--insanity--font-arrows);
 }
 
 .insanity.projector-page .defcon-block .stat-group::before {
@@ -573,6 +579,11 @@
     width: var(--corp-trend-width);
     text-align: center;
     flex-shrink: 0;
+    font-size: 1em;
+    line-height: 1;
+    font-feature-settings: "kern" 0; /* Disable kerning */
+    font-variant-numeric: normal;
+    font-family: var(--insanity--font-arrows);
 }
 
 .insanity.projector-page .corp-sparkline-svg {
