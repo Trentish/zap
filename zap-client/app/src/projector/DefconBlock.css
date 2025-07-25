@@ -1,0 +1,265 @@
+/* ===============================
+   DEFAULT CSS CUSTOM PROPERTIES
+   =============================== */
+:root {
+    /* DEFCON block layout */
+    --defcon-block-gap: 2vmin;
+    --defcon-border-width: 0.3vmin;
+    --defcon-border-radius: 0.5rem;
+    --defcon-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --defcon-font-weight: bold;
+    --defcon-letter-spacing: -0.02em;
+    
+    /* DEFCON label styling */
+    --defcon-label-font-size: 3vmin;
+    --defcon-label-color: #000000;
+    
+    /* DEFCON colors - DEFCON 1 (Highest Alert) */
+    --defcon-1-border-color: #CC0000;        /* Dark red */
+    --defcon-1-text-color: #CC0000;          /* Dark red */
+    --defcon-1-bg-color: #CC0000;            /* Dark red */
+    --defcon-1-group-bg-color: #CC000066;    /* Dark red with transparency */
+    
+    /* DEFCON colors - DEFCON 2 */
+    --defcon-2-border-color: #FF6600;        /* Orange */
+    --defcon-2-text-color: #FF6600;          /* Orange */
+    --defcon-2-bg-color: #FF6600;            /* Orange */
+    --defcon-2-group-bg-color: #FF660066;    /* Orange with transparency */
+    
+    /* DEFCON colors - DEFCON 3 */
+    --defcon-3-border-color: #FFCC00;        /* Yellow */
+    --defcon-3-text-color: #FFCC00;          /* Yellow */
+    --defcon-3-bg-color: #FFCC00;            /* Yellow */
+    --defcon-3-group-bg-color: #FFCC0066;    /* Yellow with transparency */
+    
+    /* Flag and content sizing */
+    --defcon-flag-height: 6vmin;
+    --defcon-content-font-size: 6vmin;
+    --defcon-content-line-height: 1em;
+    
+    /* Stat group styling */
+    --defcon-stat-gap: 1vmin;
+    --defcon-stat-padding: 1vmin;
+    --defcon-group-gap: 0.3vmin;
+    --defcon-arrow-padding: 3vmin;
+    --defcon-arrow-size: 3vmin;
+    --defcon-arrow-opacity: #00000066;       /* Black with transparency */
+    --defcon-arrow-font-family: Monaco, "Courier New", monospace;
+    
+    /* Individual stat block */
+    --defcon-individual-gap: 0.5vmin;
+    --defcon-arrow-small-size: 0.5em;
+}
+
+/* ===============================
+   DEFCON BLOCK BASE STYLES
+   =============================== */
+
+.defcon-block {
+    /* This can be overridden by specific game configs for grid placement */
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    gap: var(--defcon-block-gap);
+    font-weight: var(--defcon-font-weight);
+    letter-spacing: var(--defcon-letter-spacing);
+    font-family: var(--defcon-font-family);
+}
+
+/* ===============================
+   DEFCON STAT VIEW COMPONENTS
+   =============================== */
+
+.defcon.statView {
+    border: solid var(--defcon-border-width) black;
+    border-radius: var(--defcon-border-radius);
+}
+
+.defcon-block .statLabel {
+    color: var(--defcon-label-color);
+    font-size: var(--defcon-label-font-size);
+    font-family: var(--defcon-font-family);
+}
+
+/* ===============================
+   DEFCON LEVEL STYLING
+   =============================== */
+
+/* DEFCON 1 - Highest Alert */
+.defcon.defcon-1 {
+    border-color: var(--defcon-1-border-color);
+    color: var(--defcon-1-text-color);
+}
+
+.defcon-1 .statLabel {
+    background: var(--defcon-1-bg-color);
+}
+
+.defcon-1 .stat-group {
+    background: var(--defcon-1-group-bg-color);
+}
+
+/* DEFCON 2 */
+.defcon.defcon-2 {
+    border-color: var(--defcon-2-border-color);
+    color: var(--defcon-2-text-color);
+}
+
+.defcon-2 .statLabel {
+    background: var(--defcon-2-bg-color);
+}
+
+.defcon-2 .stat-group {
+    background: var(--defcon-2-group-bg-color);
+}
+
+/* DEFCON 3 */
+.defcon.defcon-3 {
+    border-color: var(--defcon-3-border-color);
+    color: var(--defcon-3-text-color);
+}
+
+.defcon-3 .statLabel {
+    background: var(--defcon-3-bg-color);
+}
+
+.defcon-3 .stat-group {
+    background: var(--defcon-3-group-bg-color);
+}
+
+/* ===============================
+   DEFCON CONTENT LAYOUT
+   =============================== */
+
+.defcon-block .flag-img {
+    height: var(--defcon-flag-height);
+}
+
+.defcon-block .statValue {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: var(--defcon-group-gap);
+    font-size: var(--defcon-content-font-size);
+    line-height: var(--defcon-content-line-height);
+    align-items: center;
+    justify-content: center;
+}
+
+.defcon-block .stat-group {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--defcon-stat-gap);
+    padding: var(--defcon-stat-padding);
+    width: 100%;
+    position: relative;
+}
+
+.defcon-block .trending-up-group,
+.defcon-block .trending-down-group {
+    padding-left: var(--defcon-arrow-padding);
+    padding-right: var(--defcon-arrow-padding);
+}
+
+/* ===============================
+   DEFCON TREND ARROWS
+   =============================== */
+
+.defcon-block .stat-group::before,
+.defcon-block .stat-group::after {
+    display: block;
+    text-align: center;
+    font-size: var(--defcon-arrow-size);
+    position: absolute;
+    color: var(--defcon-arrow-opacity);
+    font-feature-settings: "kern" 0;
+    line-height: 1;
+    width: var(--defcon-arrow-size);
+    font-variant-numeric: normal;
+    font-family: var(--defcon-arrow-font-family);
+}
+
+.defcon-block .stat-group::before {
+    left: 0.9vmin;
+}
+
+.defcon-block .stat-group::after {
+    right: 0.9vmin;
+}
+
+.defcon-block .stat-group.trending-up-group::before,
+.defcon-block .stat-group.trending-up-group::after {
+    content: "▲";  
+}
+
+.defcon-block .stat-group.trending-down-group::before, 
+.defcon-block .stat-group.trending-down-group::after {
+    content: "▼";
+}
+
+/* ===============================
+   DEFCON INDIVIDUAL STAT BLOCKS
+   =============================== */
+
+.defcon-block .individual-stat-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--defcon-individual-gap);
+}
+
+.defcon-block .arrow {
+    font-size: var(--defcon-arrow-small-size);
+}
+
+/* ===============================
+   DEFCON ARROW ANIMATIONS
+   =============================== */
+
+.defcon-block .trending-down-group::before,
+.defcon-block .trending-down-group::after {
+    animation: down-arrow-pulse 2s cubic-bezier(0.4,0,0.2,1) infinite;
+    transform: translateY(-1vmin);
+}
+
+@keyframes down-arrow-pulse {
+    0% {
+        opacity: 0;
+        transform: translateY(-1vmin);
+    }
+    90% {
+        opacity: 1;
+        transform: translateY(1vmin);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(1vmin);
+    }
+}
+
+.defcon-block .trending-up-group::before,
+.defcon-block .trending-up-group::after {
+    animation: up-arrow-pulse 2s cubic-bezier(0.4,0,0.2,1) infinite;
+    transform: translateY(1vmin);
+}
+
+@keyframes up-arrow-pulse {
+    0% {
+        opacity: 0;
+        transform: translateY(1vmin);
+    }
+    90% {
+        opacity: 1;
+        transform: translateY(-1vmin);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-1vmin);
+    }
+}

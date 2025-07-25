@@ -2,10 +2,8 @@ import { ArticleDat } from "../../zap-shared/_Dats.ts";
 import { Timer } from "../displays/Timer.tsx";
 import { atom, useAtom } from "jotai";
 import "./ProjectorPage.css";
-import { DEFCON_NATIONS } from "../../zap-shared/DEFCON_NATIONS";
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import {
-  $allStats,
   $config,
   $situation,
   $splitArticles,
@@ -25,11 +23,11 @@ import {
   OUTRO_MID_DEFAULT,
   T_Org,
   T_SpotlightRefs,
-  T_StatDef,
 } from "../configs/BaseGameConfig.ts";
 import { Audio } from "../components/AudioComponents.tsx";
 import { TopStories } from "./TopStories.tsx";
 import { CorpBlock } from "./CorpBlock.tsx";
+import { DefconBlock } from "./DefconBlock.tsx";
 
 const SHOW_LAST_COUNT = 7;
 const LOG = true;
@@ -351,140 +349,7 @@ function InitialClickMe() {
   );
 }
 
-function DefconBlock() {
-  const [config] = useAtom($config);
-  const [allStats] = useAtom($allStats);
 
-  // Get defcon stats
-  const defconStats: { def: T_StatDef; index: number }[] = [];
-  config.statDefs.forEach((def, index) => {
-    if (def.className && def.className.includes("defcon")) {
-      defconStats.push({ def, index });
-    }
-  });
-
-  // Only show defcon stats with non-empty values
-  const visibleDefconStats = defconStats.filter(({ index }) => {
-    const value = allStats.values[index];
-    return value !== undefined && value !== null && value !== "";
-  });
-
-  if (!visibleDefconStats.length) return null;
-
-  return (
-    <div className={"defcon-block"}>
-      {visibleDefconStats.map(({ def, index }) => (
-        <StatView key={`stat${index}`} index={index} def={def} />
-      ))}
-    </div>
-  );
-}
-
-
-
-function StatView({ index, def }: { index: number; def: T_StatDef }) {
-  const [allStats] = useAtom($allStats);
-  const [config] = useAtom($config);
-
-  const value = allStats.values[index];
-
-  // Group stat elements by trending up, neutral, and trending down
-  const trendingUp: JSX.Element[] = [];
-  const neutral: JSX.Element[] = [];
-  const trendingDown: JSX.Element[] = [];
-
-  if (value !== undefined && value !== null && value !== "") {
-    const values = typeof value === "string" ? value.split(",") : [value];
-    values.forEach((v, i) => {
-      let str = String(v).trim();
-      let className = "individual-stat-block";
-      let codeClass = "";
-      //   let arrow = "";
-      let trendType: "up" | "down" | "neutral" = "neutral";
-
-      if (str.includes("▼")) {
-        str = str.replace("▼", "").trim();
-        // arrow = "▼";
-        className += " trending-down";
-        trendType = "down";
-      } else if (str.includes("▲")) {
-        str = str.replace("▲", "").trim();
-        // arrow = "▲";
-        className += " trending-up";
-        trendType = "up";
-      }
-
-      // Check for country code (3 uppercase letters)
-      const codeMatch = str.match(/^[A-Z]{3}$/i);
-      if (codeMatch) {
-        const code = str.toUpperCase();
-        const nation = DEFCON_NATIONS.find((n) => n.code === code);
-        if (nation) {
-          codeClass = ` country-code-${code.toLowerCase()}`;
-          // Instead of emoji, show flag image
-          const flagImgSrc = `${config.gameImagePath}flags/${code.toLowerCase()}.svg`;
-          const el = (
-            <span key={i} className={className + codeClass}>
-              <img
-                src={flagImgSrc}
-                alt={code}
-                className="flag-img"
-              />
-            </span>
-          );
-          if (trendType === "up") {
-            trendingUp.push(el);
-          } else if (trendType === "down") {
-            trendingDown.push(el);
-          } else {
-            neutral.push(el);
-          }
-          return; // skip emoji rendering
-        }
-      }
-      // Default rendering (no flag image)
-      const el = (
-        <span key={i} className={className + codeClass}>
-          {str}
-          {/* {arrow && <span className={`arrow`}>{arrow}</span>} */}
-        </span>
-      );
-      if (trendType === "up") {
-        trendingUp.push(el);
-      } else if (trendType === "down") {
-        trendingDown.push(el);
-      } else {
-        neutral.push(el);
-      }
-    });
-  }
-
-  // Helper to get odd/even and count classes
-  function getGroupClass(base: string, arr: JSX.Element[]) {
-    const count = arr.length;
-    const oddEven = count % 2 === 0 ? "contains-even" : "contains-odd";
-    const countClass = `contains-${count}`;
-    return `${base} ${oddEven} ${countClass}`;
-  }
-
-  return (
-    <div className={`statView ${def.className}`}>
-      {def.icon && <img className={"statIcon"} src={def.icon} />}
-      {def.label && <div className={"statLabel"}>{def.label}</div>}
-      <div className={"statValue"}>
-        {trendingUp.length > 0 && (
-          <div className={getGroupClass("stat-group trending-up-group", trendingUp)}>{trendingUp}</div>
-        )}
-        {neutral.length > 0 && (
-          <div className={getGroupClass("stat-group neutral-group", neutral)}>{neutral}</div>
-        )}
-        {trendingDown.length > 0 && (
-          <div className={getGroupClass("stat-group trending-down-group", trendingDown)}>{trendingDown}</div>
-        )}
-      </div>
-    </div>
-  );
-}
 
 function BgOverlay() {
   return <div id={"bgOverlay"}></div>;
