@@ -5,7 +5,7 @@ import {clsx} from 'clsx';
 
 export type T_Button = {
 	id?: string,
-	label: string,
+	label: string | React.ReactNode,
 	onClick: React.MouseEventHandler<HTMLButtonElement>,
 	
 	className?: string,

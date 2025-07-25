@@ -211,8 +211,9 @@
 }
 
 .insanity.projector-page .defcon.statView {
+    border: solid 0.3vmin black;
     border-radius: var(--insanity--defcon-border-radius);
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .insanity.projector-page .defcon-block .statLabel {
