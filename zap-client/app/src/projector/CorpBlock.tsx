@@ -2,6 +2,7 @@ import React from "react";
 import { useAtom } from "jotai";
 import { $allStats, $config } from "../ClientState.ts";
 import { T_StatDef } from "../configs/BaseGameConfig.ts";
+import "./CorpBlock.css";
 
 // Add realistic random cents to a price for display
 function addRandomCents(price: number): string {
