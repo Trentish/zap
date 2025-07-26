@@ -97,6 +97,9 @@ function StatView({ index, def }: { index: number; def: T_StatDef }) {
   const hasUpFlags = Array.from(activeFlags.values()).some(f => f.trend === "up");
   const hasNeutralFlags = Array.from(activeFlags.values()).some(f => f.trend === "neutral");
   const hasDownFlags = Array.from(activeFlags.values()).some(f => f.trend === "down");
+  
+  // Check if this DEFCON block has any visible flags at all
+  const hasAnyFlags = hasUpFlags || hasNeutralFlags || hasDownFlags;
 
   // Helper to get group classes including visibility state
   function getGroupClass(base: string, groupType: "up" | "down" | "neutral", hasFlags: boolean) {
@@ -108,7 +111,7 @@ function StatView({ index, def }: { index: number; def: T_StatDef }) {
   }
 
   return (
-    <div className={`statView ${def.className}`}>
+    <div className={`statView ${def.className} ${!hasAnyFlags ? 'defcon-empty' : ''}`}>
       {def.icon && <img className={"statIcon"} src={def.icon} />}
       {def.label && <div className={"statLabel"}>{def.label}</div>}
       <div className={"statValue"}>

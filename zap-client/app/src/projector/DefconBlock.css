@@ -80,6 +80,12 @@
 .defcon.statView {
     border: solid var(--defcon-border-width) black;
     border-radius: var(--defcon-border-radius);
+    opacity: 1;
+    transition: opacity var(--defcon-flag-transition-duration) cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.defcon.statView.defcon-empty {
+    opacity: 0.2; /* 33/255 ≈ 0.2 */
 }
 
 .defcon-block .statLabel {
@@ -172,8 +178,8 @@
 
 /* Visible flags - expand to natural size */
 .defcon-block .flag-visible {
-    width: 6vmin;
-    height: 6vmin; 
+    width: var(--defcon-flag-height);
+    height: var(--defcon-flag-height);
     opacity: 1;
     margin: 0 var(--defcon-individual-gap);
 }
