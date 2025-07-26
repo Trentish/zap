@@ -4,7 +4,7 @@
 :root {
     /* DEFCON block layout */
     --defcon-block-gap: 1vmin;
-    --defcon-border-width: 0.3vmin;
+    --defcon-border-width: 0.5vmin;
     --defcon-border-radius: 0.5rem;
     --defcon-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     --defcon-font-weight: bold;
@@ -42,9 +42,7 @@
     --defcon-flag-transition-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
     
     /* Stat group styling */
-    --defcon-stat-gap: 1vmin;
     --defcon-stat-padding: 1vmin;
-    --defcon-group-gap: 0.3vmin;
     --defcon-arrow-padding: 3vmin;
     --defcon-arrow-size: 3vmin;
     --defcon-arrow-opacity: #00000066;       /* Black with transparency */
