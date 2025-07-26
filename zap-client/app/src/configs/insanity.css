@@ -198,7 +198,7 @@
     padding-left: 2vmin;
     margin-left: -2vmin;
     opacity: 1;
-    font-size: 1.5em;
+    font-size: 2em;
 }
 
 .insanity.projector-page .articles div.article:nth-of-type(1n+4) {
@@ -231,12 +231,37 @@
     display: none;
 }
 
-.insanity.projector-page .spotlight-carrier-headline {
-    font-family: "Helvetica Neue", "Helvetica", sans-serif;
-    font-weight: bold;
-    font-stretch: condensed;
-    letter-spacing: -0.02em;
-    text-transform: capitalize;
+/* Chyron styles - exact copy from test.html */
+.insanity.projector-page .chyron-outer {
+    width: 100%;
+    background: linear-gradient(165deg, rgba(255, 255, 255, 1) 25%, rgba(200, 200, 200, 1) 100%);
+    padding: 1vw;
+    overflow: hidden; /* Important for chyrons */
+}
+
+.insanity.projector-page .chyron-container {
+    width: 100%;
+    height: 10vh;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font-size: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.insanity.projector-page .chyron-text {
+    color: black;
+    font-family: 'Helvetica Now Variable', 'Courier New', Courier, monospace;
+    font-weight: 700;
+    display: block;
+    white-space: nowrap;
+    width: 100%; /* Fill the container exactly */
+    text-transform: uppercase;
+    font-variation-settings: 'wdth' 100; /* Start at normal width */
+    line-height: 0.9; /* Tighter line spacing for two-line layout */
 }
 
 .insanity.projector-page .spotlight-container .spotlight-background {

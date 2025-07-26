@@ -217,16 +217,23 @@ function Spotlight() {
         // Apply text fitting AFTER carrier is shown and has dimensions
         console.log('🔦 Spotlight headline debug (after carrier shown):', { headline, headlineExists: !!headline });
         if (headline) {
-          const headlineTextElement = headline.querySelector('.spotlight-carrier-headline-text') as HTMLElement;
-          console.log('🔦 Headline text element debug (after carrier shown):', { headlineTextElement, textElementExists: !!headlineTextElement });
-          if (headlineTextElement) {
+          const headlineTextElement = headline.querySelector('.chyron-text') as HTMLElement;
+          const headlineContainerElement = headline.querySelector('.chyron-container') as HTMLElement;
+          console.log('🔦 Headline elements debug:', { 
+            headlineTextElement, 
+            textElementExists: !!headlineTextElement,
+            headlineContainerElement,
+            containerElementExists: !!headlineContainerElement
+          });
+          if (headlineTextElement && headlineContainerElement) {
             console.log('🔦 About to call updateArticleText with:', article.headline);
+            console.log('🔦 Using container dimensions:', headlineContainerElement.offsetWidth, 'x', headlineContainerElement.offsetHeight);
             // Small delay to ensure carrier is fully visible and sized
             setTimeout(() => {
-              updateArticleText(headlineTextElement, headline, article.headline);
+              updateArticleText(headlineTextElement, headlineContainerElement, article.headline);
             }, 50);
           } else {
-            console.error('🔦 ERROR: .spotlight-carrier-headline-text not found in headline element');
+            console.error('🔦 ERROR: .chyron-text or .chyron-container not found in headline element');
           }
         } else {
           console.error('🔦 ERROR: headline ref is null');
@@ -318,9 +325,9 @@ function Spotlight() {
         <div className={"spotlight-carrier-location"} ref={locationRef}>
           {""}
         </div>
-        <div className={"spotlight-carrier-headline"} ref={headlineRef}>
-          <div className={"spotlight-carrier-headline-text"}>
-            {""}
+        <div className="chyron-outer" ref={headlineRef}>
+          <div className="chyron-container">
+            <div className="chyron-text">xxx</div>
           </div>
         </div>
       </div>
