@@ -261,6 +261,7 @@
     width: 100%;
     position: relative;
 	border-top-style: solid;
+	row-gap: var(--defcon-stat-padding);
     
     /* Group height animations */
     overflow: hidden;
