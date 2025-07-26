@@ -19,6 +19,9 @@ import { updateArticleText } from "../lib/textFitting.ts";
 
 const LOG = true;
 
+// TEMPORARY DEBUG FLAG - SET TO TRUE TO KEEP SPOTLIGHT VISIBLE - REMOVE LATER
+const DEBUG_KEEP_VISIBLE = true;
+
 const $spotlightOrg = atom<T_Org | null>(null);
 
 const SHOW = (element: HTMLElement | null) => element?.classList.add("show");
@@ -50,6 +53,28 @@ const SET_TEXT = (element: HTMLDivElement | null, text: string) => {
 export function Spotlight() {
   const [article] = useAtom($spotlightArticle);
   const [config] = useAtom($config);
+
+  // TEMPORARY DEBUG FUNCTION - REMOVE LATER
+  const handleChyronRecalc = () => {
+    const headline = headlineRef.current;
+    if (headline) {
+      const headlineTextElement = headline.querySelector('.chyron-text') as HTMLElement;
+      const headlineContainerElement = headline.querySelector('.chyron-container') as HTMLElement;
+      
+      if (headlineTextElement && headlineContainerElement) {
+        // Use current article headline or fallback text
+        const testText = article?.headline || "BREAKING NEWS: Recalculating text fitting for CSS debugging";
+        console.log('🔦 DEBUG: Force recalculating chyron text fitting with:', testText);
+        
+        // Trigger the text fitting algorithm
+        updateArticleText(headlineTextElement, headlineContainerElement, testText);
+      } else {
+        console.error('🔦 DEBUG ERROR: .chyron-text or .chyron-container not found');
+      }
+    } else {
+      console.error('🔦 DEBUG ERROR: headline ref is null');
+    }
+  };
 
   const spotlightContainerRef = useRef<HTMLDivElement>(null);
   const spotlightBackgroundRef = useRef<HTMLVideoElement>(null);
@@ -170,6 +195,12 @@ export function Spotlight() {
     //## spotlight EXIT
     if (LOG) console.log(`🔦 useEffect: Spotlight,  spotlight EXIT`);
 
+    // TEMPORARY DEBUG - Skip exit if debug flag is set
+    if (DEBUG_KEEP_VISIBLE) {
+      if (LOG) console.log(`🔦 DEBUG: Keeping spotlight visible, skipping exit`);
+      return; // Skip the entire exit sequence
+    }
+
     SHOW(outroVideo);
     PLAY(outroVideo);
 
@@ -199,11 +230,32 @@ export function Spotlight() {
   }, [article, config, refs]);
 
   return (
-    <div
-      ref={spotlightContainerRef}
-      className={`spotlight-container`}
-      id={"spotlight"}
-    >
+    <>
+      {/* TEMPORARY DEBUG BUTTON - REMOVE LATER */}
+      <button
+        onClick={handleChyronRecalc}
+        style={{
+          position: 'fixed',
+          top: 0,
+          right: 0,
+          zIndex: 9999,
+          backgroundColor: '#FFCC00',
+          border: 'none',
+          padding: '10px',
+          fontSize: '5vmin',
+          fontWeight: 'bold',
+          cursor: 'pointer',
+          color: 'black'
+        }}
+      >
+        RECALC
+      </button>
+      
+      <div
+        ref={spotlightContainerRef}
+        className={`spotlight-container`}
+        id={"spotlight"}
+      >
       <BackgroundVideo
         src={``}
         className={"spotlight-background"}
@@ -238,5 +290,6 @@ export function Spotlight() {
         </div>
       </div>
     </div>
+    </>
   );
 }
