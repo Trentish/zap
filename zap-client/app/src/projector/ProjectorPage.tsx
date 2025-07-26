@@ -202,7 +202,6 @@ function Spotlight() {
       SET_AUD(outroAudio, org.outroAudio, org.outroVolume);
       // SET_VID(overlay, org.overlayVideo);
       SET_TEXT(theme, org.label);
-      SET_TEXT(headline, article.headline);
       SET_TEXT(location, article.location || "");
 
       SHOW(introVideo);
@@ -214,6 +213,24 @@ function Spotlight() {
         SHOW(background);
         // SHOW(overlay);
         SHOW(carrier);
+
+        // Apply text fitting AFTER carrier is shown and has dimensions
+        console.log('🔦 Spotlight headline debug (after carrier shown):', { headline, headlineExists: !!headline });
+        if (headline) {
+          const headlineTextElement = headline.querySelector('.spotlight-carrier-headline-text') as HTMLElement;
+          console.log('🔦 Headline text element debug (after carrier shown):', { headlineTextElement, textElementExists: !!headlineTextElement });
+          if (headlineTextElement) {
+            console.log('🔦 About to call updateArticleText with:', article.headline);
+            // Small delay to ensure carrier is fully visible and sized
+            setTimeout(() => {
+              updateArticleText(headlineTextElement, headline, article.headline);
+            }, 50);
+          } else {
+            console.error('🔦 ERROR: .spotlight-carrier-headline-text not found in headline element');
+          }
+        } else {
+          console.error('🔦 ERROR: headline ref is null');
+        }
 
         config.OnStart_Spotlight(article, refs);
       }, org.introMidMs || INTRO_MID_DEFAULT);
@@ -302,7 +319,9 @@ function Spotlight() {
           {""}
         </div>
         <div className={"spotlight-carrier-headline"} ref={headlineRef}>
-          {""}
+          <div className={"spotlight-carrier-headline-text"}>
+            {""}
+          </div>
         </div>
       </div>
     </div>
@@ -312,8 +331,6 @@ function Spotlight() {
 function Headline({ $article }: { $article: Atom<ArticleDat> }) {
   const [article] = useAtom($article);
   const [spotlight] = useAtom($spotlight);
-  const textRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   const className = clsx(
     "article",
@@ -322,34 +339,30 @@ function Headline({ $article }: { $article: Atom<ArticleDat> }) {
     { pending: article.id > spotlight.pendingAboveId }
   );
 
-  // Apply text fitting when headline changes
-  useEffect(() => {
-    const textElement = textRef.current;
-    const containerElement = containerRef.current;
-    
-    if (textElement && containerElement) {
-      // Reset to plain text (removes any html tags)
-      textElement.innerHTML = '';
-      textElement.textContent = article.headline;
-      
-      // Small delay to ensure DOM is updated
-      setTimeout(() => {
-        updateArticleText(textElement, containerElement, article.headline);
-      }, 10);
-    }
-  }, [article.headline]);
+  if (
+    article.id > spotlight.pendingAboveId ||
+    spotlight.spotlightId === article.id
+  ) {
+    return (
+      <span
+        className={className}
+        data-article-id={article.id}
+        data-spotlight-id={spotlight.spotlightId}
+        data-pending-above-id={spotlight.pendingAboveId}
+      >
+        {article.headline}
+      </span>
+    );
+  }
 
   return (
     <div
-      ref={containerRef}
       className={className}
       data-article-id={article.id}
       data-spotlight-id={spotlight.spotlightId}
       data-pending-above-id={spotlight.pendingAboveId}
     >
-      <div ref={textRef}>
-        {article.headline}
-      </div>
+      {article.headline}
     </div>
   );
 }

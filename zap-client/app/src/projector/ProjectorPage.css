@@ -36,20 +36,11 @@
 }
 
 
-/* Article text fitting styles */
+/* Article styles - no text fitting */
 .projector-page .article {
-	font-family: 'Helvetica Now Variable', 'Courier New', Courier, monospace;
-	font-weight: 700;
-	text-transform: uppercase;
-	font-variation-settings: 'wdth' 100; /* Start at normal width */
-	line-height: 0.9; /* Tighter line spacing for two-line layout */
 	color: white;
 	width: 100%;
-}
-
-.projector-page .article > div {
-	white-space: nowrap; /* Default to single-line, will be overridden by fitting logic */
-	width: 100%;
+	text-transform: uppercase;
 }
 
 
@@ -96,6 +87,34 @@
 	top: 0;
 	height: 100vh;
 	width: 100vw;
+}
+
+.spotlight-container .spotlight-carrier-headline {
+	/* White box container similar to test.html chyron-outer */
+	width: 100%;
+	background: linear-gradient(165deg, rgba(255, 255, 255, 1) 25%, rgba(200, 200, 200, 1) 100%);
+	padding: 1vw;
+	overflow: hidden; /* Important for text fitting */
+	
+	/* Inner container for text fitting - similar to chyron-container */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 10vh;
+	font-size: 10vh;
+}
+
+.spotlight-container .spotlight-carrier-headline-text {
+	/* Text element for fitting - similar to chyron-text */
+	color: black;
+	font-family: 'Helvetica Now Variable', 'Courier New', Courier, monospace;
+	font-weight: 700;
+	display: block;
+	white-space: nowrap;
+	width: 100%;
+	text-transform: uppercase;
+	font-variation-settings: 'wdth' 100; /* Start at normal width */
+	line-height: 0.9; /* Tighter line spacing for two-line layout */
 }
 
 .spotlight-container .intro {
