@@ -193,22 +193,17 @@
     gap: 1vmax;
 }
 
-.insanity.projector-page .spotlight-container.headline {
+.insanity.projector-page .spotlight-carrier-theme {
+    font-size: 3vmax;
+    display: none;
+}
+
+.insanity.projector-page .spotlight-carrier-headline {
     font-family: "Helvetica Neue", "Helvetica", sans-serif;
     font-weight: bold;
     font-stretch: condensed;
     letter-spacing: -0.02em;
     text-transform: capitalize;
-    background: white;
-    padding: 1vmin;
-    text-align: left;
-    width: 100vw;
-    color: black;
-}
-
-.insanity.projector-page .theme {
-    font-size: 3vmax;
-    display: none;
 }
 
 .insanity.projector-page .spotlight-container .spotlight-background {

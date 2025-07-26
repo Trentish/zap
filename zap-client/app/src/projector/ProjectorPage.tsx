@@ -70,9 +70,9 @@ export function ProjectorPage() {
 
       <Headlines />
 
-      {config.showCrawler && <Crawler />}
+      {/* {config.showCrawler && <Crawler />}
 
-      {config.showTopStories && <TopStories />}
+      {config.showTopStories && <TopStories />} */}
 
       {/*<CompaniesCrawler/>*/}
 
@@ -288,10 +288,13 @@ function Spotlight() {
       <Audio src={``} ref={outroAudioRef} />
 
       <div className={"spotlight-carrier"} ref={carrierRef}>
-        <div className={"location"} ref={locationRef}>
+        <div className={"spotlight-carrier-theme"} ref={themeRef}>
           {""}
         </div>
-        <div className={"headline"} ref={headlineRef}>
+        <div className={"spotlight-carrier-location"} ref={locationRef}>
+          {""}
+        </div>
+        <div className={"spotlight-carrier-headline"} ref={headlineRef}>
           {""}
         </div>
       </div>
