@@ -92,6 +92,7 @@
 	padding: calc(var(--insanity--spotlight-internal-padding) / 2) var(--insanity--spotlight-internal-padding);
 	line-height: 0;
 	font-family: 'Helvetica Now Variable', 'Courier New', Courier, monospace;
+	/* text-shadow: 0.05em 0.05em 0.2em #00000066; */
 	letter-spacing: 0.05em;
 	font-weight: 400;
 	left: var(--insanity--spotlight-chryon-red-border-width);
@@ -101,12 +102,12 @@
 	z-index: -1;
     background: var(--insanity--gnn-red);
 	content: "";
-	width: calc(100% + var(--insanity--spotlight-chryon-red-border-width));
+	width: calc(100% + var(--insanity--spotlight-chryon-red-border-width) * 2);
 	height: 100%;
 	position: absolute;
 	top: 0;
 	left: calc(-1 * var(--insanity--spotlight-chryon-red-border-width));
-	box-shadow: 0 var(--insanity--spotlight-chryon-red-border-width) black;
+	box-shadow: 0 var(--insanity--spotlight-chryon-red-border-width) var(--insanity--gnn-red);
 	border-top-left-radius: calc(var(--insanity--spotlight-chryon-red-border-width) * 0.9);
 	border-left: solid var(--insanity--spotlight-chryon-red-border-width) var(--insanity--gnn-red);
 }
