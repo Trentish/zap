@@ -142,7 +142,7 @@
 	font-size: 20vmax;
 	display: grid;
 	gap: 0.05em;
-	font-variant-numeric: tabular-nums;
+	font-variant-numeric: tabular-nums !important;
 }
 
 .projector-page .timer .timer-label {

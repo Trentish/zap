@@ -23,6 +23,8 @@ class InsanityConfig extends BaseGameConfig {
   logo = "../assets/images/insanity/logo-gnn.svg";
   crawlerLogo = "";
 
+	showTimerLeadingZero = true;
+
   orgs: T_Org[] = [GNN];
 
   timerEndSound = `${J_AUDIO}PMY_PMY_0041_01401.ogg`;

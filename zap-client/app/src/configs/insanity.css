@@ -60,11 +60,11 @@
 .insanity.projector-page {
     display: grid;
     grid-template-areas:
-        "timeline timeline timeline allStats"
         "articles articles articles allStats"
+        "timeline timeline timeline allStats"
         "corps corps corps corps";
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto 1fr min-content;	
+    grid-template-rows: 1fr auto min-content;	
     align-items: stretch;
     position: relative;
     background: none;
@@ -75,7 +75,7 @@
     box-sizing: border-box;
 }
 
-.insanity * {    
+.insanity.projector-page * {    
     /* Perfect cap height alignment using text-box properties */
     text-box-trim: trim-both !important;
     text-box-edge: cap alphabetic !important;
