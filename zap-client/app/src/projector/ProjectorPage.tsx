@@ -28,6 +28,7 @@ import { Audio } from "../components/AudioComponents.tsx";
 import { TopStories } from "./TopStories.tsx";
 import { CorpBlock } from "./CorpBlock.tsx";
 import { DefconBlock } from "./DefconBlock.tsx";
+import { updateArticleText } from "../lib/textFitting.ts";
 
 const SHOW_LAST_COUNT = 7;
 const LOG = true;
@@ -93,7 +94,6 @@ export function ProjectorPage() {
 
 function Headlines() {
   const [articles] = useAtom($splitArticles);
-  const [config] = useAtom($config);
 
   return (
     <div className={"articles"}>
@@ -312,6 +312,8 @@ function Spotlight() {
 function Headline({ $article }: { $article: Atom<ArticleDat> }) {
   const [article] = useAtom($article);
   const [spotlight] = useAtom($spotlight);
+  const textRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const className = clsx(
     "article",
@@ -320,30 +322,34 @@ function Headline({ $article }: { $article: Atom<ArticleDat> }) {
     { pending: article.id > spotlight.pendingAboveId }
   );
 
-  if (
-    article.id > spotlight.pendingAboveId ||
-    spotlight.spotlightId === article.id
-  ) {
-    return (
-      <span
-        className={className}
-        data-article-id={article.id}
-        data-spotlight-id={spotlight.spotlightId}
-        data-pending-above-id={spotlight.pendingAboveId}
-      >
-        {article.headline}
-      </span>
-    );
-  }
+  // Apply text fitting when headline changes
+  useEffect(() => {
+    const textElement = textRef.current;
+    const containerElement = containerRef.current;
+    
+    if (textElement && containerElement) {
+      // Reset to plain text (removes any html tags)
+      textElement.innerHTML = '';
+      textElement.textContent = article.headline;
+      
+      // Small delay to ensure DOM is updated
+      setTimeout(() => {
+        updateArticleText(textElement, containerElement, article.headline);
+      }, 10);
+    }
+  }, [article.headline]);
 
   return (
     <div
+      ref={containerRef}
       className={className}
       data-article-id={article.id}
       data-spotlight-id={spotlight.spotlightId}
       data-pending-above-id={spotlight.pendingAboveId}
     >
-      {article.headline}
+      <div ref={textRef}>
+        {article.headline}
+      </div>
     </div>
   );
 }

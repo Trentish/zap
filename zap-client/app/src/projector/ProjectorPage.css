@@ -36,13 +36,20 @@
 }
 
 
-/* TODO: TMP */
-.projector-page .articles {
-	display: none;
-	background: red;
-	/*display: flex;*/
-	flex-direction: column;
-	gap: 1em;
+/* Article text fitting styles */
+.projector-page .article {
+	font-family: 'Helvetica Now Variable', 'Courier New', Courier, monospace;
+	font-weight: 700;
+	text-transform: uppercase;
+	font-variation-settings: 'wdth' 100; /* Start at normal width */
+	line-height: 0.9; /* Tighter line spacing for two-line layout */
+	color: white;
+	width: 100%;
+}
+
+.projector-page .article > div {
+	white-space: nowrap; /* Default to single-line, will be overridden by fitting logic */
+	width: 100%;
 }
 
 
