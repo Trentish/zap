@@ -161,6 +161,7 @@ const GNN: T_Org = {
   outroAudio: `${J_AUDIO}news_outro_1.mp3`, // TODO
   showAsRadio: true,
   introMidMs: 1400,
+  outroMidMs: 1400,
 };
 
 export default new InsanityConfig();
