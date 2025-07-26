@@ -40,7 +40,7 @@
     gap: 0;
     grid-template-areas:
         "video-left video-right video-right"
-        "chyron chyron logo";
+        "chyron chyron chyron";
     grid-template-columns: 30vw 1fr 10vw;
     grid-template-rows: 1fr auto;	
     align-items: stretch;
@@ -133,8 +133,19 @@
 /* Chyron styles - exact copy from test.html - includes meticulous auto-measure text fitting */
 .insanity.projector-page .spotlight-carrier .chyron-outer {
     width: 100%;
-    background: linear-gradient(165deg, rgba(255, 255, 255, 1) 25%, rgba(200, 200, 200, 1) 100%);
+    background:
+		url('/assets/images/insanity/logo-gnn-red.svg'),
+		linear-gradient(165deg, rgba(255, 255, 255, 1) 25%, rgba(200, 200, 200, 1) 100%);
+	background-repeat:
+		no-repeat;
+	background-position:
+		center right var(--insanity--spotlight-internal-padding),
+		center;
+	background-size:
+		auto calc(15vmin - var(--insanity--spotlight-internal-padding) * 2),
+		cover;
     padding: var(--insanity--spotlight-internal-padding);
+	padding-right: calc(19vmin + var(--insanity--spotlight-internal-padding) * 2); 
     overflow: hidden; /* Important for chyrons */
 
 	/* For the border crap around the location/breaking news portion of the chyron */

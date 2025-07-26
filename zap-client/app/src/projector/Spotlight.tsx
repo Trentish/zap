@@ -352,9 +352,9 @@ export function Spotlight() {
               </div>
             </div>
           </div>
-          <div className={"logo-wrapper"}>
+          {/* <div className={"logo-wrapper"}>
             <img src="/assets/images/insanity/logo-gnn-red.svg" alt="GNN" />
-          </div>
+          </div> */}
           <div className={"spotlight-carrier-theme"} ref={themeRef}>
             {""}
           </div>
