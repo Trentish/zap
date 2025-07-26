@@ -94,20 +94,19 @@
 .insanity.projector-page .timer {
     grid-area: timeline;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
+    flex-direction: row;
+    align-items: baseline;
     font-family: var(--insanity--font-secondary);
     font-size: var(--insanity--font-size-timer);
     font-weight: var(--insanity--font-weight-bold);
     letter-spacing: var(--insanity--letter-spacing);
-    gap: 0.5vmin;
+    line-height: 0.8em; /* Horrible hack to get timer top-aligned with defcon block. */
+    gap: 1vmin;
 }
 
 .insanity.projector-page .timer .timer-label {
     font-size: var(--insanity--font-size-label);
     font-weight: normal;
-    margin-bottom: 0.5vmin;
 }
 
 /* ===============================

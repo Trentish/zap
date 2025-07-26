@@ -2,8 +2,15 @@
    DEFAULT CSS CUSTOM PROPERTIES
    =============================== */
 :root {
+	--defcon-red: #CC0000;
+	--defcon-semitransparent-red: #CC000066;
+	--defcon-orange: #FF6600;
+	--defcon-semitransparent-orange: #FF660066;
+	--defcon-yellow: #FFCC00;
+	--defcon-semitransparent-yellow: #FFCC0066;
+
     /* DEFCON block layout */
-    --defcon-block-gap: 1vmin;
+    --defcon-block-gap: 2vmin;
     --defcon-border-width: 0.5vmin;
     --defcon-border-radius: 0.5rem;
     --defcon-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -15,23 +22,23 @@
     --defcon-label-color: #000000;
     
     /* DEFCON colors - DEFCON 1 (Highest Alert) */
-    --defcon-1-border-color: #CC0000;        /* Dark red */
-    --defcon-1-text-color: #CC0000;          /* Dark red */
-    --defcon-1-bg-color: #CC0000;            /* Dark red */
-    --defcon-1-group-bg-color: #CC000066;    /* Dark red with transparency */
+    --defcon-1-border-color: var(--defcon-red);
+    --defcon-1-text-color: var(--defcon-red);
+    --defcon-1-bg-color: var(--defcon-red);
+    --defcon-1-group-bg-color: var(--defcon-semitransparent-red);
     
     /* DEFCON colors - DEFCON 2 */
-    --defcon-2-border-color: #FF6600;        /* Orange */
-    --defcon-2-text-color: #FF6600;          /* Orange */
-    --defcon-2-bg-color: #FF6600;            /* Orange */
-    --defcon-2-group-bg-color: #FF660066;    /* Orange with transparency */
-    
+    --defcon-2-border-color: var(--defcon-orange);
+    --defcon-2-text-color: var(--defcon-orange);
+    --defcon-2-bg-color: var(--defcon-orange);
+    --defcon-2-group-bg-color: var(--defcon-semitransparent-orange);
+
     /* DEFCON colors - DEFCON 3 */
-    --defcon-3-border-color: #FFCC00;        /* Yellow */
-    --defcon-3-text-color: #FFCC00;          /* Yellow */
-    --defcon-3-bg-color: #FFCC00;            /* Yellow */
-    --defcon-3-group-bg-color: #FFCC0066;    /* Yellow with transparency */
-    
+    --defcon-3-border-color: var(--defcon-yellow);
+    --defcon-3-text-color: var(--defcon-yellow);
+    --defcon-3-bg-color: var(--defcon-yellow);
+    --defcon-3-group-bg-color: var(--defcon-semitransparent-yellow);
+
     /* Flag and content sizing */
     --defcon-flag-height: 5vmin;
     --defcon-content-font-size: 6vmin;
