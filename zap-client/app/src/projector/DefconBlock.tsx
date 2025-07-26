@@ -40,26 +40,20 @@ function StatView({ index, def }: { index: number; def: T_StatDef }) {
 
   const value = allStats.values[index];
 
-  // Group stat elements by trending up, neutral, and trending down
-  const trendingUp: JSX.Element[] = [];
-  const neutral: JSX.Element[] = [];
-  const trendingDown: JSX.Element[] = [];
+  // Parse the current data to see which flags should be visible and their trends
+  const activeFlags = new Map<string, { trend: "up" | "down" | "neutral" }>();
 
   if (value !== undefined && value !== null && value !== "") {
     const values = typeof value === "string" ? value.split(",") : [value];
-    values.forEach((v, i) => {
+    values.forEach((v) => {
       let str = String(v).trim();
-      let className = "individual-stat-block";
-      let codeClass = "";
       let trendType: "up" | "down" | "neutral" = "neutral";
 
       if (str.includes("▼")) {
         str = str.replace("▼", "").trim();
-        className += " trending-down";
         trendType = "down";
       } else if (str.includes("▲")) {
         str = str.replace("▲", "").trim();
-        className += " trending-up";
         trendType = "up";
       }
 
@@ -69,49 +63,52 @@ function StatView({ index, def }: { index: number; def: T_StatDef }) {
         const code = str.toUpperCase();
         const nation = DEFCON_NATIONS.find((n) => n.code === code);
         if (nation) {
-          codeClass = ` country-code-${code.toLowerCase()}`;
-          // Instead of emoji, show flag image
-          const flagImgSrc = `${config.gameImagePath}flags/${code.toLowerCase()}.svg`;
-          const el = (
-            <span key={i} className={className + codeClass}>
-              <img
-                src={flagImgSrc}
-                alt={code}
-                className="flag-img"
-              />
-            </span>
-          );
-          if (trendType === "up") {
-            trendingUp.push(el);
-          } else if (trendType === "down") {
-            trendingDown.push(el);
-          } else {
-            neutral.push(el);
-          }
-          return; // skip emoji rendering
+          activeFlags.set(code, { trend: trendType });
         }
-      }
-      // Default rendering (no flag image)
-      const el = (
-        <span key={i} className={className + codeClass}>
-          {str}
-        </span>
-      );
-      if (trendType === "up") {
-        trendingUp.push(el);
-      } else if (trendType === "down") {
-        trendingDown.push(el);
-      } else {
-        neutral.push(el);
       }
     });
   }
 
-  // Helper to get odd/even and count classes
-  function getGroupClass(base: string, arr: JSX.Element[]) {
-    const count = arr.length;
-    const oddEven = count % 2 === 0 ? "contains-even" : "contains-odd";
-    const countClass = `contains-${count}`;
+  // Create ALL possible flags for each group
+  const createAllFlags = (groupType: "up" | "down" | "neutral") => {
+    return DEFCON_NATIONS.map((nation) => {
+      const code = nation.code;
+      const flagImgSrc = `${config.gameImagePath}flags/${code.toLowerCase()}.svg`;
+      const flagInfo = activeFlags.get(code);
+      
+      // Flag is visible if it's active AND in the correct trend group
+      const isVisible = flagInfo && flagInfo.trend === groupType;
+      
+      return (
+        <span 
+          key={code} 
+          className={`individual-stat-block country-code-${code.toLowerCase()} ${isVisible ? 'flag-visible' : 'flag-hidden'}`}
+        >
+          <img
+            src={flagImgSrc}
+            alt={code}
+            className="flag-img"
+          />
+        </span>
+      );
+    });
+  };
+
+  // Create flag arrays for each trend group (all flags always present)
+  const upFlags = createAllFlags("up");
+  const neutralFlags = createAllFlags("neutral");
+  const downFlags = createAllFlags("down");
+
+  // Check if any flags are visible in each group to determine if we show the group
+  const hasUpFlags = Array.from(activeFlags.values()).some(f => f.trend === "up");
+  const hasNeutralFlags = Array.from(activeFlags.values()).some(f => f.trend === "neutral");
+  const hasDownFlags = Array.from(activeFlags.values()).some(f => f.trend === "down");
+
+  // Helper to get odd/even and count classes based on visible flags
+  function getGroupClass(base: string, groupType: "up" | "down" | "neutral") {
+    const visibleCount = Array.from(activeFlags.values()).filter(f => f.trend === groupType).length;
+    const oddEven = visibleCount % 2 === 0 ? "contains-even" : "contains-odd";
+    const countClass = `contains-${visibleCount}`;
     return `${base} ${oddEven} ${countClass}`;
   }
 
@@ -120,14 +117,14 @@ function StatView({ index, def }: { index: number; def: T_StatDef }) {
       {def.icon && <img className={"statIcon"} src={def.icon} />}
       {def.label && <div className={"statLabel"}>{def.label}</div>}
       <div className={"statValue"}>
-        {trendingUp.length > 0 && (
-          <div className={getGroupClass("stat-group trending-up-group", trendingUp)}>{trendingUp}</div>
+        {hasUpFlags && (
+          <div className={getGroupClass("stat-group trending-up-group", "up")}>{upFlags}</div>
         )}
-        {neutral.length > 0 && (
-          <div className={getGroupClass("stat-group neutral-group", neutral)}>{neutral}</div>
+        {hasNeutralFlags && (
+          <div className={getGroupClass("stat-group neutral-group", "neutral")}>{neutralFlags}</div>
         )}
-        {trendingDown.length > 0 && (
-          <div className={getGroupClass("stat-group trending-down-group", trendingDown)}>{trendingDown}</div>
+        {hasDownFlags && (
+          <div className={getGroupClass("stat-group trending-down-group", "down")}>{downFlags}</div>
         )}
       </div>
     </div>

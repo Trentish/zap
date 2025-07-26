@@ -37,6 +37,10 @@
     --defcon-content-font-size: 6vmin;
     --defcon-content-line-height: 1em;
     
+    /* Flag animation timing - longer and smoother */
+    --defcon-flag-transition-duration: 0.5s;
+    --defcon-flag-transition-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
     /* Stat group styling */
     --defcon-stat-gap: 1vmin;
     --defcon-stat-padding: 1vmin;
@@ -136,6 +140,48 @@
 
 .defcon-block .flag-img {
     height: var(--defcon-flag-height);
+    width: auto;
+    vertical-align: middle;
+    object-fit: contain;
+}
+
+/* Individual stat blocks - ALL flags always present */
+.defcon-block .individual-stat-block {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    overflow: hidden;
+    transition: width var(--defcon-flag-transition-duration) var(--defcon-flag-transition-easing),
+                height var(--defcon-flag-transition-duration) var(--defcon-flag-transition-easing),
+                margin var(--defcon-flag-transition-duration) var(--defcon-flag-transition-easing),
+                opacity var(--defcon-flag-transition-duration) var(--defcon-flag-transition-easing);
+}
+
+/* Hidden flags - collapsed but still in DOM */
+.defcon-block .flag-hidden {
+    width: 0;
+    height: 0;
+    opacity: 0;
+	margin: 0 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+/* Visible flags - expand to natural size */
+.defcon-block .flag-visible {
+    width: 6vmin;
+    height: 6vmin; 
+    opacity: 1;
+    margin: 0 var(--defcon-individual-gap);
+}
+
+.defcon-block .flag-visible:last-child {
+    margin-right: 0;
+}
+
+.defcon-block .flag-visible .flag-img {
+    width: auto;
+    height: var(--defcon-flag-height);
 }
 
 .defcon-block .statValue {
@@ -155,7 +201,6 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: var(--defcon-stat-gap);
     padding: var(--defcon-stat-padding);
     width: 100%;
     position: relative;
@@ -207,19 +252,19 @@
    DEFCON INDIVIDUAL STAT BLOCKS
    =============================== */
 
-.defcon-block .individual-stat-block {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: var(--defcon-individual-gap);
-}
-
 .defcon-block .arrow {
     font-size: var(--defcon-arrow-small-size);
 }
 
+/* Ensure smooth transitions for flag containers */
+.defcon-block .individual-stat-block span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* ===============================
-   DEFCON ARROW ANIMATIONS
+   DEFCON TREND ARROW ANIMATIONS
    =============================== */
 
 .defcon-block .trending-down-group::before,
