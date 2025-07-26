@@ -1,5 +1,17 @@
 
 @font-face {
+	src: url('../assets/fonts/HelveticaNowVar/HelveticaNowVar.woff2') format('woff2-variations');
+	font-family: 'Helvetica Now Variable';
+	font-style: normal;
+}
+
+@font-face {
+	src: url('../assets/fonts/HelveticaNowVar/HelveticaNowVar-Italic.woff2') format('woff2-variations');
+	font-family: 'Helvetica Now Variable';
+	font-style: italic;
+}
+
+@font-face {
 	font-family: 'NCAA NKU Norse';
 	src: url("../assets/fonts/NCAA_NKU_Norse/NCAANKUNorse-Plain.woff") format("woff");
 }
