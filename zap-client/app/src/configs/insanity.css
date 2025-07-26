@@ -30,16 +30,16 @@
 :root {
     --insanity--gnn-logo-offset: 10vmin;
     --insanity--gnn-red: #CC0000;
-    --insanity--gnn-logo-width: 20vmin;
+    --insanity--gnn-logo-height: 5vmin;
     --insanity--vertical-edge-distance: 5vmin;
     --insanity--font-main: "Helvetica Neue", "Helvetica", sans-serif;
     --insanity--font-secondary: "Helvetica", sans-serif;
     --insanity--font-arrows: Monaco, "Courier New", monospace; /* Monospace font for consistent arrow sizing */
-    --insanity--font-size-label: 3vmin;
+    --insanity--font-size-label: 4vmin;
     --insanity--font-size-timer: 8.5vmin;
     --insanity--font-size-articles: 5vh;
     --insanity--font-weight-bold: bold;
-    --insanity--letter-spacing: -0.02em;
+    --insanity--letter-spacing: -0.01em;
 
     /* Border radius master variable */
     --insanity--border-radius: 0.5vmin;
@@ -102,7 +102,7 @@
     display: flex;
     flex-direction: row;
     align-items: baseline;
-    font-family: var(--insanity--font-secondary);
+    font-family: var(--insanity--font-main);
     font-size: var(--insanity--font-size-timer);
     font-weight: var(--insanity--font-weight-bold);
     letter-spacing: var(--insanity--letter-spacing);
@@ -124,17 +124,6 @@
 /* ===============================
    ARTICLES AREA
    =============================== */
-.insanity.projector-page .logo {
-    display: block;
-    width: var(--insanity--gnn-logo-width);
-    grid-area: articles;
-    /* margin-top: var(--insanity--margin-logo);
-    margin-left: var(--insanity--margin-logo);
-    align-self: start;
-    justify-self: start; */
-    /* display: none; */
-}
-
 .insanity.projector-page .articles {
     position: relative;
     grid-area: articles;
@@ -150,6 +139,7 @@
     position: relative;
     padding: var(--insanity--vert-gap) var(--insanity--vert-gap) var(--insanity--vert-gap) 0;
     width: calc(100% + var(--insanity--grid-column-gap) - var(--insanity--vert-gap));
+    /* margin-top: calc(-1 * var(--insanity--vert-gap)); */
 }
 
 .insanity.projector-page .articles::before {
@@ -159,9 +149,36 @@
     left: -100vw;
     right: 0;
     bottom: 0;
-    background: #FFFFFF33;
+    background: #CC000099;
     z-index: -1;
     border-radius: var(--insanity--border-radius);
+}
+
+.insanity.projector-page .articles-header {
+    display: flex;
+    flex-direction: row;
+    gap: calc(var(--insanity--vert-gap) / 2);
+    align-items: baseline;
+}
+
+.insanity.projector-page .logo {
+    display: block;
+    height: var(--insanity--gnn-logo-height);
+}
+
+.insanity.projector-page .top-stories-label {
+    font-family: var(--insanity--font-main);
+    font-weight: var(--insanity--font-weight-bold);
+    font-size: var(--insanity--font-size-label);
+    letter-spacing: var(--insanity--letter-spacing);
+    text-transform: uppercase;
+}
+
+.insanity.projector-page .articles-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: space-between;
 }
 
 .insanity.projector-page .articles span.article {

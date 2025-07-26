@@ -93,15 +93,22 @@ export function ProjectorPage() {
 
 function Headlines() {
   const [articles] = useAtom($splitArticles);
+  const [config] = useAtom($config);
 
   return (
     <div className={"articles"}>
-      {articles
-        .slice(-SHOW_LAST_COUNT)
-        .reverse()
-        .map(($article) => (
-          <Headline key={`${$article}`} $article={$article} />
-        ))}
+      <div className={"articles-header"}>
+        {config.logo && <img className={"logo"} src={config.logo} />}
+        <div className={"top-stories-label"}>TOP STORIES THIS HOUR</div>
+      </div>
+      <div className={"articles-content"}>
+        {articles
+          .slice(-SHOW_LAST_COUNT)
+          .reverse()
+          .map(($article) => (
+            <Headline key={`${$article}`} $article={$article} />
+          ))}
+      </div>
     </div>
   );
 }
