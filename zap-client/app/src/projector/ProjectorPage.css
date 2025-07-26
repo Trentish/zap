@@ -60,8 +60,6 @@
 }
 
 .spotlight-container .spotlight-background {
-	display: none; /* waiting for .show */
-
 	position: fixed;
 	left: 0;
 	top: 0;

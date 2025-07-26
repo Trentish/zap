@@ -52,6 +52,42 @@
 }
 
 /* ===============================
+   GRID AREA ASSIGNMENTS AND PLACEHOLDERS
+   =============================== */
+.insanity.projector-page .spotlight-carrier .video-left-placeholder {
+    grid-area: video-left;
+    background: blue;
+    /* Talking head video will go here */
+}
+
+.insanity.projector-page .spotlight-carrier .video-right-placeholder {
+    grid-area: video-right;
+    background: green;
+    /* Featured video/image will go here */
+}
+
+.insanity.projector-page .spotlight-carrier .chyron-wrapper {
+    grid-area: chyron;
+    display: flex;
+    flex-direction: column;
+    /* Contains both location and chyron */
+}
+
+.insanity.projector-page .spotlight-carrier .logo-wrapper {
+    grid-area: logo;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* GNN logo goes here */
+}
+
+.insanity.projector-page .spotlight-carrier .logo-wrapper img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+/* ===============================
    CHYRON STYLES (Text Fitting System)
    =============================== */
 /* Chyron styles - exact copy from test.html - includes meticulous auto-measure text fitting */

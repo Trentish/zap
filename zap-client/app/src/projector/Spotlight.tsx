@@ -2,11 +2,7 @@ import React, { useEffect, useRef, useMemo } from "react";
 import { useAtom } from "jotai";
 import { atom } from "jotai";
 import "./Spotlight.css";
-import {
-  $config,
-  $spotlightArticle,
-  $store,
-} from "../ClientState.ts";
+import { $config, $spotlightArticle, $store } from "../ClientState.ts";
 import { BackgroundVideo, Video } from "../components/VideoComponents.tsx";
 import {
   INTRO_MID_DEFAULT,
@@ -20,7 +16,7 @@ import { updateArticleText } from "../lib/textFitting.ts";
 const LOG = true;
 
 // TEMPORARY DEBUG FLAG - SET TO TRUE TO KEEP SPOTLIGHT VISIBLE - REMOVE LATER
-const DEBUG_KEEP_VISIBLE = true;
+const DEBUG_KEEP_VISIBLE = false;
 
 const $spotlightOrg = atom<T_Org | null>(null);
 
@@ -58,21 +54,36 @@ export function Spotlight() {
   const handleChyronRecalc = () => {
     const headline = headlineRef.current;
     if (headline) {
-      const headlineTextElement = headline.querySelector('.chyron-text') as HTMLElement;
-      const headlineContainerElement = headline.querySelector('.chyron-container') as HTMLElement;
-      
+      const headlineTextElement = headline.querySelector(
+        ".chyron-text"
+      ) as HTMLElement;
+      const headlineContainerElement = headline.querySelector(
+        ".chyron-container"
+      ) as HTMLElement;
+
       if (headlineTextElement && headlineContainerElement) {
         // Use current article headline or fallback text
-        const testText = article?.headline || "BREAKING NEWS: Recalculating text fitting for CSS debugging";
-        console.log('🔦 DEBUG: Force recalculating chyron text fitting with:', testText);
-        
+        const testText =
+          article?.headline ||
+          "BREAKING NEWS: Recalculating text fitting for CSS debugging";
+        console.log(
+          "🔦 DEBUG: Force recalculating chyron text fitting with:",
+          testText
+        );
+
         // Trigger the text fitting algorithm
-        updateArticleText(headlineTextElement, headlineContainerElement, testText);
+        updateArticleText(
+          headlineTextElement,
+          headlineContainerElement,
+          testText
+        );
       } else {
-        console.error('🔦 DEBUG ERROR: .chyron-text or .chyron-container not found');
+        console.error(
+          "🔦 DEBUG ERROR: .chyron-text or .chyron-container not found"
+        );
       }
     } else {
-      console.error('🔦 DEBUG ERROR: headline ref is null');
+      console.error("🔦 DEBUG ERROR: headline ref is null");
     }
   };
 
@@ -88,19 +99,22 @@ export function Spotlight() {
   const headlineRef = useRef<HTMLDivElement>(null);
   const locationRef = useRef<HTMLDivElement>(null);
 
-  const refs: T_SpotlightRefs = useMemo(() => ({
-    spotlightContainerRef: spotlightContainerRef,
-    spotlightBackgroundRef: spotlightBackgroundRef,
-    // spotlightOverlayRef: spotlightOverlayRef,
-    introVideoRef: introVideoRef,
-    introAudioRef: introAudioRef,
-    outroVideoRef: outroVideoRef,
-    outroAudioRef: outroAudioRef,
-    carrierRef: carrierRef,
-    themeRef: themeRef,
-    headlineRef: headlineRef,
-    locationRef: locationRef,
-  }), []);
+  const refs: T_SpotlightRefs = useMemo(
+    () => ({
+      spotlightContainerRef: spotlightContainerRef,
+      spotlightBackgroundRef: spotlightBackgroundRef,
+      // spotlightOverlayRef: spotlightOverlayRef,
+      introVideoRef: introVideoRef,
+      introAudioRef: introAudioRef,
+      outroVideoRef: outroVideoRef,
+      outroAudioRef: outroAudioRef,
+      carrierRef: carrierRef,
+      themeRef: themeRef,
+      headlineRef: headlineRef,
+      locationRef: locationRef,
+    }),
+    []
+  );
 
   if (LOG) console.log(`🔦 render: Spotlight`, article);
 
@@ -146,28 +160,49 @@ export function Spotlight() {
         SHOW(carrier);
 
         // Apply text fitting AFTER carrier is shown and has dimensions
-        console.log('🔦 Spotlight headline debug (after carrier shown):', { headline, headlineExists: !!headline });
+        console.log("🔦 Spotlight headline debug (after carrier shown):", {
+          headline,
+          headlineExists: !!headline,
+        });
         if (headline) {
-          const headlineTextElement = headline.querySelector('.chyron-text') as HTMLElement;
-          const headlineContainerElement = headline.querySelector('.chyron-container') as HTMLElement;
-          console.log('🔦 Headline elements debug:', { 
-            headlineTextElement, 
+          const headlineTextElement = headline.querySelector(
+            ".chyron-text"
+          ) as HTMLElement;
+          const headlineContainerElement = headline.querySelector(
+            ".chyron-container"
+          ) as HTMLElement;
+          console.log("🔦 Headline elements debug:", {
+            headlineTextElement,
             textElementExists: !!headlineTextElement,
             headlineContainerElement,
-            containerElementExists: !!headlineContainerElement
+            containerElementExists: !!headlineContainerElement,
           });
           if (headlineTextElement && headlineContainerElement) {
-            console.log('🔦 About to call updateArticleText with:', article.headline);
-            console.log('🔦 Using container dimensions:', headlineContainerElement.offsetWidth, 'x', headlineContainerElement.offsetHeight);
+            console.log(
+              "🔦 About to call updateArticleText with:",
+              article.headline
+            );
+            console.log(
+              "🔦 Using container dimensions:",
+              headlineContainerElement.offsetWidth,
+              "x",
+              headlineContainerElement.offsetHeight
+            );
             // Small delay to ensure carrier is fully visible and sized
             setTimeout(() => {
-              updateArticleText(headlineTextElement, headlineContainerElement, article.headline);
+              updateArticleText(
+                headlineTextElement,
+                headlineContainerElement,
+                article.headline
+              );
             }, 50);
           } else {
-            console.error('🔦 ERROR: .chyron-text or .chyron-container not found in headline element');
+            console.error(
+              "🔦 ERROR: .chyron-text or .chyron-container not found in headline element"
+            );
           }
         } else {
-          console.error('🔦 ERROR: headline ref is null');
+          console.error("🔦 ERROR: headline ref is null");
         }
 
         config.OnStart_Spotlight(article, refs);
@@ -197,7 +232,8 @@ export function Spotlight() {
 
     // TEMPORARY DEBUG - Skip exit if debug flag is set
     if (DEBUG_KEEP_VISIBLE) {
-      if (LOG) console.log(`🔦 DEBUG: Keeping spotlight visible, skipping exit`);
+      if (LOG)
+        console.log(`🔦 DEBUG: Keeping spotlight visible, skipping exit`);
       return; // Skip the entire exit sequence
     }
 
@@ -235,61 +271,80 @@ export function Spotlight() {
       <button
         onClick={handleChyronRecalc}
         style={{
-          position: 'fixed',
+          position: "fixed",
           top: 0,
           right: 0,
           zIndex: 9999,
-          backgroundColor: '#FFCC00',
-          border: 'none',
-          padding: '10px',
-          fontSize: '5vmin',
-          fontWeight: 'bold',
-          cursor: 'pointer',
-          color: 'black'
+          backgroundColor: "#FFCC00",
+          border: "none",
+          padding: "10px",
+          fontSize: "5vmin",
+          fontWeight: "bold",
+          cursor: "pointer",
+          color: "black",
         }}
       >
         RECALC
       </button>
-      
+
       <div
         ref={spotlightContainerRef}
         className={`spotlight-container`}
         id={"spotlight"}
       >
-      <BackgroundVideo
-        src={``}
-        className={"spotlight-background"}
-        ref={spotlightBackgroundRef}
-      />
+        {/*<BackgroundVideo*/}
+        {/*	src={``}*/}
+        {/*	className={'spotlight-overlay'}*/}
+        {/*	ref={spotlightOverlayRef}*/}
+        {/*/>*/}
 
-      {/*<BackgroundVideo*/}
-      {/*	src={``}*/}
-      {/*	className={'spotlight-overlay'}*/}
-      {/*	ref={spotlightOverlayRef}*/}
-      {/*/>*/}
+        <Video src={``} className={"intro"} ref={introVideoRef} />
 
-      <Video src={``} className={"intro"} ref={introVideoRef} />
+        <Audio src={``} ref={introAudioRef} />
 
-      <Audio src={``} ref={introAudioRef} />
+        <Video src={``} className={"outro"} ref={outroVideoRef} />
 
-      <Video src={``} className={"outro"} ref={outroVideoRef} />
+        <Audio src={``} ref={outroAudioRef} />
 
-      <Audio src={``} ref={outroAudioRef} />
+        <div className={"spotlight-carrier"} ref={carrierRef}>
+          {/* TEMPORARY: Using CNN screenshot instead of background video */}
+          <img
+            src="../assets/images/insanity/cnn_screengrab.png"
+            className="spotlight-background"
+            alt="CNN Background"
+          />
 
-      <div className={"spotlight-carrier"} ref={carrierRef}>
-        <div className={"spotlight-carrier-theme"} ref={themeRef}>
-          {""}
-        </div>
-        <div className={"spotlight-carrier-location"} ref={locationRef}>
-          {""}
-        </div>
-        <div className="chyron-outer" ref={headlineRef}>
-          <div className="chyron-container">
-            <div className="chyron-text"></div>
+          {/* COMMENTED OUT: Background video - will restore later */}
+          {/*<BackgroundVideo
+			src={``}
+			className={"spotlight-background"}
+			ref={spotlightBackgroundRef}
+			/>*/}
+
+          <div className={"video-left-placeholder"}>
+            {/* Talking head video placeholder */}
+          </div>
+          <div className={"video-right-placeholder"}>
+            {/* Featured video/image placeholder */}
+          </div>
+          <div className={"chyron-wrapper"}>
+            <div className={"spotlight-carrier-location"} ref={locationRef}>
+              {""}
+            </div>
+            <div className="chyron-outer" ref={headlineRef}>
+              <div className="chyron-container">
+                <div className="chyron-text"></div>
+              </div>
+            </div>
+          </div>
+          <div className={"logo-wrapper"}>
+            <img src="/assets/images/insanity/logo-gnn-red.svg" alt="GNN" />
+          </div>
+          <div className={"spotlight-carrier-theme"} ref={themeRef}>
+            {""}
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 }
