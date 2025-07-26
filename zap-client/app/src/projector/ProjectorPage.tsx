@@ -327,7 +327,7 @@ function Spotlight() {
         </div>
         <div className="chyron-outer" ref={headlineRef}>
           <div className="chyron-container">
-            <div className="chyron-text">xxx</div>
+            <div className="chyron-text"></div>
           </div>
         </div>
       </div>

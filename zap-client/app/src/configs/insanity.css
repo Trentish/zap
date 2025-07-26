@@ -223,7 +223,7 @@
     flex-direction: column;
 
     /* This will set us up for one talking head with one feature video/image on the right */
-    display: grid;
+    display: none; /* Start hidden, will be shown by SHOW(carrier) */
     gap: 0;
     grid-template-areas:
         "video-left video-right video-right"
@@ -233,6 +233,10 @@
     align-items: stretch;
     position: relative;
     background: none;
+}
+
+.insanity.projector-page .spotlight-carrier.show {
+    display: grid; /* Show as grid when .show class is added */
 }
 
 .insanity.projector-page .spotlight-carrier-theme {
