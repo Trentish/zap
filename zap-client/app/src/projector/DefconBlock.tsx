@@ -5,82 +5,118 @@ import { T_StatDef } from "../configs/BaseGameConfig.ts";
 import { DEFCON_NATIONS } from "../../zap-shared/DEFCON_NATIONS";
 import "./DefconBlock.css";
 
+/**
+ * Type definitions for better code clarity and type safety
+ */
+type TrendType = "up" | "down" | "neutral";
+type FlagInfo = { trend: TrendType };
+
+/**
+ * Main DEFCON display component that renders all DEFCON alert levels.
+ * Automatically finds and displays all stats with "defcon" in their className.
+ */
 export function DefconBlock() {
   const [config] = useAtom($config);
 
-  // Get defcon stats
-  const defconStats: { def: T_StatDef; index: number }[] = [];
-  config.statDefs.forEach((def, index) => {
-    if (def.className && def.className.includes("defcon")) {
-      defconStats.push({ def, index });
-    }
-  });
+  // Filter config to find only DEFCON-related stat definitions
+  const defconStats = config.statDefs
+    .map((def, index) => ({ def, index }))
+    .filter(({ def }) => def.className?.includes("defcon"));
 
-  // Always render all defcon stats - let the StatView handle empty states
   if (!defconStats.length) return null;
 
   return (
-    <div className={"defcon-block"}>
+    <div className="defcon-block">
       {defconStats.map(({ def, index }) => (
-        <StatView key={`stat${index}`} index={index} def={def} />
+        <DefconStatView key={`defcon-stat-${index}`} index={index} def={def} />
       ))}
     </div>
   );
 }
 
-function StatView({ index, def }: { index: number; def: T_StatDef }) {
+/**
+ * Parses a single value string to extract country code and trend direction.
+ * Handles formats like "USA▲", "RUS▼", or "CHN" (neutral).
+ */
+function parseCountryValue(value: string): { code: string; trend: TrendType } | null {
+  let str = value.trim();
+  let trend: TrendType = "neutral";
+
+  // Extract trend arrows and determine direction
+  if (str.includes("▼")) {
+    str = str.replace("▼", "").trim();
+    trend = "down";
+  } else if (str.includes("▲")) {
+    str = str.replace("▲", "").trim();
+    trend = "up";
+  }
+
+  // Validate country code format (3 uppercase letters)
+  const codeMatch = str.match(/^[A-Z]{3}$/i);
+  if (!codeMatch) return null;
+
+  const code = str.toUpperCase();
+  // Verify it's a real country in our DEFCON nations list
+  const nation = DEFCON_NATIONS.find((n) => n.code === code);
+  return nation ? { code, trend } : null;
+}
+
+/**
+ * Parses stat value(s) into a map of active country flags with their trends.
+ * Handles both single values and comma-separated lists.
+ */
+function parseActiveFlags(value: unknown): Map<string, FlagInfo> {
+  const activeFlags = new Map<string, FlagInfo>();
+
+  // Handle empty/null values
+  if (value === undefined || value === null || value === "") {
+    return activeFlags;
+  }
+
+  // Convert to array of string values (handles both single values and CSV)
+  const values = typeof value === "string" ? value.split(",") : [String(value)];
+
+  values.forEach((v) => {
+    const parsed = parseCountryValue(String(v));
+    if (parsed) {
+      activeFlags.set(parsed.code, { trend: parsed.trend });
+    }
+  });
+
+  return activeFlags;
+}
+
+/**
+ * Renders a single DEFCON alert level view with country flags organized by trend.
+ * Uses "always-present" architecture - all flags exist in DOM with CSS show/hide.
+ */
+function DefconStatView({ index, def }: { index: number; def: T_StatDef }) {
   const [allStats] = useAtom($allStats);
   const [config] = useAtom($config);
 
-  const value = allStats.values[index];
+  // Parse current stat value to determine which flags are active
+  const activeFlags = parseActiveFlags(allStats.values[index]);
 
-  // Parse the current data to see which flags should be visible and their trends
-  const activeFlags = new Map<string, { trend: "up" | "down" | "neutral" }>();
-
-  if (value !== undefined && value !== null && value !== "") {
-    const values = typeof value === "string" ? value.split(",") : [value];
-    values.forEach((v) => {
-      let str = String(v).trim();
-      let trendType: "up" | "down" | "neutral" = "neutral";
-
-      if (str.includes("▼")) {
-        str = str.replace("▼", "").trim();
-        trendType = "down";
-      } else if (str.includes("▲")) {
-        str = str.replace("▲", "").trim();
-        trendType = "up";
-      }
-
-      // Check for country code (3 uppercase letters)
-      const codeMatch = str.match(/^[A-Z]{3}$/i);
-      if (codeMatch) {
-        const code = str.toUpperCase();
-        const nation = DEFCON_NATIONS.find((n) => n.code === code);
-        if (nation) {
-          activeFlags.set(code, { trend: trendType });
-        }
-      }
-    });
-  }
-
-  // Create ALL possible flags for each group
-  const createAllFlags = (groupType: "up" | "down" | "neutral") => {
+  /**
+   * Creates flag elements for a specific trend group.
+   * All flags are always rendered - visibility controlled by CSS classes.
+   */
+  const createFlagsForGroup = (groupType: TrendType) => {
     return DEFCON_NATIONS.map((nation) => {
       const code = nation.code;
-      const flagImgSrc = `${config.gameImagePath}flags/${code.toLowerCase()}.svg`;
       const flagInfo = activeFlags.get(code);
-      
-      // Flag is visible if it's active AND in the correct trend group
-      const isVisible = flagInfo && flagInfo.trend === groupType;
-      
+      const isVisible = flagInfo?.trend === groupType;
+
       return (
         <span 
           key={code} 
-          className={`individual-stat-block country-code-${code.toLowerCase()} ${isVisible ? 'flag-visible' : 'flag-hidden'}`}
+          className={`individual-stat-block country-code-${code.toLowerCase()} ${
+            isVisible ? 'flag-visible' : 'flag-hidden'
+          }`}
         >
           <img
-            src={flagImgSrc}
-            alt={code}
+            src={`${config.gameImagePath}flags/${code.toLowerCase()}.svg`}
+            alt={`${nation.name} flag`}
             className="flag-img"
           />
         </span>
@@ -88,37 +124,51 @@ function StatView({ index, def }: { index: number; def: T_StatDef }) {
     });
   };
 
-  // Create flag arrays for each trend group (all flags always present)
-  const upFlags = createAllFlags("up");
-  const neutralFlags = createAllFlags("neutral");
-  const downFlags = createAllFlags("down");
+  // Pre-generate all flag groups (always-present DOM approach)
+  const flagGroups = {
+    up: createFlagsForGroup("up"),
+    neutral: createFlagsForGroup("neutral"),
+    down: createFlagsForGroup("down")
+  };
 
-  // Check if any flags are visible in each group to determine if we show the group
-  const hasUpFlags = Array.from(activeFlags.values()).some(f => f.trend === "up");
-  const hasNeutralFlags = Array.from(activeFlags.values()).some(f => f.trend === "neutral");
-  const hasDownFlags = Array.from(activeFlags.values()).some(f => f.trend === "down");
-  
-  // Check if this DEFCON block has any visible flags at all
-  const hasAnyFlags = hasUpFlags || hasNeutralFlags || hasDownFlags;
+  // Determine group visibility states
+  const groupVisibility = {
+    up: Array.from(activeFlags.values()).some(f => f.trend === "up"),
+    neutral: Array.from(activeFlags.values()).some(f => f.trend === "neutral"),
+    down: Array.from(activeFlags.values()).some(f => f.trend === "down")
+  };
 
-  // Helper to get group classes including visibility state
-  function getGroupClass(base: string, groupType: "up" | "down" | "neutral", hasFlags: boolean) {
+  // Check if this DEFCON level has any active flags
+  const hasAnyFlags = Object.values(groupVisibility).some(Boolean);
+
+  /**
+   * Generates CSS classes for a trend group including count and visibility states.
+   * Provides styling hooks for even/odd counts and specific numbers.
+   */
+  const getGroupClasses = (baseClass: string, groupType: TrendType, isVisible: boolean) => {
     const visibleCount = Array.from(activeFlags.values()).filter(f => f.trend === groupType).length;
-    const oddEven = visibleCount % 2 === 0 ? "contains-even" : "contains-odd";
+    const evenOddClass = visibleCount % 2 === 0 ? "contains-even" : "contains-odd";
     const countClass = `contains-${visibleCount}`;
-    const visibilityClass = hasFlags ? "group-visible" : "group-hidden";
-    return `${base} ${oddEven} ${countClass} ${visibilityClass}`;
-  }
+    const visibilityClass = isVisible ? "group-visible" : "group-hidden";
+    
+    return `${baseClass} ${evenOddClass} ${countClass} ${visibilityClass}`;
+  };
 
   return (
     <div className={`statView ${def.className} ${!hasAnyFlags ? 'defcon-empty' : ''}`}>
-      {def.icon && <img className={"statIcon"} src={def.icon} />}
-      {def.label && <div className={"statLabel"}>{def.label}</div>}
-      <div className={"statValue"}>
-        {/* Always render all groups - use CSS to show/hide */}
-        <div className={getGroupClass("stat-group trending-up-group", "up", hasUpFlags)}>{upFlags}</div>
-        <div className={getGroupClass("stat-group neutral-group", "neutral", hasNeutralFlags)}>{neutralFlags}</div>
-        <div className={getGroupClass("stat-group trending-down-group", "down", hasDownFlags)}>{downFlags}</div>
+      {def.icon && <img className="statIcon" src={def.icon} alt="DEFCON icon" />}
+      {def.label && <div className="statLabel">{def.label}</div>}
+      <div className="statValue">
+        {/* All groups always rendered - CSS controls visibility and animations */}
+        <div className={getGroupClasses("stat-group trending-up-group", "up", groupVisibility.up)}>
+          {flagGroups.up}
+        </div>
+        <div className={getGroupClasses("stat-group neutral-group", "neutral", groupVisibility.neutral)}>
+          {flagGroups.neutral}
+        </div>
+        <div className={getGroupClasses("stat-group trending-down-group", "down", groupVisibility.down)}>
+          {flagGroups.down}
+        </div>
       </div>
     </div>
   );
