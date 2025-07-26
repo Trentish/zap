@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useMemo } from "react";
 import { useAtom } from "jotai";
 import { atom } from "jotai";
+import "./Spotlight.css";
 import {
   $config,
   $spotlightArticle,
