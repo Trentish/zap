@@ -4,7 +4,7 @@ services:
       context: ./zap-server           # Build context is the zap-server folder
       dockerfile: Dockerfile          # Use the Dockerfile inside zap-server
     image: zap-server:dev             # Tag for the built image
-    container_name: zap-server        # Explicit container name
+    container_name: zap-server-zap-bak # Explicit container name
     environment:
       - HOST=0.0.0.0                  # Listen on all network interfaces
       - PORT=3007                     # Port the server will run on
@@ -31,7 +31,7 @@ services:
       context: ./zap-client           # Build context is the zap-client folder
       dockerfile: Dockerfile          # Use the Dockerfile inside zap-client
     image: zap-client:dev             # Tag for the built image
-    container_name: zap-client        # Explicit container name
+    container_name: zap-client-zap-bak # Explicit container name
     environment:
       - VITE_SERVER_URL=http://zap-server:3007  # Client will connect to server
     ports:

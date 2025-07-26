@@ -7,7 +7,6 @@ import "./DefconBlock.css";
 
 export function DefconBlock() {
   const [config] = useAtom($config);
-  const [allStats] = useAtom($allStats);
 
   // Get defcon stats
   const defconStats: { def: T_StatDef; index: number }[] = [];
@@ -17,17 +16,12 @@ export function DefconBlock() {
     }
   });
 
-  // Only show defcon stats with non-empty values
-  const visibleDefconStats = defconStats.filter(({ index }) => {
-    const value = allStats.values[index];
-    return value !== undefined && value !== null && value !== "";
-  });
-
-  if (!visibleDefconStats.length) return null;
+  // Always render all defcon stats - let the StatView handle empty states
+  if (!defconStats.length) return null;
 
   return (
     <div className={"defcon-block"}>
-      {visibleDefconStats.map(({ def, index }) => (
+      {defconStats.map(({ def, index }) => (
         <StatView key={`stat${index}`} index={index} def={def} />
       ))}
     </div>
