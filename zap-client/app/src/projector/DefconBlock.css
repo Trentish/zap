@@ -3,7 +3,7 @@
    =============================== */
 :root {
     /* DEFCON block layout */
-    --defcon-block-gap: 2vmin;
+    --defcon-block-gap: 1vmin;
     --defcon-border-width: 0.3vmin;
     --defcon-border-radius: 0.5rem;
     --defcon-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
