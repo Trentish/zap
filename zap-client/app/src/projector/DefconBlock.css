@@ -33,7 +33,7 @@
     --defcon-3-group-bg-color: #FFCC0066;    /* Yellow with transparency */
     
     /* Flag and content sizing */
-    --defcon-flag-height: 6vmin;
+    --defcon-flag-height: 5vmin;
     --defcon-content-font-size: 6vmin;
     --defcon-content-line-height: 1em;
     
@@ -44,7 +44,7 @@
     /* Stat group styling */
     --defcon-stat-padding: 1vmin;
     --defcon-arrow-padding: 3vmin;
-    --defcon-arrow-size: 3vmin;
+    --defcon-arrow-size: 3.25vmin;
     --defcon-arrow-opacity: #00000066;       /* Black with transparency */
     --defcon-arrow-font-family: Monaco, "Courier New", monospace;
     
