@@ -103,50 +103,57 @@ class InsanityConfig extends BaseGameConfig {
     console.log(`OnStart_Spotlight insanity`);
     if (!refs.spotlightBackgroundRef.current) return;
 
-    // TODO: special case scrubbing
-    // TODO: special 'Reagan' shit :)
-    const headlineLower = article?.headline.toLowerCase() || "";
+    // // TODO: special case scrubbing
+    // // TODO: special 'Reagan' shit :)
+    // const headlineLower = article?.headline.toLowerCase() || "";
 
-    // if (headlineLower.includes('reagan')) return REAGAN;
+    // // if (headlineLower.includes('reagan')) return REAGAN;
 
-    if (headlineLower.includes("carter")) {
-      refs.spotlightBackgroundRef.current.currentTime = 270;
-      return;
-    }
+    // if (headlineLower.includes("carter")) {
+    //   refs.spotlightBackgroundRef.current.currentTime = 270;
+    //   return;
+    // }
 
-    if (
-      headlineLower.includes("reagan") ||
-      headlineLower.includes("us president") ||
-      headlineLower.includes("u.s. president")
-    ) {
-      refs.spotlightBackgroundRef.current.currentTime = 300;
-      return;
-    }
+    // if (
+    //   headlineLower.includes("reagan") ||
+    //   headlineLower.includes("us president") ||
+    //   headlineLower.includes("u.s. president")
+    // ) {
+    //   refs.spotlightBackgroundRef.current.currentTime = 300;
+    //   return;
+    // }
 
-    if (
-      headlineLower.includes("white house") ||
-      headlineLower.includes("us government") ||
-      headlineLower.includes("u.s. government") ||
-      headlineLower.includes("united states government") ||
-      headlineLower.includes("washington")
-    ) {
-      refs.spotlightBackgroundRef.current.currentTime = 240;
-      return;
-    }
+    // if (
+    //   headlineLower.includes("white house") ||
+    //   headlineLower.includes("us government") ||
+    //   headlineLower.includes("u.s. government") ||
+    //   headlineLower.includes("united states government") ||
+    //   headlineLower.includes("washington")
+    // ) {
+    //   refs.spotlightBackgroundRef.current.currentTime = 240;
+    //   return;
+    // }
 
-    const timeArray = [
-      0, 30, 60, 90, 120, 150, 180, 210, 330, 360, 390, 420, 450, 480, 510,
-    ];
-    const randomIndex = Math.floor(Math.random() * timeArray.length);
+    // const timeArray = [
+    //   0, 30, 60, 90, 120, 150, 180, 210, 330, 360, 390, 420, 450, 480, 510,
+    // ];
+    // const randomIndex = Math.floor(Math.random() * timeArray.length);
 
-    refs.spotlightBackgroundRef.current.currentTime = timeArray[randomIndex];
+    // refs.spotlightBackgroundRef.current.currentTime = timeArray[randomIndex];
+
+
+
+    // Debugging for now:
+
+
+    refs.spotlightBackgroundRef.current.currentTime = 0;
   }
 }
 
 const GNN: T_Org = {
   id: "gnn",
   label: "GNN",
-  bgVideo: `${J_VIDS}insanity_1.mp4`,
+  bgVideo: `${J_VIDS}globe3-r.mp4`,
   // overlayVideo: `${J_VIDS}vhs.mp4`,
   introVideo: `${J_VIDS}yellowarrow.webm`,
   introAudio: `${J_AUDIO}news3.mp3`, // TODO

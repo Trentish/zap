@@ -222,8 +222,17 @@
     align-items: flex-start;
     flex-direction: column;
 
-    font-size: 6vmax;
-    gap: 1vmax;
+    /* This will set us up for one talking head with one feature video/image on the right */
+    display: grid;
+    gap: 0;
+    grid-template-areas:
+        "video-left video-right video-right"
+        "chyron chyron logo";
+    grid-template-columns: 30vw 1fr 1fr;
+    grid-template-rows: 1fr auto;	
+    align-items: stretch;
+    position: relative;
+    background: none;
 }
 
 .insanity.projector-page .spotlight-carrier-theme {
@@ -265,7 +274,7 @@
 }
 
 .insanity.projector-page .spotlight-container .spotlight-background {
-    transform: translateX(2vw) scale(110%);
+    /* transform: translateX(2vw) scale(110%); */
     /* display: none; */
 }
 

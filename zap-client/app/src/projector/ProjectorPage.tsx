@@ -106,7 +106,7 @@ function Headlines() {
           .slice(-SHOW_LAST_COUNT)
           .reverse()
           .map(($article) => (
-            <Headline key={`${$article}`} $article={$article} />
+            <Article key={`${$article}`} $article={$article} />
           ))}
       </div>
     </div>
@@ -335,7 +335,7 @@ function Spotlight() {
   );
 }
 
-function Headline({ $article }: { $article: Atom<ArticleDat> }) {
+function Article({ $article }: { $article: Atom<ArticleDat> }) {
   const [article] = useAtom($article);
   const [spotlight] = useAtom($spotlight);
 
