@@ -64,7 +64,7 @@
         "articles articles articles allStats"
         "corps corps corps corps";
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: minmax(8vmin, auto) 1fr min-content;	
+    grid-template-rows: auto 1fr min-content;	
     align-items: stretch;
     position: relative;
     background: none;
@@ -73,6 +73,12 @@
     padding: var(--insanity--vert-gap) var(--insanity--horiz-gap) 0;
     height: 100vh;
     box-sizing: border-box;
+}
+
+.insanity * {    
+    /* Perfect cap height alignment using text-box properties */
+    text-box-trim: trim-both !important;
+    text-box-edge: cap alphabetic !important;
 }
 
 .insanity.projector-page .intro,
@@ -100,8 +106,17 @@
     font-size: var(--insanity--font-size-timer);
     font-weight: var(--insanity--font-weight-bold);
     letter-spacing: var(--insanity--letter-spacing);
-    line-height: 0.8em; /* Horrible hack to get timer top-aligned with defcon block. */
     gap: 1vmin;
+    
+    /* Temporary debug background - remove when satisfied */
+    background: green;
+}
+.insanity.projector-page .timer,
+.insanity.projector-page .timer .time,
+.insanity.projector-page .timer .timer-label {
+    /* Perfect cap height alignment using text-box properties */
+    text-box-trim: trim-both;
+    text-box-edge: cap alphabetic;
 }
 
 .insanity.projector-page .timer .timer-label {
@@ -205,6 +220,25 @@
 .insanity.projector-page .defcon-block .stat-group::before,
 .insanity.projector-page .defcon-block .stat-group::after {
     font-family: var(--insanity--font-arrows);
+}
+
+/* ===============================
+   TOP STORIES AREA
+   =============================== */
+
+.insanity.projector-page .articles {
+    position: relative;
+}
+
+.insanity.projector-page .articles::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--insanity--gnn-red);
+    z-index: -1;
 }
 
 /* ===============================

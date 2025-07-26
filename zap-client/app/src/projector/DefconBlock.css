@@ -78,6 +78,12 @@
     font-family: var(--defcon-font-family);
 }
 
+.defcon-block * {
+    /* Perfect cap height alignment using text-box properties */
+    text-box-trim: trim-both !important;
+    text-box-edge: cap alphabetic !important;
+}
+
 /* ===============================
    DEFCON STAT VIEW COMPONENTS
    =============================== */
@@ -97,7 +103,7 @@
     color: var(--defcon-label-color);
     font-size: var(--defcon-label-font-size);
     font-family: var(--defcon-font-family);
-	padding-bottom: var(--defcon-border-width);
+	padding: 0.2em 0 calc(0.2em + var(--defcon-border-width)) 0;
 }
 
 /* ===============================
