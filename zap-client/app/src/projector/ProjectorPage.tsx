@@ -97,10 +97,10 @@ function Headlines() {
 
   return (
     <div className={"articles"}>
-      <div className={"articles-header"}>
+      {/* <div className={"articles-header"}>
         {config.logo && <img className={"logo"} src={config.logo} />}
         <div className={"top-stories-label"}>TOP STORIES THIS HOUR</div>
-      </div>
+      </div> */}
       <div className={"articles-content"}>
         {articles
           .slice(-SHOW_LAST_COUNT)
