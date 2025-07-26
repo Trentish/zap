@@ -16,7 +16,18 @@ import { updateArticleText } from "../lib/textFitting.ts";
 const LOG = true;
 
 // TEMPORARY DEBUG FLAG - SET TO TRUE TO KEEP SPOTLIGHT VISIBLE - REMOVE LATER
-const DEBUG_KEEP_VISIBLE = false;
+const DEBUG_KEEP_VISIBLE = true;
+
+// TEMPORARY TEST HEADLINES FOR DEBUGGING - REMOVE LATER
+const testHeadlines = [
+  "BREAKING: Markets crash today", // ~30 chars
+  "URGENT: President announces new economic policy", // ~50 chars  
+  "DEVELOPING: Major earthquake strikes coastal region, evacuations underway", // ~70 chars
+  "EXCLUSIVE: Investigation reveals corruption scandal involving multiple government officials nationwide", // ~100 chars
+  "LIVE: International summit begins as world leaders gather to discuss climate change and economic cooperation agreements", // ~120 chars
+  "ALERT: Massive cyberattack targets critical infrastructure across multiple countries, causing widespread disruptions to power grids and communication networks", // ~150 chars
+  "UNPRECEDENTED: Global health emergency declared as new pandemic strain emerges, prompting immediate lockdown measures and international travel restrictions while scientists race to develop updated vaccines", // ~200 chars
+];
 
 const $spotlightOrg = atom<T_Org | null>(null);
 
@@ -50,6 +61,9 @@ export function Spotlight() {
   const [article] = useAtom($spotlightArticle);
   const [config] = useAtom($config);
 
+
+
+
   // TEMPORARY DEBUG FUNCTION - REMOVE LATER
   const handleChyronRecalc = () => {
     const headline = headlineRef.current;
@@ -62,13 +76,14 @@ export function Spotlight() {
       ) as HTMLElement;
 
       if (headlineTextElement && headlineContainerElement) {
-        // Use current article headline or fallback text
-        const testText =
-          article?.headline ||
-          "BREAKING NEWS: Recalculating text fitting for CSS debugging";
+        // Cycle through test headlines - shift one off and push to end
+        const testText = testHeadlines.shift() || "DEFAULT TEST TEXT";
+        testHeadlines.push(testText);
+        
         console.log(
           "🔦 DEBUG: Force recalculating chyron text fitting with:",
-          testText
+          testText,
+          `(${testText.length} chars)`
         );
 
         // Trigger the text fitting algorithm

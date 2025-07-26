@@ -4,7 +4,7 @@
 
 /* Spotlight article highlighting in main articles list */
 .insanity.projector-page .article.spotlight {
-    background-color: #369;
+    /* background-color: #369; */
 }
 
 /* Spotlight intro/outro video filters */
@@ -56,13 +56,13 @@
    =============================== */
 .insanity.projector-page .spotlight-carrier .video-left-placeholder {
     grid-area: video-left;
-    background: blue;
+    background: #33669999;
     /* Talking head video will go here */
 }
 
 .insanity.projector-page .spotlight-carrier .video-right-placeholder {
     grid-area: video-right;
-    background: green;
+    background: #33996699;
     /* Featured video/image will go here */
 }
 
@@ -70,11 +70,13 @@
     grid-area: chyron;
     display: flex;
     flex-direction: column;
+	background: #99336699;
     /* Contains both location and chyron */
 }
 
 .insanity.projector-page .spotlight-carrier .logo-wrapper {
     grid-area: logo;
+	background: #FF00FF99;
     display: flex;
     align-items: center;
     justify-content: center;
