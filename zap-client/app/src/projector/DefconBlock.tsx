@@ -104,12 +104,13 @@ function StatView({ index, def }: { index: number; def: T_StatDef }) {
   const hasNeutralFlags = Array.from(activeFlags.values()).some(f => f.trend === "neutral");
   const hasDownFlags = Array.from(activeFlags.values()).some(f => f.trend === "down");
 
-  // Helper to get odd/even and count classes based on visible flags
-  function getGroupClass(base: string, groupType: "up" | "down" | "neutral") {
+  // Helper to get group classes including visibility state
+  function getGroupClass(base: string, groupType: "up" | "down" | "neutral", hasFlags: boolean) {
     const visibleCount = Array.from(activeFlags.values()).filter(f => f.trend === groupType).length;
     const oddEven = visibleCount % 2 === 0 ? "contains-even" : "contains-odd";
     const countClass = `contains-${visibleCount}`;
-    return `${base} ${oddEven} ${countClass}`;
+    const visibilityClass = hasFlags ? "group-visible" : "group-hidden";
+    return `${base} ${oddEven} ${countClass} ${visibilityClass}`;
   }
 
   return (
@@ -117,15 +118,10 @@ function StatView({ index, def }: { index: number; def: T_StatDef }) {
       {def.icon && <img className={"statIcon"} src={def.icon} />}
       {def.label && <div className={"statLabel"}>{def.label}</div>}
       <div className={"statValue"}>
-        {hasUpFlags && (
-          <div className={getGroupClass("stat-group trending-up-group", "up")}>{upFlags}</div>
-        )}
-        {hasNeutralFlags && (
-          <div className={getGroupClass("stat-group neutral-group", "neutral")}>{neutralFlags}</div>
-        )}
-        {hasDownFlags && (
-          <div className={getGroupClass("stat-group trending-down-group", "down")}>{downFlags}</div>
-        )}
+        {/* Always render all groups - use CSS to show/hide */}
+        <div className={getGroupClass("stat-group trending-up-group", "up", hasUpFlags)}>{upFlags}</div>
+        <div className={getGroupClass("stat-group neutral-group", "neutral", hasNeutralFlags)}>{neutralFlags}</div>
+        <div className={getGroupClass("stat-group trending-down-group", "down", hasDownFlags)}>{downFlags}</div>
       </div>
     </div>
   );

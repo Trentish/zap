@@ -104,6 +104,7 @@
 
 .defcon-1 .stat-group {
     background: var(--defcon-1-group-bg-color);
+	border-color: var(--defcon-1-border-color);
 }
 
 /* DEFCON 2 */
@@ -118,6 +119,7 @@
 
 .defcon-2 .stat-group {
     background: var(--defcon-2-group-bg-color);
+	border-color: var(--defcon-2-border-color);
 }
 
 /* DEFCON 3 */
@@ -132,6 +134,7 @@
 
 .defcon-3 .stat-group {
     background: var(--defcon-3-group-bg-color);
+	border-color: var(--defcon-3-border-color);
 }
 
 /* ===============================
@@ -188,11 +191,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    row-gap: var(--defcon-group-gap);
     font-size: var(--defcon-content-font-size);
     line-height: var(--defcon-content-line-height);
     align-items: center;
     justify-content: center;
+
+	/*
+		We can't use gaps between stat-groups, so we're cheating with
+		top borders. To ensure we don't see the border of the top-most group,
+		we sneak the whole containing block (.statValue) up by that same border width!
+	*/
+	margin-top: calc(-1 * var(--defcon-border-width)); 
 }
 
 .defcon-block .stat-group {
@@ -204,6 +213,23 @@
     padding: var(--defcon-stat-padding);
     width: 100%;
     position: relative;
+	border-top-style: solid;
+    
+    /* Group height animations */
+    overflow: hidden;
+    transition: max-height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                border-top-width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Group visibility states */
+.defcon-block .stat-group.group-visible {
+	border-top-width: var(--defcon-border-width);
+}
+
+.defcon-block .stat-group.group-hidden {
+    padding-top: 0;
+    padding-bottom: 0;
+	border-top-width: 0;
 }
 
 .defcon-block .trending-up-group,
@@ -228,6 +254,15 @@
     width: var(--defcon-arrow-size);
     font-variant-numeric: normal;
     font-family: var(--defcon-arrow-font-family);
+    
+    /* Transition arrow visibility with group */
+    transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Hide arrows when group is hidden */
+.defcon-block .stat-group.group-hidden::before,
+.defcon-block .stat-group.group-hidden::after {
+    opacity: 0;
 }
 
 .defcon-block .stat-group::before {
