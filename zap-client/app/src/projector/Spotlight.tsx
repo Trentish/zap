@@ -307,11 +307,6 @@ export function Spotlight() {
         className={`spotlight-container`}
         id={"spotlight"}
       >
-        {/*<BackgroundVideo*/}
-        {/*	src={``}*/}
-        {/*	className={'spotlight-overlay'}*/}
-        {/*	ref={spotlightOverlayRef}*/}
-        {/*/>*/}
 
         <Video src={``} className={"intro"} ref={introVideoRef} />
 
@@ -323,18 +318,18 @@ export function Spotlight() {
 
         <div className={"spotlight-carrier"} ref={carrierRef}>
           {/* TEMPORARY: Using CNN screenshot instead of background video */}
-          <img
+          {/* <img
             src="../assets/images/insanity/cnn_screengrab.png"
             className="spotlight-background"
             alt="CNN Background"
-          />
+          /> */}
 
           {/* COMMENTED OUT: Background video - will restore later */}
-          {/*<BackgroundVideo
+          <BackgroundVideo
 			src={``}
 			className={"spotlight-background"}
 			ref={spotlightBackgroundRef}
-			/>*/}
+			/>
 
           <div className={"video-left-placeholder"}>
             {/* Talking head video placeholder */}
