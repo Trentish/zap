@@ -1,3 +1,8 @@
+:root {
+    --insanity--spotlight-internal-padding: 3vmin;
+    --insanity--spotlight-chryon-red-border-width: 2vmin;
+}
+
 /* ===============================
    SPOTLIGHT COMPONENT STYLES
    =============================== */
@@ -5,6 +10,7 @@
 /* Spotlight article highlighting in main articles list */
 .insanity.projector-page .article.spotlight {
     /* background-color: #369; */
+
 }
 
 /* Spotlight intro/outro video filters */
@@ -35,11 +41,12 @@
     grid-template-areas:
         "video-left video-right video-right"
         "chyron chyron logo";
-    grid-template-columns: 30vw 1fr 1fr;
+    grid-template-columns: 30vw 1fr 10vw;
     grid-template-rows: 1fr auto;	
     align-items: stretch;
     position: relative;
     background: none;
+	padding: var(--insanity--vertical-edge-distance) var(--insanity--horiz-gap);
 }
 
 .insanity.projector-page .spotlight-carrier.show {
@@ -68,10 +75,40 @@
 
 .insanity.projector-page .spotlight-carrier .chyron-wrapper {
     grid-area: chyron;
-    display: flex;
-    flex-direction: column;
 	background: #99336699;
+	position: relative; /* For absolute positioning of location */
+	z-index: 0; /* For absolute positioning of location */
     /* Contains both location and chyron */
+}
+
+.insanity.projector-page .spotlight-carrier .spotlight-carrier-location {
+	--location-font-size: 5vmin;
+
+	padding: 0;
+	margin: 0;
+	position: absolute;
+	top: calc(-1 * var(--location-font-size) - var(--insanity--spotlight-internal-padding) / 2);
+	font-size: var(--location-font-size);
+	padding: calc(var(--insanity--spotlight-internal-padding) / 2) var(--insanity--spotlight-internal-padding);
+	line-height: 0;
+	font-family: 'Helvetica Now Variable', 'Courier New', Courier, monospace;
+	letter-spacing: 0.05em;
+	font-weight: 400;
+	left: var(--insanity--spotlight-chryon-red-border-width);
+}
+
+.insanity.projector-page .spotlight-carrier .spotlight-carrier-location::before {
+	z-index: -1;
+    background: var(--insanity--gnn-red);
+	content: "";
+	width: calc(100% + var(--insanity--spotlight-chryon-red-border-width));
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: calc(-1 * var(--insanity--spotlight-chryon-red-border-width));
+	box-shadow: 0 var(--insanity--spotlight-chryon-red-border-width) black;
+	border-top-left-radius: calc(var(--insanity--spotlight-chryon-red-border-width) * 0.9);
+	border-left: solid var(--insanity--spotlight-chryon-red-border-width) var(--insanity--gnn-red);
 }
 
 .insanity.projector-page .spotlight-carrier .logo-wrapper {
@@ -96,8 +133,11 @@
 .insanity.projector-page .spotlight-carrier .chyron-outer {
     width: 100%;
     background: linear-gradient(165deg, rgba(255, 255, 255, 1) 25%, rgba(200, 200, 200, 1) 100%);
-    padding: 1vw;
+    padding: var(--insanity--spotlight-internal-padding);
     overflow: hidden; /* Important for chyrons */
+
+	/* For the border crap around the location/breaking news portion of the chyron */
+	border-left: solid var(--insanity--spotlight-chryon-red-border-width) var(--insanity--gnn-red);
 }
 
 .insanity.projector-page .spotlight-carrier .chyron-container {
@@ -122,7 +162,8 @@
     width: 100%; /* Fill the container exactly */
     text-transform: uppercase;
     font-variation-settings: 'wdth' 100; /* Start at normal width */
-    line-height: 0.9; /* Tighter line spacing for two-line layout */
+	line-height: 0.9; /* Tighter line spacing for two-line layout */	
+	letter-spacing: -0.005em;
 }
 
 /* ===============================
