@@ -185,8 +185,16 @@
     display: none;
 }
 
-.insanity.projector-page .articles div.article:not(:nth-of-type(1)) {
+.insanity.projector-page .articles div.article {
     opacity: 0.5;
+}
+
+.insanity.projector-page .articles div.article:nth-of-type(1) {
+    border-left: solid 0.5vmin white;
+    padding-left: 2vmin;
+    margin-left: -2vmin;
+    opacity: 1;
+    font-size: 1.5em;
 }
 
 .insanity.projector-page .articles div.article:nth-of-type(1n+6) {
