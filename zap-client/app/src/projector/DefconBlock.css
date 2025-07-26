@@ -106,16 +106,33 @@
 }
 
 .defcon-1 .statLabel {
-    background: repeating-linear-gradient(
-        -45deg,
-        var(--defcon-1-bg-color),
-        var(--defcon-1-bg-color) 0.8vmin,
-        #990000 0.8vmin,
-        #990000 1.6vmin
-    ); /* Striped background for DEFCON 1 */
+    background: var(--defcon-1-bg-color); /* Solid background always */
+    position: relative; /* For positioning the ::after pseudo-element */
 }
 
-.defcon-1.statView.defcon-empty {
+/* Striped overlay that transitions in/out */
+.defcon-1 .statLabel::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 0.8vmin,
+        rgba(0, 0, 0, 0.3) 0.8vmin,
+        rgba(0, 0, 0, 0.3) 1.6vmin
+    );
+    opacity: 0;
+    transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    pointer-events: none;
+}
+
+/* Show stripes when DEFCON 1 is NOT empty */
+.defcon-1:not(.defcon-empty) .statLabel::after {
+    opacity: 1;
 }
 
 .defcon-1 .stat-group {
