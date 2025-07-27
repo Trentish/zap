@@ -41,13 +41,11 @@ const analyzeSpotlightConfig = (headline: string, location?: string): SpotlightC
   let selectedBackground = "/assets/videos/insanity/12676946_3840_2160_30fps.mp4";
   
   const carrierClasses = [
-    // "background-feature",
-    // "two-heads--no-feature",
-    "one-head--big-feature", 
-    // "one-head--no-feature"
-  ];
-  
-  const backgroundFeatureSources = [
+    "background-feature",
+    // "left-right-features", 
+    // "left-feature-only",
+    // "two-features"
+  ];  const backgroundFeatureSources = [
     "/assets/videos/insanity/talkingHeads/wide/ronBurgundy.mp4"
   ];
   
@@ -391,7 +389,7 @@ export function Spotlight() {
 
         <Audio src={``} ref={outroAudioRef} />
 
-        <div className={`spotlight-carrier ${currentSpotlightConfig?.["spotlight-carrier-class"] || "one-head--big-feature"}`} ref={carrierRef}>
+        <div className={`spotlight-carrier ${currentSpotlightConfig?.["spotlight-carrier-class"] || "left-right-features"}`} ref={carrierRef}>
           {/* TEMPORARY: Using CNN screenshot instead of background video */}
           {/* <img
             src="../assets/images/insanity/cnn_screengrab.png"
@@ -406,30 +404,30 @@ export function Spotlight() {
 			ref={spotlightBackgroundRef}
 			/>
 
-          <div className={"head-video-placeholder"}>
-            {/* Talking head video placeholder */}
+          <div className={"left-feature-placeholder"}>
+            {/* Left feature video placeholder */}
             <video
               src={currentSpotlightConfig?.["head-video-src"] || "/assets/videos/insanity/talkingHeads/square/ronBurgundy.mp4"}
               autoPlay
               loop
               muted
-              className="talking-head-video"
+              className="left-feature-video"
             />
           </div>
-          <div className={"feature-video-placeholder"}>
-            {/* Featured video/image placeholder - dynamic based on config */}
+          <div className={"right-feature-placeholder"}>
+            {/* Right feature video/image placeholder - dynamic based on config */}
             {currentSpotlightConfig?.feature.type === "video" ? (
               <video
                 src={currentSpotlightConfig.feature.source}
                 autoPlay
                 loop
                 muted
-                className="feature-video"
+                className="right-feature-video"
               />
             ) : (
               <img
                 src={currentSpotlightConfig?.feature.source || "/assets/videos/insanity/features/mars.mp4"}
-                className="feature-image"
+                className="right-feature-image"
                 alt="Feature content"
               />
             )}

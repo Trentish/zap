@@ -58,27 +58,27 @@
     grid-template-columns: 27.5vw 1fr 10vw;
 }
 
-.insanity.projector-page .spotlight-carrier.two-heads--no-feature {
+.insanity.projector-page .spotlight-carrier.two-features {
     grid-template-areas:
-        "head-video head-video feature-video feature-video"
+        "left-feature left-feature right-feature right-feature"
         "chyron chyron chyron chyron";
     grid-template-columns: 10vw 1fr 1fr 10vw;
 }
 
-.insanity.projector-page .spotlight-carrier.one-head--big-feature {
+.insanity.projector-page .spotlight-carrier.left-right-features {
     grid-template-areas:
-        "head-video feature-video feature-video"
+        "left-feature right-feature right-feature"
         "chyron chyron chyron";
     grid-template-columns: 27.5vw 1fr 10vw;
 }
 
-.insanity.projector-page .spotlight-carrier.one-head--no-feature {
+.insanity.projector-page .spotlight-carrier.left-feature-only {
     grid-template-areas:
-        "head-video head-video head-video"
+        "left-feature left-feature left-feature"
         "chyron chyron chyron";
     grid-template-columns: 27.5vw 1fr 10vw;
 }
-.insanity.projector-page .spotlight-carrier.one-head--no-feature .feature-video-placeholder {
+.insanity.projector-page .spotlight-carrier.left-feature-only .right-feature-placeholder {
 	display: none;
 }
 
@@ -98,15 +98,15 @@
 /* ===============================
    GRID AREA ASSIGNMENTS AND PLACEHOLDERS
    =============================== */
-.insanity.projector-page .spotlight-carrier .head-video-placeholder {
-    grid-area: head-video;
+.insanity.projector-page .spotlight-carrier .left-feature-placeholder {
+    grid-area: left-feature;
     background: #33669999;
     position: relative;
     overflow: hidden;
-    /* Talking head video will go here */
+    /* Left feature video will go here */
 }
 
-.insanity.projector-page .spotlight-carrier .head-video-placeholder .talking-head-video {
+.insanity.projector-page .spotlight-carrier .left-feature-placeholder .left-feature-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -115,15 +115,15 @@
     left: 0;
 }
 
-.insanity.projector-page .spotlight-carrier .feature-video-placeholder {
-    grid-area: feature-video;
+.insanity.projector-page .spotlight-carrier .right-feature-placeholder {
+    grid-area: right-feature;
     background: #33996699;
     position: relative;
     overflow: hidden;
-    /* Featured video/image will go here */
+    /* Right feature video/image will go here */
 }
 
-.insanity.projector-page .spotlight-carrier .feature-video-placeholder .feature-video {
+.insanity.projector-page .spotlight-carrier .right-feature-placeholder .right-feature-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
