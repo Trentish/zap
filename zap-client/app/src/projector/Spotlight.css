@@ -39,16 +39,20 @@
     /* This will set us up for one talking head with one feature video/image on the right */
     display: none; /* Start hidden, will be shown by SHOW(carrier) */
     gap: 0;
-    grid-template-areas:
-        "video-left video-right video-right"
-        "chyron chyron chyron";
-    grid-template-columns: 27.5vw 1fr 10vw;
-    grid-template-rows: 1fr auto;	
 	column-gap: 0.5vmin;
+    grid-template-rows: 1fr auto;	
     align-items: stretch;
     position: relative;
     background: none;
 	padding: var(--insanity--vertical-edge-distance) var(--insanity--horiz-gap);
+}
+
+
+.insanity.projector-page .spotlight-carrier.one-head--big-feature {
+    grid-template-areas:
+        "video-left video-right video-right"
+        "chyron chyron chyron";
+    grid-template-columns: 27.5vw 1fr 10vw;
 }
 
 .insanity.projector-page .spotlight-carrier.show {

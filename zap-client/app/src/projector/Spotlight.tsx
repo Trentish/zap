@@ -319,7 +319,7 @@ export function Spotlight() {
 
         <Audio src={``} ref={outroAudioRef} />
 
-        <div className={"spotlight-carrier"} ref={carrierRef}>
+        <div className={"spotlight-carrier one-head--big-feature"} ref={carrierRef}>
           {/* TEMPORARY: Using CNN screenshot instead of background video */}
           {/* <img
             src="../assets/images/insanity/cnn_screengrab.png"
