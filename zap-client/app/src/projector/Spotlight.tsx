@@ -24,7 +24,7 @@ const USE_BREAKING_NEWS_FALLBACK = true;
 // Types for spotlight configuration
 type SpotlightConfig = {
   "spotlight-carrier-class": string;
-  "spotlight-background-src": string;
+  "spotlight-background-video-src": string;
   "left-feature-video-src": string;
   "right-feature": {
     type: "img" | "video";
@@ -38,8 +38,8 @@ const analyzeSpotlightConfig = (headline: string, location?: string): SpotlightC
   // For now, randomly select configuration options
   console.log(`🔦 Analyzing headline: "${headline}" with location: "${location}"`);
   
-  // Default background - only changed if we get background-feature class
-  let selectedBackground = "/assets/videos/insanity/12676946_3840_2160_30fps.mp4";
+  // Default background video - only changed if we get background-feature class
+  let selectedBackgroundVideo = "/assets/videos/insanity/12676946_3840_2160_30fps.mp4";
   
   const carrierClasses = [
     // "feature-type--background-feature",
@@ -48,7 +48,7 @@ const analyzeSpotlightConfig = (headline: string, location?: string): SpotlightC
     // "feature-type--two-equal-size-features"
   ];
   
-  const backgroundFeatureSources = [
+  const backgroundFeatureVideoSources = [
     "/assets/videos/insanity/talkingHeads/wide/ronBurgundy.mp4"
   ];
   
@@ -69,9 +69,9 @@ const analyzeSpotlightConfig = (headline: string, location?: string): SpotlightC
   // Random selection for now
   const randomCarrierClass = carrierClasses[Math.floor(Math.random() * carrierClasses.length)];
   
-  // Only change background if we got background-feature class
+  // Only change background video if we got background-feature class
   if (randomCarrierClass === "feature-type--background-feature") {
-    selectedBackground = backgroundFeatureSources[Math.floor(Math.random() * backgroundFeatureSources.length)];
+    selectedBackgroundVideo = backgroundFeatureVideoSources[Math.floor(Math.random() * backgroundFeatureVideoSources.length)];
   }
   
   const randomLeftFeatureVideo = leftFeatureVideoSources[Math.floor(Math.random() * leftFeatureVideoSources.length)];
@@ -81,7 +81,7 @@ const analyzeSpotlightConfig = (headline: string, location?: string): SpotlightC
 
   return {
     "spotlight-carrier-class": randomCarrierClass,
-    "spotlight-background-src": selectedBackground,
+    "spotlight-background-video-src": selectedBackgroundVideo,
     "left-feature-video-src": randomLeftFeatureVideo,
     "right-feature": randomRightFeature
   };
@@ -231,7 +231,7 @@ export function Spotlight() {
       ADD_CLASS(carrier, spotlightConfig["spotlight-carrier-class"]);
 
       // Use config-determined sources instead of org defaults
-      SET_VID(background, spotlightConfig["spotlight-background-src"]);
+      SET_VID(background, spotlightConfig["spotlight-background-video-src"]);
       SET_VID(introVideo, org.introVideo);
       SET_AUD(introAudio, org.introAudio, org.introVolume);
       SET_VID(outroVideo, org.outroVideo);
