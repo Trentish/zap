@@ -63,7 +63,7 @@ const analyzeSpotlightConfig = (headline: string, location?: string): SpotlightC
   const rightFeatureOptions = [
     { type: "video" as const, source: "/assets/videos/insanity/features/mars.mp4" },
     // { type: "video" as const, source: "/assets/videos/insanity/talkingHeads/square/lady2.mp4" },
-    { type: "img" as const, source: "/assets/images/insanity/features/Minneapolis_skyline.jpg" }
+    // { type: "img" as const, source: "/assets/images/insanity/features/Minneapolis_skyline.jpg" }
   ];
   
   // Random selection for now
