@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useMemo } from "react";
+import React, { useEffect, useRef, useMemo, useState } from "react";
 import { useAtom } from "jotai";
 import { atom } from "jotai";
 import "./Spotlight.css";
@@ -16,10 +16,72 @@ import { updateArticleText } from "../lib/textFitting.ts";
 const LOG = true;
 
 // TEMPORARY DEBUG FLAG - SET TO TRUE TO KEEP SPOTLIGHT VISIBLE - REMOVE LATER
-const DEBUG_KEEP_VISIBLE = true;
+const DEBUG_KEEP_VISIBLE = false;
 
 // TEMPORARY DEBUG FLAG - SET TO TRUE TO SHOW "BREAKING NEWS" WHEN NO LOCATION - REMOVE LATER
 const USE_BREAKING_NEWS_FALLBACK = true;
+
+// Types for spotlight configuration
+type SpotlightConfig = {
+  "spotlight-carrier-class": string;
+  "spotlight-background-src": string;
+  "head-video-src": string;
+  "feature": {
+    type: "img" | "video";
+    source: string;
+  };
+};
+
+// Function to analyze headline and return spotlight configuration
+const analyzeSpotlightConfig = (headline: string, location?: string): SpotlightConfig => {
+  // TODO: Replace with intelligent analysis later
+  // For now, randomly select configuration options
+  
+  // Default background - only changed if we get background-feature class
+  let selectedBackground = "/assets/videos/insanity/12676946_3840_2160_30fps.mp4";
+  
+  const carrierClasses = [
+    // "background-feature",
+    // "two-heads--no-feature",
+    "one-head--big-feature", 
+    // "one-head--no-feature"
+  ];
+  
+  const backgroundFeatureSources = [
+    "/assets/videos/insanity/talkingHeads/wide/ronBurgundy.mp4"
+  ];
+  
+  const headVideoSources = [
+    "/assets/videos/insanity/talkingHeads/square/testHead.mp4",
+    "/assets/videos/insanity/talkingHeads/square/ronBurgundy.mp4"
+  ];
+  
+  const featureOptions = [
+    // { type: "video" as const, source: "/assets/videos/insanity/features/mars.mp4" },
+    { type: "video" as const, source: "/assets/videos/insanity/talkingHeads/square/testHead.mp4" },
+    // { type: "img" as const, source: "/assets/images/insanity/cnn_screengrab.png" }
+  ];
+  
+  // Random selection for now
+  const randomCarrierClass = carrierClasses[Math.floor(Math.random() * carrierClasses.length)];
+  
+  // Only change background if we got background-feature class
+  if (randomCarrierClass === "background-feature") {
+    selectedBackground = backgroundFeatureSources[Math.floor(Math.random() * backgroundFeatureSources.length)];
+  }
+  
+  const randomHeadVideo = headVideoSources[Math.floor(Math.random() * headVideoSources.length)];
+  const randomFeature = featureOptions[Math.floor(Math.random() * featureOptions.length)];
+  
+  console.log(`🔦 SPOTLIGHT CONFIG: Analyzed "${headline}" -> ${randomCarrierClass}`);
+  
+  return {
+    "spotlight-carrier-class": randomCarrierClass,
+    "spotlight-background-src": selectedBackground,
+    "head-video-src": randomHeadVideo,
+    "feature": randomFeature
+  };
+};
 
 // TEMPORARY TEST HEADLINES FOR DEBUGGING - REMOVE LATER
 const testHeadlines = [
@@ -63,6 +125,7 @@ const SET_TEXT = (element: HTMLDivElement | null, text: string) => {
 export function Spotlight() {
   const [article] = useAtom($spotlightArticle);
   const [config] = useAtom($config);
+  const [currentSpotlightConfig, setCurrentSpotlightConfig] = useState<SpotlightConfig | null>(null);
 
 
 
@@ -153,12 +216,18 @@ export function Spotlight() {
       //## article ENTER
       if (LOG) console.log(`🔦 useEffect: Spotlight,  article ENTER`, article);
 
+      // Analyze headline and get spotlight configuration
+      const spotlightConfig = analyzeSpotlightConfig(article.headline, article.location);
+      console.log(`🔦 SPOTLIGHT CONFIG:`, spotlightConfig);
+
       const org = config.GetOrg(article);
       $store.set($spotlightOrg, org);
 
       ADD_CLASS(spotlightContainer, org.cssClass || org.id);
+      ADD_CLASS(carrier, spotlightConfig["spotlight-carrier-class"]);
 
-      SET_VID(background, org.bgVideo);
+      // Use config-determined sources instead of org defaults
+      SET_VID(background, spotlightConfig["spotlight-background-src"]);
       SET_VID(introVideo, org.introVideo);
       SET_AUD(introAudio, org.introAudio, org.introVolume);
       SET_VID(outroVideo, org.outroVideo);
@@ -166,6 +235,9 @@ export function Spotlight() {
       // SET_VID(overlay, org.overlayVideo);
       SET_TEXT(theme, org.label);
       SET_TEXT(location, article.location || (USE_BREAKING_NEWS_FALLBACK ? "BREAKING NEWS" : ""));
+
+      // Store config for later use in JSX
+      setCurrentSpotlightConfig(spotlightConfig);
 
       SHOW(introVideo);
       PLAY(introVideo);
@@ -286,7 +358,7 @@ export function Spotlight() {
   return (
     <>
       {/* TEMPORARY DEBUG BUTTON - REMOVE LATER */}
-      <button
+      {/* <button
         onClick={handleChyronRecalc}
         style={{
           position: "fixed",
@@ -303,7 +375,7 @@ export function Spotlight() {
         }}
       >
         RECALC
-      </button>
+      </button> */}
 
       <div
         ref={spotlightContainerRef}
@@ -319,7 +391,7 @@ export function Spotlight() {
 
         <Audio src={``} ref={outroAudioRef} />
 
-        <div className={"spotlight-carrier one-head--big-feature"} ref={carrierRef}>
+        <div className={`spotlight-carrier ${currentSpotlightConfig?.["spotlight-carrier-class"] || "one-head--big-feature"}`} ref={carrierRef}>
           {/* TEMPORARY: Using CNN screenshot instead of background video */}
           {/* <img
             src="../assets/images/insanity/cnn_screengrab.png"
@@ -337,7 +409,7 @@ export function Spotlight() {
           <div className={"head-video-placeholder"}>
             {/* Talking head video placeholder */}
             <video
-              src="/assets/videos/insanity/talkingHeads/square/ronBurgundy.mp4"
+              src={currentSpotlightConfig?.["head-video-src"] || "/assets/videos/insanity/talkingHeads/square/ronBurgundy.mp4"}
               autoPlay
               loop
               muted
@@ -345,14 +417,22 @@ export function Spotlight() {
             />
           </div>
           <div className={"feature-video-placeholder"}>
-            {/* Featured video/image placeholder */}
-            <video
-              src="/assets/videos/insanity/features/mars.mp4"
-              autoPlay
-              loop
-              muted
-              className="feature-video"
-            />
+            {/* Featured video/image placeholder - dynamic based on config */}
+            {currentSpotlightConfig?.feature.type === "video" ? (
+              <video
+                src={currentSpotlightConfig.feature.source}
+                autoPlay
+                loop
+                muted
+                className="feature-video"
+              />
+            ) : (
+              <img
+                src={currentSpotlightConfig?.feature.source || "/assets/videos/insanity/features/mars.mp4"}
+                className="feature-image"
+                alt="Feature content"
+              />
+            )}
           </div>
           <div className={"chyron-wrapper"}>
             {(article?.location || USE_BREAKING_NEWS_FALLBACK) && (

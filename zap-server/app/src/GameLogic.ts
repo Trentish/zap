@@ -18,7 +18,7 @@ const PHASE_WAIT_AT_ZERO_MS = 2900;
 const DB_BACKUP_MS = 5 * 60 * 1000;
 const ARTICLE_COUNT_INITIAL_SEND = 12; // TODO: config/elsewhere
 /** will be affected by tick rate */
-const SPOTLIGHT_DURATION_MS: [number, number] = [10000, 25000];
+const SPOTLIGHT_DURATION_MS: [number, number] = [12000, 12000];
 // const SPOTLIGHT_DURATION_MS: [number, number] = [40000, 41000];
 const SPOTLIGHT_COOLDOWN_MS = 3000; // must be >= max outro
 

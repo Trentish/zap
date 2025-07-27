@@ -47,11 +47,22 @@
 	padding: var(--insanity--vertical-edge-distance) var(--insanity--horiz-gap);
 }
 
+
+
+
+
 .insanity.projector-page .spotlight-carrier.background-feature {
     grid-template-areas:
         "no-feature-in-foreground no-feature-in-foreground no-feature-in-foreground"
         "chyron chyron chyron";
     grid-template-columns: 27.5vw 1fr 10vw;
+}
+
+.insanity.projector-page .spotlight-carrier.two-heads--no-feature {
+    grid-template-areas:
+        "head-video head-video feature-video feature-video"
+        "chyron chyron chyron chyron";
+    grid-template-columns: 10vw 1fr 1fr 10vw;
 }
 
 .insanity.projector-page .spotlight-carrier.one-head--big-feature {
@@ -67,6 +78,13 @@
         "chyron chyron chyron";
     grid-template-columns: 27.5vw 1fr 10vw;
 }
+.insanity.projector-page .spotlight-carrier.one-head--no-feature .feature-video-placeholder {
+	display: none;
+}
+
+
+
+
 
 .insanity.projector-page .spotlight-carrier.show {
     display: grid; /* Show as grid when .show class is added */
