@@ -334,17 +334,17 @@ export function Spotlight() {
 			ref={spotlightBackgroundRef}
 			/>
 
-          <div className={"video-left-placeholder"}>
+          <div className={"head-video-placeholder"}>
             {/* Talking head video placeholder */}
             <video
-              src="/assets/videos/insanity/talkingHeads/testHead.mp4"
+              src="/assets/videos/insanity/talkingHeads/square/ronBurgundy.mp4"
               autoPlay
               loop
               muted
               className="talking-head-video"
             />
           </div>
-          <div className={"video-right-placeholder"}>
+          <div className={"feature-video-placeholder"}>
             {/* Featured video/image placeholder */}
             <video
               src="/assets/videos/insanity/features/mars.mp4"

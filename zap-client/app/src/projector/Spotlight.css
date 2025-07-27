@@ -47,10 +47,23 @@
 	padding: var(--insanity--vertical-edge-distance) var(--insanity--horiz-gap);
 }
 
+.insanity.projector-page .spotlight-carrier.background-feature {
+    grid-template-areas:
+        "no-feature-in-foreground no-feature-in-foreground no-feature-in-foreground"
+        "chyron chyron chyron";
+    grid-template-columns: 27.5vw 1fr 10vw;
+}
 
 .insanity.projector-page .spotlight-carrier.one-head--big-feature {
     grid-template-areas:
-        "video-left video-right video-right"
+        "head-video feature-video feature-video"
+        "chyron chyron chyron";
+    grid-template-columns: 27.5vw 1fr 10vw;
+}
+
+.insanity.projector-page .spotlight-carrier.one-head--no-feature {
+    grid-template-areas:
+        "head-video head-video head-video"
         "chyron chyron chyron";
     grid-template-columns: 27.5vw 1fr 10vw;
 }
@@ -67,15 +80,15 @@
 /* ===============================
    GRID AREA ASSIGNMENTS AND PLACEHOLDERS
    =============================== */
-.insanity.projector-page .spotlight-carrier .video-left-placeholder {
-    grid-area: video-left;
+.insanity.projector-page .spotlight-carrier .head-video-placeholder {
+    grid-area: head-video;
     background: #33669999;
     position: relative;
     overflow: hidden;
     /* Talking head video will go here */
 }
 
-.insanity.projector-page .spotlight-carrier .video-left-placeholder .talking-head-video {
+.insanity.projector-page .spotlight-carrier .head-video-placeholder .talking-head-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -84,15 +97,15 @@
     left: 0;
 }
 
-.insanity.projector-page .spotlight-carrier .video-right-placeholder {
-    grid-area: video-right;
+.insanity.projector-page .spotlight-carrier .feature-video-placeholder {
+    grid-area: feature-video;
     background: #33996699;
     position: relative;
     overflow: hidden;
     /* Featured video/image will go here */
 }
 
-.insanity.projector-page .spotlight-carrier .video-right-placeholder .feature-video {
+.insanity.projector-page .spotlight-carrier .feature-video-placeholder .feature-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
