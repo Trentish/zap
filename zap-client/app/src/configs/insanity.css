@@ -114,6 +114,7 @@
 .insanity.projector-page .timer .timer-label {
     font-size: var(--insanity--font-size-label);
     font-weight: normal;
+    text-transform: uppercase;
 }
 
 /* ===============================
