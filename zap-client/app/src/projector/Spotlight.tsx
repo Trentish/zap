@@ -25,8 +25,8 @@ const USE_BREAKING_NEWS_FALLBACK = true;
 type SpotlightConfig = {
   "spotlight-carrier-class": string;
   "spotlight-background-src": string;
-  "head-video-src": string;
-  "feature": {
+  "left-feature-video-src": string;
+  "right-feature": {
     type: "img" | "video";
     source: string;
   };
@@ -41,22 +41,26 @@ const analyzeSpotlightConfig = (headline: string, location?: string): SpotlightC
   let selectedBackground = "/assets/videos/insanity/12676946_3840_2160_30fps.mp4";
   
   const carrierClasses = [
-    "background-feature",
-    // "left-right-features", 
+    // "background-feature",
+    "left-right-features", 
     // "left-feature-only",
     // "two-features"
-  ];  const backgroundFeatureSources = [
+  ];
+  
+  const backgroundFeatureSources = [
     "/assets/videos/insanity/talkingHeads/wide/ronBurgundy.mp4"
   ];
   
-  const headVideoSources = [
+  const leftFeatureVideoSources = [
     "/assets/videos/insanity/talkingHeads/square/testHead.mp4",
-    "/assets/videos/insanity/talkingHeads/square/ronBurgundy.mp4"
+    "/assets/videos/insanity/talkingHeads/square/ronBurgundy.mp4",
+	"/assets/videos/insanity/talkingHeads/square/dude1.mp4",
+	"/assets/videos/insanity/talkingHeads/square/jakeTapper.mp4"
   ];
   
-  const featureOptions = [
-    // { type: "video" as const, source: "/assets/videos/insanity/features/mars.mp4" },
-    { type: "video" as const, source: "/assets/videos/insanity/talkingHeads/square/testHead.mp4" },
+  const rightFeatureOptions = [
+    { type: "video" as const, source: "/assets/videos/insanity/features/mars.mp4" },
+    // { type: "video" as const, source: "/assets/videos/insanity/talkingHeads/square/testHead.mp4" },
     // { type: "img" as const, source: "/assets/images/insanity/cnn_screengrab.png" }
   ];
   
@@ -68,16 +72,16 @@ const analyzeSpotlightConfig = (headline: string, location?: string): SpotlightC
     selectedBackground = backgroundFeatureSources[Math.floor(Math.random() * backgroundFeatureSources.length)];
   }
   
-  const randomHeadVideo = headVideoSources[Math.floor(Math.random() * headVideoSources.length)];
-  const randomFeature = featureOptions[Math.floor(Math.random() * featureOptions.length)];
+  const randomLeftFeatureVideo = leftFeatureVideoSources[Math.floor(Math.random() * leftFeatureVideoSources.length)];
+  const randomRightFeature = rightFeatureOptions[Math.floor(Math.random() * rightFeatureOptions.length)];
   
   console.log(`🔦 SPOTLIGHT CONFIG: Analyzed "${headline}" -> ${randomCarrierClass}`);
   
   return {
     "spotlight-carrier-class": randomCarrierClass,
     "spotlight-background-src": selectedBackground,
-    "head-video-src": randomHeadVideo,
-    "feature": randomFeature
+    "left-feature-video-src": randomLeftFeatureVideo,
+    "right-feature": randomRightFeature
   };
 };
 
@@ -407,7 +411,7 @@ export function Spotlight() {
           <div className={"left-feature-placeholder"}>
             {/* Left feature video placeholder */}
             <video
-              src={currentSpotlightConfig?.["head-video-src"] || "/assets/videos/insanity/talkingHeads/square/ronBurgundy.mp4"}
+              src={currentSpotlightConfig?.["left-feature-video-src"] || "/assets/videos/insanity/talkingHeads/square/ronBurgundy.mp4"}
               autoPlay
               loop
               muted
@@ -416,9 +420,9 @@ export function Spotlight() {
           </div>
           <div className={"right-feature-placeholder"}>
             {/* Right feature video/image placeholder - dynamic based on config */}
-            {currentSpotlightConfig?.feature.type === "video" ? (
+            {currentSpotlightConfig?.["right-feature"].type === "video" ? (
               <video
-                src={currentSpotlightConfig.feature.source}
+                src={currentSpotlightConfig["right-feature"].source}
                 autoPlay
                 loop
                 muted
@@ -426,7 +430,7 @@ export function Spotlight() {
               />
             ) : (
               <img
-                src={currentSpotlightConfig?.feature.source || "/assets/videos/insanity/features/mars.mp4"}
+                src={currentSpotlightConfig?.["right-feature"].source || "/assets/videos/insanity/features/mars.mp4"}
                 className="right-feature-image"
                 alt="Feature content"
               />

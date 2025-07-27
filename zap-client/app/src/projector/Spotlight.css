@@ -36,7 +36,6 @@
     align-items: flex-start;
     flex-direction: column;
 
-    /* This will set us up for one talking head with one feature video/image on the right */
     display: none; /* Start hidden, will be shown by SHOW(carrier) */
     gap: 0;
 	column-gap: 0.5vmin;
