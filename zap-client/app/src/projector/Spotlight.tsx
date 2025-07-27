@@ -41,10 +41,10 @@ const analyzeSpotlightConfig = (headline: string, location?: string): SpotlightC
   let selectedBackground = "/assets/videos/insanity/12676946_3840_2160_30fps.mp4";
   
   const carrierClasses = [
-    // "background-feature",
-    "left-right-features", 
-    // "left-feature-only",
-    // "two-features"
+    // "feature-type--background-feature",
+    "feature-type--small-left-wide-right", 
+    // "feature-type--left-feature-only",
+    // "feature-type--two-equal-size-features"
   ];
   
   const backgroundFeatureSources = [
@@ -52,23 +52,24 @@ const analyzeSpotlightConfig = (headline: string, location?: string): SpotlightC
   ];
   
   const leftFeatureVideoSources = [
-    "/assets/videos/insanity/talkingHeads/square/testHead.mp4",
+    "/assets/videos/insanity/talkingHeads/square/lady2.mp4",
     "/assets/videos/insanity/talkingHeads/square/ronBurgundy.mp4",
 	"/assets/videos/insanity/talkingHeads/square/dude1.mp4",
-	"/assets/videos/insanity/talkingHeads/square/jakeTapper.mp4"
+	"/assets/videos/insanity/talkingHeads/square/jakeTapper.mp4",
+	"/assets/videos/insanity/talkingHeads/square/lady1.mp4"
   ];
   
   const rightFeatureOptions = [
     { type: "video" as const, source: "/assets/videos/insanity/features/mars.mp4" },
-    // { type: "video" as const, source: "/assets/videos/insanity/talkingHeads/square/testHead.mp4" },
-    // { type: "img" as const, source: "/assets/images/insanity/cnn_screengrab.png" }
+    // { type: "video" as const, source: "/assets/videos/insanity/talkingHeads/square/lady2.mp4" },
+    { type: "img" as const, source: "/assets/images/insanity/features/Minneapolis_skyline.jpg" }
   ];
   
   // Random selection for now
   const randomCarrierClass = carrierClasses[Math.floor(Math.random() * carrierClasses.length)];
   
   // Only change background if we got background-feature class
-  if (randomCarrierClass === "background-feature") {
+  if (randomCarrierClass === "feature-type--background-feature") {
     selectedBackground = backgroundFeatureSources[Math.floor(Math.random() * backgroundFeatureSources.length)];
   }
   
@@ -393,7 +394,7 @@ export function Spotlight() {
 
         <Audio src={``} ref={outroAudioRef} />
 
-        <div className={`spotlight-carrier ${currentSpotlightConfig?.["spotlight-carrier-class"] || "left-right-features"}`} ref={carrierRef}>
+        <div className={`spotlight-carrier ${currentSpotlightConfig?.["spotlight-carrier-class"] || "feature-type--small-left-wide-right"}`} ref={carrierRef}>
           {/* TEMPORARY: Using CNN screenshot instead of background video */}
           {/* <img
             src="../assets/images/insanity/cnn_screengrab.png"
