@@ -17,9 +17,11 @@
 .insanity.projector-page .intro {
     /* filter: saturate(0%); */
     /* filter: saturate(0); */
+    transform: rotate(180deg);
+    filter: saturate(0) brightness(1.15);
 }
 .insanity.projector-page .outro {
-    /* filter: hue-rotate(-45deg) brightness(1); */
+    filter: saturate(0) brightness(1.15);
 }
 
 /* ===============================
