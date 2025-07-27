@@ -173,6 +173,7 @@
     font-feature-settings: "kern" 0; /* Disable kerning */
     font-variant-numeric: normal;
     font-family: var(--corp-arrow-font-family);
+    margin-bottom: 0.2em; /* Manual tweak for alignment */
 }
 
 .corp-sparkline-svg {
