@@ -336,9 +336,23 @@ export function Spotlight() {
 
           <div className={"video-left-placeholder"}>
             {/* Talking head video placeholder */}
+            <video
+              src="/assets/videos/insanity/talkingHeads/testHead.mp4"
+              autoPlay
+              loop
+              muted
+              className="talking-head-video"
+            />
           </div>
           <div className={"video-right-placeholder"}>
             {/* Featured video/image placeholder */}
+            <video
+              src="/assets/videos/insanity/features/mars.mp4"
+              autoPlay
+              loop
+              muted
+              className="feature-video"
+            />
           </div>
           <div className={"chyron-wrapper"}>
             {(article?.location || USE_BREAKING_NEWS_FALLBACK) && (

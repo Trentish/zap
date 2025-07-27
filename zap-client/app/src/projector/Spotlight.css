@@ -42,8 +42,9 @@
     grid-template-areas:
         "video-left video-right video-right"
         "chyron chyron chyron";
-    grid-template-columns: 30vw 1fr 10vw;
+    grid-template-columns: 27.5vw 1fr 10vw;
     grid-template-rows: 1fr auto;	
+	column-gap: 0.5vmin;
     align-items: stretch;
     position: relative;
     background: none;
@@ -65,13 +66,35 @@
 .insanity.projector-page .spotlight-carrier .video-left-placeholder {
     grid-area: video-left;
     background: #33669999;
+    position: relative;
+    overflow: hidden;
     /* Talking head video will go here */
+}
+
+.insanity.projector-page .spotlight-carrier .video-left-placeholder .talking-head-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .insanity.projector-page .spotlight-carrier .video-right-placeholder {
     grid-area: video-right;
     background: #33996699;
+    position: relative;
+    overflow: hidden;
     /* Featured video/image will go here */
+}
+
+.insanity.projector-page .spotlight-carrier .video-right-placeholder .feature-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .insanity.projector-page .spotlight-carrier .chyron-wrapper {
