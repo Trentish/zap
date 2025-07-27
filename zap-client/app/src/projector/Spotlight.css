@@ -1,6 +1,7 @@
 :root {
     --insanity--spotlight-internal-padding: 3vmin;
     --insanity--spotlight-chryon-red-border-width: 2vmin;
+	--insanity--spotlight-chyron-shadow: 0.5vmin 0.5vmin 1vmin #00000033;
 }
 
 /* ===============================
@@ -75,7 +76,8 @@
 
 .insanity.projector-page .spotlight-carrier .chyron-wrapper {
     grid-area: chyron;
-	background: #99336699;
+	background: linear-gradient(165deg, rgba(255, 255, 255, 1) 25%, rgba(200, 200, 200, 1) 100%);
+	box-shadow: var(--insanity--spotlight-chyron-shadow);
 	position: relative; /* For absolute positioning of location */
 	z-index: 0; /* For absolute positioning of location */
     /* Contains both location and chyron */
@@ -107,7 +109,8 @@
 	position: absolute;
 	top: 0;
 	left: calc(-1 * var(--insanity--spotlight-chryon-red-border-width));
-	box-shadow: 0 var(--insanity--spotlight-chryon-red-border-width) var(--insanity--gnn-red);
+	box-shadow: 0 var(--insanity--spotlight-chryon-red-border-width) var(--insanity--gnn-red),
+				var(--insanity--spotlight-chyron-shadow);;
 	border-top-left-radius: calc(var(--insanity--spotlight-chryon-red-border-width) * 0.9);
 	border-left: solid var(--insanity--spotlight-chryon-red-border-width) var(--insanity--gnn-red);
 }
