@@ -37,7 +37,7 @@
     --insanity--font-arrows: Monaco, "Courier New", monospace; /* Monospace font for consistent arrow sizing */
     --insanity--font-size-label: 4vmin;
     --insanity--font-size-timer: 8.5vmin;
-    --insanity--font-size-articles: 5vh;
+    --insanity--font-size-articles: 3vh;
     --insanity--font-weight-bold: bold;
     --insanity--letter-spacing: -0.01em;
 
@@ -196,7 +196,7 @@
     font-size: 2em;
 }
 
-.insanity.projector-page .articles div.article:nth-of-type(1n+4) {
+.insanity.projector-page .articles div.article:nth-of-type(1n+5) {
     display: none;
 }
 

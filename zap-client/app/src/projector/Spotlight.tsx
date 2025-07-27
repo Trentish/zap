@@ -36,6 +36,7 @@ type SpotlightConfig = {
 const analyzeSpotlightConfig = (headline: string, location?: string): SpotlightConfig => {
   // TODO: Replace with intelligent analysis later
   // For now, randomly select configuration options
+  console.log(`🔦 Analyzing headline: "${headline}" with location: "${location}"`);
   
   // Default background - only changed if we get background-feature class
   let selectedBackground = "/assets/videos/insanity/12676946_3840_2160_30fps.mp4";
@@ -75,9 +76,9 @@ const analyzeSpotlightConfig = (headline: string, location?: string): SpotlightC
   
   const randomLeftFeatureVideo = leftFeatureVideoSources[Math.floor(Math.random() * leftFeatureVideoSources.length)];
   const randomRightFeature = rightFeatureOptions[Math.floor(Math.random() * rightFeatureOptions.length)];
-  
-  console.log(`🔦 SPOTLIGHT CONFIG: Analyzed "${headline}" -> ${randomCarrierClass}`);
-  
+
+  console.log(`🔦 SPOTLIGHT CONFIG: ${randomCarrierClass} selected for ${headline}`);
+
   return {
     "spotlight-carrier-class": randomCarrierClass,
     "spotlight-background-src": selectedBackground,
