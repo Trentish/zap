@@ -33,7 +33,7 @@ type SpotlightConfig = {
 };
 
 // Function to analyze headline and return spotlight configuration
-const analyzeSpotlightConfig = (headline: string, location?: string): SpotlightConfig => {
+const getSpotlightConfig = (headline: string, location?: string): SpotlightConfig => {
   // TODO: Replace with intelligent analysis later
   // For now, randomly select configuration options
   console.log(`🔦 Analyzing headline: "${headline}" with location: "${location}"`);
@@ -49,21 +49,21 @@ const analyzeSpotlightConfig = (headline: string, location?: string): SpotlightC
   ];
   
   const backgroundFeatureVideoSources = [
-    "/assets/videos/insanity/talkingHeads/wide/ronBurgundy.mp4"
+    "/assets/features/talkingHeads/wide/ronBurgundy.mp4"
   ];
   
   const leftFeatureVideoSources = [
-    "/assets/videos/insanity/talkingHeads/square/lady2.mp4",
-    "/assets/videos/insanity/talkingHeads/square/ronBurgundy.mp4",
-	"/assets/videos/insanity/talkingHeads/square/dude1.mp4",
-	"/assets/videos/insanity/talkingHeads/square/jakeTapper.mp4",
-	"/assets/videos/insanity/talkingHeads/square/lady1.mp4"
+    "/assets/features/talkingHeads/square/lady2.mp4",
+    "/assets/features/talkingHeads/square/ronBurgundy.mp4",
+    "/assets/features/talkingHeads/square/dude1.mp4",
+    "/assets/features/talkingHeads/square/jakeTapper.mp4",
+    "/assets/features/talkingHeads/square/lady1.mp4"
   ];
   
   const rightFeatureOptions = [
-    { type: "video" as const, source: "/assets/videos/insanity/features/mars.mp4" },
-    // { type: "video" as const, source: "/assets/videos/insanity/talkingHeads/square/lady2.mp4" },
-    // { type: "img" as const, source: "/assets/images/insanity/features/Minneapolis_skyline.jpg" }
+    // { type: "video" as const, source: "/assets/features/video/mars.mp4" },
+    // // { type: "video" as const, source: "/assets/features/talkingHeads/square/lady2.mp4" },
+    { type: "img" as const, source: "/assets/features/images/Minneapolis_skyline.jpg" }
   ];
   
   // Random selection for now
@@ -110,7 +110,10 @@ const PLAY = (mediaEl: HTMLVideoElement | HTMLAudioElement | null) => {
   if (mediaEl && mediaEl.src) mediaEl.play().then().catch(); // TODO: fix error when empty audio
 };
 const SET_VID = (videoEl: HTMLVideoElement | null, src: string | undefined) => {
-  if (videoEl && src) videoEl.src = src;
+  if (videoEl && src) {
+    videoEl.src = ""; // Clear first to force restart
+    videoEl.src = src;
+  }
 };
 const SET_AUD = (
   audioEl: HTMLAudioElement | null,
@@ -221,7 +224,7 @@ export function Spotlight() {
       if (LOG) console.log(`🔦 useEffect: Spotlight,  article ENTER`, article);
 
       // Analyze headline and get spotlight configuration
-      const spotlightConfig = analyzeSpotlightConfig(article.headline, article.location);
+      const spotlightConfig = getSpotlightConfig(article.headline, article.location);
       console.log(`🔦 SPOTLIGHT CONFIG:`, spotlightConfig);
 
       const org = config.GetOrg(article);
@@ -413,7 +416,7 @@ export function Spotlight() {
           <div className={"left-feature-placeholder"}>
             {/* Left feature video placeholder */}
             <video
-              src={currentSpotlightConfig?.["left-feature-video-src"] || "/assets/videos/insanity/talkingHeads/square/ronBurgundy.mp4"}
+              src={currentSpotlightConfig?.["left-feature-video-src"] || "/assets/features/defaultLeft.mp4"}
               autoPlay
               loop
               muted
@@ -424,7 +427,7 @@ export function Spotlight() {
             {/* Right feature video/image placeholder - dynamic based on config */}
             {currentSpotlightConfig?.["right-feature"].type === "video" ? (
               <video
-                src={currentSpotlightConfig["right-feature"].source}
+                src={currentSpotlightConfig["right-feature"].source || "/assets/features/defaultRight.mp4"}
                 autoPlay
                 loop
                 muted
@@ -432,7 +435,7 @@ export function Spotlight() {
               />
             ) : (
               <img
-                src={currentSpotlightConfig?.["right-feature"].source || "/assets/videos/insanity/features/mars.mp4"}
+                src={currentSpotlightConfig?.["right-feature"].source || "/assets/features/images/Minneapolis_skyline.jpg"}
                 className="right-feature-image"
                 alt="Feature content"
               />
