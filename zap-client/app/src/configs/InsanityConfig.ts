@@ -153,7 +153,7 @@ class InsanityConfig extends BaseGameConfig {
 const GNN: T_Org = {
   id: "gnn",
   label: "GNN",
-  bgVideo: `${J_VIDS}globe3-r.mp4`,
+  bgVideo: `${J_VIDS}12676946_3840_2160_30fps.mp4`,
   // overlayVideo: `${J_VIDS}vhs.mp4`,
   introVideo: `${J_VIDS}yellowarrow.webm`,
   introAudio: `${J_AUDIO}news3.mp3`, // TODO

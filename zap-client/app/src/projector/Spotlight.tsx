@@ -18,6 +18,9 @@ const LOG = true;
 // TEMPORARY DEBUG FLAG - SET TO TRUE TO KEEP SPOTLIGHT VISIBLE - REMOVE LATER
 const DEBUG_KEEP_VISIBLE = true;
 
+// TEMPORARY DEBUG FLAG - SET TO TRUE TO SHOW "BREAKING NEWS" WHEN NO LOCATION - REMOVE LATER
+const USE_BREAKING_NEWS_FALLBACK = true;
+
 // TEMPORARY TEST HEADLINES FOR DEBUGGING - REMOVE LATER
 const testHeadlines = [
   "BREAKING: Markets crash today", // ~30 chars
@@ -162,7 +165,7 @@ export function Spotlight() {
       SET_AUD(outroAudio, org.outroAudio, org.outroVolume);
       // SET_VID(overlay, org.overlayVideo);
       SET_TEXT(theme, org.label);
-      SET_TEXT(location, article.location || "");
+      SET_TEXT(location, article.location || (USE_BREAKING_NEWS_FALLBACK ? "BREAKING NEWS" : ""));
 
       SHOW(introVideo);
       PLAY(introVideo);
@@ -338,9 +341,11 @@ export function Spotlight() {
             {/* Featured video/image placeholder */}
           </div>
           <div className={"chyron-wrapper"}>
-            <div className={"spotlight-carrier-location"} ref={locationRef}>
-              {""}
-            </div>
+            {(article?.location || USE_BREAKING_NEWS_FALLBACK) && (
+              <div className={"spotlight-carrier-location"} ref={locationRef}>
+                {""}
+              </div>
+            )}
             <div className="chyron-outer" ref={headlineRef}>
               <div className="chyron-container">
                 <div className="chyron-text"></div>
