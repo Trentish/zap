@@ -63,7 +63,7 @@
 
 .insanity.projector-page .spotlight-carrier.feature-type--feature--full-background {
     grid-template-areas:
-        "right-feature right-feature right-feature"
+        "no-feature-in-foreground no-feature-in-foreground no-feature-in-foreground"
         "chyron chyron chyron";
     grid-template-columns: 27.5vw 1fr 10vw;
 }
