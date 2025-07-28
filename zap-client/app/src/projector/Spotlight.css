@@ -54,10 +54,16 @@
 
 
 
-.insanity.projector-page .spotlight-carrier.feature-type--default--talking-background,
-.insanity.projector-page .spotlight-carrier.feature-type--feature--full-background {
+.insanity.projector-page .spotlight-carrier.feature-type--default--talking-background {
     grid-template-areas:
         "no-feature-in-foreground no-feature-in-foreground no-feature-in-foreground"
+        "chyron chyron chyron";
+    grid-template-columns: 27.5vw 1fr 10vw;
+}
+
+.insanity.projector-page .spotlight-carrier.feature-type--feature--full-background {
+    grid-template-areas:
+        "right-feature right-feature right-feature"
         "chyron chyron chyron";
     grid-template-columns: 27.5vw 1fr 10vw;
 }
@@ -79,12 +85,12 @@
 .insanity.projector-page .spotlight-carrier.feature-type--default--above-chyron,
 .insanity.projector-page .spotlight-carrier.feature-type--feature--above-chyron {
     grid-template-areas:
-        "left-feature left-feature left-feature"
+        "right-feature right-feature right-feature"
         "chyron chyron chyron";
     grid-template-columns: 27.5vw 1fr 10vw;
 }
-.insanity.projector-page .spotlight-carrier.feature-type--default--above-chyron .right-feature-placeholder,
-.insanity.projector-page .spotlight-carrier.feature-type--feature--above-chyron .right-feature-placeholder {
+.insanity.projector-page .spotlight-carrier.feature-type--default--above-chyron .left-feature-placeholder,
+.insanity.projector-page .spotlight-carrier.feature-type--feature--above-chyron .left-feature-placeholder {
 	display: none;
 }
 

@@ -39,6 +39,12 @@ type DefaultAssets = {
   listeningHeads: string[];
 };
 
+// Types for themed content JSON structure
+type ThemedContent = {
+  regex: string;
+  features: string[];
+};
+
 // Load defaults from JSON file
 const loadDefaults = async (): Promise<DefaultAssets> => {
   try {
@@ -57,56 +63,152 @@ const loadDefaults = async (): Promise<DefaultAssets> => {
   }
 };
 
+// Load themed content from JSON file
+const loadThemedContent = async (): Promise<ThemedContent[]> => {
+  try {
+    const response = await fetch('/assets/features/themed/themed.json');
+    if (!response.ok) {
+      throw new Error(`Failed to fetch themed.json: ${response.status} ${response.statusText}`);
+    }
+    const themed = await response.json();
+    return themed;
+  } catch (error) {
+    console.error('🚨 CRITICAL ERROR: Failed to load themed.json:', error);
+    // Show user-facing error message
+    alert('SYSTEM ERROR: Could not load themed content configuration file (themed.json). Please check that the file exists and is accessible.');
+    // Re-throw to stop execution
+    throw error;
+  }
+};
+
 // Function to analyze headline and return spotlight configuration
 const getSpotlightConfig = async (headline: string, location?: string): Promise<SpotlightConfig> => {
-  // TODO: Replace with intelligent analysis later
-  // For now, randomly select configuration options
   console.log(`🔦 Analyzing headline: "${headline}" with location: "${location}"`);
   
-  // Load defaults from JSON
+  // Load both JSON files
   const defaults = await loadDefaults();
+  const themedContent = await loadThemedContent();
   
   // Base path for assets
   const basePath = "/assets/features/";
+  const themedBasePath = "/assets/features/themed/";
   
   // Default background video - only changed if we get talking-background class
   let selectedBackgroundVideo = "/assets/videos/insanity/12676946_3840_2160_30fps.mp4";
-  
-  const carrierClasses = [
-    "feature-type--default--talking-background",
-    "feature-type--default--two-people-talking",
-    // "feature-type--default--above-chyron",
-
-    // "feature-type--feature--full-background",
-    // "feature-type--feature--talking-with-subject-on-right", 
-    // "feature-type--feature--above-chyron",
-  ];
   
   // Convert relative paths to full paths
   const widescreenBackgroundSources = defaults.widescreenBackgrounds.map(filename => basePath + filename);
   const talkingHeadVideoSources = defaults.talkingHeads.map(filename => basePath + filename);
   const listeningHeadVideoSources = defaults.listeningHeads.map(filename => basePath + filename);
   
-  // Themed content for right feature
-  const rightFeatureOptions = [
-    // { type: "video" as const, source: "/assets/features/themed/mars.mp4" },
-    { type: "img" as const, source: "/assets/features/themed/Minneapolis_skyline.jpg" }
-  ];
+  // Function to determine file type from extension
+  const getFileType = (filename: string): "img" | "video" => {
+    const extension = filename.toLowerCase().split('.').pop();
+    return extension === 'mp4' ? 'video' : 'img';
+  };
   
-  // Random selection for now
-  const randomCarrierClass = carrierClasses[Math.floor(Math.random() * carrierClasses.length)];
+  // Function to find themed content match
+  const findThemedMatch = (searchText: string): { type: "img" | "video"; source: string } | null => {
+    for (const item of themedContent) {
+      const regex = new RegExp(item.regex, 'i'); // Case insensitive
+      if (regex.test(searchText)) {
+        // Found a match! Randomly select from features
+        const selectedFeature = item.features[Math.floor(Math.random() * item.features.length)];
+        const fullPath = themedBasePath + selectedFeature;
+        console.log(`🎯 THEMED MATCH: "${item.regex}" matched "${searchText}" -> ${selectedFeature}`);
+        return {
+          type: getFileType(selectedFeature),
+          source: fullPath
+        };
+      }
+    }
+    return null;
+  };
   
-  // Configure background video based on layout type
-  if (randomCarrierClass === "feature-type--default--talking-background") {
-    // Only talking-background uses special videos
-    selectedBackgroundVideo = widescreenBackgroundSources[Math.floor(Math.random() * widescreenBackgroundSources.length)];
+  // Try to find themed content match
+  let themedMatch: { type: "img" | "video"; source: string } | null = null;
+  
+  // First try location if it exists
+  if (location) {
+    console.log(`🔍 Trying location match: "${location}"`);
+    themedMatch = findThemedMatch(location);
   }
-  // above-chyron and two-people-talking keep the default background
   
-  // Configure left and right features based on layout type
+  // If no location match, try headline
+  if (!themedMatch) {
+    console.log(`🔍 Trying headline match: "${headline}"`);
+    themedMatch = findThemedMatch(headline);
+  }
+  
+  // Report feature hit status
+  if (themedMatch) {
+    console.log(`✅ FEATURE HIT! Found themed content: ${themedMatch.type} - ${themedMatch.source}`);
+  } else {
+    console.log(`❌ NO FEATURE HIT - Using default content`);
+  }
+  
+  // Determine layout type based on whether we found a themed match
+  let carrierClasses: string[];
   let randomLeftFeatureVideo: string;
   let randomRightFeature: { type: "img" | "video"; source: string };
   
+  if (themedMatch) {
+    // Found themed content - use --feature-- layouts
+    console.log(`🎨 Using FEATURE layouts with themed content: ${themedMatch.type} ${themedMatch.source}`);
+    carrierClasses = [
+      "feature-type--feature--full-background",
+      // "feature-type--feature--talking-with-subject-on-right", 
+      // "feature-type--feature--above-chyron",
+    ];
+    
+    // Don't set randomRightFeature here - we'll set it based on the selected layout
+    
+  } else {
+    // No themed match - use --default-- layouts
+    console.log(`🔄 Using DEFAULT layouts (no themed match found)`);
+    carrierClasses = [
+      "feature-type--default--talking-background",
+      "feature-type--default--two-people-talking",
+      // "feature-type--default--above-chyron",
+    ];
+    
+    // Initialize empty right feature for non-themed content
+    randomRightFeature = { type: "img" as const, source: "" };
+  }
+  
+  // Random selection of layout class
+  const randomCarrierClass = carrierClasses[Math.floor(Math.random() * carrierClasses.length)];
+  console.log(`🎨 SELECTED THEME CLASS: "${randomCarrierClass}"`);
+  
+  // Configure background video and features based on layout type
+  if (randomCarrierClass === "feature-type--feature--full-background") {
+    // Full background: use themed content as the background video (if video) or keep default background with full-screen image overlay
+    if (themedMatch && themedMatch.type === "video") {
+      selectedBackgroundVideo = themedMatch.source;
+      console.log(`🎬 Using themed video as full background: ${themedMatch.source}`);
+      randomRightFeature = { type: "img" as const, source: "" };
+    } else if (themedMatch && themedMatch.type === "img") {
+      // For images in full-background, keep default background but put image in right-feature for full-screen Ken Burns
+      console.log(`🖼️ Using themed image as full-screen overlay: ${themedMatch.source}`);
+      randomRightFeature = themedMatch;
+    } else {
+      randomRightFeature = { type: "img" as const, source: "" };
+    }
+  } else if (randomCarrierClass === "feature-type--default--talking-background") {
+    // Default talking background uses special background videos
+    selectedBackgroundVideo = widescreenBackgroundSources[Math.floor(Math.random() * widescreenBackgroundSources.length)];
+    // No right feature needed for talking background layout
+    randomRightFeature = { type: "img" as const, source: "" };
+  } else {
+    // For other layouts (feature layouts with right-feature areas), use themed content if available
+    if (themedMatch) {
+      randomRightFeature = themedMatch;
+    } else {
+      randomRightFeature = { type: "img" as const, source: "" };
+    }
+  }
+  
+  // Configure left feature based on layout type
   if (randomCarrierClass === "feature-type--default--two-people-talking") {
     // Two people talking: talking head on left, listening head on right
     randomLeftFeatureVideo = talkingHeadVideoSources[Math.floor(Math.random() * talkingHeadVideoSources.length)];
@@ -114,13 +216,18 @@ const getSpotlightConfig = async (headline: string, location?: string): Promise<
       type: "video" as const,
       source: listeningHeadVideoSources[Math.floor(Math.random() * listeningHeadVideoSources.length)]
     };
-  } else {
-    // Other layouts: use talking head on left, themed content on right
+  } else if (randomCarrierClass !== "feature-type--feature--full-background" && randomCarrierClass !== "feature-type--default--talking-background") {
+    // Other feature layouts: use talking head on left, themed content on right
     randomLeftFeatureVideo = talkingHeadVideoSources[Math.floor(Math.random() * talkingHeadVideoSources.length)];
-    randomRightFeature = rightFeatureOptions[Math.floor(Math.random() * rightFeatureOptions.length)];
+    // randomRightFeature is already set above based on themed match or empty default
+  } else {
+    // For full-background and talking-background, still need left feature for some layouts
+    randomLeftFeatureVideo = talkingHeadVideoSources[Math.floor(Math.random() * talkingHeadVideoSources.length)];
   }
 
-  console.log(`🔦 SPOTLIGHT CONFIG: ${randomCarrierClass} selected for ${headline}`);
+  console.log(`🔦 FINAL CONFIG: ${randomCarrierClass} | Right: ${randomRightFeature.type} ${randomRightFeature.source}`);
+  console.log(`🔦 BACKGROUND: ${selectedBackgroundVideo}`);
+  console.log(`🔦 LEFT: ${randomLeftFeatureVideo}`);
 
   return {
     "spotlight-carrier-class": randomCarrierClass,
@@ -129,17 +236,6 @@ const getSpotlightConfig = async (headline: string, location?: string): Promise<
     "right-feature": randomRightFeature
   };
 };
-
-// TEMPORARY TEST HEADLINES FOR DEBUGGING - REMOVE LATER
-const testHeadlines = [
-  "BREAKING: Markets crash today", // ~30 chars
-  "URGENT: President announces new economic policy", // ~50 chars  
-  "DEVELOPING: Major earthquake strikes coastal region, evacuations underway", // ~70 chars
-  "EXCLUSIVE: Investigation reveals corruption scandal involving multiple government officials nationwide", // ~100 chars
-  "LIVE: International summit begins as world leaders gather to discuss climate change and economic cooperation agreements", // ~120 chars
-  "ALERT: Massive cyberattack targets critical infrastructure across multiple countries, causing widespread disruptions to power grids and communication networks", // ~150 chars
-  "UNPRECEDENTED: Global health emergency declared as new pandemic strain emerges, prompting immediate lockdown measures and international travel restrictions while scientists race to develop updated vaccines", // ~200 chars
-];
 
 const $spotlightOrg = atom<T_Org | null>(null);
 
@@ -176,47 +272,6 @@ export function Spotlight() {
   const [article] = useAtom($spotlightArticle);
   const [config] = useAtom($config);
   const [currentSpotlightConfig, setCurrentSpotlightConfig] = useState<SpotlightConfig | null>(null);
-
-
-
-
-  // TEMPORARY DEBUG FUNCTION - REMOVE LATER
-  const handleChyronRecalc = () => {
-    const headline = headlineRef.current;
-    if (headline) {
-      const headlineTextElement = headline.querySelector(
-        ".chyron-text"
-      ) as HTMLElement;
-      const headlineContainerElement = headline.querySelector(
-        ".chyron-container"
-      ) as HTMLElement;
-
-      if (headlineTextElement && headlineContainerElement) {
-        // Cycle through test headlines - shift one off and push to end
-        const testText = testHeadlines.shift() || "DEFAULT TEST TEXT";
-        testHeadlines.push(testText);
-        
-        console.log(
-          "🔦 DEBUG: Force recalculating chyron text fitting with:",
-          testText,
-          `(${testText.length} chars)`
-        );
-
-        // Trigger the text fitting algorithm
-        updateArticleText(
-          headlineTextElement,
-          headlineContainerElement,
-          testText
-        );
-      } else {
-        console.error(
-          "🔦 DEBUG ERROR: .chyron-text or .chyron-container not found"
-        );
-      }
-    } else {
-      console.error("🔦 DEBUG ERROR: headline ref is null");
-    }
-  };
 
   const spotlightContainerRef = useRef<HTMLDivElement>(null);
   const spotlightBackgroundRef = useRef<HTMLVideoElement>(null);
@@ -468,21 +523,23 @@ export function Spotlight() {
           </div>
           <div className={"right-feature-placeholder"}>
             {/* Right feature video/image placeholder - dynamic based on config */}
-            {currentSpotlightConfig?.["right-feature"].type === "video" ? (
-              <video
-                src={currentSpotlightConfig["right-feature"].source || "/assets/features/defaultRight.mp4"}
-                autoPlay
-                loop
-                muted
-                className="right-feature-video"
-              />
-            ) : (
-              <img
-                src={currentSpotlightConfig?.["right-feature"].source || "/assets/features/themed/Minneapolis_skyline.jpg"}
-                className="right-feature-image"
-                alt="Feature content"
-              />
-            )}
+            {currentSpotlightConfig?.["right-feature"].source ? (
+              currentSpotlightConfig["right-feature"].type === "video" ? (
+                <video
+                  src={currentSpotlightConfig["right-feature"].source}
+                  autoPlay
+                  loop
+                  muted
+                  className="right-feature-video"
+                />
+              ) : (
+                <img
+                  src={currentSpotlightConfig["right-feature"].source}
+                  className="right-feature-image"
+                  alt="Feature content"
+                />
+              )
+            ) : null}
           </div>
           <div className={"chyron-wrapper"}>
             {(article?.location || USE_BREAKING_NEWS_FALLBACK) && (
