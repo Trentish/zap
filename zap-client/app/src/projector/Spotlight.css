@@ -164,12 +164,26 @@
     z-index: 1; /* Above background video but below other content */
 }
 
+/* Talking-with-subject-on-right: add left-to-right movement to Ken Burns */
+.insanity.projector-page .spotlight-carrier.feature-type--feature--talking-with-subject-on-right .right-feature-placeholder .right-feature-image {
+    animation: gentle-zoom-and-pan 15s ease-in-out infinite alternate;
+}
+
 @keyframes gentle-zoom {
     0% {
         transform: scale(1);
     }
     100% {
         transform: scale(1.1);
+    }
+}
+
+@keyframes gentle-zoom-and-pan {
+    0% {
+        transform: scale(100%) translateX(0%) translateY(0%);
+    }
+    100% {
+        transform: scale(110%) translateX(-5%) translateY(5%);
     }
 }
 

@@ -21,7 +21,7 @@ import {
 const LOG = true;
 
 // TEMPORARY DEBUG FLAG - SET TO TRUE TO KEEP SPOTLIGHT VISIBLE - REMOVE LATER
-const DEBUG_KEEP_VISIBLE = true;
+const DEBUG_KEEP_VISIBLE = false;
 
 // TEMPORARY DEBUG FLAG - SET TO TRUE TO SHOW "BREAKING NEWS" WHEN NO LOCATION - REMOVE LATER
 const USE_BREAKING_NEWS_FALLBACK = true;
@@ -139,7 +139,8 @@ export function Spotlight() {
           $store.set($spotlightOrg, org);
 
           ADD_CLASS(spotlightContainer, org.cssClass || org.id);
-          ADD_CLASS(carrier, getCarrierCSSClass(spotlightConfig.layoutType));
+          // Remove this line - CSS class is already handled by JSX template
+          // ADD_CLASS(carrier, getCarrierCSSClass(spotlightConfig.layoutType));
 
           // Use config-determined sources instead of org defaults
           SET_VID(
