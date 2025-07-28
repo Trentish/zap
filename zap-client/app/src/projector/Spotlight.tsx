@@ -32,17 +32,48 @@ type SpotlightConfig = {
   };
 };
 
+// Types for defaults JSON structure
+type DefaultAssets = {
+  widescreenBackgrounds: string[];
+  talkingHeads: string[];
+  listeningHeads: string[];
+};
+
+// Load defaults from JSON file
+const loadDefaults = async (): Promise<DefaultAssets> => {
+  try {
+    const response = await fetch('/assets/features/defaults.json');
+    if (!response.ok) {
+      throw new Error(`Failed to fetch defaults.json: ${response.status} ${response.statusText}`);
+    }
+    const defaults = await response.json();
+    return defaults;
+  } catch (error) {
+    console.error('🚨 CRITICAL ERROR: Failed to load defaults.json:', error);
+    // Show user-facing error message
+    alert('SYSTEM ERROR: Could not load spotlight configuration file (defaults.json). Please check that the file exists and is accessible.');
+    // Re-throw to stop execution
+    throw error;
+  }
+};
+
 // Function to analyze headline and return spotlight configuration
-const getSpotlightConfig = (headline: string, location?: string): SpotlightConfig => {
+const getSpotlightConfig = async (headline: string, location?: string): Promise<SpotlightConfig> => {
   // TODO: Replace with intelligent analysis later
   // For now, randomly select configuration options
   console.log(`🔦 Analyzing headline: "${headline}" with location: "${location}"`);
   
-  // Default background video - only changed if we get background-feature class
+  // Load defaults from JSON
+  const defaults = await loadDefaults();
+  
+  // Base path for assets
+  const basePath = "/assets/features/";
+  
+  // Default background video - only changed if we get talking-background class
   let selectedBackgroundVideo = "/assets/videos/insanity/12676946_3840_2160_30fps.mp4";
   
   const carrierClasses = [
-    // "feature-type--default--talking-background",
+    "feature-type--default--talking-background",
     "feature-type--default--two-people-talking",
     // "feature-type--default--above-chyron",
 
@@ -51,26 +82,10 @@ const getSpotlightConfig = (headline: string, location?: string): SpotlightConfi
     // "feature-type--feature--above-chyron",
   ];
   
-  // Videos for talking-background layout only
-  const defaultChyronOrBackgroundVideoSources = [
-    // "/assets/features/defaultChyronOrBackground/newshour1_compressed.mp4",
-    "/assets/features/defaultChyronOrBackground/newsHour2_compressed.mp4",
-    "/assets/features/defaultChyronOrBackground/ronBurgundy.mp4"
-  ];
-  
-  // Talking heads for left side (and general talking)
-  const talkingHeadVideoSources = [
-    "/assets/features/talkingHeads/lady1.mp4",
-    "/assets/features/talkingHeads/lady2.mp4",
-    "/assets/features/talkingHeads/lady3.mp4",
-    "/assets/features/talkingHeads/dude1.mp4",
-    "/assets/features/talkingHeads/ronBurgundy.mp4"
-  ];
-  
-  // Listening heads for right side in two-people-talking
-  const listeningHeadVideoSources = [
-    "/assets/features/listeningHeads/jakeTapper.mp4"
-  ];
+  // Convert relative paths to full paths
+  const widescreenBackgroundSources = defaults.widescreenBackgrounds.map(filename => basePath + filename);
+  const talkingHeadVideoSources = defaults.talkingHeads.map(filename => basePath + filename);
+  const listeningHeadVideoSources = defaults.listeningHeads.map(filename => basePath + filename);
   
   // Themed content for right feature
   const rightFeatureOptions = [
@@ -84,7 +99,7 @@ const getSpotlightConfig = (headline: string, location?: string): SpotlightConfi
   // Configure background video based on layout type
   if (randomCarrierClass === "feature-type--default--talking-background") {
     // Only talking-background uses special videos
-    selectedBackgroundVideo = defaultChyronOrBackgroundVideoSources[Math.floor(Math.random() * defaultChyronOrBackgroundVideoSources.length)];
+    selectedBackgroundVideo = widescreenBackgroundSources[Math.floor(Math.random() * widescreenBackgroundSources.length)];
   }
   // above-chyron and two-people-talking keep the default background
   
@@ -251,96 +266,96 @@ export function Spotlight() {
       //## article ENTER
       if (LOG) console.log(`🔦 useEffect: Spotlight,  article ENTER`, article);
 
-      // Analyze headline and get spotlight configuration
-      const spotlightConfig = getSpotlightConfig(article.headline, article.location);
-      console.log(`🔦 SPOTLIGHT CONFIG:`, spotlightConfig);
+      // Analyze headline and get spotlight configuration (now async)
+      getSpotlightConfig(article.headline, article.location).then(spotlightConfig => {
+        console.log(`🔦 SPOTLIGHT CONFIG:`, spotlightConfig);
 
-      const org = config.GetOrg(article);
-      $store.set($spotlightOrg, org);
+        const org = config.GetOrg(article);
+        $store.set($spotlightOrg, org);
 
-      ADD_CLASS(spotlightContainer, org.cssClass || org.id);
-      ADD_CLASS(carrier, spotlightConfig["spotlight-carrier-class"]);
+        ADD_CLASS(spotlightContainer, org.cssClass || org.id);
+        ADD_CLASS(carrier, spotlightConfig["spotlight-carrier-class"]);
 
-      // Use config-determined sources instead of org defaults
-      SET_VID(background, spotlightConfig["spotlight-background-video-src"]);
-      SET_VID(introVideo, org.introVideo);
-      SET_AUD(introAudio, org.introAudio, org.introVolume);
-      SET_VID(outroVideo, org.outroVideo);
-      SET_AUD(outroAudio, org.outroAudio, org.outroVolume);
-      // SET_VID(overlay, org.overlayVideo);
-      SET_TEXT(theme, org.label);
-      SET_TEXT(location, article.location || (USE_BREAKING_NEWS_FALLBACK ? "BREAKING NEWS" : ""));
+        // Use config-determined sources instead of org defaults
+        SET_VID(background, spotlightConfig["spotlight-background-video-src"]);
+        SET_VID(introVideo, org.introVideo);
+        SET_AUD(introAudio, org.introAudio, org.introVolume);
+        SET_VID(outroVideo, org.outroVideo);
+        SET_AUD(outroAudio, org.outroAudio, org.outroVolume);
+        // SET_VID(overlay, org.overlayVideo);
+        SET_TEXT(theme, org.label);
+        SET_TEXT(location, article.location || (USE_BREAKING_NEWS_FALLBACK ? "BREAKING NEWS" : ""));
 
-      // Store config for later use in JSX
-      setCurrentSpotlightConfig(spotlightConfig);
+        // Store config for later use in JSX
+        setCurrentSpotlightConfig(spotlightConfig);
 
-      SHOW(introVideo);
-      PLAY(introVideo);
-
-      const introVideoTimer = setTimeout(() => {
-        if (LOG) console.log(`🔦 useEffect: Spotlight,  intro mid`);
         SHOW(introVideo);
-        SHOW(background);
-        // SHOW(overlay);
-        SHOW(carrier);
+        PLAY(introVideo);
 
-        // Apply text fitting AFTER carrier is shown and has dimensions
-        console.log("🔦 Spotlight headline debug (after carrier shown):", {
-          headline,
-          headlineExists: !!headline,
-        });
-        if (headline) {
-          const headlineTextElement = headline.querySelector(
-            ".chyron-text"
-          ) as HTMLElement;
-          const headlineContainerElement = headline.querySelector(
-            ".chyron-container"
-          ) as HTMLElement;
-          console.log("🔦 Headline elements debug:", {
-            headlineTextElement,
-            textElementExists: !!headlineTextElement,
-            headlineContainerElement,
-            containerElementExists: !!headlineContainerElement,
+        const introVideoTimer = setTimeout(() => {
+          if (LOG) console.log(`🔦 useEffect: Spotlight,  intro mid`);
+          SHOW(introVideo);
+          SHOW(background);
+          // SHOW(overlay);
+          SHOW(carrier);
+
+          // Apply text fitting AFTER carrier is shown and has dimensions
+          console.log("🔦 Spotlight headline debug (after carrier shown):", {
+            headline,
+            headlineExists: !!headline,
           });
-          if (headlineTextElement && headlineContainerElement) {
-            console.log(
-              "🔦 About to call updateArticleText with:",
-              article.headline
-            );
-            console.log(
-              "🔦 Using container dimensions:",
-              headlineContainerElement.offsetWidth,
-              "x",
-              headlineContainerElement.offsetHeight
-            );
-            // Small delay to ensure carrier is fully visible and sized
-            setTimeout(() => {
-              updateArticleText(
-                headlineTextElement,
-                headlineContainerElement,
+          if (headline) {
+            const headlineTextElement = headline.querySelector(
+              ".chyron-text"
+            ) as HTMLElement;
+            const headlineContainerElement = headline.querySelector(
+              ".chyron-container"
+            ) as HTMLElement;
+            console.log("🔦 Headline elements debug:", {
+              headlineTextElement,
+              textElementExists: !!headlineTextElement,
+              headlineContainerElement,
+              containerElementExists: !!headlineContainerElement,
+            });
+            if (headlineTextElement && headlineContainerElement) {
+              console.log(
+                "🔦 About to call updateArticleText with:",
                 article.headline
               );
-            }, 50);
+              console.log(
+                "🔦 Using container dimensions:",
+                headlineContainerElement.offsetWidth,
+                "x",
+                headlineContainerElement.offsetHeight
+              );
+              // Small delay to ensure carrier is fully visible and sized
+              setTimeout(() => {
+                updateArticleText(
+                  headlineTextElement,
+                  headlineContainerElement,
+                  article.headline
+                );
+              }, 50);
+            } else {
+              console.error(
+                "🔦 ERROR: .chyron-text or .chyron-container not found in headline element"
+              );
+            }
           } else {
-            console.error(
-              "🔦 ERROR: .chyron-text or .chyron-container not found in headline element"
-            );
+            console.error("🔦 ERROR: headline ref is null");
           }
-        } else {
-          console.error("🔦 ERROR: headline ref is null");
-        }
 
-        config.OnStart_Spotlight(article, refs);
-      }, org.introMidMs || INTRO_MID_DEFAULT);
+          config.OnStart_Spotlight(article, refs);
+        }, org.introMidMs || INTRO_MID_DEFAULT);
 
-      const introAudioTimer = setTimeout(() => {
-        PLAY(introAudio);
-      }, org.introAudioDelay || 0);
+        const introAudioTimer = setTimeout(() => {
+          PLAY(introAudio);
+        }, org.introAudioDelay || 0);
+      });
 
       return () => {
         if (LOG) console.log(`🔦 useEffect: Spotlight,  ENTER cleanup`);
-        clearTimeout(introVideoTimer);
-        clearTimeout(introAudioTimer);
+        // Note: cleanup for timers will need to be handled differently with async
       }; //>> started spotlight
     }
 
