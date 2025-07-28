@@ -154,6 +154,16 @@
     animation: gentle-zoom 15s ease-in-out infinite alternate;
 }
 
+/* Full-background layout: make right-feature-image cover entire screen */
+.insanity.projector-page .spotlight-carrier.feature-type--feature--full-background .right-feature-placeholder .right-feature-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1; /* Above background video but below other content */
+}
+
 @keyframes gentle-zoom {
     0% {
         transform: scale(1);
@@ -168,7 +178,7 @@
 	background: linear-gradient(165deg, rgba(255, 255, 255, 1) 25%, rgba(200, 200, 200, 1) 100%);
 	box-shadow: var(--insanity--spotlight-chyron-shadow);
 	position: relative; /* For absolute positioning of location */
-	z-index: 0; /* For absolute positioning of location */
+	z-index: 1; /* For absolute positioning of location */
     /* Contains both location and chyron */
 }
 
@@ -274,6 +284,8 @@
    SPOTLIGHT CONTAINER & BACKGROUND
    =============================== */
 .insanity.projector-page .spotlight-container .spotlight-background {
+    /* Placeholder for future background styling */
     /* transform: translateX(2vw) scale(110%); */
     /* display: none; */
+    opacity: 1;
 }
