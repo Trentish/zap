@@ -42,40 +42,68 @@ const getSpotlightConfig = (headline: string, location?: string): SpotlightConfi
   let selectedBackgroundVideo = "/assets/videos/insanity/12676946_3840_2160_30fps.mp4";
   
   const carrierClasses = [
-    // "feature-type--background-feature",
-    "feature-type--small-left-wide-right", 
-    // "feature-type--left-feature-only",
-    // "feature-type--two-equal-size-features"
+    // "feature-type--default--talking-background",
+    "feature-type--default--two-people-talking",
+    // "feature-type--default--above-chyron",
+
+    // "feature-type--feature--full-background",
+    // "feature-type--feature--talking-with-subject-on-right", 
+    // "feature-type--feature--above-chyron",
   ];
   
-  const backgroundFeatureVideoSources = [
-    "/assets/features/talkingHeads/wide/ronBurgundy.mp4"
+  // Videos for talking-background layout only
+  const defaultChyronOrBackgroundVideoSources = [
+    // "/assets/features/defaultChyronOrBackground/newshour1_compressed.mp4",
+    "/assets/features/defaultChyronOrBackground/newsHour2_compressed.mp4",
+    "/assets/features/defaultChyronOrBackground/ronBurgundy.mp4"
   ];
   
-  const leftFeatureVideoSources = [
-    "/assets/features/talkingHeads/square/lady2.mp4",
-    "/assets/features/talkingHeads/square/ronBurgundy.mp4",
-    "/assets/features/talkingHeads/square/dude1.mp4",
-    "/assets/features/talkingHeads/square/jakeTapper.mp4",
-    "/assets/features/talkingHeads/square/lady1.mp4"
+  // Talking heads for left side (and general talking)
+  const talkingHeadVideoSources = [
+    "/assets/features/talkingHeads/lady1.mp4",
+    "/assets/features/talkingHeads/lady2.mp4",
+    "/assets/features/talkingHeads/lady3.mp4",
+    "/assets/features/talkingHeads/dude1.mp4",
+    "/assets/features/talkingHeads/ronBurgundy.mp4"
   ];
   
+  // Listening heads for right side in two-people-talking
+  const listeningHeadVideoSources = [
+    "/assets/features/listeningHeads/jakeTapper.mp4"
+  ];
+  
+  // Themed content for right feature
   const rightFeatureOptions = [
-    // { type: "video" as const, source: "/assets/features/video/mars.mp4" },
-    // // { type: "video" as const, source: "/assets/features/talkingHeads/square/lady2.mp4" },
-    { type: "img" as const, source: "/assets/features/images/Minneapolis_skyline.jpg" }
+    // { type: "video" as const, source: "/assets/features/themed/mars.mp4" },
+    { type: "img" as const, source: "/assets/features/themed/Minneapolis_skyline.jpg" }
   ];
   
   // Random selection for now
   const randomCarrierClass = carrierClasses[Math.floor(Math.random() * carrierClasses.length)];
   
-  // Only change background video if we got background-feature class
-  if (randomCarrierClass === "feature-type--background-feature") {
-    selectedBackgroundVideo = backgroundFeatureVideoSources[Math.floor(Math.random() * backgroundFeatureVideoSources.length)];
+  // Configure background video based on layout type
+  if (randomCarrierClass === "feature-type--default--talking-background") {
+    // Only talking-background uses special videos
+    selectedBackgroundVideo = defaultChyronOrBackgroundVideoSources[Math.floor(Math.random() * defaultChyronOrBackgroundVideoSources.length)];
   }
+  // above-chyron and two-people-talking keep the default background
   
-  const randomLeftFeatureVideo = leftFeatureVideoSources[Math.floor(Math.random() * leftFeatureVideoSources.length)];
-  const randomRightFeature = rightFeatureOptions[Math.floor(Math.random() * rightFeatureOptions.length)];
+  // Configure left and right features based on layout type
+  let randomLeftFeatureVideo: string;
+  let randomRightFeature: { type: "img" | "video"; source: string };
+  
+  if (randomCarrierClass === "feature-type--default--two-people-talking") {
+    // Two people talking: talking head on left, listening head on right
+    randomLeftFeatureVideo = talkingHeadVideoSources[Math.floor(Math.random() * talkingHeadVideoSources.length)];
+    randomRightFeature = {
+      type: "video" as const,
+      source: listeningHeadVideoSources[Math.floor(Math.random() * listeningHeadVideoSources.length)]
+    };
+  } else {
+    // Other layouts: use talking head on left, themed content on right
+    randomLeftFeatureVideo = talkingHeadVideoSources[Math.floor(Math.random() * talkingHeadVideoSources.length)];
+    randomRightFeature = rightFeatureOptions[Math.floor(Math.random() * rightFeatureOptions.length)];
+  }
 
   console.log(`🔦 SPOTLIGHT CONFIG: ${randomCarrierClass} selected for ${headline}`);
 
@@ -435,7 +463,7 @@ export function Spotlight() {
               />
             ) : (
               <img
-                src={currentSpotlightConfig?.["right-feature"].source || "/assets/features/images/Minneapolis_skyline.jpg"}
+                src={currentSpotlightConfig?.["right-feature"].source || "/assets/features/themed/Minneapolis_skyline.jpg"}
                 className="right-feature-image"
                 alt="Feature content"
               />

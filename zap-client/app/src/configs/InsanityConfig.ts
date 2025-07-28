@@ -156,12 +156,12 @@ const GNN: T_Org = {
   bgVideo: `${J_VIDS}12676946_3840_2160_30fps.mp4`,
   // overlayVideo: `${J_VIDS}vhs.mp4`,
   // introVideo: `${J_VIDS}yellowarrow.webm`,
-  introVideo: `${J_VIDS}Breaking_News_Title_Bumper_Alpha_300ms_lead.webm`,
+  introVideo: `${J_VIDS}Breaking_News_Title_Bumper_Alpha.webm`,
   introAudio: `${J_AUDIO}insanity_BreakingNewsBig_2.mp3`, // TODO
   outroVideo: `${J_VIDS}yellowarrow.webm`,
   outroAudio: `${J_AUDIO}news_outro_1.mp3`, // TODO
   showAsRadio: true,
-  introMidMs: 3000,
+  introMidMs: 2000,
   outroMidMs: 1400,
 };
 

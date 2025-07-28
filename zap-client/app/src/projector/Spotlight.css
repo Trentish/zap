@@ -19,7 +19,7 @@
     /* filter: saturate(0); */
     /* transform: rotate(180deg); */
     /* filter: saturate(0) brightness(1.15); */
-    filter: saturate(50%);
+    /* filter: saturate(50%); */
 }
 .insanity.projector-page .outro {
     filter: saturate(0) brightness(1.15);
@@ -54,35 +54,37 @@
 
 
 
-
-.insanity.projector-page .spotlight-carrier.feature-type--background-feature {
+.insanity.projector-page .spotlight-carrier.feature-type--default--talking-background,
+.insanity.projector-page .spotlight-carrier.feature-type--feature--full-background {
     grid-template-areas:
         "no-feature-in-foreground no-feature-in-foreground no-feature-in-foreground"
         "chyron chyron chyron";
     grid-template-columns: 27.5vw 1fr 10vw;
 }
 
-.insanity.projector-page .spotlight-carrier.feature-type--two-equal-size-features {
+.insanity.projector-page .spotlight-carrier.feature-type--default--two-people-talking {
     grid-template-areas:
         "left-feature left-feature right-feature right-feature"
         "chyron chyron chyron chyron";
     grid-template-columns: 10vw 1fr 1fr 10vw;
 }
 
-.insanity.projector-page .spotlight-carrier.feature-type--small-left-wide-right {
+.insanity.projector-page .spotlight-carrier.feature-type--feature--talking-with-subject-on-right {
     grid-template-areas:
         "left-feature right-feature right-feature"
         "chyron chyron chyron";
     grid-template-columns: 27.5vw 1fr 10vw;
 }
 
-.insanity.projector-page .spotlight-carrier.feature-type--left-feature-only {
+.insanity.projector-page .spotlight-carrier.feature-type--default--above-chyron,
+.insanity.projector-page .spotlight-carrier.feature-type--feature--above-chyron {
     grid-template-areas:
         "left-feature left-feature left-feature"
         "chyron chyron chyron";
     grid-template-columns: 27.5vw 1fr 10vw;
 }
-.insanity.projector-page .spotlight-carrier.feature-type--left-feature-only .right-feature-placeholder {
+.insanity.projector-page .spotlight-carrier.feature-type--default--above-chyron .right-feature-placeholder,
+.insanity.projector-page .spotlight-carrier.feature-type--feature--above-chyron .right-feature-placeholder {
 	display: none;
 }
 
