@@ -1,10 +1,11 @@
 import {BaseGameConfig, T_Org, T_StatDef, T_TimerDef} from './BaseGameConfig.ts';
 import './ink.css';
 import {ACCOLADE, CRISIS, DOOM, GRUDGE, HEARSAY, INNOVATION, OATH, RenameOrg} from './InkOrgs.ts';
-import {SituationDat} from '../../../zap-shared/_Dats.ts'; //## NOTE: will always load (regardless of gameIdf)
+import {PhaseDat, SituationDat} from '../../../zap-shared/_Dats.ts'; //## NOTE: will always load (regardless of gameIdf)
 
 const VID = '../assets/videos/';
 const AUD = '../assets/audio/';
+const MINUTES = 60 * 1000;
 
 class InkConfig extends BaseGameConfig {
 	gameIdf = 'ink';
@@ -15,28 +16,35 @@ class InkConfig extends BaseGameConfig {
 	logo = '../assets/images/ink7.svg';
 	crawlerLogo = '../assets/images/ink7.svg';
 	
+	timerEndSound = `${AUD}juntas_end_turn_1.mp3`;
 	
 	timerDefs: T_TimerDef[] = [
-		{
-			label: 'Action Phase',
-			ms: 18 * 60 * 1000,
-		},
-		{
-			label: 'Faction Time',
-			ms: 5 * 60 * 1000,
-		},
-		{
-			label: 'Proclamations',
-			ms: 5 * 60 * 1000,
-		},
-		{
-			label: 'Resolution Phase',
-			ms: 2 * 60 * 1000,
-		},
-		{
-			label: 'Shadow Attack',
-			setLabelOnly: true,
-		},
+		// {
+		// 	label: 'Action Phase',
+		// 	ms: 18 * 60 * 1000,
+		// },
+		// {
+		// 	label: 'Faction Time',
+		// 	ms: 5 * 60 * 1000,
+		// },
+		// {
+		// 	label: 'Proclamations',
+		// 	ms: 5 * 60 * 1000,
+		// },
+		// {
+		// 	label: 'Resolution Phase',
+		// 	ms: 2 * 60 * 1000,
+		// },
+		// {
+		// 	label: 'Shadow Attack',
+		// 	setLabelOnly: true,
+		// },
+	];
+	
+	phaseDefs: PhaseDat[] = [
+		{ label: 'Guild Time', ms: 5 * MINUTES },
+		{ label: 'Free Play', ms: 20 * MINUTES },
+		{ label: 'Announcements', ms: 5 * MINUTES },
 	];
 	
 	constructor() {
@@ -47,24 +55,24 @@ class InkConfig extends BaseGameConfig {
 	}
 	
 	
-	orgs: T_Org[] = [
-		RenameOrg(HEARSAY, 'Rumor'),
-		RenameOrg(INNOVATION, 'Noteworthy'),
-		RenameOrg(ACCOLADE, 'Triumph'),
-		RenameOrg(CRISIS, 'Tragedy'),
-		RenameOrg(OATH, 'Unity'),
-		RenameOrg(GRUDGE, 'Disorder'),
-		RenameOrg(DOOM, 'Shadow Attack'),
-	];
 	// orgs: T_Org[] = [
-	// 	RenameOrg(HEARSAY, 'Gossip'),
-	// 	RenameOrg(INNOVATION, 'Discovery'),
+	// 	RenameOrg(HEARSAY, 'Rumor'),
+	// 	RenameOrg(INNOVATION, 'Noteworthy'),
 	// 	RenameOrg(ACCOLADE, 'Triumph'),
-	// 	RenameOrg(CRISIS, 'Calamity'),
-	// 	RenameOrg(OATH, 'Oath'),
-	// 	RenameOrg(GRUDGE, 'Grudge'),
-	// 	RenameOrg(DOOM, 'Doom'),
+	// 	RenameOrg(CRISIS, 'Tragedy'),
+	// 	RenameOrg(OATH, 'Unity'),
+	// 	RenameOrg(GRUDGE, 'Disorder'),
+	// 	RenameOrg(DOOM, 'Shadow Attack'),
 	// ];
+	orgs: T_Org[] = [
+		RenameOrg(HEARSAY, 'Gossip'),
+		RenameOrg(INNOVATION, 'Discovery'),
+		RenameOrg(ACCOLADE, 'Triumph'),
+		RenameOrg(CRISIS, 'Calamity'),
+		RenameOrg(OATH, 'Oath'),
+		RenameOrg(GRUDGE, 'Grudge'),
+		RenameOrg(DOOM, 'Doom'),
+	];
 	
 	situationDefs: SituationDat[] = [
 		{label: 'Attack', cssClass: 'attack'},
