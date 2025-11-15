@@ -17,6 +17,7 @@ import DeephavenConfig from './configs/DeephavenConfig.ts';
 import JuntasConfig from './configs/JuntasConfig.ts';
 import JungleConfig from './configs/JungleConfig.ts';
 import React from 'react';
+import CrucibleOfNationsConfig from './configs/CrucibleOfNationsConfig.ts'
 import DenOfWolvesConfig from './configs/DenOfWolvesConfig.ts';
 import GrimvaleConfig from './configs/GrimvaleConfig.ts';
 import GoblinConfig from './configs/GoblinConfig.ts';
@@ -83,6 +84,8 @@ export const $config = atom(get => {
 			return GeneralissimoConfig;
 		case TouchedByDarknessConfig.gameIdf:
 			return TouchedByDarknessConfig;
+		case CrucibleOfNationsConfig.gameIdf:
+			return CrucibleOfNationsConfig;
 		default:
 			return FallbackConfig;
 	}
