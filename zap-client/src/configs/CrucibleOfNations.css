@@ -1,0 +1,212 @@
+/*## denofwolves-specific-stuff */
+
+
+.crucibleofnations.projector-page #backgroundVideoLoop {
+    filter: brightness(0.2) saturate(0);
+}
+
+.crucibleofnations.projector-page.alpha #backgroundVideoLoop {
+    filter: brightness(0.5) hue-rotate(300deg);
+}
+
+.crucibleofnations.projector-page.bravo #backgroundVideoLoop {
+    filter: brightness(0.3) hue-rotate(30deg);
+}
+
+.crucibleofnations.projector-page.charlie #backgroundVideoLoop {
+    filter: brightness(1) hue-rotate(210deg);
+}
+
+.crucibleofnations.projector-page.delta #backgroundVideoLoop {
+    filter: brightness(1) hue-rotate(182.5deg) saturate(200%);
+}
+
+.crucibleofnations.projector-page.echo #backgroundVideoLoop {
+    filter: brightness(0.6) hue-rotate(155deg) saturate(200%);
+}
+
+.crucibleofnations.projector-page.wolf #backgroundVideoLoop {
+    filter: brightness(0.6) hue-rotate(-205deg) saturate(200%);
+    animation-name: wolf;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+}
+
+.crucibleofnations.projector-page .logo {
+    /*display: block;*/
+    max-height: 20vh;
+    display: none;
+}
+
+.crucibleofnations.projector-page .timer {
+    /*font-family: "Norse";*/
+    font-family: "TofinoWide-Bold";
+    font-weight: bold;
+    font-size: 20vmax !important;
+    gap: 0;
+}
+
+.crucibleofnations.projector-page .timer .timer-label {
+    /*font-family: "Norse";*/
+    font-family: "TofinoWide-Medium";
+    font-weight: bold;
+    font-size: 7vmax !important;
+    text-transform: uppercase;
+    margin-bottom:7vmax;
+}
+
+.crucibleofnations.projector-page .spotlight-carrier {
+    /*font-family: "Norse";*/
+    font-family: "TofinoWide-Medium";
+    align-items: center;
+    text-align: center;
+    /*background-image: url('../../assets/images/denofwolves/stone-background-2.jpg');*/
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    overflow: visible;
+
+    perspective: 100vw;
+
+}
+
+.crucibleofnations.projector-page .spotlight-carrier > * {
+    /*background: #000;*/
+    /*-webkit-background-clip: text;*/
+    /*-webkit-text-fill-color: transparent;*/
+}
+
+.crucibleofnations.projector-page .spotlight-carrier .headline {
+    font-size: min(15vh, 12vw);
+    text-size-adjust: auto;
+    width: 100%;
+    text-align: left;
+    /*transform: rotate3d(1, 0, 0, 55deg);*/
+}
+
+.crucibleofnations.projector-page .spotlight-carrier .theme {
+    font-family: "TofinoWide-Bold";
+    text-transform: uppercase;
+    position: relative;
+    font-size: min(6vh, 6vw);
+    margin-bottom: 5vh;
+    transform: translateY(2.5vh);
+}
+
+.crucibleofnations.projector-page .spotlight-carrier .theme::after {
+    background: #ffcc00;
+    position: fixed;
+    bottom: -0.2em;
+    left: 0;
+    height: 0.1em;
+    width: 100%;
+    display: block;
+    content: " ";
+    z-index: -1;
+}
+
+:root {
+    --denofwolves--spacer-width: 15vh;
+    --denofwolves--crawler-height: 10vh;
+    --denofwolves--crawler-distance-from-bottom: 5vh;
+}
+/* ## crawler */
+.crucibleofnations.projector-page .crawler-logo {
+    /*display: block;*/
+    position: fixed;
+    height: 10vh;
+    left: 2vw;
+    bottom: 5vh;
+}
+.crucibleofnations.projector-page .crawlerHeadline {
+    /*font-family: Norse, sans-serif;*/
+    font-family: 'TofinoWide-Bold', serif;
+    text-transform: uppercase;
+    /*font-family: 'TofinoCond-Bold', serif;*/
+    position: relative;
+    padding: unset;
+    padding-right: var(--denofwolves--spacer-width);
+}
+.crucibleofnations.projector-page .crawlerHeadline::before {
+    content: "-";
+    text-align: center;
+    width: var(--denofwolves--spacer-width);
+    display: block;
+    /*color: #013848;*/
+    color: #fc0;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.crucibleofnations.projector-page .crawlGroup.anim0,
+.crucibleofnations.projector-page .crawlGroup.anim1 {
+    background: transparent;
+}
+.crucibleofnations.projector-page .crawlerContainer {
+    background: transparent;
+    height: var(--denofwolves--crawler-height);
+    position: fixed;
+    bottom: var(--denofwolves--crawler-distance-from-bottom);
+    left: 26vh;
+    width: calc(100vw - 26vh);
+    font-size: 3vh;
+    display: flex;
+    align-items: center;
+    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,1));
+    -webkit-mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: left top, left bottom;
+}
+
+.crucibleofnations.projector-page .spotlight-carrier .theme {
+    font-size: 0 !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: block;
+    width: calc(410vh / 20);
+    height: calc(156vh / 20);
+    background-position: center;
+    position: fixed;
+    right: 2vw;
+    top: 5vh;
+
+}
+
+.crucibleofnations.projector-page .spotlight-carrier {
+    align-items: start;
+    position: relative;
+}
+
+.crucibleofnations.projector-page .spotlight-carrier .headline {
+    font-size: 6vmax;
+
+
+    background-size: 15%;
+    background-position: right bottom;
+    padding-right: 20%;
+    background-repeat: no-repeat;
+    background-image: url('../../assets/images/denofwolves/inc_logo.svg');
+}
+
+.crucibleofnations.projector-page .spotlight-background {
+    filter: brightness(0.2) saturate(0%);
+}
+
+
+.crucibleofnations.projector-page .attack .spotlight-carrier .headline {
+	background-image: unset;
+}
+
+.crucibleofnations.projector-page .attack video.spotlight-background {
+	filter: brightness(0.6) hue-rotate(-205deg) saturate(200%);
+	animation-name: wolf;
+	animation-direction: alternate;
+	animation-iteration-count: infinite;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+}
+
+
