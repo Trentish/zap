@@ -1,0 +1,39 @@
+{
+    "idf": "tgid",
+    "lastId": 2,
+    "articles": [
+        {
+            "id": 1,
+            "createdAt": "2025-07-15T21:48:08.263Z",
+            "headline": "Test",
+            "author": "rZVbs",
+            "orgIdf": "news",
+            "location": "",
+            "themeTags": [
+                "TODO"
+            ]
+        },
+        {
+            "id": 2,
+            "createdAt": "2025-07-15T21:48:21.399Z",
+            "headline": "Yugenya invaded ! WE ARE AT WAR",
+            "author": "rZVbs",
+            "orgIdf": "news",
+            "location": "",
+            "themeTags": [
+                "TODO"
+            ]
+        }
+    ],
+    "allStats": {
+        "values": [
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "3",
+            "4"
+        ]
+    }
+}
