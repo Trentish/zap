@@ -1,0 +1,24 @@
+.godemperor.projector-page {
+      background-color: #000;
+}  
+
+.godemperor.projector-page .logo {
+    display: none;
+}
+
+.godemperor.projector-page .timer {
+    /*font-family: "Norse";*/
+    font-family: "TofinoWide-Bold";
+    font-weight: bold;
+    font-size: 20vmax !important;
+    gap: 0;
+}
+
+.godemperor.projector-page .timer .timer-label {
+    /*font-family: "Norse";*/
+    font-family: "TofinoWide-Medium";
+    font-weight: bold;
+    font-size: 7vmax !important;
+    text-transform: uppercase;
+    margin-bottom:7vmax;
+}

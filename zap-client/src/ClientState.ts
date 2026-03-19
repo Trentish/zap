@@ -21,6 +21,7 @@ import CrucibleOfNationsConfig from './configs/CrucibleOfNationsConfig.ts'
 import DenOfWolvesConfig from './configs/DenOfWolvesConfig.ts';
 import GrimvaleConfig from './configs/GrimvaleConfig.ts';
 import GoblinConfig from './configs/GoblinConfig.ts';
+import GodEmperorConfig from './configs/GodEmperorConfig.ts';
 import WatchTheSkiesConfig from './configs/WatchTheSkiesConfig.ts';
 import InkConfig from './configs/InkConfig.ts';
 import GenConfig from './configs/GenConfig.ts';
@@ -76,6 +77,8 @@ export const $config = atom(get => {
 			return GrimvaleConfig;
 		case GoblinConfig.gameIdf:
 			return GoblinConfig;
+		case GodEmperorConfig.gameIdf:
+			return GodEmperorConfig;
 		case WatchTheSkiesConfig.gameIdf:
 			return WatchTheSkiesConfig;
 		case FirstContactConfig.gameIdf:
